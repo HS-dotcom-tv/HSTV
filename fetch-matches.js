@@ -1,4 +1,4 @@
-// fetch-matches.js (CommonJS) - football-data.org (FIXED: uses valid league codes)
+// fetch-matches.js (CommonJS) - football-data.org (FIXED: extended date range for tomorrow)
 const fetch = require("node-fetch");
 const fs = require("fs");
 
@@ -8,24 +8,11 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-// قائمة الدوريات الكبرى برموزها الصحيحة والمعتمدة
 const MAJOR_LEAGUES = [
-  'WC',  // World Cup
-  'CL',  // Champions League
-  'EC',  // European Championship
-  'PL',  // Premier League (England)
-  'PD',  // La Liga (Spain)
-  'BL1', // Bundesliga (Germany)
-  'SA',  // Serie A (Italy)
-  'FL1', // Ligue 1 (France)
-  'PPL', // Primeira Liga (Portugal)
-  'DED', // Eredivisie (Netherlands)
+  'WC', 'CL', 'EC', 'PL', 'PD', 'BL1', 'SA', 'FL1', 'PPL', 'DED'
 ].join(',');
 
-const headers = {
-  "X-Auth-Token": API_KEY,
-  "Accept": "application/json"
-};
+const headers = { "X-Auth-Token": API_KEY, "Accept": "application/json" };
 
 function getDateString(offset = 0) {
   const d = new Date();
@@ -34,62 +21,25 @@ function getDateString(offset = 0) {
 }
 
 function normalizeMatchFootballData(m) {
-  const fixtureDate = m.utcDate || null;
-  const statusRaw = (m.status || "").toUpperCase();
-  let short = "NS";
-  if (statusRaw === "SCHEDULED" || statusRaw === "TIMED") short = "NS";
-  else if (statusRaw === "IN_PLAY" || statusRaw === "LIVE") short = "1H";
-  else if (statusRaw === "PAUSED") short = "HT";
-  else if (statusRaw === "FINISHED") short = "FT";
-  else short = statusRaw;
-
-  const goalsHome = (m.score && m.score.fullTime && m.score.fullTime.home) != null ? m.score.fullTime.home : null;
-  const goalsAway = (m.score && m.score.fullTime && m.score.fullTime.away) != null ? m.score.fullTime.away : null;
-
   const competition = m.competition || {};
-  const compCode = competition.code || null;
-  const compId = competition.id || null;
-
   const home = m.homeTeam || {};
   const away = m.awayTeam || {};
-
-  const homeLogo = home.id ? `https://crests.football-data.org/${home.id}.svg` : (home.crest || "");
-  const awayLogo = away.id ? `https://crests.football-data.org/${away.id}.svg` : (away.crest || "");
-  const leagueEmblem = competition.emblem || (compCode ? `https://crests.football-data.org/${compCode}.png` : "");
-
   return {
     fixture: {
-      id: m.id || null,
-      date: fixtureDate,
-      venue: m.venue || null,
-      status: {
-        short,
-        long: m.status || "",
-        elapsed: m.minute || null
-      }
+      id: m.id || null, date: m.utcDate || null, venue: m.venue || null,
+      status: { short: (m.status || "").substring(0,2), long: m.status || "", elapsed: m.minute || null }
     },
     league: {
-      id: compId || compCode || null,
-      code: compCode || null,
-      name: competition.name || "",
-      logo: leagueEmblem,
-      country: (competition.area && competition.area.name) || ""
+      id: competition.id || null, code: competition.code || null, name: competition.name || "",
+      logo: competition.emblem || "", country: (competition.area && competition.area.name) || ""
     },
     teams: {
-      home: {
-        id: home.id || null,
-        name: home.name || "Home",
-        logo: homeLogo
-      },
-      away: {
-        id: away.id || null,
-        name: away.name || "Away",
-        logo: awayLogo
-      }
+      home: { id: home.id || null, name: home.name || "Home", logo: `https://crests.football-data.org/${home.id}.svg` },
+      away: { id: away.id || null, name: away.name || "Away", logo: `https://crests.football-data.org/${away.id}.svg` }
     },
     goals: {
-      home: goalsHome,
-      away: goalsAway
+      home: (m.score && m.score.fullTime && m.score.fullTime.home),
+      away: (m.score && m.score.fullTime && m.score.fullTime.away)
     }
   };
 }
@@ -104,37 +54,28 @@ async function fetchMatchesForDateRange(dateFrom, dateTo) {
     console.error("❌ HTTP error:", res.status, data);
     throw new Error(`HTTP ${res.status}`);
   }
-  if (data && data.error) {
-    console.error("❌ API returned error:", data);
-    throw new Error("API error: " + JSON.stringify(data));
-  }
   return data.matches || [];
 }
 
 (async () => {
   try {
-    console.log("🔄 Start fetching matches for Yesterday / Today / Tomorrow (football-data.org) ...");
-    
+    console.log("🔄 Start fetching matches...");
     const yesterday = getDateString(-1);
-    const tomorrow = getDateString(1);
-
-    const allRaw = await fetchMatchesForDateRange(yesterday, tomorrow);
-    
+    const dayAfterTomorrow = getDateString(2); // Fetch until 2 days from now
+    const allRaw = await fetchMatchesForDateRange(yesterday, dayAfterTomorrow);
     allRaw.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
-
     const normalized = allRaw.map(normalizeMatchFootballData);
-
-    console.log(`✅ Total unique matches gathered: ${normalized.length}`);
+    console.log(`✅ Total matches gathered: ${normalized.length}`);
     const out = {
       generated_at: new Date().toISOString(),
-      source: "football-data.org (filtered by major leagues)",
+      source: "football-data.org",
       response: normalized
     };
     fs.writeFileSync("matches.json", JSON.stringify(out, null, 2));
-    console.log("✅ matches.json written to repo root.");
+    console.log("✅ matches.json written.");
     process.exit(0);
   } catch (err) {
-    console.error("❌ Fatal error:", err && err.message ? err.message : err);
+    console.error("❌ Fatal error:", err.message);
     process.exit(1);
   }
 })();
