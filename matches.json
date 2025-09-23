@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-09-23T20:33:58.808Z",
+  "generated_at": "2025-09-23T21:35:55.935Z",
   "source": "football-data.org (dates: yesterday,today,tomorrow)",
   "response": [
     {
@@ -397,118 +397,6 @@
     },
     {
       "fixture": {
-        "id": 544261,
-        "date": "2025-09-23T17:00:00Z",
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2014,
-        "code": "PD",
-        "name": "Primera Division",
-        "logo": "https://crests.football-data.org/laliga.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 77,
-          "name": "Athletic Club",
-          "logo": "https://crests.football-data.org/77.svg"
-        },
-        "away": {
-          "id": 298,
-          "name": "Girona FC",
-          "logo": "https://crests.football-data.org/298.svg"
-        }
-      },
-      "goals": {
-        "home": 1,
-        "away": 1
-      },
-      "raw": {
-        "area": {
-          "id": 2224,
-          "name": "Spain",
-          "code": "ESP",
-          "flag": "https://crests.football-data.org/760.svg"
-        },
-        "competition": {
-          "id": 2014,
-          "name": "Primera Division",
-          "code": "PD",
-          "type": "LEAGUE",
-          "emblem": "https://crests.football-data.org/laliga.png"
-        },
-        "season": {
-          "id": 2429,
-          "startDate": "2025-08-17",
-          "endDate": "2026-05-24",
-          "currentMatchday": 6,
-          "winner": null
-        },
-        "id": 544261,
-        "utcDate": "2025-09-23T17:00:00Z",
-        "status": "FINISHED",
-        "matchday": 6,
-        "stage": "REGULAR_SEASON",
-        "group": null,
-        "lastUpdated": "2025-09-23T18:59:41Z",
-        "homeTeam": {
-          "id": 77,
-          "name": "Athletic Club",
-          "shortName": "Athletic",
-          "tla": "ATH",
-          "crest": "https://crests.football-data.org/77.png"
-        },
-        "awayTeam": {
-          "id": 298,
-          "name": "Girona FC",
-          "shortName": "Girona",
-          "tla": "GIR",
-          "crest": "https://crests.football-data.org/298.png"
-        },
-        "score": {
-          "winner": "DRAW",
-          "duration": "REGULAR",
-          "fullTime": {
-            "home": 1,
-            "away": 1
-          },
-          "halfTime": {
-            "home": 0,
-            "away": 1
-          },
-          "regularTime": {
-            "home": 0,
-            "away": 0
-          },
-          "extraTime": {
-            "home": 0,
-            "away": 0
-          },
-          "penalties": {
-            "home": 0,
-            "away": 0
-          }
-        },
-        "odds": {
-          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
-        },
-        "referees": [
-          {
-            "id": 206223,
-            "name": "José Munuera Montero",
-            "type": "REFEREE",
-            "nationality": "Spain"
-          }
-        ]
-      }
-    },
-    {
-      "fixture": {
         "id": 544263,
         "date": "2025-09-23T17:00:00Z",
         "status": {
@@ -621,11 +509,123 @@
     },
     {
       "fixture": {
+        "id": 544261,
+        "date": "2025-09-23T17:00:00Z",
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "logo": "https://crests.football-data.org/laliga.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 77,
+          "name": "Athletic Club",
+          "logo": "https://crests.football-data.org/77.svg"
+        },
+        "away": {
+          "id": 298,
+          "name": "Girona FC",
+          "logo": "https://crests.football-data.org/298.svg"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 1
+      },
+      "raw": {
+        "area": {
+          "id": 2224,
+          "name": "Spain",
+          "code": "ESP",
+          "flag": "https://crests.football-data.org/760.svg"
+        },
+        "competition": {
+          "id": 2014,
+          "name": "Primera Division",
+          "code": "PD",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/laliga.png"
+        },
+        "season": {
+          "id": 2429,
+          "startDate": "2025-08-17",
+          "endDate": "2026-05-24",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 544261,
+        "utcDate": "2025-09-23T17:00:00Z",
+        "status": "FINISHED",
+        "matchday": 6,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-23T18:59:41Z",
+        "homeTeam": {
+          "id": 77,
+          "name": "Athletic Club",
+          "shortName": "Athletic",
+          "tla": "ATH",
+          "crest": "https://crests.football-data.org/77.png"
+        },
+        "awayTeam": {
+          "id": 298,
+          "name": "Girona FC",
+          "shortName": "Girona",
+          "tla": "GIR",
+          "crest": "https://crests.football-data.org/298.png"
+        },
+        "score": {
+          "winner": "DRAW",
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": 1,
+            "away": 1
+          },
+          "halfTime": {
+            "home": 0,
+            "away": 1
+          },
+          "regularTime": {
+            "home": 0,
+            "away": 0
+          },
+          "extraTime": {
+            "home": 0,
+            "away": 0
+          },
+          "penalties": {
+            "home": 0,
+            "away": 0
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": [
+          {
+            "id": 206223,
+            "name": "José Munuera Montero",
+            "type": "REFEREE",
+            "nationality": "Spain"
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
         "id": 545702,
         "date": "2025-09-23T19:15:00Z",
         "status": {
-          "short": "1H",
-          "long": "IN_PLAY",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -649,8 +649,8 @@
         }
       },
       "goals": {
-        "home": 0,
-        "away": 0
+        "home": 1,
+        "away": 1
       },
       "raw": {
         "area": {
@@ -675,11 +675,11 @@
         },
         "id": 545702,
         "utcDate": "2025-09-23T19:15:00Z",
-        "status": "IN_PLAY",
+        "status": "FINISHED",
         "matchday": 1,
         "stage": "REGULAR_SEASON",
         "group": null,
-        "lastUpdated": "2025-09-23T20:27:17Z",
+        "lastUpdated": "2025-09-23T21:21:42Z",
         "homeTeam": {
           "id": 1903,
           "name": "Sport Lisboa e Benfica",
@@ -698,8 +698,8 @@
           "winner": "DRAW",
           "duration": "REGULAR",
           "fullTime": {
-            "home": 0,
-            "away": 0
+            "home": 1,
+            "away": 1
           },
           "halfTime": {
             "home": 0,
@@ -726,123 +726,11 @@
     },
     {
       "fixture": {
-        "id": 544264,
-        "date": "2025-09-23T19:30:00Z",
-        "status": {
-          "short": "HT",
-          "long": "PAUSED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2014,
-        "code": "PD",
-        "name": "Primera Division",
-        "logo": "https://crests.football-data.org/laliga.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 88,
-          "name": "Levante UD",
-          "logo": "https://crests.football-data.org/88.svg"
-        },
-        "away": {
-          "id": 86,
-          "name": "Real Madrid CF",
-          "logo": "https://crests.football-data.org/86.svg"
-        }
-      },
-      "goals": {
-        "home": 0,
-        "away": 2
-      },
-      "raw": {
-        "area": {
-          "id": 2224,
-          "name": "Spain",
-          "code": "ESP",
-          "flag": "https://crests.football-data.org/760.svg"
-        },
-        "competition": {
-          "id": 2014,
-          "name": "Primera Division",
-          "code": "PD",
-          "type": "LEAGUE",
-          "emblem": "https://crests.football-data.org/laliga.png"
-        },
-        "season": {
-          "id": 2429,
-          "startDate": "2025-08-17",
-          "endDate": "2026-05-24",
-          "currentMatchday": 6,
-          "winner": null
-        },
-        "id": 544264,
-        "utcDate": "2025-09-23T19:30:00Z",
-        "status": "PAUSED",
-        "matchday": 6,
-        "stage": "REGULAR_SEASON",
-        "group": null,
-        "lastUpdated": "2025-09-23T20:25:21Z",
-        "homeTeam": {
-          "id": 88,
-          "name": "Levante UD",
-          "shortName": "Levante",
-          "tla": "LEV",
-          "crest": "https://crests.football-data.org/88.png"
-        },
-        "awayTeam": {
-          "id": 86,
-          "name": "Real Madrid CF",
-          "shortName": "Real Madrid",
-          "tla": "RMA",
-          "crest": "https://crests.football-data.org/86.png"
-        },
-        "score": {
-          "winner": "AWAY_TEAM",
-          "duration": "REGULAR",
-          "fullTime": {
-            "home": 0,
-            "away": 2
-          },
-          "halfTime": {
-            "home": 0,
-            "away": 2
-          },
-          "regularTime": {
-            "home": 0,
-            "away": 0
-          },
-          "extraTime": {
-            "home": 0,
-            "away": 0
-          },
-          "penalties": {
-            "home": 0,
-            "away": 0
-          }
-        },
-        "odds": {
-          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
-        },
-        "referees": [
-          {
-            "id": 57930,
-            "name": "Isidro Díaz de Mera",
-            "type": "REFEREE",
-            "nationality": "Spain"
-          }
-        ]
-      }
-    },
-    {
-      "fixture": {
         "id": 544265,
         "date": "2025-09-23T19:30:00Z",
         "status": {
-          "short": "HT",
-          "long": "PAUSED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -866,8 +754,8 @@
         }
       },
       "goals": {
-        "home": 0,
-        "away": 1
+        "home": 1,
+        "away": 2
       },
       "raw": {
         "area": {
@@ -892,11 +780,11 @@
         },
         "id": 544265,
         "utcDate": "2025-09-23T19:30:00Z",
-        "status": "PAUSED",
+        "status": "FINISHED",
         "matchday": 6,
         "stage": "REGULAR_SEASON",
         "group": null,
-        "lastUpdated": "2025-09-23T20:24:41Z",
+        "lastUpdated": "2025-09-23T21:32:22Z",
         "homeTeam": {
           "id": 559,
           "name": "Sevilla FC",
@@ -915,8 +803,8 @@
           "winner": "AWAY_TEAM",
           "duration": "REGULAR",
           "fullTime": {
-            "home": 0,
-            "away": 1
+            "home": 1,
+            "away": 2
           },
           "halfTime": {
             "home": 0,
@@ -942,6 +830,118 @@
           {
             "id": 207113,
             "name": "César Soto Grado",
+            "type": "REFEREE",
+            "nationality": "Spain"
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "id": 544264,
+        "date": "2025-09-23T19:30:00Z",
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "logo": "https://crests.football-data.org/laliga.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 88,
+          "name": "Levante UD",
+          "logo": "https://crests.football-data.org/88.svg"
+        },
+        "away": {
+          "id": 86,
+          "name": "Real Madrid CF",
+          "logo": "https://crests.football-data.org/86.svg"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 4
+      },
+      "raw": {
+        "area": {
+          "id": 2224,
+          "name": "Spain",
+          "code": "ESP",
+          "flag": "https://crests.football-data.org/760.svg"
+        },
+        "competition": {
+          "id": 2014,
+          "name": "Primera Division",
+          "code": "PD",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/laliga.png"
+        },
+        "season": {
+          "id": 2429,
+          "startDate": "2025-08-17",
+          "endDate": "2026-05-24",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 544264,
+        "utcDate": "2025-09-23T19:30:00Z",
+        "status": "FINISHED",
+        "matchday": 6,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-23T21:29:42Z",
+        "homeTeam": {
+          "id": 88,
+          "name": "Levante UD",
+          "shortName": "Levante",
+          "tla": "LEV",
+          "crest": "https://crests.football-data.org/88.png"
+        },
+        "awayTeam": {
+          "id": 86,
+          "name": "Real Madrid CF",
+          "shortName": "Real Madrid",
+          "tla": "RMA",
+          "crest": "https://crests.football-data.org/86.png"
+        },
+        "score": {
+          "winner": "AWAY_TEAM",
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": 1,
+            "away": 4
+          },
+          "halfTime": {
+            "home": 0,
+            "away": 2
+          },
+          "regularTime": {
+            "home": 0,
+            "away": 0
+          },
+          "extraTime": {
+            "home": 0,
+            "away": 0
+          },
+          "penalties": {
+            "home": 0,
+            "away": 0
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": [
+          {
+            "id": 57930,
+            "name": "Isidro Díaz de Mera",
             "type": "REFEREE",
             "nationality": "Spain"
           }
