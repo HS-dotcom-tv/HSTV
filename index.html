@@ -58,23 +58,25 @@
     };
     const brokenLogos = { '113': true, };
 
-    // -->> هذه هي الدالة الجديدة التي تضمن تحويل الأرقام
-    function toEasternArabicNumerals(str) {
-        const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-        return String(str).replace(/[0-9]/g, (digit) => arabicNumerals[digit]);
-    }
-
     function setActiveTab(id) { document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
     function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
     
+    // -->> هذا هو الإصلاح النهائي والمبسط
     function formatTime(iso) {
-      const d = new Date(iso);
-      // الخطوة 1: احصل على الوقت بصيغة 12 ساعة
-      const timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' });
-      // الخطوة 2: استبدل AM بـ "صباحًا" و PM بـ "مساءً"
-      const localizedTimeString = timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً');
-      // الخطوة 3: قم بتحويل الأرقام إلى العربية
-      return toEasternArabicNumerals(localizedTimeString);
+        const d = new Date(iso);
+        // استخدم 'en-GB' للحصول على صيغة 24 ساعة (مثل 22:00) أو 'en-US' لصيغة 12 ساعة (10:00 PM)
+        // سنختار 'en-US' لإضافة "مساءً/صباحًا" يدويًا
+        let timeString = d.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+            timeZone: 'Asia/Riyadh'
+        });
+        
+        // استبدل AM/PM بالنص العربي
+        timeString = timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً');
+        
+        return timeString;
     }
 
     async function loadMatches(view='today') {
@@ -86,6 +88,7 @@
         renderMatches(data.response || [], view);
       } catch (err) { matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات</div>`; }
     }
+
     function renderMatches(allMatches, view) {
       matchesContainer.innerHTML = '';
       const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0;
@@ -94,26 +97,31 @@
       if (!filtered.length) { matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`; return; }
       filtered.forEach(match => { matchesContainer.innerHTML += renderMatchHTML(match); });
     }
+
     function renderMatchHTML(match) {
       const timeStr = formatTime(match.fixture.date);
       const status = match.fixture.status.short || 'NS';
       let centerTop = '', centerBottom = '';
+
       if (["LIVE", "HT"].includes(status)) {
-        centerTop = `<div class="score-box text-emerald-400">${toEasternArabicNumerals(match.goals.home ?? 0)} - ${toEasternArabicNumerals(match.goals.away ?? 0)}</div>`;
+        centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
         centerBottom = `<div class="status-text text-red-400">مباشر</div>`;
       } else if (["FT", "AET", "PEN"].includes(status)) {
-        centerTop = `<div class="score-box">${toEasternArabicNumerals(match.goals.home ?? 0)} - ${toEasternArabicNumerals(match.goals.away ?? 0)}</div>`;
+        centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
         centerBottom = `<div class="status-text">انتهت</div>`;
       } else {
         centerTop = `<div class="score-box">${timeStr}</div>`;
         centerBottom = `<div class="status-text">لم تبدأ</div>`;
       }
+      
       const leagueNameAr = leagueTranslations[match.league.code] || match.league.name;
       const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`;
       const homeLogo = brokenLogos[match.teams.home.id] ? 'default-logo.svg' : (match.teams.home.logo || 'default-logo.svg');
       const awayLogo = brokenLogos[match.teams.away.id] ? 'default-logo.svg' : (match.teams.away.logo || 'default-logo.svg');
+
       return `<div class="match-card border border-slate-700 rounded-xl p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`;
     }
+
     ['yesterday', 'today', 'tomorrow'].forEach(id => document.getElementById(id).addEventListener('click', () => loadMatches(id)));
     loadMatches('today');
     setInterval(() => { if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
