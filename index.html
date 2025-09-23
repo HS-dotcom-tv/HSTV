@@ -11,10 +11,11 @@
     .match-card { transition: all .2s; backdrop-filter: blur(6px); }
     .match-card:hover { transform: translateY(-4px); background: rgba(30,41,59,0.75); }
     .btn-tab.active { background: linear-gradient(90deg,#10b981,#06b6d4); font-weight:700; color:white; }
-    .crest { width:40px; height:40px; object-fit:contain; border-radius:6px; }
-    .team-name { font-size: 0.9rem; font-weight: 600; text-align:center; }
-    .status-text { font-size: 0.75rem; color: #94a3b8; text-align:center; }
-    .score-box { font-size: 1.2rem; font-weight: 700; text-align:center; }
+    .btn-tab { background:#1e293b; color:#cbd5e1; }
+    .crest { width:50px; height:50px; object-fit:contain; margin:auto; }
+    .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
+    .status-text { font-size: 0.8rem; color: #94a3b8; text-align:center; }
+    .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; }
   </style>
 </head>
 <body class="p-4">
@@ -26,9 +27,9 @@
 
   <div class="max-w-3xl mx-auto mb-6">
     <div class="flex gap-3">
-      <button id="yesterday" class="btn-tab flex-1 px-4 py-2 rounded-xl bg-slate-700">الأمس</button>
+      <button id="yesterday" class="btn-tab flex-1 px-4 py-2 rounded-xl">الأمس</button>
       <button id="today" class="btn-tab flex-1 px-4 py-2 rounded-xl active">اليوم</button>
-      <button id="tomorrow" class="btn-tab flex-1 px-4 py-2 rounded-xl bg-slate-700">الغد</button>
+      <button id="tomorrow" class="btn-tab flex-1 px-4 py-2 rounded-xl">الغد</button>
     </div>
   </div>
 
@@ -37,9 +38,6 @@
   <script>
     const API_URL = 'matches.json';
     const matchesContainer = document.getElementById('matches');
-
-    const ALLOWED_COMPETITIONS = new Set(['CL','PL','PD','SA','BL1','FL1','WC','EC','AFCON']);
-    const SPECIAL_ARAB_TEAMS = ['Al Hilal','Al Nassr','Al Ittihad','Al Ahly','Zamalek','Raja','Wydad','Esperance'];
 
     function setActiveTab(id) {
       document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active'));
@@ -50,19 +48,6 @@
       const d = new Date();
       d.setDate(d.getDate() + offset);
       return d.toISOString().split('T')[0];
-    }
-
-    function isImportantCompetition(league) {
-      if (!league) return false;
-      const code = league.code || '';
-      if (ALLOWED_COMPETITIONS.has(code)) return true;
-      return false;
-    }
-
-    function includeSpecialTeam(match) {
-      const home = (match.teams.home.name || '').toLowerCase();
-      const away = (match.teams.away.name || '').toLowerCase();
-      return SPECIAL_ARAB_TEAMS.some(s => home.includes(s.toLowerCase()) || away.includes(s.toLowerCase()));
     }
 
     function formatTime(iso) {
@@ -88,20 +73,13 @@
       const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0;
       const target = getDateString(offset);
 
-      let filtered = allMatches.filter(m => {
-        if (!m.fixture.date.startsWith(target)) return false;
-        if (isImportantCompetition(m.league)) return true;
-        if (includeSpecialTeam(m)) return true;
-        return false;
-      });
-
+      let filtered = allMatches.filter(m => m.fixture.date.startsWith(target));
       if (!filtered.length) {
         matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات</div>`;
         return;
       }
 
       filtered.sort((a,b) => new Date(a.fixture.date) - new Date(b.fixture.date));
-
       filtered.forEach(match => {
         matchesContainer.innerHTML += renderMatchHTML(match);
       });
@@ -127,14 +105,18 @@
 
       return `
         <div class="match-card border border-slate-700 rounded-xl p-4">
-          <div class="flex items-center justify-between">
-            <img src="${match.teams.home.logo}" class="crest" alt="" onerror="this.style.display='none'">
-            ${centerTop}
-            <img src="${match.teams.away.logo}" class="crest" alt="" onerror="this.style.display='none'">
+          <div class="grid grid-cols-3 items-center text-center">
+            <div>
+              <img src="${match.teams.home.logo}" class="crest" onerror="this.style.display='none'">
+            </div>
+            <div>${centerTop}</div>
+            <div>
+              <img src="${match.teams.away.logo}" class="crest" onerror="this.style.display='none'">
+            </div>
           </div>
-          <div class="flex items-center justify-between mt-2">
+          <div class="grid grid-cols-3 items-center text-center mt-2">
             <div class="team-name">${match.teams.home.name}</div>
-            ${centerBottom}
+            <div>${centerBottom}</div>
             <div class="team-name">${match.teams.away.name}</div>
           </div>
         </div>
