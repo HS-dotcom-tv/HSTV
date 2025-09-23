@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg,#0f172a,#1e293b); min-height:100vh; color:#fff; }
-    .match-card { transition: all .2s; backdrop-filter: blur(6px); }
+    .match-card { transition: all .2s; backdrop-filter: blur(6px); background: rgba(30,41,59,0.4); }
     .match-card:hover { transform: translateY(-4px); background: rgba(30,41,59,0.75); }
     .btn-tab.active { background: linear-gradient(90deg,#10b981,#06b6d4); font-weight:700; color:white; }
     .btn-tab { background:#1e293b; color:#cbd5e1; }
@@ -16,13 +16,24 @@
     .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
     .status-text { font-size: 0.8rem; color: #94a3b8; text-align:center; }
     .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; }
+    /* أضفنا تصميم بطاقة المعلومات */
+    .match-details {
+      border-top: 1px solid #334155; /* slate-700 */
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      font-size: 0.8rem;
+      color: #94a3b8; /* slate-400 */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   </style>
 </head>
 <body class="p-4">
 
   <header class="text-center mb-6">
     <h1 class="text-4xl font-bold" style="background:linear-gradient(45deg,#10b981,#06b6d4); -webkit-background-clip:text; color:transparent">HSTV</h1>
-    <p class="text-slate-400 mt-1">أحدث المباريات — مصنفة حسب الأهمية</p>
+    <p class="text-slate-400 mt-1">أهم مباريات اليوم والأمس والغد</p>
   </header>
 
   <div class="max-w-3xl mx-auto mb-6">
@@ -52,7 +63,7 @@
 
     function formatTime(iso) {
       const d = new Date(iso);
-      return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Riyadh' });
+      return d.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' });
     }
 
     async function loadMatches(view='today') {
@@ -73,13 +84,13 @@
       const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0;
       const target = getDateString(offset);
 
-      let filtered = allMatches.filter(m => m.fixture.date.startsWith(target));
+      let filtered = allMatches.filter(m => m.fixture.date && m.fixture.date.startsWith(target));
       if (!filtered.length) {
-        matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات</div>`;
+        matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`;
         return;
       }
 
-      filtered.sort((a,b) => new Date(a.fixture.date) - new Date(b.fixture.date));
+      // لا حاجة للترتيب هنا لأنه تم في fetch-matches.js
       filtered.forEach(match => {
         matchesContainer.innerHTML += renderMatchHTML(match);
       });
@@ -92,26 +103,38 @@
       let centerTop = '';
       let centerBottom = '';
 
-      if (["1H","2H","HT"].includes(status)) {
-        centerTop = `<div class="score-box text-emerald-400">${match.goals.home || 0} - ${match.goals.away || 0}</div>`;
+      if (["1H","2H","HT","LIVE"].includes(status)) {
+        centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
         centerBottom = `<div class="status-text text-red-400">مباشر</div>`;
       } else if (["FT","AET","PEN"].includes(status)) {
-        centerTop = `<div class="score-box">${match.goals.home || 0} - ${match.goals.away || 0}</div>`;
+        centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
         centerBottom = `<div class="status-text">انتهت</div>`;
       } else {
         centerTop = `<div class="score-box">${timeStr}</div>`;
-        centerBottom = `<div class="status-text">لم يبدأ</div>`;
+        centerBottom = `<div class="status-text">لم تبدأ</div>`;
       }
+      
+      // -->> هذا هو الجزء الجديد الخاص ببطاقة المعلومات
+      const competitionInfo = `
+        <div class="match-details">
+            <span>🏆 ${match.league.name || 'بطولة غير محددة'}</span>
+            <span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span>
+        </div>
+      `;
+
+      // -->> وهذا هو التعديل على طريقة عرض الشعار
+      const homeLogo = match.teams.home.logo || 'default-logo.svg';
+      const awayLogo = match.teams.away.logo || 'default-logo.svg';
 
       return `
         <div class="match-card border border-slate-700 rounded-xl p-4">
           <div class="grid grid-cols-3 items-center text-center">
             <div>
-              <img src="${match.teams.home.logo}" class="crest" onerror="this.style.display='none'">
+              <img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';">
             </div>
             <div>${centerTop}</div>
             <div>
-              <img src="${match.teams.away.logo}" class="crest" onerror="this.style.display='none'">
+              <img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';">
             </div>
           </div>
           <div class="grid grid-cols-3 items-center text-center mt-2">
@@ -119,6 +142,7 @@
             <div>${centerBottom}</div>
             <div class="team-name">${match.teams.away.name}</div>
           </div>
+          ${competitionInfo}
         </div>
       `;
     }
