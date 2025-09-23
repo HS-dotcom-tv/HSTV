@@ -57,15 +57,24 @@
       'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي'
     };
     const brokenLogos = { '113': true, };
+
+    // -->> هذه هي الدالة الجديدة التي تضمن تحويل الأرقام
+    function toEasternArabicNumerals(str) {
+        const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+        return String(str).replace(/[0-9]/g, (digit) => arabicNumerals[digit]);
+    }
+
     function setActiveTab(id) { document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
     function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
-
-    // -->> هذا هو السطر الوحيد الذي تم تعديله
+    
     function formatTime(iso) {
       const d = new Date(iso);
-      // 'ar-SA-u-nu-arab' يجبر المتصفح على استخدام الأرقام العربية الشرقية (١, ٢, ٣)
-      // hour12: true يضمن استخدام صيغة 12 ساعة مع (ص/م)
-      return d.toLocaleTimeString('ar-SA-u-nu-arab', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' });
+      // الخطوة 1: احصل على الوقت بصيغة 12 ساعة
+      const timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' });
+      // الخطوة 2: استبدل AM بـ "صباحًا" و PM بـ "مساءً"
+      const localizedTimeString = timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً');
+      // الخطوة 3: قم بتحويل الأرقام إلى العربية
+      return toEasternArabicNumerals(localizedTimeString);
     }
 
     async function loadMatches(view='today') {
@@ -90,10 +99,10 @@
       const status = match.fixture.status.short || 'NS';
       let centerTop = '', centerBottom = '';
       if (["LIVE", "HT"].includes(status)) {
-        centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
+        centerTop = `<div class="score-box text-emerald-400">${toEasternArabicNumerals(match.goals.home ?? 0)} - ${toEasternArabicNumerals(match.goals.away ?? 0)}</div>`;
         centerBottom = `<div class="status-text text-red-400">مباشر</div>`;
       } else if (["FT", "AET", "PEN"].includes(status)) {
-        centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
+        centerTop = `<div class="score-box">${toEasternArabicNumerals(match.goals.home ?? 0)} - ${toEasternArabicNumerals(match.goals.away ?? 0)}</div>`;
         centerBottom = `<div class="status-text">انتهت</div>`;
       } else {
         centerTop = `<div class="score-box">${timeStr}</div>`;
