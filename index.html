@@ -10,10 +10,11 @@
     body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg,#0f172a,#1e293b); min-height:100vh; color:#fff; }
     .match-card { transition: all .2s; backdrop-filter: blur(6px); }
     .match-card:hover { transform: translateY(-4px); background: rgba(30,41,59,0.75); }
-    .team-name { max-width: 120px; display:inline-block; vertical-align: middle; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-    .score-box { min-width: 90px; display:flex; align-items:center; justify-content:center; text-align:center; }
-    .btn-tab.active { background: linear-gradient(90deg,#10b981,#06b6d4); color:#042; font-weight:700; }
-    .crest { width:34px; height:34px; object-fit:contain; border-radius:6px; }
+    .btn-tab.active { background: linear-gradient(90deg,#10b981,#06b6d4); font-weight:700; color:white; }
+    .crest { width:40px; height:40px; object-fit:contain; border-radius:6px; }
+    .team-name { font-size: 0.9rem; font-weight: 600; text-align:center; }
+    .status-text { font-size: 0.75rem; color: #94a3b8; text-align:center; }
+    .score-box { font-size: 1.2rem; font-weight: 700; text-align:center; }
   </style>
 </head>
 <body class="p-4">
@@ -26,7 +27,7 @@
   <div class="max-w-3xl mx-auto mb-6">
     <div class="flex gap-3">
       <button id="yesterday" class="btn-tab flex-1 px-4 py-2 rounded-xl bg-slate-700">الأمس</button>
-      <button id="today" class="btn-tab flex-1 px-4 py-2 rounded-xl btn-tab active">اليوم</button>
+      <button id="today" class="btn-tab flex-1 px-4 py-2 rounded-xl active">اليوم</button>
       <button id="tomorrow" class="btn-tab flex-1 px-4 py-2 rounded-xl bg-slate-700">الغد</button>
     </div>
   </div>
@@ -37,13 +38,8 @@
     const API_URL = 'matches.json';
     const matchesContainer = document.getElementById('matches');
 
-    // قوائم التحكم: دوريات نعرضها (رموز football-data.org) — يمكنك تعديلها بسهولة
-    const ALLOWED_COMPETITIONS = new Set([
-      'CL','PL','PD','SA','BL1','FL1','WC','EC','AFCON','UEFA EURO','EL' // CL, Prem, LaLiga, SerieA, Bundesliga, Ligue1, WorldCup, Euros, AFCON, Europa League (EL)
-    ]);
-    // فرق عربية مهمة (نص من الاسم يكفي)
-    const SPECIAL_ARAB_TEAMS = ['Al Hilal','Al Nassr','Al Ittihad','Al Ahly','Zamalek','Raja','Wydad','Esperance','Alger','USM','WAC','TER'];
-
+    const ALLOWED_COMPETITIONS = new Set(['CL','PL','PD','SA','BL1','FL1','WC','EC','AFCON']);
+    const SPECIAL_ARAB_TEAMS = ['Al Hilal','Al Nassr','Al Ittihad','Al Ahly','Zamalek','Raja','Wydad','Esperance'];
 
     function setActiveTab(id) {
       document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active'));
@@ -57,13 +53,9 @@
     }
 
     function isImportantCompetition(league) {
-      // league.code is preferred; fallback to league.name
       if (!league) return false;
-      const code = (league.code || '').toString();
-      const name = (league.name || '').toLowerCase();
-      if (code && ALLOWED_COMPETITIONS.has(code)) return true;
-      // check major words
-      if (name.includes('champions') || name.includes('premier') || name.includes('la liga') || name.includes('serie') || name.includes('bundesliga') || name.includes('world') || name.includes('europe') || name.includes('africa')) return true;
+      const code = league.code || '';
+      if (ALLOWED_COMPETITIONS.has(code)) return true;
       return false;
     }
 
@@ -74,10 +66,8 @@
     }
 
     function formatTime(iso) {
-      try {
-        const d = new Date(iso);
-        return d.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Riyadh' });
-      } catch (e) { return iso; }
+      const d = new Date(iso);
+      return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Riyadh' });
     }
 
     async function loadMatches(view='today') {
@@ -85,142 +75,77 @@
       matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">جاري تحميل المباريات...</div>`;
       try {
         const res = await fetch(API_URL + '?t=' + Date.now());
-        if (!res.ok) throw new Error('network ' + res.status);
         const data = await res.json();
         const all = data.response || [];
-        renderMatches(all, view, data.generated_at);
+        renderMatches(all, view);
       } catch (err) {
-        console.error(err);
-        matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات — ${err.message}</div>`;
+        matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات</div>`;
       }
     }
 
-    function renderMatches(allMatches, view, generatedAt) {
+    function renderMatches(allMatches, view) {
       matchesContainer.innerHTML = '';
       const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0;
       const target = getDateString(offset);
 
-      // filter: only important competitions OR special teams
       let filtered = allMatches.filter(m => {
-        if (!m || !m.fixture || !m.fixture.date) return false;
         if (!m.fixture.date.startsWith(target)) return false;
-        // Important league?
         if (isImportantCompetition(m.league)) return true;
-        // special arab teams
         if (includeSpecialTeam(m)) return true;
-        // otherwise ignore
         return false;
       });
 
-      // sort by league importance (isImportantCompetition first) then time
-      filtered.sort((a,b) => {
-        const aImp = isImportantCompetition(a.league) ? 0 : 1;
-        const bImp = isImportantCompetition(b.league) ? 0 : 1;
-        if (aImp !== bImp) return aImp - bImp;
-        return new Date(a.fixture.date) - new Date(b.fixture.date);
-      });
-
-      // header debug
-      const header = document.createElement('div');
-      header.className = 'text-slate-400 text-sm mb-2 text-center';
-      header.innerHTML = `عرض ${filtered.length} مباراة — ${target} ${generatedAt ? ' · آخر تحديث: ' + new Date(generatedAt).toLocaleString() : ''}`;
-      matchesContainer.appendChild(header);
-
       if (!filtered.length) {
-        matchesContainer.innerHTML += `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات في هذا اليوم</div>`;
+        matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات</div>`;
         return;
       }
 
-      // group by competition (preserve order)
-      const groups = [];
-      const map = new Map();
-      for (const m of filtered) {
-        const lid = (m.league && (m.league.code || m.league.id || m.league.name)) || 'unknown';
-        if (!map.has(lid)) {
-          map.set(lid, { info: m.league, matches: [] });
-          groups.push(lid);
-        }
-        map.get(lid).matches.push(m);
-      }
+      filtered.sort((a,b) => new Date(a.fixture.date) - new Date(b.fixture.date));
 
-      for (const gid of groups) {
-        const grp = map.get(gid);
-        const box = document.createElement('div');
-        box.className = 'bg-slate-800/30 rounded-2xl overflow-hidden mb-4';
-        box.innerHTML = `
-          <div class="px-4 py-3 flex items-center gap-3 bg-gradient-to-r from-slate-900 to-slate-800">
-            ${grp.info && grp.info.logo ? `<img class="crest" src="${grp.info.logo}" alt="" onerror="this.style.display='none'">` : ''}
-            <div>
-              <div class="font-bold">${grp.info.name || ''}</div>
-              <div class="text-slate-400 text-xs">${grp.info.country || ''}</div>
-            </div>
-          </div>
-        `;
-        // sort matches by time
-        grp.matches.sort((a,b)=> new Date(a.fixture.date) - new Date(b.fixture.date));
-        for (const match of grp.matches) {
-          const el = document.createElement('div');
-          el.className = 'match-card border-t border-slate-700/40';
-          el.innerHTML = renderMatchHTML(match);
-          box.appendChild(el);
-        }
-        matchesContainer.appendChild(box);
-      }
+      filtered.forEach(match => {
+        matchesContainer.innerHTML += renderMatchHTML(match);
+      });
     }
 
     function renderMatchHTML(match) {
       const timeStr = formatTime(match.fixture.date);
-      const status = (match.fixture.status && match.fixture.status.short) || 'NS';
-      // determine display for status/time/score
-      let centerHtml = '';
-      // if live or in-play
+      const status = match.fixture.status.short || 'NS';
+
+      let centerTop = '';
+      let centerBottom = '';
+
       if (["1H","2H","HT"].includes(status)) {
-        centerHtml = `<div class="score-box">
-          <div class="text-emerald-400 font-bold text-xl">${match.goals.home || 0} - ${match.goals.away || 0}</div>
-        </div>`;
+        centerTop = `<div class="score-box text-emerald-400">${match.goals.home || 0} - ${match.goals.away || 0}</div>`;
+        centerBottom = `<div class="status-text text-red-400">مباشر</div>`;
       } else if (["FT","AET","PEN"].includes(status)) {
-        centerHtml = `<div class="score-box"><div class="font-bold">${match.goals.home || 0} - ${match.goals.away || 0}</div><div class="text-xs text-slate-400">انتهت</div></div>`;
+        centerTop = `<div class="score-box">${match.goals.home || 0} - ${match.goals.away || 0}</div>`;
+        centerBottom = `<div class="status-text">انتهت</div>`;
       } else {
-        // scheduled / timed / NS -> show time
-        centerHtml = `<div class="score-box"><div class="text-lg font-bold">${timeStr}</div></div>`;
+        centerTop = `<div class="score-box">${timeStr}</div>`;
+        centerBottom = `<div class="status-text">لم يبدأ</div>`;
       }
 
-      const homeLogo = match.teams.home.logo || '';
-      const awayLogo = match.teams.away.logo || '';
-
-      // short/truncate team names but show full on title
-      const homeName = escapeHtml(match.teams.home.name || '');
-      const awayName = escapeHtml(match.teams.away.name || '');
-
       return `
-        <div class="p-4 flex items-center gap-3">
-          <div class="flex-1 flex items-center justify-end gap-3 text-right">
-            ${homeLogo ? `<img src="${homeLogo}" class="crest" alt="" onerror="this.style.display='none'">` : ''}
-            <div class="team-name" title="${homeName}">${homeName}</div>
+        <div class="match-card border border-slate-700 rounded-xl p-4">
+          <div class="flex items-center justify-between">
+            <img src="${match.teams.home.logo}" class="crest" alt="" onerror="this.style.display='none'">
+            ${centerTop}
+            <img src="${match.teams.away.logo}" class="crest" alt="" onerror="this.style.display='none'">
           </div>
-          ${centerHtml}
-          <div class="flex-1 flex items-center gap-3">
-            ${awayLogo ? `<img src="${awayLogo}" class="crest" alt="" onerror="this.style.display='none'">` : ''}
-            <div class="team-name" title="${awayName}">${awayName}</div>
+          <div class="flex items-center justify-between mt-2">
+            <div class="team-name">${match.teams.home.name}</div>
+            ${centerBottom}
+            <div class="team-name">${match.teams.away.name}</div>
           </div>
         </div>
       `;
     }
 
-    // small helper to avoid XSS
-    function escapeHtml(s='') {
-      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
+    document.getElementById('yesterday').addEventListener('click', ()=> loadMatches('yesterday'));
+    document.getElementById('today').addEventListener('click', ()=> loadMatches('today'));
+    document.getElementById('tomorrow').addEventListener('click', ()=> loadMatches('tomorrow'));
 
-    // events
-    document.getElementById('yesterday').addEventListener('click', ()=> { setActiveTab('yesterday'); loadMatches('yesterday'); });
-    document.getElementById('today').addEventListener('click', ()=> { setActiveTab('today'); loadMatches('today'); });
-    document.getElementById('tomorrow').addEventListener('click', ()=> { setActiveTab('tomorrow'); loadMatches('tomorrow'); });
-
-    // initial
     loadMatches('today');
-
-    // live refresh every 60s only when on 'today'
     setInterval(()=>{ if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
   </script>
 </body>
