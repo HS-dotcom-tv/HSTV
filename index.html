@@ -7,114 +7,109 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ---------------------------------- */
-    /* 1. تعريف متغيرات الألوان (Themes) */
-    /* ---------------------------------- */
     :root {
-        /* -- الوضع النهاري (الأزرق والأخضر) -- */
-        --bg-gradient-start: #0f172a;
-        --bg-gradient-end: #1e293b;
-        --text-main: #fff;
-        --text-secondary: #94a3b8;
-        --card-bg: rgba(30, 41, 59, 0.4);
-        --card-hover-bg: rgba(30, 41, 59, 0.75);
-        --card-border: #334155;
-        --btn-bg: #1e293b;
-        --btn-text: #cbd5e1;
-        --btn-active-gradient-start: #10b981;
-        --btn-active-gradient-end: #06b6d4;
+        /* -- الوضع النهاري (الجديد كليًا) -- */
+        --bg-gradient-start: #F9FAFB; /* أبيض ثلجي */
+        --bg-gradient-end: #E0F2FE;   /* أزرق سماوي فاتح */
+        --text-main: #1F2937;         /* أسود هادئ */
+        --text-secondary: #6B7280;    /* رمادي */
+        --card-bg: rgba(255, 255, 255, 0.6);
+        --card-hover-bg: rgba(255, 255, 255, 0.9);
+        --card-border: #E5E7EB;
+        --btn-bg: #fff;
+        --btn-text: #4B5563;
+        --btn-border: #D1D5DB;
+        --btn-active-gradient-start: #4338CA; /* نيلي */
+        --btn-active-gradient-end: #3730A3;
         --btn-active-text: #fff;
-        --header-gradient-start: #10b981;
-        --header-gradient-end: #06b6d4;
+        --header-text: #3730A3;
     }
-
-    body.dark-mode {
-        /* -- الوضع الليلي (الأسود والذهبي) -- */
-        --bg-gradient-start: #111827;
-        --bg-gradient-end: #1F2937;
+    html.dark-mode {
+        /* -- الوضع الليلي (الفخم والاحترافي) -- */
+        --bg-gradient-start: #111827; /* أسود فحمي */
+        --bg-gradient-end: #000;
         --text-main: #E5E7EB;
         --text-secondary: #9CA3AF;
-        --card-bg: rgba(31, 41, 55, 0.4);
-        --card-hover-bg: rgba(55, 65, 81, 0.6);
+        --card-bg: rgba(31, 41, 55, 0.5);
+        --card-hover-bg: rgba(55, 65, 81, 0.7);
         --card-border: #374151;
         --btn-bg: #374151;
         --btn-text: #D1D5DB;
-        --btn-active-gradient-start: #FBBF24;
+        --btn-border: #4B5563;
+        --btn-active-gradient-start: #FBBF24; /* ذهبي */
         --btn-active-gradient-end: #F59E0B;
         --btn-active-text: #111827;
-        --header-gradient-start: #FBBF24;
-        --header-gradient-end: #F59E0B;
+        --header-text: transparent; /* ليعمل التدرج الذهبي */
     }
-    
-    /* ---------------------------------- */
-    /* 2. استخدام المتغيرات في التصميم   */
-    /* ---------------------------------- */
     body { 
         font-family: 'Cairo', sans-serif; 
-        background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); 
+        background-color: var(--bg-gradient-start);
+        background-image: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); 
         min-height:100vh; 
         color: var(--text-main);
-        transition: background 0.3s ease;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+    html.dark-mode body {
+        /* نقش خفيف للخلفية في الوضع الليلي */
+        background-image: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)), 
+                          radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+        background-size: 100%, 40px 40px;
     }
     .match-card { 
         transition: all .2s; 
-        backdrop-filter: blur(6px); 
+        backdrop-filter: blur(12px); /* زيادة البلور */
         background: var(--card-bg);
         border: 1px solid var(--card-border);
+        border-radius: 1rem;
     }
     .match-card:hover { 
-        transform: translateY(-4px); 
+        transform: translateY(-5px); 
         background: var(--card-hover-bg); 
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    .btn-tab { 
+        background: var(--btn-bg); color: var(--btn-text);
+        border: 1px solid var(--btn-border);
+        transition: all .2s ease;
     }
     .btn-tab.active { 
         background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); 
-        font-weight:700; 
         color: var(--btn-active-text);
         border: none;
+        box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
     }
-    .btn-tab { 
-        background: var(--btn-bg); 
-        color: var(--btn-text);
-        border: 1px solid var(--card-border);
+    html.dark-mode .btn-tab.active {
+        /* توهج ذهبي للأزرار النشطة في الوضع الليلي */
+        box-shadow: 0 0 20px -5px var(--btn-active-gradient-start);
+    }
+    h1 {
+        color: var(--header-text);
+    }
+    html.dark-mode h1 {
+        background: linear-gradient(45deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); 
+        -webkit-background-clip: text; 
     }
     .crest { 
         width: 50px; height: 50px; object-fit: contain; margin: auto;
-        border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(100, 116, 139, 0.5);
+        border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(100, 116, 139, 0.1);
     }
-    h1 {
-        background: linear-gradient(45deg, var(--header-gradient-start), var(--header-gradient-end)); 
-        -webkit-background-clip: text; 
-        color: transparent;
-    }
-    .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
-    .status-text { font-size: 0.8rem; color: var(--text-secondary); text-align:center; }
     .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; line-height: 1; color: var(--text-main);}
-    .match-details {
-      border-top: 1px solid var(--card-border); margin-top: 1rem; padding-top: 0.75rem;
-      font-size: 0.8rem; color: var(--text-secondary); display: flex;
-      justify-content: space-between; align-items: center;
-    }
-    .time-period {
-        display: block; font-size: 0.7rem; font-weight: 400;
-        color: var(--text-secondary); opacity: 0.8; margin-top: 2px;
-    }
-    /* تصميم زر الوضع الليلي */
+    .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
+    .status-text, .time-period, .match-details { color: var(--text-secondary); }
+    .match-details { border-top: 1px solid var(--card-border); }
+    .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
     #theme-toggle {
-        background: var(--btn-bg); border: 1px solid var(--card-border);
-        border-radius: 999px; padding: 0.5rem; color: var(--btn-text);
+        background: var(--btn-bg); border: 1px solid var(--btn-border);
+        border-radius: 999px; padding: 0.5rem; color: var(--text-main);
         cursor: pointer; transition: all 0.2s ease;
     }
-    #theme-toggle:hover {
-        background: var(--card-hover-bg);
-    }
+    #theme-toggle:hover { background: var(--card-hover-bg); }
   </style>
   
   <script>
-    // هذا الكود الصغير يعمل أول شيء ليمنع "ومضة" تغيير الوضع عند تحميل الصفحة
-    // ويتأكد من تطبيق الوضع الصحيح الذي حفظه المستخدم فورًا
     (function() {
       if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
+        document.documentElement.classList.add('dark-mode');
       }
     })();
   </script>
@@ -126,10 +121,7 @@
     
     <div class="absolute top-0 left-0">
         <button id="theme-toggle" title="تغيير الوضع">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-        </button>
+            </button>
     </div>
   </header>
 
@@ -143,6 +135,31 @@
   <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
   
   <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
+    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
+
+    function updateIcon() {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        themeToggle.innerHTML = sunIcon;
+      } else {
+        themeToggle.innerHTML = moonIcon;
+      }
+    }
+
+    themeToggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark-mode');
+        if (document.documentElement.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+        updateIcon();
+    });
+
+    updateIcon(); // ضبط الأيقونة عند تحميل الصفحة
+    
+    // باقي الكود الخاص بالمباريات (بدون تغيير)
     const API_URL = 'matches.json';
     const matchesContainer = document.getElementById('matches');
     const leagueTranslations = {
@@ -151,30 +168,13 @@
       'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي'
     };
     const brokenLogos = { '113': true, };
-
-    // --- كود تشغيل زر الوضع الليلي ---
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        // حفظ اختيار المستخدم
-        if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('theme', 'dark');
-        } else {
-            localStorage.setItem('theme', 'light');
-        }
-    });
-    // --- نهاية كود تشغيل الزر ---
-
     function setActiveTab(id) { document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
     function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
-    
     function formatTime(iso) {
         const d = new Date(iso);
         let timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' });
-        timeString = timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً');
-        return timeString;
+        return timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً');
     }
-
     async function loadMatches(view='today') {
       setActiveTab(view);
       matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">جاري تحميل المباريات...</div>`;
@@ -184,7 +184,6 @@
         renderMatches(data.response || [], view);
       } catch (err) { matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات</div>`; }
     }
-
     function renderMatches(allMatches, view) {
       matchesContainer.innerHTML = '';
       const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0;
@@ -193,7 +192,6 @@
       if (!filtered.length) { matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`; return; }
       filtered.forEach(match => { matchesContainer.innerHTML += renderMatchHTML(match); });
     }
-
     function renderMatchHTML(match) {
       const status = match.fixture.status.short || 'NS';
       let centerTop = '', centerBottom = '';
@@ -214,7 +212,6 @@
       const awayLogo = brokenLogos[match.teams.away.id] ? 'default-logo.svg' : (match.teams.away.logo || 'default-logo.svg');
       return `<div class="match-card border border-slate-700 rounded-xl p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`;
     }
-
     ['yesterday', 'today', 'tomorrow'].forEach(id => document.getElementById(id).addEventListener('click', () => loadMatches(id)));
     loadMatches('today');
     setInterval(() => { if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
