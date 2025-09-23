@@ -12,11 +12,16 @@
     .match-card:hover { transform: translateY(-4px); background: rgba(30,41,59,0.75); }
     .btn-tab.active { background: linear-gradient(90deg,#10b981,#06b6d4); font-weight:700; color:white; }
     .btn-tab { background:#1e293b; color:#cbd5e1; }
-    .crest { width:50px; height:50px; object-fit:contain; margin:auto; }
+    .crest { 
+        width:50px; 
+        height:50px; 
+        object-fit:contain; 
+        margin:auto;
+        mix-blend-mode: multiply; /* For transparent logos */
+    }
     .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
     .status-text { font-size: 0.8rem; color: #94a3b8; text-align:center; }
     .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; }
-    /* أضفنا تصميم بطاقة المعلومات */
     .match-details {
       border-top: 1px solid #334155; /* slate-700 */
       margin-top: 1rem;
@@ -49,6 +54,17 @@
   <script>
     const API_URL = 'matches.json';
     const matchesContainer = document.getElementById('matches');
+
+    const leagueTranslations = {
+      'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم',
+      'PD': 'الدوري الإسباني', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي',
+      'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي'
+    };
+
+    const brokenLogos = {
+      '113': true, // Napoli ID
+      // Add other team IDs here if their logos are broken
+    };
 
     function setActiveTab(id) {
       document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active'));
@@ -89,8 +105,6 @@
         matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`;
         return;
       }
-
-      // لا حاجة للترتيب هنا لأنه تم في fetch-matches.js
       filtered.forEach(match => {
         matchesContainer.innerHTML += renderMatchHTML(match);
       });
@@ -99,7 +113,6 @@
     function renderMatchHTML(match) {
       const timeStr = formatTime(match.fixture.date);
       const status = match.fixture.status.short || 'NS';
-
       let centerTop = '';
       let centerBottom = '';
 
@@ -114,28 +127,23 @@
         centerBottom = `<div class="status-text">لم تبدأ</div>`;
       }
       
-      // -->> هذا هو الجزء الجديد الخاص ببطاقة المعلومات
+      const leagueNameAr = leagueTranslations[match.league.code] || match.league.name;
       const competitionInfo = `
         <div class="match-details">
-            <span>🏆 ${match.league.name || 'بطولة غير محددة'}</span>
+            <span>🏆 ${leagueNameAr}</span>
             <span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span>
         </div>
       `;
 
-      // -->> وهذا هو التعديل على طريقة عرض الشعار
-      const homeLogo = match.teams.home.logo || 'default-logo.svg';
-      const awayLogo = match.teams.away.logo || 'default-logo.svg';
+      const homeLogo = brokenLogos[match.teams.home.id] ? 'default-logo.svg' : (match.teams.home.logo || 'default-logo.svg');
+      const awayLogo = brokenLogos[match.teams.away.id] ? 'default-logo.svg' : (match.teams.away.logo || 'default-logo.svg');
 
       return `
         <div class="match-card border border-slate-700 rounded-xl p-4">
           <div class="grid grid-cols-3 items-center text-center">
-            <div>
-              <img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';">
-            </div>
+            <div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div>
             <div>${centerTop}</div>
-            <div>
-              <img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';">
-            </div>
+            <div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div>
           </div>
           <div class="grid grid-cols-3 items-center text-center mt-2">
             <div class="team-name">${match.teams.home.name}</div>
