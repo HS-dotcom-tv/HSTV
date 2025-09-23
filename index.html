@@ -22,7 +22,7 @@
     }
     .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
     .status-text { font-size: 0.8rem; color: #94a3b8; text-align:center; }
-    .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; }
+    .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; line-height: 1; /* لتحسين التمركز */ }
     .match-details {
       border-top: 1px solid #334155;
       margin-top: 1rem;
@@ -32,6 +32,15 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+    /* -->> هذا هو الكود الجديد الخاص بكلمة "مساءً" -->> */
+    .time-period {
+        display: block; /* يجعلها في سطر جديد تحت التوقيت */
+        font-size: 0.7rem; /* أصغر حجمًا */
+        font-weight: 400; /* أخف وزنًا */
+        color: #94a3b8; /* نفس لون النصوص الثانوية */
+        opacity: 0.8; /* شفافية بسيطة */
+        margin-top: 2px;
     }
   </style>
 </head>
@@ -61,22 +70,14 @@
     function setActiveTab(id) { document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
     function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
     
-    // -->> هذا هو الإصلاح النهائي والمبسط
+    // -->> تم تعديل هذه الدالة لتُرجع جزأين منفصلين
     function formatTime(iso) {
         const d = new Date(iso);
-        // استخدم 'en-GB' للحصول على صيغة 24 ساعة (مثل 22:00) أو 'en-US' لصيغة 12 ساعة (10:00 PM)
-        // سنختار 'en-US' لإضافة "مساءً/صباحًا" يدويًا
-        let timeString = d.toLocaleTimeString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true,
-            timeZone: 'Asia/Riyadh'
-        });
-        
-        // استبدل AM/PM بالنص العربي
-        timeString = timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً');
-        
-        return timeString;
+        const timePart = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' });
+        const parts = timePart.split(' '); // تفصل الوقت عن AM/PM
+        const time = parts[0];
+        const period = parts[1].replace('AM', 'صباحًا').replace('PM', 'مساءً');
+        return { time, period }; // تُرجع كائنًا يحتوي على الوقت وال فترة
     }
 
     async function loadMatches(view='today') {
@@ -99,7 +100,6 @@
     }
 
     function renderMatchHTML(match) {
-      const timeStr = formatTime(match.fixture.date);
       const status = match.fixture.status.short || 'NS';
       let centerTop = '', centerBottom = '';
 
@@ -110,7 +110,9 @@
         centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
         centerBottom = `<div class="status-text">انتهت</div>`;
       } else {
-        centerTop = `<div class="score-box">${timeStr}</div>`;
+        // -->> تم تعديل طريقة عرض التوقيت هنا
+        const formattedTime = formatTime(match.fixture.date);
+        centerTop = `<div class="score-box">${formattedTime.time}<span class="time-period">${formattedTime.period}</span></div>`;
         centerBottom = `<div class="status-text">لم تبدأ</div>`;
       }
       
