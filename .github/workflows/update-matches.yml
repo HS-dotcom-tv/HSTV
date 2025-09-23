@@ -1,0 +1,45 @@
+name: Update Matches
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Create basic matches data
+        run: |
+          cat > matches.json << 'EOF'
+          {
+            "response": [
+              {
+                "fixture": {
+                  "date": "$(date -I)",
+                  "status": {"short": "NS"}
+                },
+                "teams": {
+                  "home": {"name": "فريق 1", "logo": ""},
+                  "away": {"name": "فريق 2", "logo": ""}
+                },
+                "goals": {"home": null, "away": null},
+                "league": {
+                  "id": 1,
+                  "name": "دوري تجريبي",
+                  "logo": "",
+                  "country": "Test"
+                }
+              }
+            ]
+          }
+          EOF
+          
+      - name: Commit changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add matches.json
+          git commit -m "Add sample match data" || exit 0
+          git push
