@@ -1,4 +1,4 @@
-// fetch-matches.js (CommonJS) - football-data.org (FIXED: extended date range for tomorrow)
+// fetch-matches.js (CommonJS) - football-data.org (FIXED: Correct status normalization)
 const fetch = require("node-fetch");
 const fs = require("fs");
 
@@ -20,14 +20,32 @@ function getDateString(offset = 0) {
   return d.toISOString().split('T')[0];
 }
 
+// -->> تم إصلاح هذه الدالة واسترجاع المنطق الصحيح للحالة
 function normalizeMatchFootballData(m) {
+  const fixtureDate = m.utcDate || null;
+  const statusRaw = (m.status || "").toUpperCase();
+  let short = "NS"; // Not Started
+  if (statusRaw === "SCHEDULED" || statusRaw === "TIMED" || statusRaw === "POSTPONED") short = "NS";
+  else if (statusRaw === "IN_PLAY") short = "LIVE";
+  else if (statusRaw === "PAUSED") short = "HT"; // Half-Time
+  else if (statusRaw === "FINISHED") short = "FT"; // Full-Time
+  else if (statusRaw === "AWARDED") short = "AET"; // Awarded after extra time
+  else if (statusRaw === "CANCELLED") short = "CANC";
+  else short = statusRaw;
+
+  const goalsHome = (m.score && m.score.fullTime && m.score.fullTime.home) != null ? m.score.fullTime.home : null;
+  const goalsAway = (m.score && m.score.fullTime && m.score.fullTime.away) != null ? m.score.fullTime.away : null;
+  
   const competition = m.competition || {};
   const home = m.homeTeam || {};
   const away = m.awayTeam || {};
+
   return {
     fixture: {
-      id: m.id || null, date: m.utcDate || null, venue: m.venue || null,
-      status: { short: (m.status || "").substring(0,2), long: m.status || "", elapsed: m.minute || null }
+      id: m.id || null,
+      date: fixtureDate,
+      venue: m.venue || null,
+      status: { short, long: m.status || "", elapsed: m.minute || null }
     },
     league: {
       id: competition.id || null, code: competition.code || null, name: competition.name || "",
@@ -38,8 +56,8 @@ function normalizeMatchFootballData(m) {
       away: { id: away.id || null, name: away.name || "Away", logo: `https://crests.football-data.org/${away.id}.svg` }
     },
     goals: {
-      home: (m.score && m.score.fullTime && m.score.fullTime.home),
-      away: (m.score && m.score.fullTime && m.score.fullTime.away)
+      home: goalsHome,
+      away: goalsAway
     }
   };
 }
