@@ -1,4 +1,4 @@
-// fetch-matches.js (CommonJS) - football-data.org (MODIFIED: filters for major leagues & includes venue)
+// fetch-matches.js (CommonJS) - football-data.org (FIXED: uses valid league codes)
 const fetch = require("node-fetch");
 const fs = require("fs");
 
@@ -8,7 +8,7 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-// قائمة الدوريات الكبرى التي نريد عرضها فقط
+// قائمة الدوريات الكبرى برموزها الصحيحة والمعتمدة
 const MAJOR_LEAGUES = [
   'WC',  // World Cup
   'CL',  // Champions League
@@ -20,8 +20,6 @@ const MAJOR_LEAGUES = [
   'FL1', // Ligue 1 (France)
   'PPL', // Primeira Liga (Portugal)
   'DED', // Eredivisie (Netherlands)
-  'Copa',// Copa America
-  'CAF', // Africa Cup of Nations
 ].join(',');
 
 const headers = {
@@ -63,7 +61,7 @@ function normalizeMatchFootballData(m) {
     fixture: {
       id: m.id || null,
       date: fixtureDate,
-      venue: m.venue || null, // <-- أضفنا الملعب هنا
+      venue: m.venue || null,
       status: {
         short,
         long: m.status || "",
@@ -96,7 +94,6 @@ function normalizeMatchFootballData(m) {
   };
 }
 
-// تم تعديل هذه الدالة لتستخدم فلتر الدوريات
 async function fetchMatchesForDateRange(dateFrom, dateTo) {
   const url = `https://api.football-data.org/v4/matches?competitions=${MAJOR_LEAGUES}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
   console.log(`⤷ Requesting: ${url}`);
@@ -118,13 +115,11 @@ async function fetchMatchesForDateRange(dateFrom, dateTo) {
   try {
     console.log("🔄 Start fetching matches for Yesterday / Today / Tomorrow (football-data.org) ...");
     
-    // سنجلب كل المباريات في طلب واحد فعال بدلاً من ثلاثة
     const yesterday = getDateString(-1);
     const tomorrow = getDateString(1);
 
     const allRaw = await fetchMatchesForDateRange(yesterday, tomorrow);
     
-    // لا حاجة لإزالة التكرار لأن الطلب واحد
     allRaw.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
 
     const normalized = allRaw.map(normalizeMatchFootballData);
