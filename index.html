@@ -8,40 +8,40 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-        /* -- الوضع النهاري (تصميم "الأزرق المنعش" الجديد) -- */
-        --bg-gradient-start: #EFF6FF; /* أزرق فاتح جداً */
-        --bg-gradient-end: #DBEAFE;   /* أزرق سماوي */
-        --text-main: #1E293B;         /* رمادي داكن للنصوص */
-        --text-secondary: #475569;    /* رمادي أفتح */
-        --card-bg: rgba(255, 255, 255, 0.7); /* أبيض شبه شفاف */
+        /* -- الوضع النهاري (مثالي - لن يتم لمسه) -- */
+        --bg-gradient-start: #EFF6FF;
+        --bg-gradient-end: #DBEAFE;
+        --text-main: #1E293B;
+        --text-secondary: #475569;
+        --card-bg: rgba(255, 255, 255, 0.7);
         --card-hover-bg: rgba(255, 255, 255, 1);
         --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
         --card-border: transparent;
         --btn-bg: #fff;
         --btn-text: #334155;
         --btn-border: #CBD5E1;
-        --btn-active-gradient-start: #3B82F6; /* أزرق عصري */
+        --btn-active-gradient-start: #3B82F6;
         --btn-active-gradient-end: #2563EB;
         --btn-active-text: #fff;
-        --header-text: #1E3A8A; /* أزرق بحري داكن */
+        --header-text: #1E3A8A;
     }
     html.dark-mode {
-        /* -- الوضع الليلي (تصميم "الذهبي المصقول" المحسن) -- */
-        --bg-gradient-start: #111827;
-        --bg-gradient-end: #000;
-        --text-main: #E5E7EB;
-        --text-secondary: #9CA3AF;
-        --card-bg: rgba(31, 41, 55, 0.5);
-        --card-hover-bg: rgba(55, 65, 81, 0.7);
+        /* -- الوضع الليلي (تصميم Netflix الجديد) -- */
+        --bg-gradient-start: #141414; /* أسود Netflix */
+        --bg-gradient-end: #141414;
+        --text-main: #fff;
+        --text-secondary: #A3A3A3;
+        --card-bg: #2F2F2F;
+        --card-hover-bg: #3A3A3A;
         --card-shadow: 0 0 0 0 transparent;
-        --card-border: #374151;
-        --btn-bg: #374151;
-        --btn-text: #D1D5DB;
+        --card-border: #2F2F2F;
+        --btn-bg: #2F2F2F;
+        --btn-text: #fff;
         --btn-border: #4B5563;
-        --btn-active-gradient-start: #FBBF24;
-        --btn-active-gradient-end: #F59E0B;
-        --btn-active-text: #111827;
-        --header-text: transparent;
+        --btn-active-gradient-start: #E50914; /* أحمر Netflix */
+        --btn-active-gradient-end: #B81D24;
+        --btn-active-text: #fff;
+        --header-text: #E50914;
     }
     
     body { 
@@ -51,28 +51,31 @@
         min-height:100vh; color: var(--text-main);
         transition: background 0.4s ease, color 0.4s ease;
     }
-    html.dark-mode body {
-        background-image: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)), 
-                          radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
-        background-size: 100%, 40px 40px;
-    }
     .match-card { 
-        transition: all .3s ease; 
-        backdrop-filter: blur(12px); 
+        transition: all .2s ease-in-out; 
         background: var(--card-bg);
         border: 1px solid var(--card-border);
         box-shadow: var(--card-shadow);
-        border-radius: 1rem;
+        border-radius: 0.75rem; /* حواف ناعمة للوضع النهاري */
+    }
+    html.dark-mode .match-card {
+        backdrop-filter: none; /* إزالة البلور للتركيز على البطاقة */
+        border-radius: 0.25rem; /* حواف حادة جداً مثل Netflix */
+        border: none;
     }
     .match-card:hover { 
         transform: translateY(-5px); 
         background: var(--card-hover-bg); 
     }
+    html.dark-mode .match-card:hover {
+        /* تأثير الرفع والتكبير عند التمرير */
+        transform: scale(1.03) translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
     .btn-tab { 
         background: var(--btn-bg); color: var(--btn-text);
         border: 1px solid var(--btn-border);
-        transition: all .2s ease;
-        border-radius: 0.75rem; /* تعديل بسيط لشكل الأزرار */
+        transition: all .2s ease; border-radius: 0.75rem;
     }
     .btn-tab.active { 
         background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); 
@@ -80,14 +83,11 @@
         border: none;
         box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
     }
-    html.dark-mode .btn-tab.active {
-        /* توهج ذهبي مخفف وأنيق */
-        box-shadow: 0 0 15px -7px var(--btn-active-gradient-start);
-    }
     h1 { color: var(--header-text); }
     html.dark-mode h1 {
-        background: linear-gradient(45deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); 
-        -webkit-background-clip: text; 
+        /* إزالة التدرج للنص الأحمر الصريح */
+        background: none;
+        -webkit-background-clip: unset; 
     }
     .crest { 
         width: 50px; height: 50px; object-fit: contain; margin: auto;
@@ -96,7 +96,6 @@
     .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; line-height: 1; color: var(--text-main);}
     .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
     .status-text, .time-period, .match-details { color: var(--text-secondary); }
-    /* إعادة تفاصيل المباراة لحجمها الصغير والأنيق */
     .match-details { 
       border-top: 1px solid var(--card-border); 
       margin-top: 1rem; padding-top: 0.75rem;
