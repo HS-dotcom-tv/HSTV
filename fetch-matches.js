@@ -1,15 +1,16 @@
-// fetch-matches.js  (CommonJS - for GitHub Actions)
+// fetch-matches.js  (CommonJS) - for football-data.org
 const fetch = require("node-fetch");
 const fs = require("fs");
 
-const API_KEY = process.env.API_FOOTBALL_KEY; // ضع المفتاح في GitHub Secrets باسم API_FOOTBALL_KEY
+const API_KEY = process.env.API_FOOTBALLDATA_KEY;
 if (!API_KEY) {
-  console.error("❌ API key not found. Set API_FOOTBALL_KEY secret in GitHub repository.");
+  console.error("❌ API key not found. Set API_FOOTBALLDATA_KEY secret in GitHub repository.");
   process.exit(1);
 }
 
 const headers = {
-  "x-apisports-key": API_KEY
+  "X-Auth-Token": API_KEY,
+  "Accept": "application/json"
 };
 
 // Helper: build date string YYYY-MM-DD with offset in days
@@ -22,9 +23,60 @@ function getDateString(offset = 0) {
   return `${yyyy}-${mm}-${dd}`;
 }
 
-// Fetch fixtures for a given date, return array (or empty array)
+// Map football-data.org match -> normalized shape used by your front-end
+function normalizeMatch(m) {
+  // football-data fields: id, utcDate, status, score{fullTime}, homeTeam{name,id}, awayTeam{name,id}, competition{ id, name, area{name} }
+  const fixtureDate = m.utcDate || m.date || null;
+  const statusRaw = (m.status || "").toUpperCase(); // e.g. SCHEDULED, FINISHED, IN_PLAY
+  // map status to short codes used before (simple mapping)
+  let short = "NS";
+  if (statusRaw === "SCHEDULED") short = "NS";
+  else if (statusRaw === "IN_PLAY" || statusRaw === "LIVE") short = "1H";
+  else if (statusRaw === "PAUSED") short = "HT";
+  else if (statusRaw === "FINISHED") short = "FT";
+  else short = statusRaw;
+
+  const goalsHome = (m.score && m.score.fullTime && m.score.fullTime.home) != null ? m.score.fullTime.home : null;
+  const goalsAway = (m.score && m.score.fullTime && m.score.fullTime.away) != null ? m.score.fullTime.away : null;
+
+  return {
+    fixture: {
+      id: m.id || null,
+      date: fixtureDate,
+      status: {
+        short,
+        long: m.status || "",
+        elapsed: (m.minute !== undefined && m.minute !== null) ? m.minute : null
+      }
+    },
+    league: {
+      id: (m.competition && (m.competition.id || m.competition.code)) || null,
+      name: (m.competition && m.competition.name) || (m.competition && m.competition.area && m.competition.area.name) || "Unknown",
+      logo: "",         // football-data.org does not provide logos in free response — leave empty
+      country: (m.competition && m.competition.area && m.competition.area.name) || ""
+    },
+    teams: {
+      home: {
+        id: (m.homeTeam && m.homeTeam.id) || null,
+        name: (m.homeTeam && m.homeTeam.name) || "Home",
+        logo: ""        // no logo available here
+      },
+      away: {
+        id: (m.awayTeam && m.awayTeam.id) || null,
+        name: (m.awayTeam && m.awayTeam.name) || "Away",
+        logo: ""
+      }
+    },
+    goals: {
+      home: goalsHome,
+      away: goalsAway
+    },
+    raw: m // keep original in case you need more fields later
+  };
+}
+
 async function fetchForDate(dateStr) {
-  const url = `https://v3.football.api-sports.io/fixtures?date=${dateStr}`;
+  const url = `https://api.football-data.org/v4/matches?date=${dateStr}`;
   console.log(`⤷ Requesting: ${url}`);
   const res = await fetch(url, { headers });
   console.log("⤷ HTTP status:", res.status);
@@ -33,60 +85,60 @@ async function fetchForDate(dateStr) {
     console.error("❌ HTTP error:", res.status, data);
     throw new Error(`HTTP ${res.status}`);
   }
-  if (data && data.errors) {
-    console.error("❌ API returned errors:", JSON.stringify(data.errors, null, 2));
-    throw new Error("API returned errors: " + JSON.stringify(data.errors));
+  if (data && data.error) {
+    console.error("❌ API returned error:", data);
+    throw new Error("API error: " + JSON.stringify(data));
   }
-  if (!data.response) return [];
-  return data.response;
+  // data.matches is list per docs
+  const arr = data.matches || data.match || [];
+  return arr;
 }
 
-// Remove duplicate matches (by fixture.id), and return sorted by date asc
 function dedupeAndSortMatches(matches) {
   const map = new Map();
   for (const m of matches) {
-    const id = m.fixture && m.fixture.id ? m.fixture.id : JSON.stringify([m.league?.id, m.teams?.home?.id, m.teams?.away?.id, m.fixture?.date]);
-    map.set(id, m); // last occurrence wins (ok)
+    const id = m.id || JSON.stringify([m.competition && (m.competition.id || m.competition.code), m.homeTeam && m.homeTeam.id, m.awayTeam && m.awayTeam.id, m.utcDate]);
+    map.set(id, m);
   }
   const arr = Array.from(map.values());
-  arr.sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date));
+  arr.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
   return arr;
 }
 
 (async () => {
   try {
-    console.log("🔄 Start fetching matches for Yesterday / Today / Tomorrow...");
-
-    const offsets = [-1, 0, 1]; // أمس, اليوم, غد
-    let allMatches = [];
+    console.log("🔄 Start fetching matches for Yesterday / Today / Tomorrow (football-data.org) ...");
+    const offsets = [-1, 0, 1];
+    let allRaw = [];
 
     for (const offset of offsets) {
       const dateStr = getDateString(offset);
       try {
         const matches = await fetchForDate(dateStr);
         console.log(`⤷ ${matches.length} matches on ${dateStr}`);
-        allMatches.push(...matches);
+        allRaw.push(...matches);
       } catch (err) {
-        console.error(`⚠️ Failed to fetch date ${dateStr}:`, err.message || err);
-        // do not exit immediately — continue to try other dates
+        console.error(`⚠️ Failed to fetch ${dateStr}:`, err.message || err);
+        // continue with other dates
       }
     }
 
-    // Deduplicate + sort
-    const finalMatches = dedupeAndSortMatches(allMatches);
-    console.log(`✅ Total unique matches gathered: ${finalMatches.length}`);
+    // dedupe raw (by id/unique key) and sort
+    const uniqueRaw = dedupeAndSortMatches(allRaw);
 
-    // Prepare output object in same shape the client code expects: { response: [...] }
+    // normalize
+    const normalized = uniqueRaw.map(normalizeMatch);
+
+    console.log(`✅ Total unique matches gathered: ${normalized.length}`);
+
     const out = {
       generated_at: new Date().toISOString(),
-      source: "api-football (dates: yesterday,today,tomorrow)",
-      response: finalMatches
+      source: "football-data.org (dates: yesterday,today,tomorrow)",
+      response: normalized
     };
 
     fs.writeFileSync("matches.json", JSON.stringify(out, null, 2));
     console.log("✅ matches.json written to repo root.");
-
-    // Exit 0 -> Action will continue to commit/push
     process.exit(0);
   } catch (err) {
     console.error("❌ Fatal error:", err && err.message ? err.message : err);
