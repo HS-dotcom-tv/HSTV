@@ -1,134 +1,216 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>HSTV - جداول المباريات</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HSTV - جدول المباريات</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg,#0f172a,#1e293b); min-height:100vh; color:#fff; }
-    .match-card { transition: all .2s; backdrop-filter: blur(6px); }
-    .match-card:hover { transform: translateY(-4px); background: rgba(30,41,59,0.75); }
-    .btn-tab.active { background: linear-gradient(90deg,#10b981,#06b6d4); font-weight:700; color:white; }
-    .btn-tab { background:#1e293b; color:#cbd5e1; }
-    .crest { width:50px; height:50px; object-fit:contain; margin:auto; }
-    .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
-    .status-text { font-size: 0.8rem; color: #94a3b8; text-align:center; }
-    .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+    }
+    .gradient-text {
+      background: linear-gradient(45deg, #10b981, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .match-card {
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .match-card:hover {
+      transform: translateY(-2px);
+      background: rgba(30, 41, 59, 0.8);
+    }
+    .crest {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      aspect-ratio: 1/1;
+    }
+    .active-tab {
+      background: linear-gradient(to right, #059669, #06b6d4) !important;
+      font-weight: bold;
+    }
+    .live-pulse {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
   </style>
 </head>
-<body class="p-4">
+<body class="text-white">
 
-  <header class="text-center mb-6">
-    <h1 class="text-4xl font-bold" style="background:linear-gradient(45deg,#10b981,#06b6d4); -webkit-background-clip:text; color:transparent">HSTV</h1>
-    <p class="text-slate-400 mt-1">أحدث المباريات — مصنفة حسب الأهمية</p>
+  <!-- Header -->
+  <header class="text-center py-8">
+    <h1 class="text-4xl md:text-6xl font-bold gradient-text">HSTV</h1>
+    <p class="text-slate-400 mt-3 text-lg">أحدث جدول المباريات مباشرة</p>
   </header>
 
-  <div class="max-w-3xl mx-auto mb-6">
-    <div class="flex gap-3">
-      <button id="yesterday" class="btn-tab flex-1 px-4 py-2 rounded-xl">الأمس</button>
-      <button id="today" class="btn-tab flex-1 px-4 py-2 rounded-xl active">اليوم</button>
-      <button id="tomorrow" class="btn-tab flex-1 px-4 py-2 rounded-xl">الغد</button>
-    </div>
+  <!-- Controls -->
+  <div class="flex justify-center gap-3 mb-8 px-4 max-w-md mx-auto">
+    <button id="yesterday" class="flex-1 px-4 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 transition">الأمس</button>
+    <button id="today" class="flex-1 px-4 py-3 rounded-xl active-tab">اليوم</button>
+    <button id="tomorrow" class="flex-1 px-4 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 transition">الغد</button>
   </div>
 
-  <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
+  <!-- Matches Container -->
+  <main id="matches" class="container mx-auto px-4 max-w-4xl space-y-6 mb-12"></main>
 
   <script>
-    const API_URL = 'matches.json';
-    const matchesContainer = document.getElementById('matches');
+    const matchesContainer = document.getElementById("matches");
+    const API_URL = "matches.json"; // يتم تحديثها يومياً
 
-    function setActiveTab(id) {
-      document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+    // ترتيب الدوريات حسب الأهمية
+    const priorityLeagues = [
+      2000, // كأس العالم
+      2001, // دوري أبطال أوروبا
+      2014, // الدوري الإسباني
+      2019, // الدوري الإيطالي
+      2021, // الدوري الإنجليزي
+      2002, // يورو
+      2015, // الدوري الفرنسي
+      2003, // كأس أفريقيا
+      2017  // الدوري الألماني
+    ];
+
+    function getSaudiDate(offset = 0) {
+      const date = new Date();
+      date.setDate(date.getDate() + offset);
+      return date.toISOString().split('T')[0];
     }
 
-    function getDateString(offset = 0) {
-      const d = new Date();
-      d.setDate(d.getDate() + offset);
-      return d.toISOString().split('T')[0];
-    }
+    async function loadMatches(dateKey) {
+      matchesContainer.innerHTML = `
+        <div class="text-center py-12">
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+          <p class="text-slate-400 mt-4">جاري تحميل المباريات...</p>
+        </div>
+      `;
 
-    function formatTime(iso) {
-      const d = new Date(iso);
-      return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Riyadh' });
-    }
-
-    async function loadMatches(view='today') {
-      setActiveTab(view);
-      matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">جاري تحميل المباريات...</div>`;
       try {
-        const res = await fetch(API_URL + '?t=' + Date.now());
-        const data = await res.json();
-        const all = data.response || [];
-        renderMatches(all, view);
-      } catch (err) {
-        matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات</div>`;
+        const response = await fetch(API_URL + '?t=' + new Date().getTime());
+        if (!response.ok) throw new Error('Network error');
+
+        const data = await response.json();
+        renderMatches(data.matches || [], dateKey);
+      } catch (error) {
+        console.error('Error:', error);
+        matchesContainer.innerHTML = `
+          <div class="text-center py-8">
+            <p class="text-red-400 text-lg">⚠️ خطأ في تحميل البيانات</p>
+            <button onclick="loadMatches('today')" class="mt-4 px-6 py-2 bg-emerald-600 rounded-lg">إعادة المحاولة</button>
+          </div>
+        `;
       }
     }
 
-    function renderMatches(allMatches, view) {
-      matchesContainer.innerHTML = '';
-      const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0;
-      const target = getDateString(offset);
+    function renderMatches(matches, dateKey) {
+      matchesContainer.innerHTML = "";
 
-      let filtered = allMatches.filter(m => m.fixture.date.startsWith(target));
-      if (!filtered.length) {
-        matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات</div>`;
+      const targetDate = getSaudiDate(
+        dateKey === "yesterday" ? -1 : dateKey === "tomorrow" ? 1 : 0
+      );
+
+      let filtered = matches.filter(m => m.utcDate.startsWith(targetDate));
+
+      if (filtered.length === 0) {
+        matchesContainer.innerHTML = `
+          <div class="text-center py-12">
+            <p class="text-slate-400 text-xl">⚽ لا توجد مباريات في هذا اليوم</p>
+            <p class="text-slate-600 mt-2">${targetDate}</p>
+          </div>
+        `;
         return;
       }
 
-      filtered.sort((a,b) => new Date(a.fixture.date) - new Date(b.fixture.date));
+      // ترتيب المباريات
+      filtered.sort((a, b) => {
+        const aPrio = priorityLeagues.indexOf(a.competition.id);
+        const bPrio = priorityLeagues.indexOf(b.competition.id);
+        if (aPrio !== -1 && bPrio !== -1) return aPrio - bPrio;
+        return (aPrio !== -1 ? -1 : (bPrio !== -1 ? 1 : 0));
+      });
+
       filtered.forEach(match => {
-        matchesContainer.innerHTML += renderMatchHTML(match);
+        matchesContainer.innerHTML += renderMatchCard(match);
       });
     }
 
-    function renderMatchHTML(match) {
-      const timeStr = formatTime(match.fixture.date);
-      const status = match.fixture.status.short || 'NS';
+    function renderMatchCard(match) {
+      const home = match.homeTeam;
+      const away = match.awayTeam;
+      const score = match.score.fullTime;
+      const time = new Date(match.utcDate);
+      const timeString = time.toLocaleTimeString('ar-EG', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Asia/Riyadh'
+      });
 
-      let centerTop = '';
-      let centerBottom = '';
-
-      if (["1H","2H","HT"].includes(status)) {
-        centerTop = `<div class="score-box text-emerald-400">${match.goals.home || 0} - ${match.goals.away || 0}</div>`;
-        centerBottom = `<div class="status-text text-red-400">مباشر</div>`;
-      } else if (["FT","AET","PEN"].includes(status)) {
-        centerTop = `<div class="score-box">${match.goals.home || 0} - ${match.goals.away || 0}</div>`;
-        centerBottom = `<div class="status-text">انتهت</div>`;
-      } else {
-        centerTop = `<div class="score-box">${timeStr}</div>`;
-        centerBottom = `<div class="status-text">لم يبدأ</div>`;
+      let statusHtml = '';
+      if (match.status === "SCHEDULED") {
+        statusHtml = `<span class="text-sm text-slate-400">لم يبدأ — ${timeString}</span>`;
+      } else if (match.status === "LIVE" || match.status === "IN_PLAY") {
+        statusHtml = `
+          <div class="flex items-center gap-1 text-red-400">
+            <span class="live-pulse w-2 h-2 bg-red-500 rounded-full"></span>
+            <span>مباشر</span>
+          </div>
+        `;
+      } else if (match.status === "FINISHED") {
+        statusHtml = `<span class="text-slate-400">انتهت</span>`;
       }
 
       return `
-        <div class="match-card border border-slate-700 rounded-xl p-4">
-          <div class="grid grid-cols-3 items-center text-center">
-            <div>
-              <img src="${match.teams.home.logo}" class="crest" onerror="this.style.display='none'">
+        <div class="match-card bg-slate-800/30 rounded-2xl p-4">
+          <div class="flex items-center justify-between text-center">
+            <div class="flex flex-col items-center flex-1">
+              <img src="${home.crest}" onerror="this.src='fallback.png'" class="crest mb-2">
+              <span class="truncate max-w-[100px]">${home.name}</span>
             </div>
-            <div>${centerTop}</div>
-            <div>
-              <img src="${match.teams.away.logo}" class="crest" onerror="this.style.display='none'">
+
+            <div class="flex flex-col items-center flex-1">
+              <span class="text-xl font-bold">${score.home ?? 0} - ${score.away ?? 0}</span>
+              ${statusHtml}
+            </div>
+
+            <div class="flex flex-col items-center flex-1">
+              <img src="${away.crest}" onerror="this.src='fallback.png'" class="crest mb-2">
+              <span class="truncate max-w-[100px]">${away.name}</span>
             </div>
           </div>
-          <div class="grid grid-cols-3 items-center text-center mt-2">
-            <div class="team-name">${match.teams.home.name}</div>
-            <div>${centerBottom}</div>
-            <div class="team-name">${match.teams.away.name}</div>
+
+          <div class="mt-3 text-sm text-slate-400 border-t border-slate-700 pt-2">
+            🏆 ${match.competition.name} <br>
+            🏟️ ${match.venue ?? "ملعب غير معروف"} — ${match.area?.name ?? ""}
           </div>
         </div>
       `;
     }
 
-    document.getElementById('yesterday').addEventListener('click', ()=> loadMatches('yesterday'));
-    document.getElementById('today').addEventListener('click', ()=> loadMatches('today'));
-    document.getElementById('tomorrow').addEventListener('click', ()=> loadMatches('tomorrow'));
+    // أزرار التحكم
+    const buttons = {
+      yesterday: document.getElementById('yesterday'),
+      today: document.getElementById('today'),
+      tomorrow: document.getElementById('tomorrow')
+    };
 
+    Object.entries(buttons).forEach(([key, btn]) => {
+      btn.addEventListener('click', () => {
+        Object.values(buttons).forEach(b => b.classList.remove('active-tab'));
+        btn.classList.add('active-tab');
+        loadMatches(key);
+      });
+    });
+
+    // تحميل أولي
     loadMatches('today');
-    setInterval(()=>{ if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
   </script>
 </body>
 </html>
