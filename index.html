@@ -7,48 +7,132 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg,#0f172a,#1e293b); min-height:100vh; color:#fff; }
-    .match-card { transition: all .2s; backdrop-filter: blur(6px); background: rgba(30,41,59,0.4); }
-    .match-card:hover { transform: translateY(-4px); background: rgba(30,41,59,0.75); }
-    .btn-tab.active { background: linear-gradient(90deg,#10b981,#06b6d4); font-weight:700; color:white; }
-    .btn-tab { background:#1e293b; color:#cbd5e1; }
+    /* ---------------------------------- */
+    /* 1. تعريف متغيرات الألوان (Themes) */
+    /* ---------------------------------- */
+    :root {
+        /* -- الوضع النهاري (الأزرق والأخضر) -- */
+        --bg-gradient-start: #0f172a;
+        --bg-gradient-end: #1e293b;
+        --text-main: #fff;
+        --text-secondary: #94a3b8;
+        --card-bg: rgba(30, 41, 59, 0.4);
+        --card-hover-bg: rgba(30, 41, 59, 0.75);
+        --card-border: #334155;
+        --btn-bg: #1e293b;
+        --btn-text: #cbd5e1;
+        --btn-active-gradient-start: #10b981;
+        --btn-active-gradient-end: #06b6d4;
+        --btn-active-text: #fff;
+        --header-gradient-start: #10b981;
+        --header-gradient-end: #06b6d4;
+    }
+
+    body.dark-mode {
+        /* -- الوضع الليلي (الأسود والذهبي) -- */
+        --bg-gradient-start: #111827;
+        --bg-gradient-end: #1F2937;
+        --text-main: #E5E7EB;
+        --text-secondary: #9CA3AF;
+        --card-bg: rgba(31, 41, 55, 0.4);
+        --card-hover-bg: rgba(55, 65, 81, 0.6);
+        --card-border: #374151;
+        --btn-bg: #374151;
+        --btn-text: #D1D5DB;
+        --btn-active-gradient-start: #FBBF24;
+        --btn-active-gradient-end: #F59E0B;
+        --btn-active-text: #111827;
+        --header-gradient-start: #FBBF24;
+        --header-gradient-end: #F59E0B;
+    }
+    
+    /* ---------------------------------- */
+    /* 2. استخدام المتغيرات في التصميم   */
+    /* ---------------------------------- */
+    body { 
+        font-family: 'Cairo', sans-serif; 
+        background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); 
+        min-height:100vh; 
+        color: var(--text-main);
+        transition: background 0.3s ease;
+    }
+    .match-card { 
+        transition: all .2s; 
+        backdrop-filter: blur(6px); 
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+    }
+    .match-card:hover { 
+        transform: translateY(-4px); 
+        background: var(--card-hover-bg); 
+    }
+    .btn-tab.active { 
+        background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); 
+        font-weight:700; 
+        color: var(--btn-active-text);
+        border: none;
+    }
+    .btn-tab { 
+        background: var(--btn-bg); 
+        color: var(--btn-text);
+        border: 1px solid var(--card-border);
+    }
     .crest { 
-        width: 50px; 
-        height: 50px; 
-        object-fit: contain; 
-        margin: auto;
-        border-radius: 50%;
-        box-shadow: inset 0 0 0 1px rgba(100, 116, 139, 0.5);
+        width: 50px; height: 50px; object-fit: contain; margin: auto;
+        border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(100, 116, 139, 0.5);
+    }
+    h1 {
+        background: linear-gradient(45deg, var(--header-gradient-start), var(--header-gradient-end)); 
+        -webkit-background-clip: text; 
+        color: transparent;
     }
     .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
-    .status-text { font-size: 0.8rem; color: #94a3b8; text-align:center; }
-    .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; line-height: 1; /* لتحسين التمركز */ }
+    .status-text { font-size: 0.8rem; color: var(--text-secondary); text-align:center; }
+    .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; line-height: 1; color: var(--text-main);}
     .match-details {
-      border-top: 1px solid #334155;
-      margin-top: 1rem;
-      padding-top: 0.75rem;
-      font-size: 0.8rem;
-      color: #94a3b8;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      border-top: 1px solid var(--card-border); margin-top: 1rem; padding-top: 0.75rem;
+      font-size: 0.8rem; color: var(--text-secondary); display: flex;
+      justify-content: space-between; align-items: center;
     }
-    /* -->> هذا هو الكود الجديد الخاص بكلمة "مساءً" -->> */
     .time-period {
-        display: block; /* يجعلها في سطر جديد تحت التوقيت */
-        font-size: 0.7rem; /* أصغر حجمًا */
-        font-weight: 400; /* أخف وزنًا */
-        color: #94a3b8; /* نفس لون النصوص الثانوية */
-        opacity: 0.8; /* شفافية بسيطة */
-        margin-top: 2px;
+        display: block; font-size: 0.7rem; font-weight: 400;
+        color: var(--text-secondary); opacity: 0.8; margin-top: 2px;
+    }
+    /* تصميم زر الوضع الليلي */
+    #theme-toggle {
+        background: var(--btn-bg); border: 1px solid var(--card-border);
+        border-radius: 999px; padding: 0.5rem; color: var(--btn-text);
+        cursor: pointer; transition: all 0.2s ease;
+    }
+    #theme-toggle:hover {
+        background: var(--card-hover-bg);
     }
   </style>
+  
+  <script>
+    // هذا الكود الصغير يعمل أول شيء ليمنع "ومضة" تغيير الوضع عند تحميل الصفحة
+    // ويتأكد من تطبيق الوضع الصحيح الذي حفظه المستخدم فورًا
+    (function() {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+    })();
+  </script>
 </head>
 <body class="p-4">
-  <header class="text-center mb-6">
-    <h1 class="text-4xl font-bold" style="background:linear-gradient(45deg,#10b981,#06b6d4); -webkit-background-clip:text; color:transparent">HSTV</h1>
+  <header class="text-center mb-6 relative">
+    <h1 class="text-4xl font-bold">HSTV</h1>
     <p class="text-slate-400 mt-1">أهم مباريات اليوم والأمس والغد</p>
+    
+    <div class="absolute top-0 left-0">
+        <button id="theme-toggle" title="تغيير الوضع">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        </button>
+    </div>
   </header>
+
   <div class="max-w-3xl mx-auto mb-6">
     <div class="flex gap-3">
       <button id="yesterday" class="btn-tab flex-1 px-4 py-2 rounded-xl">الأمس</button>
@@ -57,6 +141,7 @@
     </div>
   </div>
   <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
+  
   <script>
     const API_URL = 'matches.json';
     const matchesContainer = document.getElementById('matches');
@@ -67,17 +152,27 @@
     };
     const brokenLogos = { '113': true, };
 
+    // --- كود تشغيل زر الوضع الليلي ---
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        // حفظ اختيار المستخدم
+        if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+    });
+    // --- نهاية كود تشغيل الزر ---
+
     function setActiveTab(id) { document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
     function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
     
-    // -->> تم تعديل هذه الدالة لتُرجع جزأين منفصلين
     function formatTime(iso) {
         const d = new Date(iso);
-        const timePart = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' });
-        const parts = timePart.split(' '); // تفصل الوقت عن AM/PM
-        const time = parts[0];
-        const period = parts[1].replace('AM', 'صباحًا').replace('PM', 'مساءً');
-        return { time, period }; // تُرجع كائنًا يحتوي على الوقت وال فترة
+        let timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' });
+        timeString = timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً');
+        return timeString;
     }
 
     async function loadMatches(view='today') {
@@ -102,7 +197,6 @@
     function renderMatchHTML(match) {
       const status = match.fixture.status.short || 'NS';
       let centerTop = '', centerBottom = '';
-
       if (["LIVE", "HT"].includes(status)) {
         centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
         centerBottom = `<div class="status-text text-red-400">مباشر</div>`;
@@ -110,17 +204,14 @@
         centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
         centerBottom = `<div class="status-text">انتهت</div>`;
       } else {
-        // -->> تم تعديل طريقة عرض التوقيت هنا
         const formattedTime = formatTime(match.fixture.date);
-        centerTop = `<div class="score-box">${formattedTime.time}<span class="time-period">${formattedTime.period}</span></div>`;
-        centerBottom = `<div class="status-text">لم تبدأ</div>`;
+        const timeParts = formattedTime.split(' ');
+        centerTop = `<div class="score-box">${timeParts[0]}<span class="time-period">${timeParts[1]}</span></div>`;
       }
-      
       const leagueNameAr = leagueTranslations[match.league.code] || match.league.name;
       const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`;
       const homeLogo = brokenLogos[match.teams.home.id] ? 'default-logo.svg' : (match.teams.home.logo || 'default-logo.svg');
       const awayLogo = brokenLogos[match.teams.away.id] ? 'default-logo.svg' : (match.teams.away.logo || 'default-logo.svg');
-
       return `<div class="match-card border border-slate-700 rounded-xl p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`;
     }
 
