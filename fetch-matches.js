@@ -1,4 +1,4 @@
-// fetch-matches.js  (CommonJS) - for football-data.org
+// fetch-matches.js  (CommonJS) - football-data.org (improved: includes crests & league.code)
 const fetch = require("node-fetch");
 const fs = require("fs");
 
@@ -13,24 +13,17 @@ const headers = {
   "Accept": "application/json"
 };
 
-// Helper: build date string YYYY-MM-DD with offset in days
 function getDateString(offset = 0) {
   const d = new Date();
   d.setDate(d.getDate() + offset);
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const dd = String(d.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
+  return d.toISOString().split('T')[0];
 }
 
-// Map football-data.org match -> normalized shape used by your front-end
-function normalizeMatch(m) {
-  // football-data fields: id, utcDate, status, score{fullTime}, homeTeam{name,id}, awayTeam{name,id}, competition{ id, name, area{name} }
-  const fixtureDate = m.utcDate || m.date || null;
-  const statusRaw = (m.status || "").toUpperCase(); // e.g. SCHEDULED, FINISHED, IN_PLAY
-  // map status to short codes used before (simple mapping)
+function normalizeMatchFootballData(m) {
+  const fixtureDate = m.utcDate || null;
+  const statusRaw = (m.status || "").toUpperCase();
   let short = "NS";
-  if (statusRaw === "SCHEDULED") short = "NS";
+  if (statusRaw === "SCHEDULED" || statusRaw === "TIMED") short = "NS";
   else if (statusRaw === "IN_PLAY" || statusRaw === "LIVE") short = "1H";
   else if (statusRaw === "PAUSED") short = "HT";
   else if (statusRaw === "FINISHED") short = "FT";
@@ -39,6 +32,19 @@ function normalizeMatch(m) {
   const goalsHome = (m.score && m.score.fullTime && m.score.fullTime.home) != null ? m.score.fullTime.home : null;
   const goalsAway = (m.score && m.score.fullTime && m.score.fullTime.away) != null ? m.score.fullTime.away : null;
 
+  const competition = m.competition || {};
+  const compCode = competition.code || null;
+  const compId = competition.id || null;
+
+  const home = m.homeTeam || {};
+  const away = m.awayTeam || {};
+
+  // team crest service (football-data provides crests at crests.football-data.org/{id}.svg)
+  const homeLogo = home.id ? `https://crests.football-data.org/${home.id}.svg` : (home.crest || "");
+  const awayLogo = away.id ? `https://crests.football-data.org/${away.id}.svg` : (away.crest || "");
+  // competition emblem if present (or fallback to crests endpoint by code)
+  const leagueEmblem = competition.emblem || (compCode ? `https://crests.football-data.org/${compCode}.png` : "");
+
   return {
     fixture: {
       id: m.id || null,
@@ -46,32 +52,33 @@ function normalizeMatch(m) {
       status: {
         short,
         long: m.status || "",
-        elapsed: (m.minute !== undefined && m.minute !== null) ? m.minute : null
+        elapsed: m.minute || null
       }
     },
     league: {
-      id: (m.competition && (m.competition.id || m.competition.code)) || null,
-      name: (m.competition && m.competition.name) || (m.competition && m.competition.area && m.competition.area.name) || "Unknown",
-      logo: "",         // football-data.org does not provide logos in free response — leave empty
-      country: (m.competition && m.competition.area && m.competition.area.name) || ""
+      id: compId || compCode || null,
+      code: compCode || null,
+      name: competition.name || "",
+      logo: leagueEmblem,
+      country: (competition.area && competition.area.name) || ""
     },
     teams: {
       home: {
-        id: (m.homeTeam && m.homeTeam.id) || null,
-        name: (m.homeTeam && m.homeTeam.name) || "Home",
-        logo: ""        // no logo available here
+        id: home.id || null,
+        name: home.name || "Home",
+        logo: homeLogo
       },
       away: {
-        id: (m.awayTeam && m.awayTeam.id) || null,
-        name: (m.awayTeam && m.awayTeam.name) || "Away",
-        logo: ""
+        id: away.id || null,
+        name: away.name || "Away",
+        logo: awayLogo
       }
     },
     goals: {
       home: goalsHome,
       away: goalsAway
     },
-    raw: m // keep original in case you need more fields later
+    raw: m
   };
 }
 
@@ -89,12 +96,10 @@ async function fetchForDate(dateStr) {
     console.error("❌ API returned error:", data);
     throw new Error("API error: " + JSON.stringify(data));
   }
-  // data.matches is list per docs
-  const arr = data.matches || data.match || [];
-  return arr;
+  return data.matches || [];
 }
 
-function dedupeAndSortMatches(matches) {
+function dedupeAndSortRaw(matches) {
   const map = new Map();
   for (const m of matches) {
     const id = m.id || JSON.stringify([m.competition && (m.competition.id || m.competition.code), m.homeTeam && m.homeTeam.id, m.awayTeam && m.awayTeam.id, m.utcDate]);
@@ -110,7 +115,6 @@ function dedupeAndSortMatches(matches) {
     console.log("🔄 Start fetching matches for Yesterday / Today / Tomorrow (football-data.org) ...");
     const offsets = [-1, 0, 1];
     let allRaw = [];
-
     for (const offset of offsets) {
       const dateStr = getDateString(offset);
       try {
@@ -119,24 +123,16 @@ function dedupeAndSortMatches(matches) {
         allRaw.push(...matches);
       } catch (err) {
         console.error(`⚠️ Failed to fetch ${dateStr}:`, err.message || err);
-        // continue with other dates
       }
     }
-
-    // dedupe raw (by id/unique key) and sort
-    const uniqueRaw = dedupeAndSortMatches(allRaw);
-
-    // normalize
-    const normalized = uniqueRaw.map(normalizeMatch);
-
+    const uniqueRaw = dedupeAndSortRaw(allRaw);
+    const normalized = uniqueRaw.map(normalizeMatchFootballData);
     console.log(`✅ Total unique matches gathered: ${normalized.length}`);
-
     const out = {
       generated_at: new Date().toISOString(),
       source: "football-data.org (dates: yesterday,today,tomorrow)",
       response: normalized
     };
-
     fs.writeFileSync("matches.json", JSON.stringify(out, null, 2));
     console.log("✅ matches.json written to repo root.");
     process.exit(0);
