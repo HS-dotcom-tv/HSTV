@@ -1,101 +1,201 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HSTV - جدول المباريات</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    body { 
-      font-family: 'Cairo', sans-serif; 
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      min-height: 100vh;
-    }
-    .gradient-text {
-      background: linear-gradient(45deg, #10b981, #06b6d4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .match-card { 
-      transition: all 0.3s ease; 
-      backdrop-filter: blur(10px);
-    }
-    .match-card:hover { 
-      transform: translateY(-2px);
-      background: rgba(30, 41, 59, 0.8);
-    }
-    .live-pulse {
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-  </style>
-</head>
-<body class="text-white">
+<script>
+  const matchesContainer = document.getElementById("matches");
+  const API_URL = "matches.json"; // ملف يولده الـ Action
 
-  <!-- Header -->
-  <header class="text-center py-8">
-    <h1 class="text-4xl md:text-6xl font-bold gradient-text">HSTV</h1>
-    <p class="text-slate-400 mt-3 text-lg">أحدث جدول المباريات مباشرة</p>
-    <div class="flex justify-center gap-4 mt-4">
-      <a href="matches.html" class="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 rounded-lg transition">المباريات</a>
-      <a href="channels.html" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition">القنوات</a>
-    </div>
-  </header>
+  // ترتيب الدوريات حسب الأهمية (محدث)
+  const priorityLeagues = [
+    2,   // Champions League
+    1,   // World Cup
+    4,   // Euro
+    39,  // Premier League
+    140, // La Liga
+    135, // Serie A
+    78,  // Bundesliga
+    61,  // Ligue 1
+    45,  // AFC Champions League
+    848  // African Nations
+  ];
 
-  <!-- Controls -->
-  <div class="flex justify-center gap-3 mb-8 px-4 max-w-md mx-auto">
-    <button id="yesterday" class="flex-1 px-4 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 transition">الأمس</button>
-    <button id="today" class="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 font-bold">اليوم</button>
-    <button id="tomorrow" class="flex-1 px-4 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 transition">الغد</button>
-  </div>
+  // المتغير الذي يخبرنا أي تبويب مفعل الآن
+  let currentView = 'today'; // 'yesterday' | 'today' | 'tomorrow'
 
-  <!-- Matches Container -->
-  <main id="matches" class="container mx-auto px-4 max-w-4xl space-y-6 mb-12"></main>
+  // helper: تاريخ بصيغة YYYY-MM-DD مع تعويض بالايام
+  function getDateString(offset = 0) {
+    const d = new Date();
+    d.setDate(d.getDate() + offset);
+    return d.toISOString().split('T')[0];
+  }
 
-  <script>
-    const matchesContainer = document.getElementById("matches");
-    const API_URL = "matches.json"; // سيتم تحديثها تلقائيا
+  // تحميل الملف وعرضه
+  async function loadMatches(view = 'today') {
+    currentView = view;
+    // debug top info
+    matchesContainer.innerHTML = `
+      <div class="text-center py-12">
+        <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+        <p class="text-slate-400 mt-4">جاري تحميل المباريات...</p>
+      </div>
+    `;
 
-    // ترتيب الدوريات حسب الأهمية (محدث)
-    const priorityLeagues = [
-      2,  // Champions League
-      1,  // World Cup
-      4,  // Euro
-      39, // Premier League
-      140, // La Liga
-      135, // Serie A
-      78,  // Bundesliga
-      61,  // Ligue 1
-      45,  // AFC Champions League
-      848  // African Nations
-    ];
-
-    // تاريخ اليوم بتوقيت مكة
-    function getSaudiDate(offset = 0) {
-      const date = new Date();
-      date.setDate(date.getDate() + offset);
-      return date.toISOString().split('T')[0];
-    }
-
-    async function loadMatches(dateKey) {
+    try {
+      const response = await fetch(API_URL + '?t=' + new Date().getTime());
+      if (!response.ok) throw new Error('Network error: ' + response.status);
+      const data = await response.json();
+      const matches = data && data.response ? data.response : [];
+      // عرض ملخص سريع في console و UI
+      console.log('Loaded matches.json — total:', matches.length, 'generated_at:', data.generated_at || 'unknown');
+      renderMatches(matches, view, data.generated_at || null);
+    } catch (err) {
+      console.error('Error loading matches.json:', err);
       matchesContainer.innerHTML = `
-        <div class="text-center py-12">
-          <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
-          <p class="text-slate-400 mt-4">جاري تحميل المباريات...</p>
+        <div class="text-center py-8">
+          <p class="text-red-400 text-lg">⚠️ خطأ في تحميل البيانات</p>
+          <p class="text-slate-500 mt-2">${err.message}</p>
+          <button onclick="loadMatches('${view}')" class="mt-4 px-6 py-2 bg-emerald-600 rounded-lg">إعادة المحاولة</button>
         </div>
       `;
+    }
+  }
 
-      try {
-        const response = await fetch(API_URL + '?t=' + new Date().getTime());
-        if (!response.ok) throw new Error('Network error');
-        
-        const data = await response.json();
-        renderMatches(data.response || [], dateKey);
-      } catch (error) {
+  // فرز حسب الأولوية ثم الوقت
+  function sortMatchesPriorityThenTime(a, b) {
+    const aPrio = priorityLeagues.indexOf(a.league.id);
+    const bPrio = priorityLeagues.indexOf(b.league.id);
+    if (aPrio !== -1 || bPrio !== -1) {
+      if (aPrio === -1) return 1; // b أفضل
+      if (bPrio === -1) return -1; // a أفضل
+      if (aPrio !== bPrio) return aPrio - bPrio;
+      // لو نفس الاولوية نرتب بالزمن
+      return new Date(a.fixture.date) - new Date(b.fixture.date);
+    }
+    // كلاهما غير في اللائحة → ترتيب بالزمن
+    return new Date(a.fixture.date) - new Date(b.fixture.date);
+  }
+
+  function renderMatches(allMatches, view, generatedAt) {
+    matchesContainer.innerHTML = "";
+    // حساب التاريخ المطلوب
+    const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0;
+    const targetDate = getDateString(offset);
+
+    // فلترة حسب التاريخ (بداية التاريخ لأن fixture.date بها وقت و timezone)
+    let filtered = allMatches.filter(m => {
+      // guard: ensure fixture.date exists
+      if (!m.fixture || !m.fixture.date) return false;
+      return m.fixture.date.startsWith(targetDate);
+    });
+
+    // debug: show counts and generatedAt
+    const headerDebug = document.createElement('div');
+    headerDebug.className = 'text-slate-400 text-sm text-center mb-2';
+    headerDebug.innerHTML = `عرض ${filtered.length} مباراة لـ <strong>${targetDate}</strong>${generatedAt ? ' · آخر تحديث: ' + new Date(generatedAt).toLocaleString() : ''}`;
+    matchesContainer.appendChild(headerDebug);
+
+    if (filtered.length === 0) {
+      matchesContainer.innerHTML += `
+        <div class="text-center py-12">
+          <p class="text-slate-400 text-xl">⚽ لا توجد مباريات في هذا اليوم</p>
+          <p class="text-slate-600 mt-2">${targetDate}</p>
+        </div>
+      `;
+      return;
+    }
+
+    // فرز حسب الأولوية ثم الوقت
+    filtered.sort(sortMatchesPriorityThenTime);
+
+    // تجميع حسب الدوري لكن نحافظ على ترتيب الدوريات حسب الظهور في القائمة بعد الفرز
+    const leaguesInOrder = [];
+    const leaguesMap = new Map();
+    for (const m of filtered) {
+      const lid = m.league.id;
+      if (!leaguesMap.has(lid)) {
+        leaguesMap.set(lid, { info: m.league, matches: [] });
+        leaguesInOrder.push(lid);
+      }
+      leaguesMap.get(lid).matches.push(m);
+    }
+
+    // الآن نعرض كل دوري حسب الترتيب الذي كونّاه
+    for (const lid of leaguesInOrder) {
+      const group = leaguesMap.get(lid);
+      const leagueElement = document.createElement('div');
+      leagueElement.className = 'bg-slate-800/30 rounded-2xl overflow-hidden backdrop-blur-lg mb-4';
+
+      leagueElement.innerHTML = `
+        <div class="bg-gradient-to-r from-slate-900 to-slate-800 px-6 py-4 flex items-center gap-3">
+          <img src="${group.info.logo || ''}" alt="${group.info.name}" class="w-8 h-8 rounded-lg" onerror="this.style.display='none'">
+          <div>
+            <h3 class="font-bold text-lg">${group.info.name}</h3>
+            <p class="text-slate-400 text-sm">${group.info.country || ''}</p>
+          </div>
+        </div>
+      `;
+      // داخل كل دوري نرتب مباريات حسب الوقت
+      group.matches.sort((a,b)=> new Date(a.fixture.date) - new Date(b.fixture.date));
+      for (const match of group.matches) {
+        const div = document.createElement('div');
+        div.innerHTML = renderMatchCard(match);
+        leagueElement.appendChild(div);
+      }
+      matchesContainer.appendChild(leagueElement);
+    }
+  }
+
+  function renderMatchCard(match) {
+    const { fixture, teams, goals } = match;
+    const matchTime = new Date(fixture.date);
+    const timeString = matchTime.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Riyadh' });
+    const status = fixture.status.short || (fixture.status && fixture.status.long) || 'NS';
+
+    let statusHtml = '';
+    if (status === "NS") {
+      statusHtml = `<span class="text-lg font-bold">${timeString}</span>`;
+    } else if (["1H","2H","HT","ET","P"].includes(status)) {
+      statusHtml = `
+        <div class="text-center">
+          <span class="text-xl font-bold text-emerald-400">${goals.home || 0} - ${goals.away || 0}</span>
+          <div class="flex items-center justify-center gap-1 mt-1">
+            <span class="live-pulse w-2 h-2 bg-red-500 rounded-full"></span>
+            <span class="text-xs text-emerald-300">مباشر ${fixture.status.elapsed || ''}'</span>
+          </div>
+        </div>`;
+    } else if (["FT","AET","PEN"].includes(status)) {
+      statusHtml = `<div class="text-center"><span class="text-lg font-bold">${goals.home || 0} - ${goals.away || 0}</span><div class="text-xs text-slate-400 mt-1">انتهت</div></div>`;
+    } else {
+      statusHtml = `<div class="text-sm text-slate-400">${fixture.status.long || status}</div>`;
+    }
+
+    return `
+      <div class="match-card border-t border-slate-700/50">
+        <div class="flex items-center justify-between p-4">
+          <div class="flex items-center gap-3 flex-1 justify-end text-right">
+            <span class="font-semibold truncate" title="${teams.home.name}">${teams.home.name}</span>
+            <img src="${teams.home.logo || ''}" alt="${teams.home.name}" class="w-8 h-8 rounded-full" onerror="this.style.display='none'">
+          </div>
+          <div class="mx-4 min-w-[110px]">${statusHtml}</div>
+          <div class="flex items-center gap-3 flex-1">
+            <img src="${teams.away.logo || ''}" alt="${teams.away.name}" class="w-8 h-8 rounded-full" onerror="this.style.display='none'">
+            <span class="font-semibold truncate" title="${teams.away.name}">${teams.away.name}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // أزرار التحكم: نضمن أنها تضبط currentView بشكل صحيح
+  document.getElementById('yesterday').addEventListener('click', ()=> loadMatches('yesterday'));
+  document.getElementById('today').addEventListener('click', ()=> loadMatches('today'));
+  document.getElementById('tomorrow').addEventListener('click', ()=> loadMatches('tomorrow'));
+
+  // تحميل أولي
+  loadMatches('today');
+
+  // تحديث دوري (فقط عند تبويب اليوم) — 60s
+  setInterval(()=>{
+    if (currentView === 'today') loadMatches('today');
+  }, 60000);
+</script>
         console.error('Error:', error);
         matchesContainer.innerHTML = `
           <div class="text-center py-8">
