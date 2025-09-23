@@ -18,7 +18,6 @@
         object-fit: contain; 
         margin: auto;
         border-radius: 50%;
-        /* Fix for white background logos */
         box-shadow: inset 0 0 0 1px rgba(100, 116, 139, 0.5);
     }
     .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
@@ -60,7 +59,15 @@
     const brokenLogos = { '113': true, };
     function setActiveTab(id) { document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
     function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
-    function formatTime(iso) { const d = new Date(iso); return d.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' }); }
+
+    // -->> هذا هو السطر الوحيد الذي تم تعديله
+    function formatTime(iso) {
+      const d = new Date(iso);
+      // 'ar-SA-u-nu-arab' يجبر المتصفح على استخدام الأرقام العربية الشرقية (١, ٢, ٣)
+      // hour12: true يضمن استخدام صيغة 12 ساعة مع (ص/م)
+      return d.toLocaleTimeString('ar-SA-u-nu-arab', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' });
+    }
+
     async function loadMatches(view='today') {
       setActiveTab(view);
       matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">جاري تحميل المباريات...</div>`;
@@ -82,10 +89,10 @@
       const timeStr = formatTime(match.fixture.date);
       const status = match.fixture.status.short || 'NS';
       let centerTop = '', centerBottom = '';
-      if (["1H","2H","HT","LIVE"].includes(status)) {
+      if (["LIVE", "HT"].includes(status)) {
         centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
         centerBottom = `<div class="status-text text-red-400">مباشر</div>`;
-      } else if (["FT","AET","PEN"].includes(status)) {
+      } else if (["FT", "AET", "PEN"].includes(status)) {
         centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
         centerBottom = `<div class="status-text">انتهت</div>`;
       } else {
