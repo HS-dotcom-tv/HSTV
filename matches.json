@@ -1,5 +1,1587 @@
 {
-  "generated_at": "2025-09-23T05:31:14.368Z",
-  "source": "api-football (dates: yesterday,today,tomorrow)",
-  "response": []
+  "generated_at": "2025-09-23T19:59:39.067Z",
+  "source": "football-data.org (dates: yesterday,today,tomorrow)",
+  "response": [
+    {
+      "fixture": {
+        "id": 542447,
+        "date": "2025-09-22T18:00:00Z",
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2015,
+        "name": "Ligue 1",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 516,
+          "name": "Olympique de Marseille",
+          "logo": ""
+        },
+        "away": {
+          "id": 524,
+          "name": "Paris Saint-Germain FC",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 0
+      },
+      "raw": {
+        "area": {
+          "id": 2081,
+          "name": "France",
+          "code": "FRA",
+          "flag": "https://crests.football-data.org/773.svg"
+        },
+        "competition": {
+          "id": 2015,
+          "name": "Ligue 1",
+          "code": "FL1",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/FL1.png"
+        },
+        "season": {
+          "id": 2420,
+          "startDate": "2025-08-17",
+          "endDate": "2026-05-16",
+          "currentMatchday": 5,
+          "winner": null
+        },
+        "id": 542447,
+        "utcDate": "2025-09-22T18:00:00Z",
+        "status": "FINISHED",
+        "matchday": 5,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-23T00:20:57Z",
+        "homeTeam": {
+          "id": 516,
+          "name": "Olympique de Marseille",
+          "shortName": "Marseille",
+          "tla": "MAR",
+          "crest": "https://crests.football-data.org/516.png"
+        },
+        "awayTeam": {
+          "id": 524,
+          "name": "Paris Saint-Germain FC",
+          "shortName": "PSG",
+          "tla": "PSG",
+          "crest": "https://crests.football-data.org/524.png"
+        },
+        "score": {
+          "winner": "HOME_TEAM",
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": 1,
+            "away": 0
+          },
+          "halfTime": {
+            "home": 1,
+            "away": 0
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": [
+          {
+            "id": 15548,
+            "name": "Jérôme Brisard",
+            "type": "REFEREE",
+            "nationality": "France"
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "id": 536851,
+        "date": "2025-09-22T18:45:00Z",
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2019,
+        "name": "Serie A",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 113,
+          "name": "SSC Napoli",
+          "logo": ""
+        },
+        "away": {
+          "id": 487,
+          "name": "AC Pisa 1909",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": 3,
+        "away": 2
+      },
+      "raw": {
+        "area": {
+          "id": 2114,
+          "name": "Italy",
+          "code": "ITA",
+          "flag": "https://crests.football-data.org/784.svg"
+        },
+        "competition": {
+          "id": 2019,
+          "name": "Serie A",
+          "code": "SA",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/SA.png"
+        },
+        "season": {
+          "id": 2395,
+          "startDate": "2025-08-24",
+          "endDate": "2026-05-24",
+          "currentMatchday": 4,
+          "winner": null
+        },
+        "id": 536851,
+        "utcDate": "2025-09-22T18:45:00Z",
+        "status": "FINISHED",
+        "matchday": 4,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-23T00:20:57Z",
+        "homeTeam": {
+          "id": 113,
+          "name": "SSC Napoli",
+          "shortName": "Napoli",
+          "tla": "NAP",
+          "crest": "https://crests.football-data.org/113.png"
+        },
+        "awayTeam": {
+          "id": 487,
+          "name": "AC Pisa 1909",
+          "shortName": "AC Pisa",
+          "tla": "PIS",
+          "crest": "https://crests.football-data.org/487.png"
+        },
+        "score": {
+          "winner": "HOME_TEAM",
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": 3,
+            "away": 2
+          },
+          "halfTime": {
+            "home": 1,
+            "away": 0
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": [
+          {
+            "id": 159361,
+            "name": "Valerio Crezzini",
+            "type": "REFEREE",
+            "nationality": "Italy"
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "id": 540779,
+        "date": "2025-09-22T19:00:00Z",
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2016,
+        "name": "Championship",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 384,
+          "name": "Millwall FC",
+          "logo": ""
+        },
+        "away": {
+          "id": 346,
+          "name": "Watford FC",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 0
+      },
+      "raw": {
+        "area": {
+          "id": 2072,
+          "name": "England",
+          "code": "ENG",
+          "flag": "https://crests.football-data.org/770.svg"
+        },
+        "competition": {
+          "id": 2016,
+          "name": "Championship",
+          "code": "ELC",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/ELC.png"
+        },
+        "season": {
+          "id": 2416,
+          "startDate": "2025-08-08",
+          "endDate": "2026-12-29",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 540779,
+        "utcDate": "2025-09-22T19:00:00Z",
+        "status": "FINISHED",
+        "matchday": 6,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-23T00:20:57Z",
+        "homeTeam": {
+          "id": 384,
+          "name": "Millwall FC",
+          "shortName": "Millwall",
+          "tla": "MIL",
+          "crest": "https://crests.football-data.org/384.png"
+        },
+        "awayTeam": {
+          "id": 346,
+          "name": "Watford FC",
+          "shortName": "Watford",
+          "tla": "WAT",
+          "crest": "https://crests.football-data.org/346.png"
+        },
+        "score": {
+          "winner": "HOME_TEAM",
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": 1,
+            "away": 0
+          },
+          "halfTime": {
+            "home": 1,
+            "away": 0
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": [
+          {
+            "id": 14701,
+            "name": "Joshua Smith",
+            "type": "REFEREE",
+            "nationality": "England"
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "id": 545752,
+        "date": "2025-09-22T19:15:00Z",
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2017,
+        "name": "Primeira Liga",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 498,
+          "name": "Sporting Clube de Portugal",
+          "logo": ""
+        },
+        "away": {
+          "id": 583,
+          "name": "Moreirense FC",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": 3,
+        "away": 0
+      },
+      "raw": {
+        "area": {
+          "id": 2187,
+          "name": "Portugal",
+          "code": "POR",
+          "flag": "https://crests.football-data.org/765.svg"
+        },
+        "competition": {
+          "id": 2017,
+          "name": "Primeira Liga",
+          "code": "PPL",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/PPL.png"
+        },
+        "season": {
+          "id": 2433,
+          "startDate": "2025-08-08",
+          "endDate": "2026-05-17",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 545752,
+        "utcDate": "2025-09-22T19:15:00Z",
+        "status": "FINISHED",
+        "matchday": 6,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-23T00:20:57Z",
+        "homeTeam": {
+          "id": 498,
+          "name": "Sporting Clube de Portugal",
+          "shortName": "Sporting CP",
+          "tla": "SPO",
+          "crest": "https://crests.football-data.org/498.png"
+        },
+        "awayTeam": {
+          "id": 583,
+          "name": "Moreirense FC",
+          "shortName": "Moreirense",
+          "tla": "MOR",
+          "crest": "https://crests.football-data.org/583.png"
+        },
+        "score": {
+          "winner": "HOME_TEAM",
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": 3,
+            "away": 0
+          },
+          "halfTime": {
+            "home": 0,
+            "away": 0
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": []
+      }
+    },
+    {
+      "fixture": {
+        "id": 544263,
+        "date": "2025-09-23T17:00:00Z",
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "name": "Primera Division",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 80,
+          "name": "RCD Espanyol de Barcelona",
+          "logo": ""
+        },
+        "away": {
+          "id": 95,
+          "name": "Valencia CF",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": 2,
+        "away": 2
+      },
+      "raw": {
+        "area": {
+          "id": 2224,
+          "name": "Spain",
+          "code": "ESP",
+          "flag": "https://crests.football-data.org/760.svg"
+        },
+        "competition": {
+          "id": 2014,
+          "name": "Primera Division",
+          "code": "PD",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/laliga.png"
+        },
+        "season": {
+          "id": 2429,
+          "startDate": "2025-08-17",
+          "endDate": "2026-05-24",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 544263,
+        "utcDate": "2025-09-23T17:00:00Z",
+        "status": "FINISHED",
+        "matchday": 6,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-23T19:01:41Z",
+        "homeTeam": {
+          "id": 80,
+          "name": "RCD Espanyol de Barcelona",
+          "shortName": "Espanyol",
+          "tla": "ESP",
+          "crest": "https://crests.football-data.org/80.png"
+        },
+        "awayTeam": {
+          "id": 95,
+          "name": "Valencia CF",
+          "shortName": "Valencia",
+          "tla": "VAL",
+          "crest": "https://crests.football-data.org/95.png"
+        },
+        "score": {
+          "winner": "DRAW",
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": 2,
+            "away": 2
+          },
+          "halfTime": {
+            "home": 0,
+            "away": 1
+          },
+          "regularTime": {
+            "home": 0,
+            "away": 0
+          },
+          "extraTime": {
+            "home": 0,
+            "away": 0
+          },
+          "penalties": {
+            "home": 0,
+            "away": 0
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": [
+          {
+            "id": 215507,
+            "name": "José Luis Guzmán Mansilla",
+            "type": "REFEREE",
+            "nationality": "Spain"
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "id": 544261,
+        "date": "2025-09-23T17:00:00Z",
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "name": "Primera Division",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 77,
+          "name": "Athletic Club",
+          "logo": ""
+        },
+        "away": {
+          "id": 298,
+          "name": "Girona FC",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 1
+      },
+      "raw": {
+        "area": {
+          "id": 2224,
+          "name": "Spain",
+          "code": "ESP",
+          "flag": "https://crests.football-data.org/760.svg"
+        },
+        "competition": {
+          "id": 2014,
+          "name": "Primera Division",
+          "code": "PD",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/laliga.png"
+        },
+        "season": {
+          "id": 2429,
+          "startDate": "2025-08-17",
+          "endDate": "2026-05-24",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 544261,
+        "utcDate": "2025-09-23T17:00:00Z",
+        "status": "FINISHED",
+        "matchday": 6,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-23T18:59:41Z",
+        "homeTeam": {
+          "id": 77,
+          "name": "Athletic Club",
+          "shortName": "Athletic",
+          "tla": "ATH",
+          "crest": "https://crests.football-data.org/77.png"
+        },
+        "awayTeam": {
+          "id": 298,
+          "name": "Girona FC",
+          "shortName": "Girona",
+          "tla": "GIR",
+          "crest": "https://crests.football-data.org/298.png"
+        },
+        "score": {
+          "winner": "DRAW",
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": 1,
+            "away": 1
+          },
+          "halfTime": {
+            "home": 0,
+            "away": 1
+          },
+          "regularTime": {
+            "home": 0,
+            "away": 0
+          },
+          "extraTime": {
+            "home": 0,
+            "away": 0
+          },
+          "penalties": {
+            "home": 0,
+            "away": 0
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": [
+          {
+            "id": 206223,
+            "name": "José Munuera Montero",
+            "type": "REFEREE",
+            "nationality": "Spain"
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "id": 545702,
+        "date": "2025-09-23T19:15:00Z",
+        "status": {
+          "short": "1H",
+          "long": "IN_PLAY",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2017,
+        "name": "Primeira Liga",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 1903,
+          "name": "Sport Lisboa e Benfica",
+          "logo": ""
+        },
+        "away": {
+          "id": 496,
+          "name": "Rio Ave FC",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": 0,
+        "away": 0
+      },
+      "raw": {
+        "area": {
+          "id": 2187,
+          "name": "Portugal",
+          "code": "POR",
+          "flag": "https://crests.football-data.org/765.svg"
+        },
+        "competition": {
+          "id": 2017,
+          "name": "Primeira Liga",
+          "code": "PPL",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/PPL.png"
+        },
+        "season": {
+          "id": 2433,
+          "startDate": "2025-08-08",
+          "endDate": "2026-05-17",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 545702,
+        "utcDate": "2025-09-23T19:15:00Z",
+        "status": "IN_PLAY",
+        "matchday": 1,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-23T19:37:25Z",
+        "homeTeam": {
+          "id": 1903,
+          "name": "Sport Lisboa e Benfica",
+          "shortName": "SL Benfica",
+          "tla": "BEN",
+          "crest": "https://crests.football-data.org/1903.png"
+        },
+        "awayTeam": {
+          "id": 496,
+          "name": "Rio Ave FC",
+          "shortName": "Rio Ave",
+          "tla": "RIO",
+          "crest": "https://crests.football-data.org/496.png"
+        },
+        "score": {
+          "winner": "DRAW",
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": 0,
+            "away": 0
+          },
+          "halfTime": {
+            "home": 0,
+            "away": 0
+          },
+          "regularTime": {
+            "home": 0,
+            "away": 0
+          },
+          "extraTime": {
+            "home": 0,
+            "away": 0
+          },
+          "penalties": {
+            "home": 0,
+            "away": 0
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": []
+      }
+    },
+    {
+      "fixture": {
+        "id": 544265,
+        "date": "2025-09-23T19:30:00Z",
+        "status": {
+          "short": "1H",
+          "long": "IN_PLAY",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "name": "Primera Division",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 559,
+          "name": "Sevilla FC",
+          "logo": ""
+        },
+        "away": {
+          "id": 94,
+          "name": "Villarreal CF",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": 0,
+        "away": 1
+      },
+      "raw": {
+        "area": {
+          "id": 2224,
+          "name": "Spain",
+          "code": "ESP",
+          "flag": "https://crests.football-data.org/760.svg"
+        },
+        "competition": {
+          "id": 2014,
+          "name": "Primera Division",
+          "code": "PD",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/laliga.png"
+        },
+        "season": {
+          "id": 2429,
+          "startDate": "2025-08-17",
+          "endDate": "2026-05-24",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 544265,
+        "utcDate": "2025-09-23T19:30:00Z",
+        "status": "IN_PLAY",
+        "matchday": 6,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-23T19:52:35Z",
+        "homeTeam": {
+          "id": 559,
+          "name": "Sevilla FC",
+          "shortName": "Sevilla FC",
+          "tla": "SEV",
+          "crest": "https://crests.football-data.org/559.png"
+        },
+        "awayTeam": {
+          "id": 94,
+          "name": "Villarreal CF",
+          "shortName": "Villarreal",
+          "tla": "VIL",
+          "crest": "https://crests.football-data.org/94.png"
+        },
+        "score": {
+          "winner": "AWAY_TEAM",
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": 0,
+            "away": 1
+          },
+          "halfTime": {
+            "home": 0,
+            "away": 0
+          },
+          "regularTime": {
+            "home": 0,
+            "away": 0
+          },
+          "extraTime": {
+            "home": 0,
+            "away": 0
+          },
+          "penalties": {
+            "home": 0,
+            "away": 0
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": [
+          {
+            "id": 207113,
+            "name": "César Soto Grado",
+            "type": "REFEREE",
+            "nationality": "Spain"
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "id": 544264,
+        "date": "2025-09-23T19:30:00Z",
+        "status": {
+          "short": "1H",
+          "long": "IN_PLAY",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "name": "Primera Division",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 88,
+          "name": "Levante UD",
+          "logo": ""
+        },
+        "away": {
+          "id": 86,
+          "name": "Real Madrid CF",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": 0,
+        "away": 0
+      },
+      "raw": {
+        "area": {
+          "id": 2224,
+          "name": "Spain",
+          "code": "ESP",
+          "flag": "https://crests.football-data.org/760.svg"
+        },
+        "competition": {
+          "id": 2014,
+          "name": "Primera Division",
+          "code": "PD",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/laliga.png"
+        },
+        "season": {
+          "id": 2429,
+          "startDate": "2025-08-17",
+          "endDate": "2026-05-24",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 544264,
+        "utcDate": "2025-09-23T19:30:00Z",
+        "status": "IN_PLAY",
+        "matchday": 6,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-23T19:37:26Z",
+        "homeTeam": {
+          "id": 88,
+          "name": "Levante UD",
+          "shortName": "Levante",
+          "tla": "LEV",
+          "crest": "https://crests.football-data.org/88.png"
+        },
+        "awayTeam": {
+          "id": 86,
+          "name": "Real Madrid CF",
+          "shortName": "Real Madrid",
+          "tla": "RMA",
+          "crest": "https://crests.football-data.org/86.png"
+        },
+        "score": {
+          "winner": "DRAW",
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": 0,
+            "away": 0
+          },
+          "halfTime": {
+            "home": 0,
+            "away": 0
+          },
+          "regularTime": {
+            "home": 0,
+            "away": 0
+          },
+          "extraTime": {
+            "home": 0,
+            "away": 0
+          },
+          "penalties": {
+            "home": 0,
+            "away": 0
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": [
+          {
+            "id": 57930,
+            "name": "Isidro Díaz de Mera",
+            "type": "REFEREE",
+            "nationality": "Spain"
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "id": 551891,
+        "date": "2025-09-23T22:00:00Z",
+        "status": {
+          "short": "TIMED",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2152,
+        "name": "Copa Libertadores",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 6803,
+          "name": "Racing Club",
+          "logo": ""
+        },
+        "away": {
+          "id": 2078,
+          "name": "CA Vélez Sarsfield",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      },
+      "raw": {
+        "area": {
+          "id": 2220,
+          "name": "South America",
+          "code": "SAM",
+          "flag": "https://crests.football-data.org/CLI.svg"
+        },
+        "competition": {
+          "id": 2152,
+          "name": "Copa Libertadores",
+          "code": "CLI",
+          "type": "CUP",
+          "emblem": "https://crests.football-data.org/CLI.svg"
+        },
+        "season": {
+          "id": 2366,
+          "startDate": "2025-02-05",
+          "endDate": "2025-11-29",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 551891,
+        "utcDate": "2025-09-23T22:00:00Z",
+        "status": "TIMED",
+        "matchday": 2,
+        "stage": "QUARTER_FINALS",
+        "group": null,
+        "lastUpdated": "2025-08-29T00:20:56Z",
+        "homeTeam": {
+          "id": 6803,
+          "name": "Racing Club",
+          "shortName": "Racing Club",
+          "tla": "RAC",
+          "crest": "https://crests.football-data.org/6803.png"
+        },
+        "awayTeam": {
+          "id": 2078,
+          "name": "CA Vélez Sarsfield",
+          "shortName": "Vélez",
+          "tla": "VÉL",
+          "crest": "https://crests.football-data.org/2078.png"
+        },
+        "score": {
+          "winner": null,
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": null,
+            "away": null
+          },
+          "halfTime": {
+            "home": null,
+            "away": null
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": []
+      }
+    },
+    {
+      "fixture": {
+        "id": 544266,
+        "date": "2025-09-24T17:00:00Z",
+        "status": {
+          "short": "TIMED",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "name": "Primera Division",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 82,
+          "name": "Getafe CF",
+          "logo": ""
+        },
+        "away": {
+          "id": 263,
+          "name": "Deportivo Alavés",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      },
+      "raw": {
+        "area": {
+          "id": 2224,
+          "name": "Spain",
+          "code": "ESP",
+          "flag": "https://crests.football-data.org/760.svg"
+        },
+        "competition": {
+          "id": 2014,
+          "name": "Primera Division",
+          "code": "PD",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/laliga.png"
+        },
+        "season": {
+          "id": 2429,
+          "startDate": "2025-08-17",
+          "endDate": "2026-05-24",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 544266,
+        "utcDate": "2025-09-24T17:00:00Z",
+        "status": "TIMED",
+        "matchday": 6,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-22T01:32:01Z",
+        "homeTeam": {
+          "id": 82,
+          "name": "Getafe CF",
+          "shortName": "Getafe",
+          "tla": "GET",
+          "crest": "https://crests.football-data.org/82.png"
+        },
+        "awayTeam": {
+          "id": 263,
+          "name": "Deportivo Alavés",
+          "shortName": "Alavés",
+          "tla": "ALA",
+          "crest": "https://crests.football-data.org/263.png"
+        },
+        "score": {
+          "winner": null,
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": null,
+            "away": null
+          },
+          "halfTime": {
+            "home": null,
+            "away": null
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": []
+      }
+    },
+    {
+      "fixture": {
+        "id": 537462,
+        "date": "2025-09-24T18:00:00Z",
+        "status": {
+          "short": "TIMED",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "name": "Eredivisie",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 682,
+          "name": "AZ",
+          "logo": ""
+        },
+        "away": {
+          "id": 684,
+          "name": "PEC Zwolle",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      },
+      "raw": {
+        "area": {
+          "id": 2163,
+          "name": "Netherlands",
+          "code": "NLD",
+          "flag": "https://crests.football-data.org/8601.svg"
+        },
+        "competition": {
+          "id": 2003,
+          "name": "Eredivisie",
+          "code": "DED",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/ED.png"
+        },
+        "season": {
+          "id": 2400,
+          "startDate": "2025-08-08",
+          "endDate": "2026-05-17",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 537462,
+        "utcDate": "2025-09-24T18:00:00Z",
+        "status": "TIMED",
+        "matchday": 3,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-21T01:32:03Z",
+        "homeTeam": {
+          "id": 682,
+          "name": "AZ",
+          "shortName": "AZ",
+          "tla": "AZ",
+          "crest": "https://crests.football-data.org/682.png"
+        },
+        "awayTeam": {
+          "id": 684,
+          "name": "PEC Zwolle",
+          "shortName": "Zwolle",
+          "tla": "ZWO",
+          "crest": "https://crests.football-data.org/684.png"
+        },
+        "score": {
+          "winner": null,
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": null,
+            "away": null
+          },
+          "halfTime": {
+            "home": null,
+            "away": null
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": []
+      }
+    },
+    {
+      "fixture": {
+        "id": 544270,
+        "date": "2025-09-24T19:30:00Z",
+        "status": {
+          "short": "TIMED",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "name": "Primera Division",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 92,
+          "name": "Real Sociedad de Fútbol",
+          "logo": ""
+        },
+        "away": {
+          "id": 89,
+          "name": "RCD Mallorca",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      },
+      "raw": {
+        "area": {
+          "id": 2224,
+          "name": "Spain",
+          "code": "ESP",
+          "flag": "https://crests.football-data.org/760.svg"
+        },
+        "competition": {
+          "id": 2014,
+          "name": "Primera Division",
+          "code": "PD",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/laliga.png"
+        },
+        "season": {
+          "id": 2429,
+          "startDate": "2025-08-17",
+          "endDate": "2026-05-24",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 544270,
+        "utcDate": "2025-09-24T19:30:00Z",
+        "status": "TIMED",
+        "matchday": 6,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-21T01:32:03Z",
+        "homeTeam": {
+          "id": 92,
+          "name": "Real Sociedad de Fútbol",
+          "shortName": "Real Sociedad",
+          "tla": "RSO",
+          "crest": "https://crests.football-data.org/92.png"
+        },
+        "awayTeam": {
+          "id": 89,
+          "name": "RCD Mallorca",
+          "shortName": "Mallorca",
+          "tla": "MAL",
+          "crest": "https://crests.football-data.org/89.png"
+        },
+        "score": {
+          "winner": null,
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": null,
+            "away": null
+          },
+          "halfTime": {
+            "home": null,
+            "away": null
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": []
+      }
+    },
+    {
+      "fixture": {
+        "id": 544262,
+        "date": "2025-09-24T19:30:00Z",
+        "status": {
+          "short": "TIMED",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "name": "Primera Division",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 78,
+          "name": "Club Atlético de Madrid",
+          "logo": ""
+        },
+        "away": {
+          "id": 87,
+          "name": "Rayo Vallecano de Madrid",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      },
+      "raw": {
+        "area": {
+          "id": 2224,
+          "name": "Spain",
+          "code": "ESP",
+          "flag": "https://crests.football-data.org/760.svg"
+        },
+        "competition": {
+          "id": 2014,
+          "name": "Primera Division",
+          "code": "PD",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/laliga.png"
+        },
+        "season": {
+          "id": 2429,
+          "startDate": "2025-08-17",
+          "endDate": "2026-05-24",
+          "currentMatchday": 6,
+          "winner": null
+        },
+        "id": 544262,
+        "utcDate": "2025-09-24T19:30:00Z",
+        "status": "TIMED",
+        "matchday": 6,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-22T01:32:01Z",
+        "homeTeam": {
+          "id": 78,
+          "name": "Club Atlético de Madrid",
+          "shortName": "Atleti",
+          "tla": "ATL",
+          "crest": "https://crests.football-data.org/78.png"
+        },
+        "awayTeam": {
+          "id": 87,
+          "name": "Rayo Vallecano de Madrid",
+          "shortName": "Rayo Vallecano",
+          "tla": "RAY",
+          "crest": "https://crests.football-data.org/87.png"
+        },
+        "score": {
+          "winner": null,
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": null,
+            "away": null
+          },
+          "halfTime": {
+            "home": null,
+            "away": null
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": []
+      }
+    },
+    {
+      "fixture": {
+        "id": 535086,
+        "date": "2025-09-24T22:30:00Z",
+        "status": {
+          "short": "TIMED",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2013,
+        "name": "Campeonato Brasileiro Série A",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 1780,
+          "name": "CR Vasco da Gama",
+          "logo": ""
+        },
+        "away": {
+          "id": 1777,
+          "name": "EC Bahia",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      },
+      "raw": {
+        "area": {
+          "id": 2032,
+          "name": "Brazil",
+          "code": "BRA",
+          "flag": "https://crests.football-data.org/764.svg"
+        },
+        "competition": {
+          "id": 2013,
+          "name": "Campeonato Brasileiro Série A",
+          "code": "BSA",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/bsa.png"
+        },
+        "season": {
+          "id": 2371,
+          "startDate": "2025-03-29",
+          "endDate": "2025-12-21",
+          "currentMatchday": 24,
+          "winner": null
+        },
+        "id": 535086,
+        "utcDate": "2025-09-24T22:30:00Z",
+        "status": "TIMED",
+        "matchday": 16,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-23T01:32:01Z",
+        "homeTeam": {
+          "id": 1780,
+          "name": "CR Vasco da Gama",
+          "shortName": "Vasco da Gama",
+          "tla": "VAS",
+          "crest": "https://crests.football-data.org/1780.png"
+        },
+        "awayTeam": {
+          "id": 1777,
+          "name": "EC Bahia",
+          "shortName": "Bahia",
+          "tla": "BAH",
+          "crest": "https://crests.football-data.org/1777.png"
+        },
+        "score": {
+          "winner": null,
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": null,
+            "away": null
+          },
+          "halfTime": {
+            "home": null,
+            "away": null
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": []
+      }
+    },
+    {
+      "fixture": {
+        "id": 535091,
+        "date": "2025-09-24T22:30:00Z",
+        "status": {
+          "short": "TIMED",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2013,
+        "name": "Campeonato Brasileiro Série A",
+        "logo": "",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 1767,
+          "name": "Grêmio FBPA",
+          "logo": ""
+        },
+        "away": {
+          "id": 1770,
+          "name": "Botafogo FR",
+          "logo": ""
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      },
+      "raw": {
+        "area": {
+          "id": 2032,
+          "name": "Brazil",
+          "code": "BRA",
+          "flag": "https://crests.football-data.org/764.svg"
+        },
+        "competition": {
+          "id": 2013,
+          "name": "Campeonato Brasileiro Série A",
+          "code": "BSA",
+          "type": "LEAGUE",
+          "emblem": "https://crests.football-data.org/bsa.png"
+        },
+        "season": {
+          "id": 2371,
+          "startDate": "2025-03-29",
+          "endDate": "2025-12-21",
+          "currentMatchday": 24,
+          "winner": null
+        },
+        "id": 535091,
+        "utcDate": "2025-09-24T22:30:00Z",
+        "status": "TIMED",
+        "matchday": 16,
+        "stage": "REGULAR_SEASON",
+        "group": null,
+        "lastUpdated": "2025-09-22T01:32:01Z",
+        "homeTeam": {
+          "id": 1767,
+          "name": "Grêmio FBPA",
+          "shortName": "Grêmio",
+          "tla": "FBP",
+          "crest": "https://crests.football-data.org/1767.png"
+        },
+        "awayTeam": {
+          "id": 1770,
+          "name": "Botafogo FR",
+          "shortName": "Botafogo",
+          "tla": "BOT",
+          "crest": "https://crests.football-data.org/1770.png"
+        },
+        "score": {
+          "winner": null,
+          "duration": "REGULAR",
+          "fullTime": {
+            "home": null,
+            "away": null
+          },
+          "halfTime": {
+            "home": null,
+            "away": null
+          }
+        },
+        "odds": {
+          "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+        },
+        "referees": []
+      }
+    }
+  ]
 }
