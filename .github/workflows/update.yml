@@ -2,17 +2,17 @@ name: Update Matches JSON
 
 on:
   schedule:
-    - cron: '0 1 * * *'   # مرة يومياً 01:00 UTC
-  workflow_dispatch:        # تشغيل يدوي من GitHub
+    - cron: '0 1 * * *'   # كل يوم عند 01:00 UTC
+  workflow_dispatch:
 
 permissions:
-  contents: write   # مهم لإعطاء صلاحية الكتابة
+  contents: write
 
 jobs:
   update-json:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           persist-credentials: true
@@ -22,12 +22,12 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
+      - name: Install deps
         run: npm install
 
-      - name: Run fetch-matches.js
+      - name: Run fetch-matches.js (football-data)
         env:
-          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          API_FOOTBALLDATA_KEY: ${{ secrets.API_FOOTBALLDATA_KEY }}
         run: node fetch-matches.js
 
       - name: Commit & Push
