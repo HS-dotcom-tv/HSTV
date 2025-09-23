@@ -1,4 +1,4 @@
-// fetch-matches.js  (CommonJS) - football-data.org (improved: includes crests & league.code)
+// fetch-matches.js (CommonJS) - football-data.org (MODIFIED: filters for major leagues & includes venue)
 const fetch = require("node-fetch");
 const fs = require("fs");
 
@@ -7,6 +7,22 @@ if (!API_KEY) {
   console.error("❌ API key not found. Set API_FOOTBALLDATA_KEY secret in GitHub repository.");
   process.exit(1);
 }
+
+// قائمة الدوريات الكبرى التي نريد عرضها فقط
+const MAJOR_LEAGUES = [
+  'WC',  // World Cup
+  'CL',  // Champions League
+  'EC',  // European Championship
+  'PL',  // Premier League (England)
+  'PD',  // La Liga (Spain)
+  'BL1', // Bundesliga (Germany)
+  'SA',  // Serie A (Italy)
+  'FL1', // Ligue 1 (France)
+  'PPL', // Primeira Liga (Portugal)
+  'DED', // Eredivisie (Netherlands)
+  'Copa',// Copa America
+  'CAF', // Africa Cup of Nations
+].join(',');
 
 const headers = {
   "X-Auth-Token": API_KEY,
@@ -39,16 +55,15 @@ function normalizeMatchFootballData(m) {
   const home = m.homeTeam || {};
   const away = m.awayTeam || {};
 
-  // team crest service (football-data provides crests at crests.football-data.org/{id}.svg)
   const homeLogo = home.id ? `https://crests.football-data.org/${home.id}.svg` : (home.crest || "");
   const awayLogo = away.id ? `https://crests.football-data.org/${away.id}.svg` : (away.crest || "");
-  // competition emblem if present (or fallback to crests endpoint by code)
   const leagueEmblem = competition.emblem || (compCode ? `https://crests.football-data.org/${compCode}.png` : "");
 
   return {
     fixture: {
       id: m.id || null,
       date: fixtureDate,
+      venue: m.venue || null, // <-- أضفنا الملعب هنا
       status: {
         short,
         long: m.status || "",
@@ -77,13 +92,13 @@ function normalizeMatchFootballData(m) {
     goals: {
       home: goalsHome,
       away: goalsAway
-    },
-    raw: m
+    }
   };
 }
 
-async function fetchForDate(dateStr) {
-  const url = `https://api.football-data.org/v4/matches?date=${dateStr}`;
+// تم تعديل هذه الدالة لتستخدم فلتر الدوريات
+async function fetchMatchesForDateRange(dateFrom, dateTo) {
+  const url = `https://api.football-data.org/v4/matches?competitions=${MAJOR_LEAGUES}&dateFrom=${dateFrom}&dateTo=${dateTo}`;
   console.log(`⤷ Requesting: ${url}`);
   const res = await fetch(url, { headers });
   console.log("⤷ HTTP status:", res.status);
@@ -99,38 +114,25 @@ async function fetchForDate(dateStr) {
   return data.matches || [];
 }
 
-function dedupeAndSortRaw(matches) {
-  const map = new Map();
-  for (const m of matches) {
-    const id = m.id || JSON.stringify([m.competition && (m.competition.id || m.competition.code), m.homeTeam && m.homeTeam.id, m.awayTeam && m.awayTeam.id, m.utcDate]);
-    map.set(id, m);
-  }
-  const arr = Array.from(map.values());
-  arr.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
-  return arr;
-}
-
 (async () => {
   try {
     console.log("🔄 Start fetching matches for Yesterday / Today / Tomorrow (football-data.org) ...");
-    const offsets = [-1, 0, 1];
-    let allRaw = [];
-    for (const offset of offsets) {
-      const dateStr = getDateString(offset);
-      try {
-        const matches = await fetchForDate(dateStr);
-        console.log(`⤷ ${matches.length} matches on ${dateStr}`);
-        allRaw.push(...matches);
-      } catch (err) {
-        console.error(`⚠️ Failed to fetch ${dateStr}:`, err.message || err);
-      }
-    }
-    const uniqueRaw = dedupeAndSortRaw(allRaw);
-    const normalized = uniqueRaw.map(normalizeMatchFootballData);
+    
+    // سنجلب كل المباريات في طلب واحد فعال بدلاً من ثلاثة
+    const yesterday = getDateString(-1);
+    const tomorrow = getDateString(1);
+
+    const allRaw = await fetchMatchesForDateRange(yesterday, tomorrow);
+    
+    // لا حاجة لإزالة التكرار لأن الطلب واحد
+    allRaw.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+
+    const normalized = allRaw.map(normalizeMatchFootballData);
+
     console.log(`✅ Total unique matches gathered: ${normalized.length}`);
     const out = {
       generated_at: new Date().toISOString(),
-      source: "football-data.org (dates: yesterday,today,tomorrow)",
+      source: "football-data.org (filtered by major leagues)",
       response: normalized
     };
     fs.writeFileSync("matches.json", JSON.stringify(out, null, 2));
