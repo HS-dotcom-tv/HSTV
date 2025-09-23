@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-09-23T22:51:47.741Z",
+  "generated_at": "2025-09-23T22:59:30.724Z",
   "source": "football-data.org",
   "response": [
     {
@@ -8,7 +8,7 @@
         "date": "2025-09-22T18:00:00Z",
         "venue": null,
         "status": {
-          "short": "FI",
+          "short": "FT",
           "long": "FINISHED",
           "elapsed": null
         }
@@ -43,7 +43,7 @@
         "date": "2025-09-22T18:45:00Z",
         "venue": null,
         "status": {
-          "short": "FI",
+          "short": "FT",
           "long": "FINISHED",
           "elapsed": null
         }
@@ -78,7 +78,7 @@
         "date": "2025-09-22T19:15:00Z",
         "venue": null,
         "status": {
-          "short": "FI",
+          "short": "FT",
           "long": "FINISHED",
           "elapsed": null
         }
@@ -109,46 +109,11 @@
     },
     {
       "fixture": {
-        "id": 544263,
-        "date": "2025-09-23T17:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FI",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2014,
-        "code": "PD",
-        "name": "Primera Division",
-        "logo": "https://crests.football-data.org/laliga.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 80,
-          "name": "RCD Espanyol de Barcelona",
-          "logo": "https://crests.football-data.org/80.svg"
-        },
-        "away": {
-          "id": 95,
-          "name": "Valencia CF",
-          "logo": "https://crests.football-data.org/95.svg"
-        }
-      },
-      "goals": {
-        "home": 2,
-        "away": 2
-      }
-    },
-    {
-      "fixture": {
         "id": 544261,
         "date": "2025-09-23T17:00:00Z",
         "venue": null,
         "status": {
-          "short": "FI",
+          "short": "FT",
           "long": "FINISHED",
           "elapsed": null
         }
@@ -179,11 +144,46 @@
     },
     {
       "fixture": {
+        "id": 544263,
+        "date": "2025-09-23T17:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "logo": "https://crests.football-data.org/laliga.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 80,
+          "name": "RCD Espanyol de Barcelona",
+          "logo": "https://crests.football-data.org/80.svg"
+        },
+        "away": {
+          "id": 95,
+          "name": "Valencia CF",
+          "logo": "https://crests.football-data.org/95.svg"
+        }
+      },
+      "goals": {
+        "home": 2,
+        "away": 2
+      }
+    },
+    {
+      "fixture": {
         "id": 545702,
         "date": "2025-09-23T19:15:00Z",
         "venue": null,
         "status": {
-          "short": "FI",
+          "short": "FT",
           "long": "FINISHED",
           "elapsed": null
         }
@@ -214,46 +214,11 @@
     },
     {
       "fixture": {
-        "id": 544264,
-        "date": "2025-09-23T19:30:00Z",
-        "venue": null,
-        "status": {
-          "short": "FI",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2014,
-        "code": "PD",
-        "name": "Primera Division",
-        "logo": "https://crests.football-data.org/laliga.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 88,
-          "name": "Levante UD",
-          "logo": "https://crests.football-data.org/88.svg"
-        },
-        "away": {
-          "id": 86,
-          "name": "Real Madrid CF",
-          "logo": "https://crests.football-data.org/86.svg"
-        }
-      },
-      "goals": {
-        "home": 1,
-        "away": 4
-      }
-    },
-    {
-      "fixture": {
         "id": 544265,
         "date": "2025-09-23T19:30:00Z",
         "venue": null,
         "status": {
-          "short": "FI",
+          "short": "FT",
           "long": "FINISHED",
           "elapsed": null
         }
@@ -284,11 +249,46 @@
     },
     {
       "fixture": {
+        "id": 544264,
+        "date": "2025-09-23T19:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "logo": "https://crests.football-data.org/laliga.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 88,
+          "name": "Levante UD",
+          "logo": "https://crests.football-data.org/88.svg"
+        },
+        "away": {
+          "id": 86,
+          "name": "Real Madrid CF",
+          "logo": "https://crests.football-data.org/86.svg"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 4
+      }
+    },
+    {
+      "fixture": {
         "id": 544266,
         "date": "2025-09-24T17:00:00Z",
         "venue": null,
         "status": {
-          "short": "TI",
+          "short": "NS",
           "long": "TIMED",
           "elapsed": null
         }
@@ -323,7 +323,7 @@
         "date": "2025-09-24T18:00:00Z",
         "venue": null,
         "status": {
-          "short": "TI",
+          "short": "NS",
           "long": "TIMED",
           "elapsed": null
         }
@@ -354,46 +354,11 @@
     },
     {
       "fixture": {
-        "id": 544262,
-        "date": "2025-09-24T19:30:00Z",
-        "venue": null,
-        "status": {
-          "short": "TI",
-          "long": "TIMED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2014,
-        "code": "PD",
-        "name": "Primera Division",
-        "logo": "https://crests.football-data.org/laliga.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 78,
-          "name": "Club Atlético de Madrid",
-          "logo": "https://crests.football-data.org/78.svg"
-        },
-        "away": {
-          "id": 87,
-          "name": "Rayo Vallecano de Madrid",
-          "logo": "https://crests.football-data.org/87.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
-      }
-    },
-    {
-      "fixture": {
         "id": 544270,
         "date": "2025-09-24T19:30:00Z",
         "venue": null,
         "status": {
-          "short": "TI",
+          "short": "NS",
           "long": "TIMED",
           "elapsed": null
         }
@@ -415,6 +380,41 @@
           "id": 89,
           "name": "RCD Mallorca",
           "logo": "https://crests.football-data.org/89.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 544262,
+        "date": "2025-09-24T19:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "logo": "https://crests.football-data.org/laliga.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 78,
+          "name": "Club Atlético de Madrid",
+          "logo": "https://crests.football-data.org/78.svg"
+        },
+        "away": {
+          "id": 87,
+          "name": "Rayo Vallecano de Madrid",
+          "logo": "https://crests.football-data.org/87.svg"
         }
       },
       "goals": {
