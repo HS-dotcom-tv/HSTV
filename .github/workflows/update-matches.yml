@@ -1,0 +1,20 @@
+name: Update Matches
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate matches data
+        run: echo '{"response":[]}' > matches.json
+      - name: Commit changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add matches.json
+          git commit -m "Update matches" || exit 0
+          git push
