@@ -2,8 +2,11 @@ name: Update Matches JSON
 
 on:
   schedule:
-    - cron: '0 1 * * *' # كل يوم عند 01:00 UTC (يمكن تعديله)
-  workflow_dispatch: # يتيح التشغيل اليدوي من واجهة GitHub
+    - cron: '0 1 * * *'   # مرة يومياً 01:00 UTC
+  workflow_dispatch:        # تشغيل يدوي من GitHub
+
+permissions:
+  contents: write   # مهم لإعطاء صلاحية الكتابة
 
 jobs:
   update-json:
@@ -11,15 +14,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
-      - name: Show node & npm info
-        run: |
-          echo ">>> System info"
-          uname -a
-          node --version || true
-          npm --version || true
-
-      - name: Setup Node.js 18
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
@@ -27,26 +25,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Debug env (only names)
-        run: printenv | sed -n '1,120p'
-
-      - name: Fetch matches (run script)
+      - name: Run fetch-matches.js
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
-        run: |
-          echo ">>> Running fetch-matches.js"
-          node fetch-matches.js
-          echo "exit_code:$?"
+        run: node fetch-matches.js
 
-      - name: Commit matches.json if changed
+      - name: Commit & Push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git status --porcelain | grep -q 'matches.json'; then
-            git add matches.json
-            git commit -m "chore: update matches.json (automated)"
-            git push
-            echo "✅ matches.json committed and pushed"
-          else
-            echo "ℹ️ No changes to commit"
-          fi
+          git add matches.json
+          git diff --staged --quiet || git commit -m "chore: update matches.json (automated)"
+          git push
