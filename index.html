@@ -7,14 +7,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    /* -->> تعريف الخط الجديد <<-- */
-    @font-face {
-      font-family: 'Lequire';
-      src: url('Lequire.otf') format('opentype');
-    }
-
     :root {
         /* -- الوضع النهاري -- */
         --bg-gradient-start: #EFF6FF; --bg-gradient-end: #DBEAFE;
@@ -159,17 +153,18 @@
         background: none; border: none; box-shadow: none;
         backdrop-filter: none; -webkit-backdrop-filter: none; padding: 0;
     }
+    /* -->> التعديل النهائي للشعار <<-- */
     .logo-text {
-        font-family: 'Lequire', sans-serif; /* -->> تطبيق الخط الجديد <<-- */
-        font-size: 32px; /* تعديل بسيط في الحجم ليناسب الخط الجديد */
-        font-weight: normal;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 26px; /* تعديل الحجم ليلائم التصميم الجديد */
+        font-weight: 700;
         line-height: 1;
-        letter-spacing: 1px;
+        letter-spacing: 2px;
         text-shadow: var(--logo-text-shadow);
         white-space: nowrap;
     }
     .logo-text .hs-part { color: var(--logo-text-hs-color); }
-    .logo-text .tv-part { color: var(--logo-text-tv-color); margin-right: 2px; }
+    .logo-text .tv-part { color: var(--logo-text-tv-color); margin-left: 4px; } /* تعديل المسافة */
 
     .live-badge {
         display: flex; align-items: center; gap: 4px;
@@ -230,7 +225,7 @@
     <div class="header-center">
       <div class="logo-card">
           <span class="logo-text">
-            <span class="hs-part">HS</span><span class="tv-part">TV</span>
+            <span class="hs-part">H&S</span><span class="tv-part">Tv</span>
           </span>
       </div>
     </div>
