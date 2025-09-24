@@ -5,29 +5,43 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>HSTV - جداول المباريات</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght=400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-        /* -- الوضع النهاري (مثالي) -- */
-        --bg-gradient-start: #EFF6FF; --bg-gradient-end: #DBEAFE;
-        --text-main: #1E293B; --text-secondary: #475569;
-        --card-bg: rgba(255, 255, 255, 0.7); --card-hover-bg: rgba(255, 255, 255, 1);
+        /* -- الوضع النهاري (تصميم "الأزرق المنعش" الجديد) -- */
+        --bg-gradient-start: #EFF6FF; /* أزرق فاتح جداً */
+        --bg-gradient-end: #DBEAFE;   /* أزرق سماوي */
+        --text-main: #1E293B;         /* رمادي داكن للنصوص */
+        --text-secondary: #475569;    /* رمادي أفتح */
+        --card-bg: rgba(255, 255, 255, 0.7); /* أبيض شبه شفاف */
+        --card-hover-bg: rgba(255, 255, 255, 1);
         --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-        --card-border: transparent; --btn-bg: #fff; --btn-text: #334155; --btn-border: #CBD5E1;
-        --btn-active-gradient-start: #3B82F6; --btn-active-gradient-end: #2563EB;
-        --btn-active-text: #fff; --header-text-and-logo: #1E3A8A;
+        --card-border: transparent;
+        --btn-bg: #fff;
+        --btn-text: #334155;
+        --btn-border: #CBD5E1;
+        --btn-active-gradient-start: #3B82F6; /* أزرق عصري */
+        --btn-active-gradient-end: #2563EB;
+        --btn-active-text: #fff;
+        --header-text: #1E3A8A; /* أزرق بحري داكن */
     }
     html.dark-mode {
-        /* -- الوضع الليلي (Netflix المصقول) -- */
-        --bg-gradient-start: #141414; --bg-gradient-end: #141414;
-        --text-main: #fff; --text-secondary: #A3A3A3;
-        --card-bg: #282828; /* -- أغمق قليلاً -- */
-        --card-hover-bg: #333333; /* -- أغمق قليلاً -- */
-        --card-shadow: 0 0 0 0 transparent; --card-border: #282828;
-        --btn-bg: #2F2F2F; --btn-text: #fff; --btn-border: #4B5563;
-        --btn-active-gradient-start: #B9090B; /* -- أحمر أغمق -- */
-        --btn-active-gradient-end: #990709;   /* -- أحمر أغمق -- */
-        --btn-active-text: #fff; --header-text-and-logo: #B9090B;
+        /* -- الوضع الليلي (تصميم "الذهبي المصقول" المحسن) -- */
+        --bg-gradient-start: #111827;
+        --bg-gradient-end: #000;
+        --text-main: #E5E7EB;
+        --text-secondary: #9CA3AF;
+        --card-bg: rgba(31, 41, 55, 0.5);
+        --card-hover-bg: rgba(55, 65, 81, 0.7);
+        --card-shadow: 0 0 0 0 transparent;
+        --card-border: #374151;
+        --btn-bg: #374151;
+        --btn-text: #D1D5DB;
+        --btn-border: #4B5563;
+        --btn-active-gradient-start: #FBBF24;
+        --btn-active-gradient-end: #F59E0B;
+        --btn-active-text: #111827;
+        --header-text: transparent;
     }
     
     body { 
@@ -37,34 +51,44 @@
         min-height:100vh; color: var(--text-main);
         transition: background 0.4s ease, color 0.4s ease;
     }
-    .match-card { 
-        transition: all .2s ease-in-out; 
-        background: var(--card-bg); border: 1px solid var(--card-border);
-        box-shadow: var(--card-shadow); border-radius: 0.75rem;
+    html.dark-mode body {
+        background-image: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)), 
+                          radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+        background-size: 100%, 40px 40px;
     }
-    html.dark-mode .match-card {
-        backdrop-filter: none; border-radius: 0.25rem; border: none;
+    .match-card { 
+        transition: all .3s ease; 
+        backdrop-filter: blur(12px); 
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+        border-radius: 1rem;
     }
     .match-card:hover { 
-        transform: translateY(-5px); background: var(--card-hover-bg); 
-    }
-    html.dark-mode .match-card:hover {
-        transform: scale(1.03) translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        transform: translateY(-5px); 
+        background: var(--card-hover-bg); 
     }
     .btn-tab { 
         background: var(--btn-bg); color: var(--btn-text);
         border: 1px solid var(--btn-border);
-        transition: all .2s ease; border-radius: 0.75rem;
+        transition: all .2s ease;
+        border-radius: 0.75rem; /* تعديل بسيط لشكل الأزرار */
     }
     .btn-tab.active { 
         background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); 
-        color: var(--btn-active-text); border: none;
+        color: var(--btn-active-text);
+        border: none;
         box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
     }
-    h1 { color: var(--header-text-and-logo); font-weight: 700; }
-    .logo-subtitle { color: var(--text-secondary); margin-top: -5px; font-size: 0.8rem; }
-    .logo-icon { color: var(--header-text-and-logo); }
+    html.dark-mode .btn-tab.active {
+        /* توهج ذهبي مخفف وأنيق */
+        box-shadow: 0 0 15px -7px var(--btn-active-gradient-start);
+    }
+    h1 { color: var(--header-text); }
+    html.dark-mode h1 {
+        background: linear-gradient(45deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); 
+        -webkit-background-clip: text; 
+    }
     .crest { 
         width: 50px; height: 50px; object-fit: contain; margin: auto;
         border-radius: 50%;
@@ -72,6 +96,7 @@
     .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; line-height: 1; color: var(--text-main);}
     .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
     .status-text, .time-period, .match-details { color: var(--text-secondary); }
+    /* إعادة تفاصيل المباراة لحجمها الصغير والأنيق */
     .match-details { 
       border-top: 1px solid var(--card-border); 
       margin-top: 1rem; padding-top: 0.75rem;
@@ -96,22 +121,13 @@
   </script>
 </head>
 <body class="p-4">
-  > الهوية البصرية الجديدة للموقع <<-- -->
-  <header class="flex justify-between items-center mb-6">
-    <div class="flex items-center gap-3">
-        <div class="logo-icon">
-            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10.25 9.75V11.25m0 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm0 0H21M3 9.75h4.875M3 14.25h18M3 4.5h18" />
-            </svg>
-        </div>
-        <div>
-            <h1 class="text-3xl">HSTV</h1>
-            <p class="logo-subtitle">جدول المباريات</p>
-        </div>
+  <header class="text-center mb-6 relative">
+    <h1 class="text-4xl font-bold">HSTV</h1>
+    <p class="text-slate-400 mt-1">أهم مباريات اليوم والأمس والغد</p>
+    <div class="absolute top-0 left-0">
+        <button id="theme-toggle" title="تغيير الوضع"></button>
     </div>
-    <button id="theme-toggle" title="تغيير الوضع"></button>
   </header>
-
   <div class="max-w-3xl mx-auto mb-6">
     <div class="flex gap-3">
       <button id="yesterday" class="btn-tab flex-1 px-4 py-2">الأمس</button>
@@ -122,23 +138,72 @@
   <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
   
   <script>
-    // ... الكود بالكامل هنا بدون أي تغيير ...
     const themeToggle = document.getElementById('theme-toggle');
     const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
     const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
-    function updateIcon() { if (document.documentElement.classList.contains('dark-mode')) { themeToggle.innerHTML = sunIcon; } else { themeToggle.innerHTML = moonIcon; } }
-    themeToggle.addEventListener('click', () => { document.documentElement.classList.toggle('dark-mode'); localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'); updateIcon(); });
+    function updateIcon() {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        themeToggle.innerHTML = sunIcon;
+      } else { themeToggle.innerHTML = moonIcon; }
+    }
+    themeToggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark-mode');
+        localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light');
+        updateIcon();
+    });
     updateIcon();
+    
+    // باقي الكود بدون تغيير
     const API_URL = 'matches.json';
     const matchesContainer = document.getElementById('matches');
-    const leagueTranslations = { 'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم', 'PD': 'الدوري الإسباني', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي', 'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي' };
+    const leagueTranslations = {
+      'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم', 'PD': 'الدوري الإسباني', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي', 'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي'
+    };
     const brokenLogos = { '113': true };
     function setActiveTab(id) { document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
     function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
-    function formatTime(iso) { const d = new Date(iso); let timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' }); return timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً'); }
-    async function loadMatches(view='today') { setActiveTab(view); matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">جاري تحميل المباريات...</div>`; try { const res = await fetch(API_URL + '?t=' + Date.now()); const data = await res.json(); renderMatches(data.response || [], view); } catch (err) { matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات</div>`; } }
-    function renderMatches(allMatches, view) { matchesContainer.innerHTML = ''; const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0; const target = getDateString(offset); let filtered = allMatches.filter(m => m.fixture.date && m.fixture.date.startsWith(target)); if (!filtered.length) { matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`; return; } filtered.forEach(match => { matchesContainer.innerHTML += renderMatchHTML(match); }); }
-    function renderMatchHTML(match) { const status = match.fixture.status.short || 'NS'; let centerTop = '', centerBottom = ''; if (["LIVE", "HT"].includes(status)) { centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text text-red-400">مباشر</div>`; } else if (["FT", "AET", "PEN"].includes(status)) { centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text">انتهت</div>`; } else { const formattedTime = formatTime(match.fixture.date); const timeParts = formattedTime.split(' '); centerTop = `<div class="score-box">${timeParts[0]}<span class="time-period">${timeParts[1]}</span></div>`; } const leagueNameAr = leagueTranslations[match.league.code] || match.league.name; const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`; const homeLogo = brokenLogos[match.teams.home.id] ? 'default-logo.svg' : (match.teams.home.logo || 'default-logo.svg'); const awayLogo = brokenLogos[match.teams.away.id] ? 'default-logo.svg' : (match.teams.away.logo || 'default-logo.svg'); return `<div class="match-card p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`; }
+    function formatTime(iso) {
+        const d = new Date(iso);
+        let timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' });
+        return timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً');
+    }
+    async function loadMatches(view='today') {
+      setActiveTab(view);
+      matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">جاري تحميل المباريات...</div>`;
+      try {
+        const res = await fetch(API_URL + '?t=' + Date.now());
+        const data = await res.json();
+        renderMatches(data.response || [], view);
+      } catch (err) { matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات</div>`; }
+    }
+    function renderMatches(allMatches, view) {
+      matchesContainer.innerHTML = '';
+      const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0;
+      const target = getDateString(offset);
+      let filtered = allMatches.filter(m => m.fixture.date && m.fixture.date.startsWith(target));
+      if (!filtered.length) { matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`; return; }
+      filtered.forEach(match => { matchesContainer.innerHTML += renderMatchHTML(match); });
+    }
+    function renderMatchHTML(match) {
+      const status = match.fixture.status.short || 'NS';
+      let centerTop = '', centerBottom = '';
+      if (["LIVE", "HT"].includes(status)) {
+        centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
+        centerBottom = `<div class="status-text text-red-400">مباشر</div>`;
+      } else if (["FT", "AET", "PEN"].includes(status)) {
+        centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`;
+        centerBottom = `<div class="status-text">انتهت</div>`;
+      } else {
+        const formattedTime = formatTime(match.fixture.date);
+        const timeParts = formattedTime.split(' ');
+        centerTop = `<div class="score-box">${timeParts[0]}<span class="time-period">${timeParts[1]}</span></div>`;
+      }
+      const leagueNameAr = leagueTranslations[match.league.code] || match.league.name;
+      const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`;
+      const homeLogo = brokenLogos[match.teams.home.id] ? 'default-logo.svg' : (match.teams.home.logo || 'default-logo.svg');
+      const awayLogo = brokenLogos[match.teams.away.id] ? 'default-logo.svg' : (match.teams.away.logo || 'default-logo.svg');
+      return `<div class="match-card p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`;
+    }
     ['yesterday', 'today', 'tomorrow'].forEach(id => document.getElementById(id).addEventListener('click', () => loadMatches(id)));
     loadMatches('today');
     setInterval(() => { if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
