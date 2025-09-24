@@ -85,21 +85,21 @@
     /* -- START: التعديل المطلوب -- */
     .live-badge {
         position: absolute;
-        top: 50%; /* توسيط عمودي */
-        left: 125px; /* توسيط أفقي داخل البطاقة (إحداثيات SVG) */
-        transform: translate(-50%, -50%); /* ضبط دقيق للتوسيط */
-        font-size: 0.8rem; /* حجم مناسب للبطاقة */
+        top: 12px; /* تم وضعه في الجزء العلوي من البطاقة */
+        left: 125px; /* توسيط أفقي داخل البطاقة */
+        transform: translate(-50%, -50%);
+        font-size: 0.6rem; /* تصغير الحجم ليلائم المساحة */
         font-family: 'Cairo', sans-serif;
         font-weight: 700;
-        color: #fff; /* لون أبيض ليكون واضحاً دائماً */
-        display: flex; align-items: center; gap: 4px;
+        color: #fff;
+        display: flex; align-items: center; gap: 3px;
         direction: rtl;
-        z-index: 10; /* للتأكد من أنها فوق كل العناصر */
-        pointer-events: none; /* لمنع تفاعل الفأرة معها */
+        z-index: 10;
+        pointer-events: none;
     }
     .live-dot {
-        width: 7px; height: 7px;
-        background-color: #fff; /* لون أبيض ليتناسب مع النص */
+        width: 5px; height: 5px; /* تصغير حجم النقطة */
+        background-color: #fff;
         border-radius: 50%;
         animation: pulse 1.5s infinite;
     }
@@ -157,7 +157,8 @@
             </defs>
             <text class="hs-part" x="0" y="32" font-family="Poppins, sans-serif" font-size="32" font-weight="700">HS</text>
             <path class="tv-card" d="M92 4C90.8954 4 90 4.89543 90 6V34C90 35.1046 90.8954 36 92 36H158C159.105 36 160 35.1046 160 34V6C160 4.89543 159.105 4 158 4H92Z"/>
-            </svg>
+            <text class="tv-part" x="98" y="32" font-family="Poppins, sans-serif" font-size="32" font-weight="700" style="filter: url(#glow);">TV</text>
+        </svg>
         <div class="live-badge">
             <span class="live-dot"></span>
             <span>مباشر</span>
@@ -172,7 +173,6 @@
       <button id="yesterday" class="btn-tab flex-1 px-4 py-2">الأمس</button>
       <button id="today" class="btn-tab flex-1 px-4 py-2 active">اليوم</button>
       <button id="tomorrow" class="btn-tab flex-1 px-4 py-2">الغد</button>
-    }
     </div>
   </div>
   <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
