@@ -141,7 +141,7 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        padding: 0.5rem 1rem; /* تم الحفاظ على هذا الحجم */
+        padding: 0.5rem 1rem; 
     }
     .header-side {
         flex: 1; display: flex;
@@ -153,37 +153,50 @@
         flex-direction: column; 
         align-items: center; 
         justify-content: center;
-        position: absolute; /* لجعلها في المنتصف تماما بغض النظر عن الأطراف */
+        position: absolute; 
         left: 50%;
         transform: translateX(-50%);
     }
     .logo-card {
         background: none; border: none; box-shadow: none;
         backdrop-filter: none; -webkit-backdrop-filter: none; padding: 0;
-        margin-bottom: 2px; /* لرفع اللوجو قليلاً وإعطاء مساحة للمباشر */
+        margin-bottom: 2px; 
     }
     .logo-text {
         font-family: 'Montserrat', sans-serif; 
-        font-size: 24px; /* تم تصغير حجم الخط قليلاً */
+        font-size: 24px; 
         font-weight: 700; line-height: 1; letter-spacing: 1.5px;
         text-shadow: var(--logo-text-shadow); white-space: nowrap;
         position: relative; 
-        overflow: hidden;   
+        display: inline-block; /* لضمان عمل تأثير الـ text-fill-color */
+        -webkit-text-fill-color: transparent; /* إخفاء النص الأصلي */
+        -webkit-background-clip: text; /* قص الخلفية على شكل النص */
+        background-clip: text; /* لمتصفحات أخرى */
+        background-image: linear-gradient(90deg, var(--logo-text-hs-color) 0%, var(--logo-text-tv-color) 100%); /* افتراضي للوضع النهاري */
+        animation: text-shine 3s infinite alternate; /* تأثير جديد */
     }
-    .logo-text::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -100%;
-        width: 25%;
-        height: 200%;
-        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
-        transform: skewX(-25deg);
-        animation: shine 6s linear infinite 2s;
+    
+    html.dark-mode .logo-text {
+        background-image: linear-gradient(90deg, var(--logo-text-hs-color) 0%, var(--logo-text-tv-color) 100%); /* نفس الشيء للوضع الليلي */
     }
 
-    .logo-text .hs-part { color: var(--logo-text-hs-color); }
-    .logo-text .tv-part { color: var(--logo-text-tv-color); margin-right: 2px; }
+    /* إزالة تأثير اللمعان القديم */
+    .logo-text::after {
+        content: none; 
+    }
+
+    @keyframes text-shine {
+        0% {
+            background-position: 0% 50%;
+        }
+        100% {
+            background-position: 100% 50%;
+        }
+    }
+
+
+    .logo-text .hs-part { color: unset; } /* تم إزالة اللون المباشر ليعتمد على الخلفية المتدرجة */
+    .logo-text .tv-part { color: unset; margin-right: 2px; } /* تم إزالة اللون المباشر ليعتمد على الخلفية المتدرجة */
 
     .live-badge {
         display: flex; align-items: center; gap: 4px;
@@ -199,12 +212,6 @@
         transition: background-color 0.4s ease; 
     }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-    @keyframes shine {
-        100% {
-            left: 175%;
-        }
-    }
 
     #theme-toggle {
         width: 36px; height: 36px;
@@ -254,7 +261,7 @@
     <div class="header-center">
       <div class="logo-card">
           <span class="logo-text">
-            <span class="hs-part">HS</span><span class="tv-part">Tv</span>
+            <span class="hs-part">HS</span><span class="tv-part">TV</span>
           </span>
       </div>
       <div class="live-badge">
