@@ -19,8 +19,9 @@
         --btn-active-gradient-start: #3B82F6; --btn-active-gradient-end: #2563EB;
         --btn-active-text: #fff;
         --logo-hs-color: #1E3A8A;
-        --logo-tv-color: #2563EB;
-        --logo-tv-glow: #3B82F6;
+        --logo-hs-glow: rgba(30, 58, 138, 0.2);
+        --logo-tv-bg: #2563EB;
+        --logo-tv-text: #fff;
     }
     html.dark-mode {
         /* -- الوضع الليلي (Netflix المصقول) -- */
@@ -32,8 +33,9 @@
         --btn-active-gradient-start: #B9090B; --btn-active-gradient-end: #990709;
         --btn-active-text: #fff;
         --logo-hs-color: #E5E7EB;
-        --logo-tv-color: #E50914;
-        --logo-tv-glow: #E50914;
+        --logo-hs-glow: rgba(229, 231, 235, 0.1);
+        --logo-tv-bg: #B9090B;
+        --logo-tv-text: #fff;
     }
     
     body { 
@@ -69,39 +71,45 @@
         box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
     }
     
-    /* -->> تصميم الهوية البصرية النهائي <<-- */
+    /* -->> تصميم الهوية البصرية النهائي المستوحى من beIN Sports <<-- */
     .header {
-        position: relative;
-        text-align: center;
-        margin-bottom: 1.5rem;
+        position: relative; text-align: center; margin-bottom: 1.5rem;
     }
     .logo-container {
         font-family: 'Poppins', sans-serif;
-        font-size: 2.5rem; /* حجم أكبر وأكثر قوة */
-        font-weight: 700;
-        color: var(--logo-hs-color);
-        display: inline-block; /* مهم للتوسيط الصحيح */
+        font-size: 2.5rem; font-weight: 700;
+        display: inline-flex; /* Use flex for alignment */
+        align-items: center;
         position: relative;
-        letter-spacing: 1px;
     }
-    .logo-container .tv-part {
-        color: var(--logo-tv-color);
-        /* تأثير التوهج الأنيق */
-        text-shadow: 0 0 8px var(--logo-tv-glow), 0 0 10px rgba(0,0,0,0.2);
+    .hs-part {
+        color: var(--logo-hs-color);
+        /* التأثير الضبابي المبهر */
+        text-shadow: 0 0 1px var(--logo-hs-glow);
+    }
+    .tv-card {
+        display: inline-block;
+        background-color: var(--logo-tv-bg);
+        color: var(--logo-tv-text);
+        padding: 2px 10px;
+        border-radius: 6px;
+        margin-right: -4px; /* لتقريب البطاقة من الحرف الأول */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .tv-part {
+        display: inline-block;
+        transform: translateY(2px); /* محاذاة بصرية دقيقة */
     }
     .live-badge {
         position: absolute;
         top: 0;
         right: 0;
-        /* positioning to the top-right corner of the V */
-        transform: translate(60%, -50%);
+        transform: translate(25%, -50%);
         font-size: 0.7rem;
         font-family: 'Cairo', sans-serif;
         font-weight: 600;
         color: #E50914;
-        display: flex;
-        align-items: center;
-        gap: 3px;
+        display: flex; align-items: center; gap: 3px;
     }
     .live-dot {
         width: 6px; height: 6px;
@@ -111,15 +119,12 @@
     }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     #theme-toggle {
-        position: absolute;
-        top: 50%;
-        right: 0;
+        position: absolute; top: 50%; right: 0;
         transform: translateY(-50%);
         width: 36px; height: 36px;
         display: flex; align-items: center; justify-content: center;
         background: var(--btn-bg); border: 1px solid var(--btn-border);
-        border-radius: 50%;
-        color: var(--text-main);
+        border-radius: 50%; color: var(--text-main);
         cursor: pointer; transition: all 0.2s ease;
     }
     #theme-toggle:hover { background: var(--card-hover-bg); }
@@ -152,7 +157,7 @@
 <body class="p-4">
   <header class="header">
     <div class="logo-container">
-        HS<span class="tv-part">TV</span>
+        <span class="hs-part">HS</span><span class="tv-card"><span class="tv-part">TV</span></span>
         <div class="live-badge">
             <span class="live-dot"></span>
             <span>مباشر</span>
