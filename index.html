@@ -82,7 +82,6 @@
         box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     }
 
-    /* -->> تصميم الأزرار الرئيسي والثانوي <<-- */
     .main-tab, .date-tab {
         background: var(--btn-glass-bg);
         border: 1px solid var(--btn-glass-border);
@@ -93,6 +92,7 @@
         transition: all .3s ease;
         border-radius: 14px;
         font-weight: 600;
+        padding: 0.5rem 1rem; /* 통일된 패딩 */
     }
     .main-tab:hover, .date-tab:hover {
         transform: translateY(-2px);
@@ -107,14 +107,22 @@
         box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.2);
         transform: translateY(-1px);
     }
+
+    /* -->> تعديل الأزرار الفرعية <<-- */
+    .date-tab {
+        padding: 0.4rem 0.8rem; /* تصغير الحجم الداخلي */
+        font-size: 0.8rem; /* تصغير الخط */
+        border-radius: 12px;
+    }
+
     .date-tabs-container {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out;
     }
     .date-tabs-container.visible {
-        max-height: 100px; /* ارتفاع كافٍ لظهور الأزرار */
-        margin-top: 0.75rem; /* مسافة بين الصفين */
+        max-height: 100px;
+        margin-top: 0.75rem;
     }
 
     /* -->> تصميم الهوية النهائي <<-- */
@@ -227,15 +235,15 @@
   <div class="max-w-3xl mx-auto mb-6">
     <div class="navigation-container">
         <div class="main-tabs flex gap-3">
-          <button id="matches-btn" data-section="matches-section" class="main-tab flex-1 px-4 py-2 active">المباريات</button>
-          <button id="channels-btn" data-section="channels-section" class="main-tab flex-1 px-4 py-2">بث مباشر</button>
-          <button id="news-btn" data-section="news-section" class="main-tab flex-1 px-4 py-2">أخبار</button>
+          <button id="matches-btn" data-section="matches-section" class="main-tab flex-1">المباريات</button>
+          <button id="channels-btn" data-section="channels-section" class="main-tab flex-1">بث مباشر</button>
+          <button id="news-btn" data-section="news-section" class="main-tab flex-1">أخبار</button>
         </div>
-        <div id="date-tabs-container" class="date-tabs-container visible">
+        <div id="date-tabs-container" class="date-tabs-container">
             <div class="date-tabs flex gap-3">
-              <button id="yesterday" class="date-tab flex-1 px-4 py-2">الأمس</button>
-              <button id="today" class="date-tab flex-1 px-4 py-2 active">اليوم</button>
-              <button id="tomorrow" class="date-tab flex-1 px-4 py-2">الغد</button>
+              <button id="yesterday" class="date-tab flex-1">الأمس</button>
+              <button id="today" class="date-tab flex-1 active">اليوم</button>
+              <button id="tomorrow" class="date-tab flex-1">الغد</button>
             </div>
         </div>
     </div>
@@ -243,7 +251,6 @@
 
   <main>
     <div id="matches-section" class="page-section active">
-        <p class="text-center text-sm header-subtitle mb-4">أهم مباريات اليوم والأمس والغد</p>
         <div id="matches" class="max-w-3xl mx-auto space-y-4"></div>
     </div>
 
@@ -261,24 +268,26 @@
   </main>
   
   <script>
-    // -->> بداية كود الجافاسكربت الجديد للأقسام <<--
     document.addEventListener('DOMContentLoaded', () => {
         const mainTabs = document.querySelectorAll('.main-tab');
         const pageSections = document.querySelectorAll('.page-section');
         const dateTabsContainer = document.getElementById('date-tabs-container');
 
+        // تعيين الحالة الأولية عند تحميل الصفحة
+        const initialActiveTab = document.querySelector('.main-tab[data-section="matches-section"]');
+        initialActiveTab.classList.add('active');
+        dateTabsContainer.classList.add('visible');
+
+
         mainTabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // إزالة active من كل الأزرار والأقسام
                 mainTabs.forEach(t => t.classList.remove('active'));
                 pageSections.forEach(s => s.classList.remove('active'));
 
-                // إضافة active للزر المضغوط والقسم الموافق له
                 tab.classList.add('active');
                 const sectionId = tab.getAttribute('data-section');
                 document.getElementById(sectionId).classList.add('active');
 
-                // إظهار أو إخفاء أزرار التاريخ
                 if (sectionId === 'matches-section') {
                     dateTabsContainer.classList.add('visible');
                 } else {
@@ -287,7 +296,6 @@
             });
         });
 
-        // -->> بداية كود المباريات القديم (بدون تغيير) <<--
         const themeToggle = document.getElementById('theme-toggle');
         const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
         const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
