@@ -31,10 +31,10 @@
         --header-border-top: rgba(255, 255, 255, 0.7);
         --header-border-bottom: rgba(255, 255, 255, 0.3);
         --header-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.25);
-        --logo-text-hs-color: #fff;
-        --logo-text-tv-color: rgba(255, 255, 255, 0.8);
-        --logo-text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-        --live-badge-color: #E50914; /* أحمر للوضع الفاتح */
+        --logo-text-hs-color: #FFFFFF; /* لون أبيض في الوضع الفاتح */
+        --logo-text-tv-color: rgba(255, 255, 255, 0.85);
+        --logo-text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        --live-badge-color: #E50914; 
     }
     html.dark-mode {
         /* -- الوضع الليلي -- */
@@ -57,10 +57,10 @@
         --header-border-top: rgba(255, 255, 255, 0.2);
         --header-border-bottom: rgba(255, 255, 255, 0.1);
         --header-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-        --logo-text-hs-color: #fff;
-        --logo-text-tv-color: rgba(255, 255, 255, 0.8);
-        --logo-text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-        --live-badge-color: #FFFFFF; /* أبيض للوضع المظلم */
+        --logo-text-hs-color: #000000; /* لون أسود في الوضع المظلم */
+        --logo-text-tv-color: rgba(0, 0, 0, 0.85);
+        --logo-text-shadow: 0 1px 2px rgba(255, 255, 255, 0.15); /* ظل فاتح للنص الأسود */
+        --live-badge-color: #FFFFFF; 
     }
     
     body { 
@@ -167,36 +167,11 @@
         font-size: 24px; 
         font-weight: 700; line-height: 1; letter-spacing: 1.5px;
         text-shadow: var(--logo-text-shadow); white-space: nowrap;
-        position: relative; 
-        display: inline-block; /* لضمان عمل تأثير الـ text-fill-color */
-        -webkit-text-fill-color: transparent; /* إخفاء النص الأصلي */
-        -webkit-background-clip: text; /* قص الخلفية على شكل النص */
-        background-clip: text; /* لمتصفحات أخرى */
-        background-image: linear-gradient(90deg, var(--logo-text-hs-color) 0%, var(--logo-text-tv-color) 100%); /* افتراضي للوضع النهاري */
-        animation: text-shine 3s infinite alternate; /* تأثير جديد */
-    }
-    
-    html.dark-mode .logo-text {
-        background-image: linear-gradient(90deg, var(--logo-text-hs-color) 0%, var(--logo-text-tv-color) 100%); /* نفس الشيء للوضع الليلي */
+        transition: color 0.4s ease; /* إضافة انتقال ناعم للون */
     }
 
-    /* إزالة تأثير اللمعان القديم */
-    .logo-text::after {
-        content: none; 
-    }
-
-    @keyframes text-shine {
-        0% {
-            background-position: 0% 50%;
-        }
-        100% {
-            background-position: 100% 50%;
-        }
-    }
-
-
-    .logo-text .hs-part { color: unset; } /* تم إزالة اللون المباشر ليعتمد على الخلفية المتدرجة */
-    .logo-text .tv-part { color: unset; margin-right: 2px; } /* تم إزالة اللون المباشر ليعتمد على الخلفية المتدرجة */
+    .logo-text .hs-part { color: var(--logo-text-hs-color); }
+    .logo-text .tv-part { color: var(--logo-text-tv-color); margin-right: 2px; }
 
     .live-badge {
         display: flex; align-items: center; gap: 4px;
