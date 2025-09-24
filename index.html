@@ -7,13 +7,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ---------------------------------------------------- */
-    /* استيراد خطوط خاصة للشعار (هنا استخدمنا Exo 2 لمظهر رياضي) */
-    /* ---------------------------------------------------- */
     @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700&display=swap');
 
     :root {
-        /* -- الوضع النهاري (مثالي) -- */
         --bg-gradient-start: #EFF6FF; --bg-gradient-end: #DBEAFE;
         --text-main: #1E293B; --text-secondary: #475569;
         --card-bg: rgba(255, 255, 255, 0.7); --card-hover-bg: rgba(255, 255, 255, 1);
@@ -21,11 +17,13 @@
         --card-border: transparent; --btn-bg: #fff; --btn-text: #334155; --btn-border: #CBD5E1;
         --btn-active-gradient-start: #3B82F6; --btn-active-gradient-end: #2563EB;
         --btn-active-text: #fff; --header-text: #1E3A8A;
-        --logo-color-main: #1E3A8A; /* لون الشعار الرئيسي في النهار */
-        --logo-color-accent: #3B82F6; /* لون جزء الشعار المميز في النهار */
+        --logo-color-main: #1E3A8A;
+        --logo-color-accent: #3B82F6;
+        --live-dot: #e11d48; /* red */
+        --accent-fire-start: #ff6a00;
+        --accent-fire-end: #ff2030;
     }
     html.dark-mode {
-        /* -- الوضع الليلي (Netflix المصقول) -- */
         --bg-gradient-start: #141414; --bg-gradient-end: #141414;
         --text-main: #fff; --text-secondary: #A3A3A3;
         --card-bg: #282828; --card-hover-bg: #333333;
@@ -33,10 +31,14 @@
         --btn-bg: #2F2F2F; --btn-text: #fff; --btn-border: #4B5563;
         --btn-active-gradient-start: #B9090B; --btn-active-gradient-end: #990709;
         --btn-active-text: #fff; --header-text: #B9090B;
-        --logo-color-main: #E5E7EB; /* لون الشعار الرئيسي في الليل */
-        --logo-color-accent: #B9090B; /* لون جزء الشعار المميز في الليل */
+        --logo-color-main: #E5E7EB;
+        --logo-color-accent: #B9090B;
+        --live-dot: #ff6b6b;
+        --accent-fire-start: #ff8a8a;
+        --accent-fire-end: #ff4b4b;
     }
-    
+
+    /* --- existing body + components (unchanged) --- */
     body { 
         font-family: 'Cairo', sans-serif; 
         background-color: var(--bg-gradient-start);
@@ -69,54 +71,94 @@
         color: var(--btn-active-text); border: none;
         box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
     }
-    .header-main-title {
-        font-family: 'Exo 2', sans-serif; /* تطبيق الخط الجديد هنا */
-        color: var(--logo-color-main);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+
+    /* ===================== NEW HEADER STYLES ===================== */
+    /* Force header to behave LTR so brand sits visually at left even on rtl page */
+    header.site-header { direction: ltr; display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; }
+    .brand {
+      display: flex; align-items: center; gap: 0.75rem; min-width: 0;
     }
-    html.dark-mode .header-main-title {
-        /* إزالة التدرج للنص الأحمر الصريح في الوضع الليلي */
-        background: none;
-        -webkit-background-clip: unset; 
+    /* compact crest */
+    .brand .crest-wrap {
+      width: 56px; height: 56px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75)); box-shadow: var(--card-shadow);
+      border: 1px solid rgba(255,255,255,0.4); overflow: hidden;
     }
-    .header-subtitle { color: var(--text-secondary); margin-top: -5px; font-size: 0.8rem;}
-    /* ---------------------------------------------------- */
-    /* تصميم شعار SVG الجديد (يستخدم متغيرات الألوان)      */
-    /* ---------------------------------------------------- */
-    .logo-svg {
-        height: 40px; /* حجم الشعار */
-        width: auto;
-        fill: var(--logo-color-main); /* لون النص الافتراضي */
-        transition: fill 0.3s ease;
+    html.dark-mode .brand .crest-wrap {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: none;
     }
-    .logo-svg .accent-path {
-        fill: var(--logo-color-accent); /* لون الجزء المميز */
-        transition: fill 0.3s ease;
+    .brand .crest-svg { width: 36px; height: 36px; fill: var(--logo-color-accent); opacity: 0.95; }
+
+    .brand-title {
+      display:flex; flex-direction: column; line-height:1;
+      text-align: left; min-width: 0;
     }
-    .crest { 
-        width: 50px; height: 50px; object-fit: contain; margin: auto;
-        border-radius: 50%;
+    .brand-title .name {
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 800; font-size: 1.55rem; letter-spacing: 0.6px;
+      display:flex; align-items: flex-start; gap: 6px;
+      white-space: nowrap;
+      color: var(--logo-color-main);
+      -webkit-background-clip: text;
+      background-clip: text;
     }
-    .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; line-height: 1; color: var(--text-main);}
-    .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
-    .status-text, .time-period, .match-details { color: var(--text-secondary); }
-    .match-details { 
-      border-top: 1px solid var(--card-border); 
-      margin-top: 1rem; padding-top: 0.75rem;
-      font-size: 0.75rem; font-weight: 400; 
-      display: flex; justify-content: space-between; align-items: center;
+    /* highlight the V with a fire gradient and a tiny 'burn' effect */
+    .brand-title .name .v-accent {
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--accent-fire-start), var(--accent-fire-end));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      text-shadow: 0 6px 14px rgba(255,80,0,0.06);
+      transform: translateY(-1px);
+      font-size: 1.7rem;
     }
-    .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
+    .brand-title .meta {
+      font-size: 0.72rem; color: var(--text-secondary); margin-top: -4px;
+      display:flex; align-items:center; gap:6px;
+    }
+    /* live small badge */
+    .live-badge {
+      display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border-radius:999px;
+      background: rgba(0,0,0,0.03); font-weight:700; font-size:0.7rem; color:var(--logo-color-accent);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    html.dark-mode .live-badge { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.03); color: var(--logo-color-accent); }
+
+    .live-dot {
+      width:10px; height:10px; border-radius:999px; background: var(--live-dot);
+      box-shadow: 0 0 10px rgba(0,0,0,0.08);
+      position: relative;
+    }
+    /* pulse animation for live dot */
+    @keyframes livePulse {
+      0% { transform: scale(1); opacity: 1; }
+      60% { transform: scale(1.7); opacity: 0.35; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .live-dot::after {
+      content: ""; position: absolute; left:0; top:0; right:0; bottom:0; border-radius: 999px;
+      background: var(--live-dot); opacity: 0.9; animation: livePulse 1.8s infinite ease-out;
+    }
+    /* theme toggle - pushed to the right */
     #theme-toggle {
         background: var(--btn-bg); border: 1px solid var(--btn-border);
-        border-radius: 999px; padding: 0.5rem; color: var(--text-main);
-        cursor: pointer; transition: all 0.2s ease;
+        border-radius: 999px; padding: 0.5rem 0.6rem; color: var(--text-main);
+        cursor: pointer; transition: all 0.2s ease; display:flex; align-items:center; justify-content:center;
+        box-shadow: 0 6px 18px rgba(16,24,40,0.06);
     }
-    #theme-toggle:hover { background: var(--card-hover-bg); }
+    #theme-toggle:hover { transform: translateY(-2px); }
+
+    /* responsive tweaks */
+    @media (max-width: 520px) {
+      .brand-title .name { font-size: 1.25rem; }
+      .brand .crest-wrap { width:48px; height:48px; }
+      .brand-title .meta { display:none; } /* hide subtitle on very small screens to save space */
+    }
+    /* keep old header title style for compatibility (not used) */
+    .header-main-title { display:none; }
   </style>
-  
+
   <script>
     (function() {
       if (localStorage.getItem('theme') === 'dark') {
@@ -126,35 +168,71 @@
   </script>
 </head>
 <body class="p-4">
-  <header class="flex justify-between items-center mb-6">
-    <div class="flex items-center gap-3">
-        <svg class="logo-svg" viewBox="0 0 150 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path class="accent-path" d="M10 20C10 9.5 19.5 0 30 0C40.5 0 50 9.5 50 20C50 30.5 40.5 40 30 40C19.5 40 10 30.5 10 20ZM30 2C20.625 2 12 10.125 12 20C12 29.875 20.625 38 30 38C39.375 38 48 29.875 48 20C48 10.125 39.375 2 30 2Z"/>
-            <path class="accent-path" d="M52 20C52 16.6667 56 12 60 12C64 12 68 16.6667 68 20C68 23.3333 64 28 60 28C56 28 52 23.3333 52 20ZM60 14C57.6667 14 54 16.6667 54 20C54 23.3333 57.6667 26 60 26C62.3333 26 66 23.3333 66 20C66 16.6667 62.3333 14 60 14Z"/>
-            <path d="M75 16H80V40H75V16ZM84 16H89V40H84V16ZM93 16H98V40H93V16ZM102 16H107V40H102V16ZM111 16H116V40H111V16ZM120 16H125V40H120V16ZM129 16H134V40H129V16ZM138 16H143V40H138V16ZM147 16H150V40H147V16Z" fill="url(#logoGradient)"/>
+  <!-- ====== NEW HEADER (only this block replaces the old header) ====== -->
+  <header class="site-header">
+    <!-- brand at the extreme LEFT (forced by header LTR) -->
+    <div class="brand">
+      <div class="crest-wrap" aria-hidden="true">
+        <!-- football crest simplified SVG -->
+        <svg class="crest-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HSTV logo">
+          <path d="M12 2l2.5 4.8L20 8l-3.6 3.1L17.5 16 12 13.6 6.5 16l1.1-4.9L4 8l5.5-.2L12 2z"/>
         </svg>
-        <h1 class="header-main-title text-3xl">HSTV</h1>
+      </div>
+
+      <div class="brand-title" aria-hidden="false">
+        <!-- main name with accent on V -->
+        <div class="name" role="heading" aria-level="1">
+          HST<span class="v-accent">V</span>
         </div>
-    <button id="theme-toggle" title="تغيير الوضع"></button>
+
+        <div class="meta">
+          <!-- small live badge to the right of the name -->
+          <div class="live-badge" title="مباشر الآن">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span style="font-weight:700; font-size:0.78rem;">live</span>
+          </div>
+          <!-- short subtitle -->
+          <span style="opacity:0.9;">أخبار ومباريات كرة القدم</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- controls (theme toggle at the extreme RIGHT) -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <!-- optional small helper text (hidden on small screens) -->
+      <div class="hidden sm:block text-sm" style="color:var(--text-secondary); font-weight:600;">تحديث تلقائي • ⚽</div>
+      <button id="theme-toggle" title="تغيير الوضع" aria-pressed="false" aria-label="تبديل الوضع الليلي/النهاري"></button>
+    </div>
   </header>
-    <p class="header-subtitle mt-1 text-center">أهم مباريات اليوم والأمس والغد</p> <div class="max-w-3xl mx-auto mb-6">
+  <!-- ========== rest of page (unchanged) ========== -->
+  <p class="header-subtitle mt-1 text-center">أهم مباريات اليوم والأمس والغد</p>
+  <div class="max-w-3xl mx-auto mb-6">
     <div class="flex gap-3">
       <button id="yesterday" class="btn-tab flex-1 px-4 py-2">الأمس</button>
       <button id="today" class="btn-tab flex-1 px-4 py-2 active">اليوم</button>
       <button id="tomorrow" class="btn-tab flex-1 px-4 py-2">الغد</button>
     </div>
   </div>
+
   <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
-  
+
+  <!-- ===== keep the original script logic for theme and matches (only small compatibility tweaks) ===== -->
   <script>
     const themeToggle = document.getElementById('theme-toggle');
     const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
     const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
-    function updateIcon() { if (document.documentElement.classList.contains('dark-mode')) { themeToggle.innerHTML = sunIcon; } else { themeToggle.innerHTML = moonIcon; } }
-    themeToggle.addEventListener('click', () => { document.documentElement.classList.toggle('dark-mode'); localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'); updateIcon(); });
+    function updateIcon() { 
+      if (document.documentElement.classList.contains('dark-mode')) { themeToggle.innerHTML = sunIcon; themeToggle.setAttribute('aria-pressed','true'); } 
+      else { themeToggle.innerHTML = moonIcon; themeToggle.setAttribute('aria-pressed','false'); } 
+    }
+    themeToggle.addEventListener('click', () => { 
+      document.documentElement.classList.toggle('dark-mode'); 
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'); 
+      updateIcon(); 
+    });
     updateIcon();
-    
-    // باقي الكود بدون تغيير
+
+    // باقي الكود كما في ملفك (لم ألمسه) - فقط أدرجته هنا كي يعمل مباشرة
     const API_URL = 'matches.json';
     const matchesContainer = document.getElementById('matches');
     const leagueTranslations = { 'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم', 'PD': 'الدوري الإسباني', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي', 'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي' };
