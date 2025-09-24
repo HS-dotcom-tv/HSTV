@@ -34,7 +34,6 @@
         --logo-text-hs-color: #fff;
         --logo-text-tv-color: rgba(255, 255, 255, 0.8);
         --logo-text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-        --live-badge-color: #E50914;
     }
     html.dark-mode {
         /* -- الوضع الليلي -- */
@@ -60,7 +59,6 @@
         --logo-text-hs-color: #fff;
         --logo-text-tv-color: rgba(255, 255, 255, 0.8);
         --logo-text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-        --live-badge-color: #FFFFFF;
     }
     
     body { 
@@ -149,10 +147,7 @@
     .header-side.left { justify-content: flex-start; }
     .header-side.right { justify-content: flex-end; }
     .header-center {
-        display: flex; /* Changed */
-        flex-direction: column; /* Added */
-        align-items: center; 
-        justify-content: center;
+        display: inline-flex; align-items: center; justify-content: center;
     }
     .logo-card {
         background: none; border: none; box-shadow: none;
@@ -162,45 +157,20 @@
         font-family: 'Montserrat', sans-serif; font-size: 28px;
         font-weight: 700; line-height: 1; letter-spacing: 1.5px;
         text-shadow: var(--logo-text-shadow); white-space: nowrap;
-        position: relative; /* Added for shine effect */
-        overflow: hidden;   /* Added for shine effect */
     }
-    .logo-text::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -100%;
-        width: 25%;
-        height: 200%;
-        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
-        transform: skewX(-25deg);
-        animation: shine 6s linear infinite 2s;
-    }
-
     .logo-text .hs-part { color: var(--logo-text-hs-color); }
     .logo-text .tv-part { color: var(--logo-text-tv-color); margin-right: 2px; }
 
     .live-badge {
         display: flex; align-items: center; gap: 4px;
         font-size: 0.7rem; font-family: 'Cairo', sans-serif;
-        font-weight: 600; 
-        color: var(--live-badge-color); /* Changed */
-        margin-top: 0.25rem; /* Added */
-        transition: color 0.4s ease; /* Added */
+        font-weight: 600; color: #E50914;
     }
     .live-dot {
-        width: 6px; height: 6px; 
-        background-color: var(--live-badge-color); /* Changed */
+        width: 6px; height: 6px; background-color: #E50914;
         border-radius: 50%; animation: pulse 1.5s infinite;
-        transition: background-color 0.4s ease; /* Added */
     }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-    @keyframes shine {
-        100% {
-            left: 175%;
-        }
-    }
 
     #theme-toggle {
         width: 36px; height: 36px;
@@ -241,8 +211,7 @@
     })();
   </script>
 </head>
-<body class=""> 
-  <header class="header">
+<body class=""> <header class="header">
     <div class="header-side left">
       <button id="theme-toggle" title="تغيير الوضع"></button>
     </div>
@@ -253,14 +222,14 @@
             <span class="hs-part">HS</span><span class="tv-part">TV</span>
           </span>
       </div>
+    </div>
+
+    <div class="header-side right">
       <div class="live-badge">
         <span class="live-dot"></span>
         <span>مباشر</span>
       </div>
     </div>
-
-    <div class="header-side right">
-      </div>
   </header>
   
   <div class="page-content p-4">
