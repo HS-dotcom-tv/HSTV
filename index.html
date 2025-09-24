@@ -7,33 +7,56 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
-        /* -- الوضع النهاري (مثالي) -- */
+        /* -- الوضع النهاري -- */
         --bg-gradient-start: #EFF6FF; --bg-gradient-end: #DBEAFE;
         --text-main: #1E293B; --text-secondary: #475569;
         --card-bg: rgba(255, 255, 255, 0.7); --card-hover-bg: rgba(255, 255, 255, 1);
         --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-        --card-border: transparent; --btn-bg: #fff; --btn-text: #334155; --btn-border: #CBD5E1;
+        --card-border: transparent;
+        
+        /* -- متغيرات الأزرار الزجاجية -- */
+        --btn-glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+        --btn-glass-border: rgba(255, 255, 255, 0.3);
+        --btn-glass-shadow: rgba(59, 130, 246, 0.1);
+        --btn-text-color: var(--text-secondary);
+
         --btn-active-gradient-start: #3B82F6; --btn-active-gradient-end: #2563EB;
         --btn-active-text: #fff;
-        --logo-hs-color: #1E293B;
-        --logo-tv-bg: #2563EB;
-        --logo-tv-text: #fff;
+
+        /* -- متغيرات الشعار (النهاري) -- */
+        --logo-card-bg: linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(37, 99, 235, 0.4));
+        --logo-card-border: rgba(255, 255, 255, 0.3);
+        --logo-card-shadow: rgba(59, 130, 246, 0.15);
+        --logo-text-hs-color: #fff;
+        --logo-text-tv-color: rgba(255, 255, 255, 0.8);
+        --logo-text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
     html.dark-mode {
-        /* -- الوضع الليلي (Netflix المصقول) -- */
+        /* -- الوضع الليلي -- */
         --bg-gradient-start: #141414; --bg-gradient-end: #141414;
         --text-main: #fff; --text-secondary: #A3A3A3;
         --card-bg: #282828; --card-hover-bg: #333333;
         --card-shadow: 0 0 0 0 transparent; --card-border: #282828;
-        --btn-bg: #2F2F2F; --btn-text: #fff; --btn-border: #4B5563;
+        
+        /* -- متغيرات الأزرار الزجاجية -- */
+        --btn-glass-bg: linear-gradient(135deg, rgba(40, 40, 40, 0.4), rgba(40, 40, 40, 0.2));
+        --btn-glass-border: rgba(255, 255, 255, 0.1);
+        --btn-glass-shadow: rgba(0, 0, 0, 0.3);
+        --btn-text-color: var(--text-secondary);
+
         --btn-active-gradient-start: #B9090B; --btn-active-gradient-end: #990709;
         --btn-active-text: #fff;
-        --logo-hs-color: #E5E7EB;
-        --logo-tv-bg: #B9090B;
-        --logo-tv-text: #fff;
+
+        /* -- متغيرات الشعار (الليلي) -- */
+        --logo-card-bg: linear-gradient(135deg, rgba(185, 9, 11, 0.5), rgba(153, 7, 9, 0.4));
+        --logo-card-border: rgba(255, 255, 255, 0.1);
+        --logo-card-shadow: rgba(0, 0, 0, 0.4);
+        --logo-text-hs-color: #fff;
+        --logo-text-tv-color: rgba(255, 255, 255, 0.8);
+        --logo-text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     }
     
     body { 
@@ -58,63 +81,102 @@
         transform: scale(1.03) translateY(-5px);
         box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     }
-    .btn-tab { 
-        background: var(--btn-bg); color: var(--btn-text);
-        border: 1px solid var(--btn-border);
-        transition: all .2s ease; border-radius: 0.75rem;
+
+    /* -->> تصميم الأزرار الرئيسي والثانوي <<-- */
+    .main-tab, .date-tab {
+        background: var(--btn-glass-bg);
+        border: 1px solid var(--btn-glass-border);
+        box-shadow: 0 2px 10px var(--btn-glass-shadow);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        color: var(--btn-text-color);
+        transition: all .3s ease;
+        border-radius: 14px;
+        font-weight: 600;
     }
-    .btn-tab.active { 
+    .main-tab:hover, .date-tab:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px var(--btn-glass-shadow);
+    }
+    .main-tab.active, .date-tab.active { 
         background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); 
-        color: var(--btn-active-text); border: none;
-        box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
+        color: var(--btn-active-text);
+        border: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.2);
+        transform: translateY(-1px);
     }
-    
-    /* -->> تصميم الهوية البصرية النهائي <<-- */
-    .header {
-        position: relative; text-align: center; margin-bottom: 1.5rem;
+    .date-tabs-container {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out;
     }
-    .logo-svg {
-        height: 40px;
-        width: 170px; /* -->> هذا هو الإصلاح الوحيد والمهم <<-- */
-        position: relative;
-    }
-    .logo-svg .hs-part { fill: var(--logo-hs-color); }
-    .logo-svg .tv-card { fill: var(--logo-tv-bg); }
-    .logo-svg .tv-part { fill: var(--logo-tv-text); }
-    
-    .live-badge {
-        position: absolute;
-        top: 50%;
-        left: 73.5%;
-        transform: translate(-50%, -50%);
-        font-size: 0.6rem; 
-        font-family: 'Cairo', sans-serif;
-        font-weight: 700;
-        color: #fff;
-        display: flex; align-items: center; gap: 3px;
-        direction: rtl;
-        z-index: 10;
-        pointer-events: none;
-    }
-    .live-dot {
-        width: 5px; height: 5px;
-        background-color: #fff;
-        border-radius: 50%;
-        animation: pulse 1.5s infinite;
+    .date-tabs-container.visible {
+        max-height: 100px; /* ارتفاع كافٍ لظهور الأزرار */
+        margin-top: 0.75rem; /* مسافة بين الصفين */
     }
 
+    /* -->> تصميم الهوية النهائي <<-- */
+    .header {
+        position: relative; text-align: center; margin-bottom: 2rem; height: 50px;
+        display: flex; justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    .header-side {
+        flex: 1; display: flex;
+    }
+    .header-side.left { justify-content: flex-start; }
+    .header-side.right { justify-content: flex-end; }
+
+    .header-center {
+        display: inline-flex; align-items: center; justify-content: center;
+    }
+    .logo-card {
+        background: var(--logo-card-bg);
+        border: 1px solid var(--logo-card-border);
+        box-shadow: 0 4px 20px var(--logo-card-shadow);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 14px;
+        padding: 5px 15px;
+        display: inline-flex; align-items: center; justify-content: center;
+        transition: all 0.3s ease;
+    }
+    .logo-text {
+        font-family: 'Montserrat', sans-serif; font-size: 28px;
+        font-weight: 700; line-height: 1; letter-spacing: 1.5px;
+        text-shadow: var(--logo-text-shadow); white-space: nowrap;
+    }
+    .logo-text .hs-part { color: var(--logo-text-hs-color); }
+    .logo-text .tv-part { color: var(--logo-text-tv-color); margin-right: 2px; }
+
+    .live-badge {
+        display: flex; align-items: center; gap: 4px;
+        font-size: 0.7rem; font-family: 'Cairo', sans-serif;
+        font-weight: 600; color: #E50914; margin-right: 8px;
+    }
+    .live-dot {
+        width: 6px; height: 6px; background-color: #E50914;
+        border-radius: 50%; animation: pulse 1.5s infinite;
+    }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
     #theme-toggle {
-        position: absolute; top: 50%; right: 0;
-        transform: translateY(-50%);
         width: 36px; height: 36px;
         display: flex; align-items: center; justify-content: center;
         background: var(--btn-bg); border: 1px solid var(--btn-border);
         border-radius: 50%; color: var(--text-main);
         cursor: pointer; transition: all 0.2s ease;
     }
-    #theme-toggle:hover { background: var(--card-hover-bg); }
-    /* -->> نهاية تصميم الهوية <<-- */
+    #theme-toggle:hover { 
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px var(--btn-glass-shadow);
+    }
+    
+    .page-section { display: none; }
+    .page-section.active { display: block; }
     
     .crest { 
         width: 50px; height: 50px; object-fit: contain; margin: auto;
@@ -142,64 +204,114 @@
 </head>
 <body class="p-4">
   <header class="header">
-    <div class="inline-block relative">
-        <svg class="logo-svg" viewBox="0 0 170 40" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <filter id="glow">
-                    <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
-                    <feMerge>
-                        <feMergeNode in="coloredBlur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-            </defs>
-            <text class="hs-part" x="0" y="32" font-family="Poppins, sans-serif" font-size="32" font-weight="700">HS</text>
-            <path class="tv-card" d="M92 4C90.8954 4 90 4.89543 90 6V34C90 35.1046 90.8954 36 92 36H158C159.105 36 160 35.1046 160 34V6C160 4.89543 159.105 4 158 4H92Z"/>
-            <text class="tv-part" x="98" y="32" font-family="Poppins, sans-serif" font-size="32" font-weight="700" style="filter: url(#glow);">TV</text>
-        </svg>
-        <div class="live-badge">
-            <span class="live-dot"></span>
-            <span>مباشر</span>
-        </div>
+    <div class="header-side left">
+      <button id="theme-toggle" title="تغيير الوضع"></button>
     </div>
-    <button id="theme-toggle" title="تغيير الوضع"></button>
+
+    <div class="header-center">
+      <div class="logo-card">
+          <span class="logo-text">
+            <span class="hs-part">HS</span><span class="tv-part">TV</span>
+          </span>
+      </div>
+    </div>
+
+    <div class="header-side right">
+      <div class="live-badge">
+        <span class="live-dot"></span>
+        <span>مباشر</span>
+      </div>
+    </div>
   </header>
   
   <div class="max-w-3xl mx-auto mb-6">
-    <p class="text-center text-sm header-subtitle mb-4">أهم مباريات اليوم والأمس والغد</p>
-    <div class="flex gap-3">
-      <button id="yesterday" class="btn-tab flex-1 px-4 py-2">الأمس</button>
-      <button id="today" class="btn-tab flex-1 px-4 py-2 active">اليوم</button>
-      <button id="tomorrow" class="btn-tab flex-1 px-4 py-2">الغد</button>
+    <div class="navigation-container">
+        <div class="main-tabs flex gap-3">
+          <button id="matches-btn" data-section="matches-section" class="main-tab flex-1 px-4 py-2 active">المباريات</button>
+          <button id="channels-btn" data-section="channels-section" class="main-tab flex-1 px-4 py-2">بث مباشر</button>
+          <button id="news-btn" data-section="news-section" class="main-tab flex-1 px-4 py-2">أخبار</button>
+        </div>
+        <div id="date-tabs-container" class="date-tabs-container visible">
+            <div class="date-tabs flex gap-3">
+              <button id="yesterday" class="date-tab flex-1 px-4 py-2">الأمس</button>
+              <button id="today" class="date-tab flex-1 px-4 py-2 active">اليوم</button>
+              <button id="tomorrow" class="date-tab flex-1 px-4 py-2">الغد</button>
+            </div>
+        </div>
     </div>
   </div>
-  <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
+
+  <main>
+    <div id="matches-section" class="page-section active">
+        <p class="text-center text-sm header-subtitle mb-4">أهم مباريات اليوم والأمس والغد</p>
+        <div id="matches" class="max-w-3xl mx-auto space-y-4"></div>
+    </div>
+
+    <div id="channels-section" class="page-section">
+        <div class="text-center py-12 text-slate-400">
+            📺 قسـم البث المباشر سيتوفر قريباً...
+        </div>
+    </div>
+
+    <div id="news-section" class="page-section">
+        <div class="text-center py-12 text-slate-400">
+            📰 قسـم الأخبار سيتوفر قريباً...
+        </div>
+    </div>
+  </main>
   
   <script>
-    // ... الكود بالكامل هنا بدون أي تغيير ...
-    const themeToggle = document.getElementById('theme-toggle');
-    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
-    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
-    function updateIcon() { if (document.documentElement.classList.contains('dark-mode')) { themeToggle.innerHTML = sunIcon; } else { themeToggle.innerHTML = moonIcon; } }
-    themeToggle.addEventListener('click', () => { document.documentElement.classList.toggle('dark-mode'); localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'); updateIcon(); });
-    updateIcon();
-    const API_URL = 'matches.json';
-    const matchesContainer = document.getElementById('matches');
-    const leagueTranslations = { 'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم', 'PD': 'الدوري الإنجليزي', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي', 'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي' };
-    const brokenLogos = { '113': true };
-    function setActiveTab(id) { document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-    function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
-    function formatTime(iso) { 
-        const d = new Date(iso); 
-        let timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' }); 
-        return timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً'); 
-    }
-    async function loadMatches(view='today') { setActiveTab(view); matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">جاري تحميل المباريات...</div>`; try { const res = await fetch(API_URL + '?t=' + Date.now()); const data = await res.json(); renderMatches(data.response || [], view); } catch (err) { console.error(err); matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات</div>`; } }
-    function renderMatches(allMatches, view) { matchesContainer.innerHTML = ''; const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0; const target = getDateString(offset); let filtered = allMatches.filter(m => m.fixture.date && m.fixture.date.startsWith(target)); if (!filtered.length) { matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`; return; } filtered.forEach(match => { matchesContainer.innerHTML += renderMatchHTML(match); }); }
-    function renderMatchHTML(match) { const status = match.fixture.status.short || 'NS'; let centerTop = '', centerBottom = ''; if (["LIVE", "HT"].includes(status)) { centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text text-red-400">مباشر</div>`; } else if (["FT", "AET", "PEN"].includes(status)) { centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text">انتهت</div>`; } else { const formattedTime = formatTime(match.fixture.date); const timeParts = formattedTime.split(' '); centerTop = `<div class="score-box">${timeParts[0]}<span class="time-period">${timeParts[1]}</span></div>`; } const leagueNameAr = leagueTranslations[match.league.code] || match.league.name; const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`; const homeLogo = brokenLogos[match.teams.home.id] ? 'default-logo.svg' : (match.teams.home.logo || 'default-logo.svg'); const awayLogo = brokenLogos[match.teams.away.id] ? 'default-logo.svg' : (match.teams.away.logo || 'default-logo.svg'); return `<div class="match-card p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`; }
-    ['yesterday', 'today', 'tomorrow'].forEach(id => document.getElementById(id).addEventListener('click', () => loadMatches(id)));
-    loadMatches('today');
-    setInterval(() => { if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
+    // -->> بداية كود الجافاسكربت الجديد للأقسام <<--
+    document.addEventListener('DOMContentLoaded', () => {
+        const mainTabs = document.querySelectorAll('.main-tab');
+        const pageSections = document.querySelectorAll('.page-section');
+        const dateTabsContainer = document.getElementById('date-tabs-container');
+
+        mainTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // إزالة active من كل الأزرار والأقسام
+                mainTabs.forEach(t => t.classList.remove('active'));
+                pageSections.forEach(s => s.classList.remove('active'));
+
+                // إضافة active للزر المضغوط والقسم الموافق له
+                tab.classList.add('active');
+                const sectionId = tab.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
+
+                // إظهار أو إخفاء أزرار التاريخ
+                if (sectionId === 'matches-section') {
+                    dateTabsContainer.classList.add('visible');
+                } else {
+                    dateTabsContainer.classList.remove('visible');
+                }
+            });
+        });
+
+        // -->> بداية كود المباريات القديم (بدون تغيير) <<--
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
+        const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
+        function updateIcon() { if (document.documentElement.classList.contains('dark-mode')) { themeToggle.innerHTML = sunIcon; } else { themeToggle.innerHTML = moonIcon; } }
+        themeToggle.addEventListener('click', () => { document.documentElement.classList.toggle('dark-mode'); localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'); updateIcon(); });
+        updateIcon();
+        const API_URL = 'matches.json';
+        const matchesContainer = document.getElementById('matches');
+        const leagueTranslations = { 'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم', 'PD': 'الدوري الإنجليزي', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي', 'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي' };
+        const brokenLogos = { '113': true };
+        function setActiveDateTab(id) { document.querySelectorAll('.date-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+        function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
+        function formatTime(iso) { 
+            const d = new Date(iso); 
+            let timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' }); 
+            return timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً'); 
+        }
+        async function loadMatches(view='today') { setActiveDateTab(view); matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">جاري تحميل المباريات...</div>`; try { const res = await fetch(API_URL + '?t=' + Date.now()); const data = await res.json(); renderMatches(data.response || [], view); } catch (err) { console.error(err); matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات</div>`; } }
+        function renderMatches(allMatches, view) { matchesContainer.innerHTML = ''; const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0; const target = getDateString(offset); let filtered = allMatches.filter(m => m.fixture.date && m.fixture.date.startsWith(target)); if (!filtered.length) { matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`; return; } filtered.forEach(match => { matchesContainer.innerHTML += renderMatchHTML(match); }); }
+        function renderMatchHTML(match) { const status = match.fixture.status.short || 'NS'; let centerTop = '', centerBottom = ''; if (["LIVE", "HT"].includes(status)) { centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text text-red-400">مباشر</div>`; } else if (["FT", "AET", "PEN"].includes(status)) { centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text">انتهت</div>`; } else { const formattedTime = formatTime(match.fixture.date); const timeParts = formattedTime.split(' '); centerTop = `<div class="score-box">${timeParts[0]}<span class="time-period">${timeParts[1]}</span></div>`; } const leagueNameAr = leagueTranslations[match.league.code] || match.league.name; const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`; const homeLogo = brokenLogos[match.teams.home.id] ? 'default-logo.svg' : (match.teams.home.logo || 'default-logo.svg'); const awayLogo = brokenLogos[match.teams.away.id] ? 'default-logo.svg' : (match.teams.away.logo || 'default-logo.svg'); return `<div class="match-card p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`; }
+        ['yesterday', 'today', 'tomorrow'].forEach(id => document.getElementById(id).addEventListener('click', () => loadMatches(id)));
+        loadMatches('today');
+        setInterval(() => { if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
+    });
   </script>
 </body>
 </html>
