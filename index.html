@@ -10,7 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
-        /* -- الوضع النهاري (مثالي) -- */
         --bg-gradient-start: #EFF6FF; --bg-gradient-end: #DBEAFE;
         --text-main: #1E293B; --text-secondary: #475569;
         --card-bg: rgba(255, 255, 255, 0.7); --card-hover-bg: rgba(255, 255, 255, 1);
@@ -19,11 +18,13 @@
         --btn-active-gradient-start: #3B82F6; --btn-active-gradient-end: #2563EB;
         --btn-active-text: #fff;
         --logo-hs-color: #1E3A8A;
-        --logo-tv-bg: #2563EB;
+        --logo-hs-shadow: rgba(30, 58, 138, 0.3);
+        --logo-tv-bg: rgba(37, 99, 235, 0.7);
         --logo-tv-text: #fff;
+        --logo-tv-glow: rgba(59, 130, 246, 0.8);
+        --logo-tv-border-glow: rgba(59, 130, 246, 0.5);
     }
     html.dark-mode {
-        /* -- الوضع الليلي (Netflix المصقول) -- */
         --bg-gradient-start: #141414; --bg-gradient-end: #141414;
         --text-main: #fff; --text-secondary: #A3A3A3;
         --card-bg: #282828; --card-hover-bg: #333333;
@@ -32,8 +33,11 @@
         --btn-active-gradient-start: #B9090B; --btn-active-gradient-end: #990709;
         --btn-active-text: #fff;
         --logo-hs-color: #E5E7EB;
-        --logo-tv-bg: #B9090B;
+        --logo-hs-shadow: rgba(229, 231, 235, 0.1);
+        --logo-tv-bg: rgba(185, 9, 11, 0.7);
         --logo-tv-text: #fff;
+        --logo-tv-glow: rgba(229, 231, 235, 0.5);
+        --logo-tv-border-glow: rgba(185, 9, 11, 0.8);
     }
     
     body { 
@@ -69,24 +73,47 @@
         box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
     }
     
-    /* -->> تصميم الهوية البصرية النهائي <<-- */
+    /* -->> الهوية البصرية <<-- */
     .header {
         position: relative; text-align: center; margin-bottom: 1.5rem;
     }
-    .logo-svg {
-        height: 40px; /* التحكم بحجم الشعار */
-        width: auto;
+    .logo-container {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.5rem; font-weight: 700;
+        display: inline-flex;
+        align-items: center; 
         position: relative;
+        direction: ltr;
+        letter-spacing: -2px;
     }
-    .logo-svg .hs-part { fill: var(--logo-hs-color); }
-    .logo-svg .tv-card { fill: var(--logo-tv-bg); }
-    .logo-svg .tv-part { fill: var(--logo-tv-text); }
-    
+    .hs-part {
+        color: var(--logo-hs-color);
+        text-shadow: 0 0 2px var(--logo-hs-shadow);
+        margin-right: -10px;
+        transform: translateY(-1px);
+    }
+    .tv-card {
+        display: inline-block;
+        background-color: var(--logo-tv-bg);
+        color: var(--logo-tv-text);
+        padding: 0.05em 0.3em;  /* أصغر */
+        line-height: 1;         /* تلاصق */
+        border-radius: 0.35em;  /* حواف أنعم */
+        font-size: 0.9em;       /* توازن */
+        box-shadow: 0 0 6px var(--logo-tv-border-glow),
+                    inset 0 0 3px rgba(0,0,0,0.1);
+        border: 1px solid var(--logo-tv-border-glow);
+        backdrop-filter: blur(3px);
+    }
+    .tv-part {
+        display: inline-block;
+        text-shadow: 0 0 8px var(--logo-tv-glow);
+    }
     .live-badge {
         position: absolute;
-        top: 8px; /* ضبط دقيق لموقع "مباشر" */
+        top: 0;
         right: 0;
-        transform: translateX(100%);
+        transform: translate(30%, -45%);
         font-size: 0.7rem;
         font-family: 'Cairo', sans-serif;
         font-weight: 600;
@@ -111,7 +138,6 @@
         cursor: pointer; transition: all 0.2s ease;
     }
     #theme-toggle:hover { background: var(--card-hover-bg); }
-    /* -->> نهاية تصميم الهوية <<-- */
     
     .crest { 
         width: 50px; height: 50px; object-fit: contain; margin: auto;
@@ -139,21 +165,8 @@
 </head>
 <body class="p-4">
   <header class="header">
-    <div class="inline-block relative">
-        <svg class="logo-svg" viewBox="0 0 170 40" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <filter id="glow">
-                    <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
-                    <feMerge>
-                        <feMergeNode in="coloredBlur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-            </defs>
-            <text class="hs-part" x="0" y="32" font-family="Poppins, sans-serif" font-size="32" font-weight="700">HS</text>
-            <path class="tv-card" d="M92 4C90.8954 4 90 4.89543 90 6V34C90 35.1046 90.8954 36 92 36H158C159.105 36 160 35.1046 160 34V6C160 4.89543 159.105 4 158 4H92Z"/>
-            <text class="tv-part" x="98" y="32" font-family="Poppins, sans-serif" font-size="32" font-weight="700" style="filter: url(#glow);">TV</text>
-        </svg>
+    <div class="logo-container">
+        <span class="hs-part">HS</span><span class="tv-card"><span class="tv-part">TV</span></span>
         <div class="live-badge">
             <span class="live-dot"></span>
             <span>مباشر</span>
@@ -173,7 +186,6 @@
   <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
   
   <script>
-    // ... الكود بالكامل هنا بدون أي تغيير ...
     const themeToggle = document.getElementById('theme-toggle');
     const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
     const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
@@ -182,7 +194,7 @@
     updateIcon();
     const API_URL = 'matches.json';
     const matchesContainer = document.getElementById('matches');
-    const leagueTranslations = { 'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم', 'PD': 'الدوري الإنجليزي', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي', 'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي' };
+    const leagueTranslations = { 'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم', 'PD': 'الدوري الإسباني', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي', 'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي' };
     const brokenLogos = { '113': true };
     function setActiveTab(id) { document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
     function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
