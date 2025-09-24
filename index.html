@@ -10,7 +10,7 @@
     /* ---------------------------------------------------- */
     /* استيراد خطوط خاصة للشعار (هنا استخدمنا Exo 2 لمظهر رياضي) */
     /* ---------------------------------------------------- */
-    @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700&display=swap');
 
     :root {
         /* -- الوضع النهاري (مثالي) -- */
@@ -22,8 +22,7 @@
         --btn-active-gradient-start: #3B82F6; --btn-active-gradient-end: #2563EB;
         --btn-active-text: #fff; --header-text: #1E3A8A;
         --logo-color-main: #1E3A8A; /* لون الشعار الرئيسي في النهار */
-        --logo-color-accent: #3B82F6; /* لون جزء الشعار المميز في النهار (مناسب للبث) */
-        --live-dot: #ef4444; /* لون الدوت الحمراء */
+        --logo-color-accent: #3B82F6; /* لون جزء الشعار المميز في النهار */
     }
     html.dark-mode {
         /* -- الوضع الليلي (Netflix المصقول) -- */
@@ -35,8 +34,7 @@
         --btn-active-gradient-start: #B9090B; --btn-active-gradient-end: #990709;
         --btn-active-text: #fff; --header-text: #B9090B;
         --logo-color-main: #E5E7EB; /* لون الشعار الرئيسي في الليل */
-        --logo-color-accent: #F97316; /* تدرج دافئ للـ TV في الليل (قابل للتعديل) */
-        --live-dot: #ff7b7b;
+        --logo-color-accent: #B9090B; /* لون جزء الشعار المميز في الليل */
     }
     
     body { 
@@ -71,65 +69,52 @@
         color: var(--btn-active-text); border: none;
         box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
     }
-
-    /* === Header styles (only these are new/changed) === */
-    header.flex-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1.5rem; }
-    /* keep original title styling & size */
     .header-main-title {
-        font-family: 'Exo 2', sans-serif;
+        font-family: 'Exo 2', sans-serif; /* تطبيق الخط الجديد هنا */
         color: var(--logo-color-main);
-        font-weight: 800;
+        font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
-        line-height: 1;
     }
-    /* brand area: allow optional image (PNG) then title */
-    .brand { display:flex; align-items:center; gap:0.75rem; min-width:0; }
-    .brand img.logo-png { width:52px; height:52px; object-fit:contain; border-radius:8px; display:block; }
-    .brand .logo-fallback { width:52px; height:52px; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7)); border-radius:8px; box-shadow: var(--card-shadow); }
-    .brand .logo-fallback svg { width:36px; height:36px; fill:var(--logo-color-accent); }
-
-    /* tv-wrap: make TV colored and allow small live badge anchored to it */
-    .tv-wrap { position:relative; display:inline-block; vertical-align:middle; margin-left:6px; }
-    .tv-text { color: var(--logo-color-accent); font-weight:800; font-size:0.95em; opacity:0.95; }
-    /* small live badge in the top-right corner of TV (visible in Desktop & Mobile) */
-    .live-badge {
-      position:absolute; top:-8px; right:-10px;
-      transform: translateZ(0);
-      display:flex; align-items:center; gap:6px;
-      background: var(--logo-color-accent); color:#fff; padding:3px 6px; border-radius:999px;
-      font-size:0.66rem; font-weight:700; box-shadow: 0 6px 18px rgba(16,24,40,0.08);
+    html.dark-mode .header-main-title {
+        /* إزالة التدرج للنص الأحمر الصريح في الوضع الليلي */
+        background: none;
+        -webkit-background-clip: unset; 
     }
-    .live-dot {
-      width:8px; height:8px; border-radius:999px; background: var(--live-dot); position:relative;
+    .header-subtitle { color: var(--text-secondary); margin-top: -5px; font-size: 0.8rem;}
+    /* ---------------------------------------------------- */
+    /* تصميم شعار SVG الجديد (يستخدم متغيرات الألوان)      */
+    /* ---------------------------------------------------- */
+    .logo-svg {
+        height: 40px; /* حجم الشعار */
+        width: auto;
+        fill: var(--logo-color-main); /* لون النص الافتراضي */
+        transition: fill 0.3s ease;
     }
-    /* pulse effect (keeps working in desktop) */
-    @keyframes pulse {
-      0% { transform: scale(1); opacity:1; }
-      60% { transform: scale(1.8); opacity:0.4; }
-      100% { transform: scale(2.6); opacity:0; }
+    .logo-svg .accent-path {
+        fill: var(--logo-color-accent); /* لون الجزء المميز */
+        transition: fill 0.3s ease;
     }
-    .live-dot::after {
-      content:""; position:absolute; left:0; top:0; right:0; bottom:0; border-radius:999px;
-      background: var(--live-dot); animation: pulse 1.6s infinite ease-out; opacity:0.9;
+    .crest { 
+        width: 50px; height: 50px; object-fit: contain; margin: auto;
+        border-radius: 50%;
     }
-
-    /* theme toggle style kept but slightly positioned */
+    .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; line-height: 1; color: var(--text-main);}
+    .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
+    .status-text, .time-period, .match-details { color: var(--text-secondary); }
+    .match-details { 
+      border-top: 1px solid var(--card-border); 
+      margin-top: 1rem; padding-top: 0.75rem;
+      font-size: 0.75rem; font-weight: 400; 
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
     #theme-toggle {
         background: var(--btn-bg); border: 1px solid var(--btn-border);
-        border-radius: 999px; padding: 0.45rem; color: var(--text-main); cursor: pointer;
-        transition: all 0.18s ease; display:flex; align-items:center; justify-content:center;
+        border-radius: 999px; padding: 0.5rem; color: var(--text-main);
+        cursor: pointer; transition: all 0.2s ease;
     }
-
-    /* small responsive tweaks */
-    @media (max-width:520px) {
-      .header-main-title.text-3xl { font-size: 1.5rem; } /* keep it readable on small screens */
-      .brand img.logo-png, .brand .logo-fallback { width:44px; height:44px; }
-      .live-badge { top:-6px; right:-8px; font-size:0.6rem; padding:2px 5px; }
-    }
-
-    /* keep previous subtitle style */
-    .header-subtitle { color: var(--text-secondary); margin-top: -5px; font-size: 0.8rem; text-align:center; }
+    #theme-toggle:hover { background: var(--card-hover-bg); }
   </style>
   
   <script>
@@ -141,47 +126,24 @@
   </script>
 </head>
 <body class="p-4">
-  <!-- ====== HEADER: button placed first so visual order keeps HSTV at left on RTL ====== -->
-  <header class="flex-header">
-    <!-- theme toggle (kept, appears on the right visually because page is RTL and this node is first) -->
-    <div style="display:flex; align-items:center; gap:8px;">
-      <button id="theme-toggle" title="تغيير الوضع" aria-label="تبديل الوضع"></button>
-    </div>
-
-    <!-- brand (placed last so it appears on the left in RTL) -->
-    <div class="brand" role="banner" aria-label="HSTV - الشعار والعنوان">
-      <!-- optional PNG logo: ضع ملف logo.png في نفس المجلد ليظهر -->
-      <img src="logo.png" alt="شعار HSTV" class="logo-png" onerror="this.style.display='none'">
-      <!-- fallback SVG (يبقى ظاهر إذا لم يوجد PNG) -->
-      <div class="logo-fallback" aria-hidden="true" title="HSTV">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M12 2l2.5 4.8L20 8l-3.6 3.1L17.5 16 12 13.6 6.5 16l1.1-4.9L4 8l5.5-.2L12 2z"/>
+  <header class="flex justify-between items-center mb-6">
+    <div class="flex items-center gap-3">
+        <svg class="logo-svg" viewBox="0 0 150 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path class="accent-path" d="M10 20C10 9.5 19.5 0 30 0C40.5 0 50 9.5 50 20C50 30.5 40.5 40 30 40C19.5 40 10 30.5 10 20ZM30 2C20.625 2 12 10.125 12 20C12 29.875 20.625 38 30 38C39.375 38 48 29.875 48 20C48 10.125 39.375 2 30 2Z"/>
+            <path class="accent-path" d="M52 20C52 16.6667 56 12 60 12C64 12 68 16.6667 68 20C68 23.3333 64 28 60 28C56 28 52 23.3333 52 20ZM60 14C57.6667 14 54 16.6667 54 20C54 23.3333 57.6667 26 60 26C62.3333 26 66 23.3333 66 20C66 16.6667 62.3333 14 60 14Z"/>
+            <path d="M75 16H80V40H75V16ZM84 16H89V40H84V16ZM93 16H98V40H93V16ZM102 16H107V40H102V16ZM111 16H116V40H111V16ZM120 16H125V40H120V16ZM129 16H134V40H129V16ZM138 16H143V40H138V16ZM147 16H150V40H147V16Z" fill="url(#logoGradient)"/>
         </svg>
-      </div>
-
-      <!-- title: حجم كما في الأصل (text-3xl) - حافظت على ذلك -->
-      <h1 class="header-main-title text-3xl" aria-level="1" role="heading">
-        HST<span class="tv-wrap"><span class="tv-text">TV</span>
-          <!-- live badge anchored to TV (صغيرة، في زاوية الـ TV) -->
-          <span class="live-badge" aria-hidden="false" title="مباشر الآن">
-            <span class="live-dot" aria-hidden="true"></span>
-            <span style="line-height:1;">live</span>
-          </span>
-        </span>
-      </h1>
-    </div>
+        <h1 class="header-main-title text-3xl">HSTV</h1>
+        </div>
+    <button id="theme-toggle" title="تغيير الوضع"></button>
   </header>
-
-  <p class="header-subtitle mt-1">أهم مباريات اليوم والأمس والغد</p>
-
-  <div class="max-w-3xl mx-auto mb-6">
+    <p class="header-subtitle mt-1 text-center">أهم مباريات اليوم والأمس والغد</p> <div class="max-w-3xl mx-auto mb-6">
     <div class="flex gap-3">
       <button id="yesterday" class="btn-tab flex-1 px-4 py-2">الأمس</button>
       <button id="today" class="btn-tab flex-1 px-4 py-2 active">اليوم</button>
       <button id="tomorrow" class="btn-tab flex-1 px-4 py-2">الغد</button>
     </div>
   </div>
-
   <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
   
   <script>
