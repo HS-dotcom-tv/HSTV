@@ -167,7 +167,8 @@
         font-size: 24px; 
         font-weight: 700; line-height: 1; letter-spacing: 1.5px;
         text-shadow: var(--logo-text-shadow); white-space: nowrap;
-        transition: color 0.4s ease; /* إضافة انتقال ناعم للون */
+        /* هذا هو السطر الذي سيضيف الانتقال للون */
+        transition: color 0.4s ease, text-shadow 0.4s ease; 
     }
 
     .logo-text .hs-part { color: var(--logo-text-hs-color); }
