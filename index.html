@@ -18,7 +18,7 @@
         --card-border: transparent; --btn-bg: #fff; --btn-text: #334155; --btn-border: #CBD5E1;
         --btn-active-gradient-start: #3B82F6; --btn-active-gradient-end: #2563EB;
         --btn-active-text: #fff;
-        --logo-hs-color: #1E293B; /* -->> تم التعديل إلى الأسود -- */
+        --logo-hs-color: #1E293B;
         --logo-tv-bg: #2563EB;
         --logo-tv-text: #fff;
     }
@@ -31,7 +31,7 @@
         --btn-bg: #2F2F2F; --btn-text: #fff; --btn-border: #4B5563;
         --btn-active-gradient-start: #B9090B; --btn-active-gradient-end: #990709;
         --btn-active-text: #fff;
-        --logo-hs-color: #E5E7EB; /* -->> اللون الأبيض للوضع الليلي -- */
+        --logo-hs-color: #E5E7EB;
         --logo-tv-bg: #B9090B;
         --logo-tv-text: #fff;
     }
@@ -74,20 +74,19 @@
         position: relative; text-align: center; margin-bottom: 1.5rem;
     }
     .logo-svg {
-        height: 40px; /* التحكم بحجم الشعار */
-        width: auto;
+        height: 40px;
+        width: 170px; /* -->> هذا هو الإصلاح الوحيد والمهم <<-- */
         position: relative;
     }
     .logo-svg .hs-part { fill: var(--logo-hs-color); }
     .logo-svg .tv-card { fill: var(--logo-tv-bg); }
     .logo-svg .tv-part { fill: var(--logo-tv-text); }
     
-    /* -->> تعديل توسيط "مباشر" <<-- */
     .live-badge {
         position: absolute;
         top: 50%;
-        left: 73.5%; /* (125/170) -> مركز البطاقة أفقياً */
-        transform: translate(-50%, -50%); /* لتوسيط العنصر نفسه */
+        left: 73.5%;
+        transform: translate(-50%, -50%);
         font-size: 0.6rem; 
         font-family: 'Cairo', sans-serif;
         font-weight: 700;
