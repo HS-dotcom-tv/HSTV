@@ -78,18 +78,20 @@
         position: relative;
         text-align: center;
         margin-bottom: 1.5rem;
+        height: 50px; /* تحديد ارتفاع ثابت للهيدر */
     }
     .logo-wrapper {
         display: inline-block;
         position: relative;
+        height: 100%;
     }
     .logo-background-card {
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-40%, -50%); /* تموضع مدروس خلف النص */
-        width: 150px; /* حجم البطاقة */
-        height: 50px;
+        transform: translate(-30%, -50%); /* تموضع مدروس خلف النص ليشبه الصورة */
+        width: 130px; 
+        height: 48px;
         background: var(--logo-card-bg);
         border-radius: 12px;
         backdrop-filter: blur(8px);
@@ -97,16 +99,21 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-end; /* وضع "مباشر" في اليمين */
+        padding-right: 15px; /* مسافة لـ "مباشر" من الحافة */
     }
     .logo-text {
-        position: relative; /* لجعله فوق البطاقة */
+        position: relative;
         z-index: 1;
         font-family: 'Poppins', sans-serif;
         font-size: 2.75rem;
         font-weight: 700;
         color: var(--logo-text-color);
         text-shadow: var(--logo-text-shadow);
+        /* ضمان بقاء النص في مكانه الصحيح */
+        display: flex;
+        align-items: center;
+        height: 100%;
     }
     .live-badge {
         font-size: 0.8rem;
@@ -125,7 +132,7 @@
         animation: pulse 1.5s infinite;
     }
     html.dark-mode .live-dot {
-        background-color: #fff; /* النقطة تصبح بيضاء في الوضع الليلي */
+        background-color: #fff;
     }
     @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.9); } }
     #theme-toggle {
