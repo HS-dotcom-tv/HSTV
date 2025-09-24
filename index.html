@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Raleway:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
         /* -- الوضع النهاري -- */
@@ -153,18 +153,13 @@
         background: none; border: none; box-shadow: none;
         backdrop-filter: none; -webkit-backdrop-filter: none; padding: 0;
     }
-    /* -->> التعديل النهائي للشعار <<-- */
     .logo-text {
-        font-family: 'Raleway', sans-serif;
-        font-size: 24px; /* حجم أنيق ومنطقي */
-        font-weight: 700;
-        line-height: 1;
-        letter-spacing: 2px;
-        text-shadow: var(--logo-text-shadow);
-        white-space: nowrap;
+        font-family: 'Montserrat', sans-serif; font-size: 28px;
+        font-weight: 700; line-height: 1; letter-spacing: 1.5px;
+        text-shadow: var(--logo-text-shadow); white-space: nowrap;
     }
     .logo-text .hs-part { color: var(--logo-text-hs-color); }
-    .logo-text .tv-part { color: var(--logo-text-tv-color); margin-left: 2px; }
+    .logo-text .tv-part { color: var(--logo-text-tv-color); margin-right: 2px; }
 
     .live-badge {
         display: flex; align-items: center; gap: 4px;
@@ -216,8 +211,7 @@
     })();
   </script>
 </head>
-<body class="">
-  <header class="header">
+<body class=""> <header class="header">
     <div class="header-side left">
       <button id="theme-toggle" title="تغيير الوضع"></button>
     </div>
@@ -225,7 +219,7 @@
     <div class="header-center">
       <div class="logo-card">
           <span class="logo-text">
-            <span class="hs-part">HS</span><span class="tv-part">Tv</span>
+            <span class="hs-part">HS</span><span class="tv-part">TV</span>
           </span>
       </div>
     </div>
