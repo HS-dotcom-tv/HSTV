@@ -19,9 +19,11 @@
         --btn-active-gradient-start: #3B82F6; --btn-active-gradient-end: #2563EB;
         --btn-active-text: #fff;
         --logo-hs-color: #1E3A8A;
-        --logo-hs-glow: rgba(30, 58, 138, 0.2);
-        --logo-tv-bg: #2563EB;
+        --logo-hs-shadow: rgba(30, 58, 138, 0.3); /* ظل لـ HS */
+        --logo-tv-bg: rgba(37, 99, 235, 0.7); /* خلفية TV أقل شفافية */
         --logo-tv-text: #fff;
+        --logo-tv-glow: rgba(59, 130, 246, 0.8); /* توهج TV */
+        --logo-tv-border-glow: rgba(59, 130, 246, 0.5); /* حدود متوهجة */
     }
     html.dark-mode {
         /* -- الوضع الليلي (Netflix المصقول) -- */
@@ -33,9 +35,11 @@
         --btn-active-gradient-start: #B9090B; --btn-active-gradient-end: #990709;
         --btn-active-text: #fff;
         --logo-hs-color: #E5E7EB;
-        --logo-hs-glow: rgba(229, 231, 235, 0.1);
-        --logo-tv-bg: #B9090B;
+        --logo-hs-shadow: rgba(229, 231, 235, 0.1);
+        --logo-tv-bg: rgba(185, 9, 11, 0.7);
         --logo-tv-text: #fff;
+        --logo-tv-glow: rgba(229, 231, 235, 0.5);
+        --logo-tv-border-glow: rgba(185, 9, 11, 0.8);
     }
     
     body { 
@@ -78,27 +82,32 @@
     .logo-container {
         font-family: 'Poppins', sans-serif;
         font-size: 2.5rem; font-weight: 700;
-        display: inline-flex; align-items: baseline;
+        display: inline-flex;
+        align-items: center; 
         position: relative;
-        direction: ltr; 
+        direction: ltr; /* لضمان الترتيب الصحيح للحروف */
+        letter-spacing: -2px; /* لتقليل المسافة بين الحروف */
     }
     .hs-part {
         color: var(--logo-hs-color);
-        text-shadow: 0 0 1px var(--logo-hs-glow);
+        text-shadow: 0 0 2px var(--logo-hs-shadow); /* ظل خفيف لـ HS */
+        margin-right: -10px; /* لسحب HS أقرب إلى TV */
+        transform: translateY(-1px); /* ضبط دقيق للمحاذاة */
     }
     .tv-card {
         display: inline-block;
         background-color: var(--logo-tv-bg);
         color: var(--logo-tv-text);
-        /* -->> تصغير البطاقة وإزالة المسافة <<-- */
-        padding: 0px 8px; 
-        line-height: 1.2;
+        padding: 0px 8px; /* تصغير البادينغ للحواف */
+        line-height: 1.1; /* ضبط ارتفاع السطر للحواف العمودية */
         border-radius: 7px;
-        margin-right: -5px; 
-        z-index: -1; /* لجعلها خلف الحرف قليلاً */
+        box-shadow: 0 0 10px var(--logo-tv-border-glow), inset 0 0 5px rgba(0,0,0,0.1); /* توهج وإضاءة داخلية */
+        border: 1px solid var(--logo-tv-border-glow); /* حد خفيف متوهج */
+        backdrop-filter: blur(4px); /* تأثير ضبابي خفيف */
     }
     .tv-part {
         display: inline-block;
+        text-shadow: 0 0 8px var(--logo-tv-glow); /* توهج لنص TV */
     }
     .live-badge {
         position: absolute;
@@ -110,6 +119,7 @@
         font-weight: 600;
         color: #E50914;
         display: flex; align-items: center; gap: 3px;
+        direction: rtl; /* لضمان ترتيب نص مباشر بشكل صحيح */
     }
     .live-dot {
         width: 6px; height: 6px;
@@ -177,14 +187,6 @@
   <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
   
   <script>
-    // -->> تم إصلاح الخطأ المطبعي هنا <<--
-    function formatTime(iso) { 
-        const d = new Date(iso); 
-        let timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' }); 
-        return timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً'); 
-    }
-
-    // ... باقي الكود بدون أي تغيير ...
     const themeToggle = document.getElementById('theme-toggle');
     const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
     const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
@@ -197,6 +199,11 @@
     const brokenLogos = { '113': true };
     function setActiveTab(id) { document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
     function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
+    function formatTime(iso) { 
+        const d = new Date(iso); 
+        let timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' }); 
+        return timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً'); 
+    }
     async function loadMatches(view='today') { setActiveTab(view); matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">جاري تحميل المباريات...</div>`; try { const res = await fetch(API_URL + '?t=' + Date.now()); const data = await res.json(); renderMatches(data.response || [], view); } catch (err) { console.error(err); matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات</div>`; } }
     function renderMatches(allMatches, view) { matchesContainer.innerHTML = ''; const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0; const target = getDateString(offset); let filtered = allMatches.filter(m => m.fixture.date && m.fixture.date.startsWith(target)); if (!filtered.length) { matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`; return; } filtered.forEach(match => { matchesContainer.innerHTML += renderMatchHTML(match); }); }
     function renderMatchHTML(match) { const status = match.fixture.status.short || 'NS'; let centerTop = '', centerBottom = ''; if (["LIVE", "HT"].includes(status)) { centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text text-red-400">مباشر</div>`; } else if (["FT", "AET", "PEN"].includes(status)) { centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text">انتهت</div>`; } else { const formattedTime = formatTime(match.fixture.date); const timeParts = formattedTime.split(' '); centerTop = `<div class="score-box">${timeParts[0]}<span class="time-period">${timeParts[1]}</span></div>`; } const leagueNameAr = leagueTranslations[match.league.code] || match.league.name; const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`; const homeLogo = brokenLogos[match.teams.home.id] ? 'default-logo.svg' : (match.teams.home.logo || 'default-logo.svg'); const awayLogo = brokenLogos[match.teams.away.id] ? 'default-logo.svg' : (match.teams.away.logo || 'default-logo.svg'); return `<div class="match-card p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`; }
