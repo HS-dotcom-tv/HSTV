@@ -124,26 +124,22 @@
         margin-top: 0.75rem;
     }
 
-    /* -->> تعديل الهيدر النهائي <<-- */
     .header {
         background: var(--header-bg);
         border-top: 1px solid var(--header-border-top);
         border-bottom: 1px solid var(--header-border-bottom);
         box-shadow: var(--header-shadow);
-        backdrop-filter: blur(18px); /* زيادة الضبابية */
+        backdrop-filter: blur(18px);
         -webkit-backdrop-filter: blur(18px);
         transition: all 0.3s ease;
-        
-        border-bottom-left-radius: 20px; /* استدارة الحواف */
+        border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
-        
         position: relative;
         display: flex; 
         justify-content: space-between;
         align-items: center;
         width: 100%;
         padding: 0.5rem 1rem;
-        margin-bottom: 2rem;
     }
     .header-side {
         flex: 1; display: flex;
@@ -215,8 +211,7 @@
     })();
   </script>
 </head>
-<body class="p-4">
-  <header class="header">
+<body class=""> <header class="header">
     <div class="header-side left">
       <button id="theme-toggle" title="تغيير الوضع"></button>
     </div>
@@ -237,40 +232,42 @@
     </div>
   </header>
   
-  <div class="max-w-3xl mx-auto mb-6">
-    <div class="navigation-container">
-        <div class="main-tabs flex gap-3">
-          <button id="matches-btn" data-section="matches-section" class="main-tab flex-1">المباريات</button>
-          <button id="channels-btn" data-section="channels-section" class="main-tab flex-1">بث مباشر</button>
-          <button id="news-btn" data-section="news-section" class="main-tab flex-1">أخبار</button>
-        </div>
-        <div id="date-tabs-container" class="date-tabs-container">
-            <div class="date-tabs flex gap-3">
-              <button id="yesterday" class="date-tab flex-1">الأمس</button>
-              <button id="today" class="date-tab flex-1 active">اليوم</button>
-              <button id="tomorrow" class="date-tab flex-1">الغد</button>
-            </div>
-        </div>
+  <div class="page-content p-4">
+    <div class="max-w-3xl mx-auto mb-6">
+      <div class="navigation-container">
+          <div class="main-tabs flex gap-3">
+            <button id="matches-btn" data-section="matches-section" class="main-tab flex-1">المباريات</button>
+            <button id="channels-btn" data-section="channels-section" class="main-tab flex-1">بث مباشر</button>
+            <button id="news-btn" data-section="news-section" class="main-tab flex-1">أخبار</button>
+          </div>
+          <div id="date-tabs-container" class="date-tabs-container">
+              <div class="date-tabs flex gap-3">
+                <button id="yesterday" class="date-tab flex-1">الأمس</button>
+                <button id="today" class="date-tab flex-1 active">اليوم</button>
+                <button id="tomorrow" class="date-tab flex-1">الغد</button>
+              </div>
+          </div>
+      </div>
     </div>
+
+    <main>
+      <div id="matches-section" class="page-section active">
+          <div id="matches" class="max-w-3xl mx-auto space-y-4"></div>
+      </div>
+
+      <div id="channels-section" class="page-section">
+          <div class="text-center py-12 text-slate-400">
+              📺 قسـم البث المباشر سيتوفر قريباً...
+          </div>
+      </div>
+
+      <div id="news-section" class="page-section">
+          <div class="text-center py-12 text-slate-400">
+              📰 قسـم الأخبار سيتوفر قريباً...
+          </div>
+      </div>
+    </main>
   </div>
-
-  <main>
-    <div id="matches-section" class="page-section active">
-        <div id="matches" class="max-w-3xl mx-auto space-y-4"></div>
-    </div>
-
-    <div id="channels-section" class="page-section">
-        <div class="text-center py-12 text-slate-400">
-            📺 قسـم البث المباشر سيتوفر قريباً...
-        </div>
-    </div>
-
-    <div id="news-section" class="page-section">
-        <div class="text-center py-12 text-slate-400">
-            📰 قسـم الأخبار سيتوفر قريباً...
-        </div>
-    </div>
-  </main>
   
   <script>
     document.addEventListener('DOMContentLoaded', () => {
