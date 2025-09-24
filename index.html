@@ -7,8 +7,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    /* -->> تعريف الخط الجديد <<-- */
+    @font-face {
+      font-family: 'Zonex';
+      src: url('zonex-dr5ne.otf') format('opentype');
+    }
+
     :root {
         /* -- الوضع النهاري -- */
         --bg-gradient-start: #EFF6FF; --bg-gradient-end: #DBEAFE;
@@ -154,9 +160,13 @@
         backdrop-filter: none; -webkit-backdrop-filter: none; padding: 0;
     }
     .logo-text {
-        font-family: 'Montserrat', sans-serif; font-size: 28px;
-        font-weight: 700; line-height: 1; letter-spacing: 1.5px;
-        text-shadow: var(--logo-text-shadow); white-space: nowrap;
+        font-family: 'Zonex', sans-serif; /* -->> تطبيق الخط الجديد <<-- */
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 1.5px;
+        text-shadow: var(--logo-text-shadow);
+        white-space: nowrap;
     }
     .logo-text .hs-part { color: var(--logo-text-hs-color); }
     .logo-text .tv-part { color: var(--logo-text-tv-color); margin-right: 2px; }
@@ -211,7 +221,8 @@
     })();
   </script>
 </head>
-<body class=""> <header class="header">
+<body class="">
+  <header class="header">
     <div class="header-side left">
       <button id="theme-toggle" title="تغيير الوضع"></button>
     </div>
