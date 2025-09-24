@@ -1,214 +1,127 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>HSTV - جداول المباريات</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HS TV</title>
   <style>
+    /* ====== الأساسيات ====== */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f9;
+      color: #111;
+    }
+
+    [data-theme="dark"] {
+      background: #0f172a;
+      color: #f1f5f9;
+    }
+
+    /* ====== Header ====== */
+    .site-header {
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+      position: relative;
+    }
+
+    /* ====== HS Text ====== */
+    .hs-text {
+      position: relative;
+      z-index: 2;                /* فوق بطاقة TV */
+      font-weight: 900;
+      font-size: 2.5rem;
+      letter-spacing: -1px;
+      transition: color 0.3s, text-shadow 0.3s;
+      color: var(--hs-color);
+      text-shadow: var(--hs-shadow);
+    }
+
+    /* ألوان الوضع النهاري */
     :root {
-        --bg-gradient-start: #EFF6FF; --bg-gradient-end: #DBEAFE;
-        --text-main: #1E293B; --text-secondary: #475569;
-        --card-bg: rgba(255, 255, 255, 0.7); --card-hover-bg: rgba(255, 255, 255, 1);
-        --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-        --card-border: transparent; --btn-bg: #fff; --btn-text: #334155; --btn-border: #CBD5E1;
-        --btn-active-gradient-start: #3B82F6; --btn-active-gradient-end: #2563EB;
-        --btn-active-text: #fff;
-        --logo-hs-color: #1E3A8A;
-        --logo-hs-shadow: rgba(30, 58, 138, 0.3);
-        --logo-tv-bg: rgba(37, 99, 235, 0.7);
-        --logo-tv-text: #fff;
-        --logo-tv-glow: rgba(59, 130, 246, 0.8);
-        --logo-tv-border-glow: rgba(59, 130, 246, 0.5);
+      --hs-color: #111; /* أسود */
+      --hs-shadow: 0 2px 4px rgba(0,0,0,0.15);
+
+      --logo-tv-bg: #2563eb;
+      --logo-tv-text: #fff;
+      --logo-tv-border-glow: rgba(37,99,235,0.6);
+
+      --live-badge-color: #e11d48;
     }
-    html.dark-mode {
-        --bg-gradient-start: #141414; --bg-gradient-end: #141414;
-        --text-main: #fff; --text-secondary: #A3A3A3;
-        --card-bg: #282828; --card-hover-bg: #333333;
-        --card-shadow: 0 0 0 0 transparent; --card-border: #282828;
-        --btn-bg: #2F2F2F; --btn-text: #fff; --btn-border: #4B5563;
-        --btn-active-gradient-start: #B9090B; --btn-active-gradient-end: #990709;
-        --btn-active-text: #fff;
-        --logo-hs-color: #E5E7EB;
-        --logo-hs-shadow: rgba(229, 231, 235, 0.1);
-        --logo-tv-bg: rgba(185, 9, 11, 0.7);
-        --logo-tv-text: #fff;
-        --logo-tv-glow: rgba(229, 231, 235, 0.5);
-        --logo-tv-border-glow: rgba(185, 9, 11, 0.8);
+
+    /* ألوان الوضع الليلي */
+    [data-theme="dark"] {
+      --hs-color: #fff; /* أبيض */
+      --hs-shadow: 0 2px 6px rgba(255,255,255,0.25);
+
+      --logo-tv-bg: #1d4ed8;
+      --logo-tv-text: #fff;
+      --logo-tv-border-glow: rgba(59,130,246,0.7);
+
+      --live-badge-color: #f43f5e;
     }
-    
-    body { 
-        font-family: 'Cairo', sans-serif; 
-        background-color: var(--bg-gradient-start);
-        background-image: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); 
-        min-height:100vh; color: var(--text-main);
-        transition: background 0.4s ease, color 0.4s ease;
-    }
-    .match-card { 
-        transition: all .2s ease-in-out; 
-        background: var(--card-bg); border: 1px solid var(--card-border);
-        box-shadow: var(--card-shadow); border-radius: 0.75rem;
-    }
-    html.dark-mode .match-card {
-        backdrop-filter: none; border-radius: 0.25rem; border: none;
-    }
-    .match-card:hover { 
-        transform: translateY(-5px); background: var(--card-hover-bg); 
-    }
-    html.dark-mode .match-card:hover {
-        transform: scale(1.03) translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    }
-    .btn-tab { 
-        background: var(--btn-bg); color: var(--btn-text);
-        border: 1px solid var(--btn-border);
-        transition: all .2s ease; border-radius: 0.75rem;
-    }
-    .btn-tab.active { 
-        background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); 
-        color: var(--btn-active-text); border: none;
-        box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
-    }
-    
-    /* -->> الهوية البصرية <<-- */
-    .header {
-        position: relative; text-align: center; margin-bottom: 1.5rem;
-    }
-    .logo-container {
-        font-family: 'Poppins', sans-serif;
-        font-size: 2.5rem; font-weight: 700;
-        display: inline-flex;
-        align-items: center; 
-        position: relative;
-        direction: ltr;
-        letter-spacing: -2px;
-    }
-    .hs-part {
-        color: var(--logo-hs-color);
-        text-shadow: 0 0 2px var(--logo-hs-shadow);
-        margin-right: -10px;
-        transform: translateY(-1px);
-    }
+
+    /* ====== TV Card ====== */
     .tv-card {
-        display: inline-block;
-        background-color: var(--logo-tv-bg);
-        color: var(--logo-tv-text);
-        padding: 0.05em 0.3em;  /* أصغر */
-        line-height: 1;         /* تلاصق */
-        border-radius: 0.35em;  /* حواف أنعم */
-        font-size: 0.9em;       /* توازن */
-        box-shadow: 0 0 6px var(--logo-tv-border-glow),
-                    inset 0 0 3px rgba(0,0,0,0.1);
-        border: 1px solid var(--logo-tv-border-glow);
-        backdrop-filter: blur(3px);
+      position: relative;
+      z-index: 1; /* أقل من HS */
+      background-color: var(--logo-tv-bg);
+      color: var(--logo-tv-text);
+      padding: 0.2em 0.45em;
+      border-radius: 0.35em;
+      font-size: 1em;
+      font-weight: 800;
+      display: inline-block;
+      line-height: 1;
+      border: 1px solid var(--logo-tv-border-glow);
+      box-shadow: 0 0 6px var(--logo-tv-border-glow),
+                  inset 0 0 3px rgba(0,0,0,0.1);
+      backdrop-filter: blur(3px);
     }
-    .tv-part {
-        display: inline-block;
-        text-shadow: 0 0 8px var(--logo-tv-glow);
-    }
+
+    /* ====== Live Badge ====== */
     .live-badge {
-        position: absolute;
-        top: 0;
-        right: 0;
-        transform: translate(30%, -45%);
-        font-size: 0.7rem;
-        font-family: 'Cairo', sans-serif;
-        font-weight: 600;
-        color: #E50914;
-        display: flex; align-items: center; gap: 3px;
-        direction: rtl;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--live-badge-color);
+      display: flex;
+      align-items: center;
+      gap: 0.2em;
     }
-    .live-dot {
-        width: 6px; height: 6px;
-        background-color: #E50914;
-        border-radius: 50%;
-        animation: pulse 1.5s infinite;
+
+    .live-badge .dot {
+      display: inline-block;
+      width: 0.6em;
+      height: 0.6em;
+      background: var(--live-badge-color);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
     }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    #theme-toggle {
-        position: absolute; top: 50%; right: 0;
-        transform: translateY(-50%);
-        width: 36px; height: 36px;
-        display: flex; align-items: center; justify-content: center;
-        background: var(--btn-bg); border: 1px solid var(--btn-border);
-        border-radius: 50%; color: var(--text-main);
-        cursor: pointer; transition: all 0.2s ease;
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
     }
-    #theme-toggle:hover { background: var(--card-hover-bg); }
-    
-    .crest { 
-        width: 50px; height: 50px; object-fit: contain; margin: auto;
-        border-radius: 50%;
-    }
-    .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; line-height: 1; color: var(--text-main);}
-    .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
-    .status-text, .time-period, .match-details { color: var(--text-secondary); }
-    .match-details { 
-      border-top: 1px solid var(--card-border); 
-      margin-top: 1rem; padding-top: 0.75rem;
-      font-size: 0.75rem; font-weight: 400; 
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
   </style>
-  
-  <script>
-    (function() {
-      if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.classList.add('dark-mode');
-      }
-    })();
-  </script>
 </head>
-<body class="p-4">
-  <header class="header">
-    <div class="logo-container">
-        <span class="hs-part">HS</span><span class="tv-card"><span class="tv-part">TV</span></span>
-        <div class="live-badge">
-            <span class="live-dot"></span>
-            <span>مباشر</span>
-        </div>
+<body>
+
+  <!-- ✅ Header -->
+  <header class="site-header">
+    <div class="logo">
+      <span class="hs-text">HS</span>
+      <span class="tv-card">TV</span>
+      <span class="live-badge">مباشر <span class="dot"></span></span>
     </div>
-    <button id="theme-toggle" title="تغيير الوضع"></button>
   </header>
-  
-  <div class="max-w-3xl mx-auto mb-6">
-    <p class="text-center text-sm header-subtitle mb-4">أهم مباريات اليوم والأمس والغد</p>
-    <div class="flex gap-3">
-      <button id="yesterday" class="btn-tab flex-1 px-4 py-2">الأمس</button>
-      <button id="today" class="btn-tab flex-1 px-4 py-2 active">اليوم</button>
-      <button id="tomorrow" class="btn-tab flex-1 px-4 py-2">الغد</button>
-    </div>
-  </div>
-  <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
-  
-  <script>
-    const themeToggle = document.getElementById('theme-toggle');
-    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
-    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
-    function updateIcon() { if (document.documentElement.classList.contains('dark-mode')) { themeToggle.innerHTML = sunIcon; } else { themeToggle.innerHTML = moonIcon; } }
-    themeToggle.addEventListener('click', () => { document.documentElement.classList.toggle('dark-mode'); localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'); updateIcon(); });
-    updateIcon();
-    const API_URL = 'matches.json';
-    const matchesContainer = document.getElementById('matches');
-    const leagueTranslations = { 'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم', 'PD': 'الدوري الإسباني', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي', 'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي' };
-    const brokenLogos = { '113': true };
-    function setActiveTab(id) { document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-    function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
-    function formatTime(iso) { 
-        const d = new Date(iso); 
-        let timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' }); 
-        return timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً'); 
-    }
-    async function loadMatches(view='today') { setActiveTab(view); matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">جاري تحميل المباريات...</div>`; try { const res = await fetch(API_URL + '?t=' + Date.now()); const data = await res.json(); renderMatches(data.response || [], view); } catch (err) { console.error(err); matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات</div>`; } }
-    function renderMatches(allMatches, view) { matchesContainer.innerHTML = ''; const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0; const target = getDateString(offset); let filtered = allMatches.filter(m => m.fixture.date && m.fixture.date.startsWith(target)); if (!filtered.length) { matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`; return; } filtered.forEach(match => { matchesContainer.innerHTML += renderMatchHTML(match); }); }
-    function renderMatchHTML(match) { const status = match.fixture.status.short || 'NS'; let centerTop = '', centerBottom = ''; if (["LIVE", "HT"].includes(status)) { centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text text-red-400">مباشر</div>`; } else if (["FT", "AET", "PEN"].includes(status)) { centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text">انتهت</div>`; } else { const formattedTime = formatTime(match.fixture.date); const timeParts = formattedTime.split(' '); centerTop = `<div class="score-box">${timeParts[0]}<span class="time-period">${timeParts[1]}</span></div>`; } const leagueNameAr = leagueTranslations[match.league.code] || match.league.name; const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`; const homeLogo = brokenLogos[match.teams.home.id] ? 'default-logo.svg' : (match.teams.home.logo || 'default-logo.svg'); const awayLogo = brokenLogos[match.teams.away.id] ? 'default-logo.svg' : (match.teams.away.logo || 'default-logo.svg'); return `<div class="match-card p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`; }
-    ['yesterday', 'today', 'tomorrow'].forEach(id => document.getElementById(id).addEventListener('click', () => loadMatches(id)));
-    loadMatches('today');
-    setInterval(() => { if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
-  </script>
+
 </body>
 </html>
