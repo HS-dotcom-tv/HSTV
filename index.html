@@ -18,11 +18,9 @@
         --card-border: transparent; --btn-bg: #fff; --btn-text: #334155; --btn-border: #CBD5E1;
         --btn-active-gradient-start: #3B82F6; --btn-active-gradient-end: #2563EB;
         --btn-active-text: #fff;
-        --logo-text-color: #1E3A8A;
-        --logo-text-shadow: 0 1px 2px rgba(30, 58, 138, 0.2);
-        --logo-card-bg: rgba(59, 130, 246, 0.7);
-        --logo-card-border: rgba(239, 246, 255, 0.5);
-        --live-badge-text: #E50914;
+        --logo-hs-color: #1E3A8A;
+        --logo-tv-bg: #2563EB;
+        --logo-tv-text: #fff;
     }
     html.dark-mode {
         /* -- الوضع الليلي (Netflix المصقول) -- */
@@ -33,11 +31,9 @@
         --btn-bg: #2F2F2F; --btn-text: #fff; --btn-border: #4B5563;
         --btn-active-gradient-start: #B9090B; --btn-active-gradient-end: #990709;
         --btn-active-text: #fff;
-        --logo-text-color: #fff;
-        --logo-text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
-        --logo-card-bg: rgba(185, 9, 11, 0.7);
-        --logo-card-border: rgba(229, 9, 20, 0.5);
-        --live-badge-text: #fff;
+        --logo-hs-color: #E5E7EB;
+        --logo-tv-bg: #B9090B;
+        --logo-tv-text: #fff;
     }
     
     body { 
@@ -75,66 +71,36 @@
     
     /* -->> تصميم الهوية البصرية النهائي <<-- */
     .header {
+        position: relative; text-align: center; margin-bottom: 1.5rem;
+    }
+    .logo-svg {
+        height: 40px; /* التحكم بحجم الشعار */
+        width: auto;
         position: relative;
-        text-align: center;
-        margin-bottom: 1.5rem;
-        height: 50px; /* تحديد ارتفاع ثابت للهيدر */
     }
-    .logo-wrapper {
-        display: inline-block;
-        position: relative;
-        height: 100%;
-    }
-    .logo-background-card {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-30%, -50%); /* تموضع مدروس خلف النص ليشبه الصورة */
-        width: 130px; 
-        height: 48px;
-        background: var(--logo-card-bg);
-        border-radius: 12px;
-        backdrop-filter: blur(8px);
-        border: 1px solid var(--logo-card-border);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        display: flex;
-        align-items: center;
-        justify-content: flex-end; /* وضع "مباشر" في اليمين */
-        padding-right: 15px; /* مسافة لـ "مباشر" من الحافة */
-    }
-    .logo-text {
-        position: relative;
-        z-index: 1;
-        font-family: 'Poppins', sans-serif;
-        font-size: 2.75rem;
-        font-weight: 700;
-        color: var(--logo-text-color);
-        text-shadow: var(--logo-text-shadow);
-        /* ضمان بقاء النص في مكانه الصحيح */
-        display: flex;
-        align-items: center;
-        height: 100%;
-    }
+    .logo-svg .hs-part { fill: var(--logo-hs-color); }
+    .logo-svg .tv-card { fill: var(--logo-tv-bg); }
+    .logo-svg .tv-part { fill: var(--logo-tv-text); }
+    
     .live-badge {
-        font-size: 0.8rem;
+        position: absolute;
+        top: 8px; /* ضبط دقيق لموقع "مباشر" */
+        right: 0;
+        transform: translateX(100%);
+        font-size: 0.7rem;
         font-family: 'Cairo', sans-serif;
         font-weight: 600;
-        color: var(--live-badge-text);
-        display: flex;
-        align-items: center;
-        gap: 4px;
+        color: #E50914;
+        display: flex; align-items: center; gap: 3px;
         direction: rtl;
     }
     .live-dot {
-        width: 7px; height: 7px;
+        width: 6px; height: 6px;
         background-color: #E50914;
         border-radius: 50%;
         animation: pulse 1.5s infinite;
     }
-    html.dark-mode .live-dot {
-        background-color: #fff;
-    }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.9); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     #theme-toggle {
         position: absolute; top: 50%; right: 0;
         transform: translateY(-50%);
@@ -173,14 +139,25 @@
 </head>
 <body class="p-4">
   <header class="header">
-    <div class="logo-wrapper">
-        <div class="logo-background-card">
-            <div class="live-badge">
-                <span class="live-dot"></span>
-                <span>مباشر</span>
-            </div>
+    <div class="inline-block relative">
+        <svg class="logo-svg" viewBox="0 0 170 40" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            <text class="hs-part" x="0" y="32" font-family="Poppins, sans-serif" font-size="32" font-weight="700">HS</text>
+            <path class="tv-card" d="M92 4C90.8954 4 90 4.89543 90 6V34C90 35.1046 90.8954 36 92 36H158C159.105 36 160 35.1046 160 34V6C160 4.89543 159.105 4 158 4H92Z"/>
+            <text class="tv-part" x="98" y="32" font-family="Poppins, sans-serif" font-size="32" font-weight="700" style="filter: url(#glow);">TV</text>
+        </svg>
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            <span>مباشر</span>
         </div>
-        <div class="logo-text">HSTV</div>
     </div>
     <button id="theme-toggle" title="تغيير الوضع"></button>
   </header>
@@ -196,6 +173,7 @@
   <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
   
   <script>
+    // ... الكود بالكامل هنا بدون أي تغيير ...
     const themeToggle = document.getElementById('theme-toggle');
     const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
     const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
@@ -204,7 +182,7 @@
     updateIcon();
     const API_URL = 'matches.json';
     const matchesContainer = document.getElementById('matches');
-    const leagueTranslations = { 'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم', 'PD': 'الدوري الإسباني', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي', 'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي' };
+    const leagueTranslations = { 'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم', 'PD': 'الدوري الإنجليزي', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي', 'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي' };
     const brokenLogos = { '113': true };
     function setActiveTab(id) { document.querySelectorAll('.btn-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
     function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
