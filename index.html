@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
         /* -- الوضع النهاري (مثالي) -- */
@@ -18,10 +18,9 @@
         --card-border: transparent; --btn-bg: #fff; --btn-text: #334155; --btn-border: #CBD5E1;
         --btn-active-gradient-start: #3B82F6; --btn-active-gradient-end: #2563EB;
         --btn-active-text: #fff;
-        /* ألوان الهوية البصرية الجديدة */
         --logo-hs-color: #1E3A8A;
-        --logo-tv-color: #3B82F6;
-        --logo-icon-color: #1E3A8A;
+        --logo-tv-color: #2563EB;
+        --logo-tv-glow: #3B82F6;
     }
     html.dark-mode {
         /* -- الوضع الليلي (Netflix المصقول) -- */
@@ -32,10 +31,9 @@
         --btn-bg: #2F2F2F; --btn-text: #fff; --btn-border: #4B5563;
         --btn-active-gradient-start: #B9090B; --btn-active-gradient-end: #990709;
         --btn-active-text: #fff;
-        /* ألوان الهوية البصرية الجديدة */
         --logo-hs-color: #E5E7EB;
-        --logo-tv-color: #B9090B;
-        --logo-icon-color: #E5E7EB;
+        --logo-tv-color: #E50914;
+        --logo-tv-glow: #E50914;
     }
     
     body { 
@@ -71,21 +69,32 @@
         box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
     }
     
-    /* -->> تصميم الهوية البصرية الجديد بالكامل <<-- */
+    /* -->> تصميم الهوية البصرية النهائي <<-- */
+    .header {
+        position: relative;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
     .logo-container {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 2rem;
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.5rem; /* حجم أكبر وأكثر قوة */
         font-weight: 700;
         color: var(--logo-hs-color);
+        display: inline-block; /* مهم للتوسيط الصحيح */
         position: relative;
+        letter-spacing: 1px;
     }
     .logo-container .tv-part {
         color: var(--logo-tv-color);
+        /* تأثير التوهج الأنيق */
+        text-shadow: 0 0 8px var(--logo-tv-glow), 0 0 10px rgba(0,0,0,0.2);
     }
     .live-badge {
         position: absolute;
-        top: -8px;
-        right: -12px;
+        top: 0;
+        right: 0;
+        /* positioning to the top-right corner of the V */
+        transform: translate(60%, -50%);
         font-size: 0.7rem;
         font-family: 'Cairo', sans-serif;
         font-weight: 600;
@@ -95,19 +104,25 @@
         gap: 3px;
     }
     .live-dot {
-        width: 6px;
-        height: 6px;
+        width: 6px; height: 6px;
         background-color: #E50914;
         border-radius: 50%;
         animation: pulse 1.5s infinite;
     }
-    @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.3; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    #theme-toggle {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        width: 36px; height: 36px;
+        display: flex; align-items: center; justify-content: center;
+        background: var(--btn-bg); border: 1px solid var(--btn-border);
+        border-radius: 50%;
+        color: var(--text-main);
+        cursor: pointer; transition: all 0.2s ease;
     }
-    .logo-icon {
-        color: var(--logo-icon-color);
-    }
+    #theme-toggle:hover { background: var(--card-hover-bg); }
     /* -->> نهاية تصميم الهوية <<-- */
     
     .crest { 
@@ -124,12 +139,6 @@
       display: flex; justify-content: space-between; align-items: center;
     }
     .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
-    #theme-toggle {
-        background: var(--btn-bg); border: 1px solid var(--btn-border);
-        border-radius: 999px; padding: 0.5rem; color: var(--text-main);
-        cursor: pointer; transition: all 0.2s ease;
-    }
-    #theme-toggle:hover { background: var(--card-hover-bg); }
   </style>
   
   <script>
@@ -141,21 +150,12 @@
   </script>
 </head>
 <body class="p-4">
-  <header class="flex justify-between items-center mb-6">
-    > الهوية البصرية الجديدة <<-- -->
-    <div class="flex items-center gap-4">
-        <div class="logo-icon">
-            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1112.21 3 7 7 0 0021 12.79z" clip-rule="evenodd" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
-            </svg>
-        </div>
-        <div class="logo-container">
-            HS<span class="tv-part">TV</span>
-            <div class="live-badge">
-                <span class="live-dot"></span>
-                <span>مباشر</span>
-            </div>
+  <header class="header">
+    <div class="logo-container">
+        HS<span class="tv-part">TV</span>
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            <span>مباشر</span>
         </div>
     </div>
     <button id="theme-toggle" title="تغيير الوضع"></button>
@@ -174,8 +174,8 @@
   <script>
     // ... الكود بالكامل هنا بدون أي تغيير ...
     const themeToggle = document.getElementById('theme-toggle');
-    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
-    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
+    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
+    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
     function updateIcon() { if (document.documentElement.classList.contains('dark-mode')) { themeToggle.innerHTML = sunIcon; } else { themeToggle.innerHTML = moonIcon; } }
     themeToggle.addEventListener('click', () => { document.documentElement.classList.toggle('dark-mode'); localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'); updateIcon(); });
     updateIcon();
@@ -188,7 +188,7 @@
     function formatTime(iso) { const d = new Date(iso); let timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' }); return timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً'); }
     async function loadMatches(view='today') { setActiveTab(view); matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">جاري تحميل المباريات...</div>`; try { const res = await fetch(API_URL + '?t=' + Date.now()); const data = await res.json(); renderMatches(data.response || [], view); } catch (err) { matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات</div>`; } }
     function renderMatches(allMatches, view) { matchesContainer.innerHTML = ''; const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0; const target = getDateString(offset); let filtered = allMatches.filter(m => m.fixture.date && m.fixture.date.startsWith(target)); if (!filtered.length) { matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`; return; } filtered.forEach(match => { matchesContainer.innerHTML += renderMatchHTML(match); }); }
-    function renderMatchHTML(match) { const status = match.fixture.status.short || 'NS'; let centerTop = '', centerBottom = ''; if (["LIVE", "HT"].includes(status)) { centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text text-red-400">مباشر</div>`; } else if (["FT", "AET", "PEN"].includes(status)) { centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text">انتهت</div>`; } else { const formattedTime = formatTime(match.fixture.date); const timeParts = formattedTime.split(' '); centerTop = `<div class="score-box">${timeParts[0]}<span class="time-period">${timeParts[1]}</span></div>`; } const leagueNameAr = leagueTranslations[match.league.code] || match.league.name; const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`; const homeLogo = brokenLogos[match.teams.home.id] ? 'default-logo.svg' : (match.teams.home.logo || 'default-logo.svg'); const awayLogo = brokenLogos[match.teams.away.id] ? 'default-logo.svg' : (match.teams.away.logo || 'default-logo.svg'); return `<div class="match-card p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class.team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`; }
+    function renderMatchHTML(match) { const status = match.fixture.status.short || 'NS'; let centerTop = '', centerBottom = ''; if (["LIVE", "HT"].includes(status)) { centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text text-red-400">مباشر</div>`; } else if (["FT", "AET", "PEN"].includes(status)) { centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text">انتهت</div>`; } else { const formattedTime = formatTime(match.fixture.date); const timeParts = formattedTime.split(' '); centerTop = `<div class="score-box">${timeParts[0]}<span class="time-period">${timeParts[1]}</span></div>`; } const leagueNameAr = leagueTranslations[match.league.code] || match.league.name; const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`; const homeLogo = brokenLogos[match.teams.home.id] ? 'default-logo.svg' : (match.teams.home.logo || 'default-logo.svg'); const awayLogo = brokenLogos[match.teams.away.id] ? 'default-logo.svg' : (match.teams.away.logo || 'default-logo.svg'); return `<div class="match-card p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`; }
     ['yesterday', 'today', 'tomorrow'].forEach(id => document.getElementById(id).addEventListener('click', () => loadMatches(id)));
     loadMatches('today');
     setInterval(() => { if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
