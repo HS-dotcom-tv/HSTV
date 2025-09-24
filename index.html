@@ -10,125 +10,183 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
-        /* -- الوضع النهاري (مثالي) -- */
+        /* وضع النهاري */
         --bg-gradient-start: #EFF6FF; --bg-gradient-end: #DBEAFE;
         --text-main: #1E293B; --text-secondary: #475569;
-        --card-bg: rgba(255, 255, 255, 0.7); --card-hover-bg: rgba(255, 255, 255, 1);
-        --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-        --card-border: transparent; --btn-bg: #fff; --btn-text: #334155; --btn-border: #CBD5E1;
+        --card-bg: rgba(255, 255, 255, 0.8); --card-hover-bg: rgba(255, 255, 255, 1);
+        --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+        --card-border: rgba(0,0,0,0.04); --btn-bg: #fff; --btn-text: #334155; --btn-border: #CBD5E1;
         --btn-active-gradient-start: #3B82F6; --btn-active-gradient-end: #2563EB;
         --btn-active-text: #fff;
-        --logo-hs-color: #1E3A8A;
-        --logo-tv-bg: #2563EB;
-        --logo-tv-text: #fff;
+
+        /* شعار (قابل للتبديل حسب الوضع) */
+        --logo-hs-color: #000000;        /* HS يكون أسود في النهار */
+        --logo-tv-bg: #2563EB;          /* لون البطاقة - النهاري (الأزرق) */
+        --logo-tv-text: #FFFFFF;        /* نص TV داخل البطاقة */
+        --glass-overlay: rgba(255,255,255,0.12); /* زجاجي خفيف على البطاقة */
     }
     html.dark-mode {
-        /* -- الوضع الليلي (Netflix المصقول) -- */
-        --bg-gradient-start: #141414; --bg-gradient-end: #141414;
-        --text-main: #fff; --text-secondary: #A3A3A3;
-        --card-bg: #282828; --card-hover-bg: #333333;
-        --card-shadow: 0 0 0 0 transparent; --card-border: #282828;
-        --btn-bg: #2F2F2F; --btn-text: #fff; --btn-border: #4B5563;
+        /* وضع ليلي */
+        --bg-gradient-start: #0F1724; --bg-gradient-end: #0B1220;
+        --text-main: #E6EEF8; --text-secondary: #A3A3A3;
+        --card-bg: rgba(40, 40, 40, 0.6); --card-hover-bg: rgba(255,255,255,0.03);
+        --card-shadow: 0 8px 24px rgba(0,0,0,0.6);
+        --card-border: rgba(255,255,255,0.03); --btn-bg: #1F2937; --btn-text: #E6EEF8; --btn-border: #374151;
         --btn-active-gradient-start: #B9090B; --btn-active-gradient-end: #990709;
         --btn-active-text: #fff;
-        --logo-hs-color: #E5E7EB;
-        --logo-tv-bg: #B9090B;
-        --logo-tv-text: #fff;
+
+        /* شعار في الليل */
+        --logo-hs-color: #F3F4F6;       /* HS يصبح فاتح في الليل */
+        --logo-tv-bg: #B9090B;         /* البطاقة تصبح حمراء في الليل (كما طلبت سابقًا) */
+        --logo-tv-text: #FFFFFF;
+        --glass-overlay: rgba(255,255,255,0.06);
     }
-    
-    body { 
-        font-family: 'Cairo', sans-serif; 
-        background-color: var(--bg-gradient-start);
-        background-image: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); 
-        min-height:100vh; color: var(--text-main);
-        transition: background 0.4s ease, color 0.4s ease;
+
+    /* صفحة */
+    html, body {
+      height: 100%;
     }
-    .match-card { 
-        transition: all .2s ease-in-out; 
+    body {
+        font-family: 'Cairo', sans-serif;
+        background-image: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+        min-height: 100vh; color: var(--text-main);
+        transition: background 0.35s ease, color 0.35s ease;
+        -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* البطاقات العامة */
+    .match-card {
+        transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
         background: var(--card-bg); border: 1px solid var(--card-border);
         box-shadow: var(--card-shadow); border-radius: 0.75rem;
     }
-    html.dark-mode .match-card {
-        backdrop-filter: none; border-radius: 0.25rem; border: none;
-    }
-    .match-card:hover { 
-        transform: translateY(-5px); background: var(--card-hover-bg); 
-    }
-    html.dark-mode .match-card:hover {
-        transform: scale(1.03) translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    }
-    .btn-tab { 
-        background: var(--btn-bg); color: var(--btn-text);
-        border: 1px solid var(--btn-border);
-        transition: all .2s ease; border-radius: 0.75rem;
-    }
-    .btn-tab.active { 
-        background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); 
-        color: var(--btn-active-text); border: none;
-        box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
-    }
-    
-    /* -->> تصميم الهوية البصرية النهائي <<-- */
+    .match-card:hover { transform: translateY(-6px); background: var(--card-hover-bg); }
+
+    /* تابات */
+    .btn-tab { background: var(--btn-bg); color: var(--btn-text); border: 1px solid var(--btn-border); transition: all .18s ease; border-radius: .75rem; }
+    .btn-tab.active { background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); color: var(--btn-active-text); border: none; box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+
+    /* ---------- الهيدر و الشعار (التعديل المطلوب) ---------- */
     .header {
         position: relative; text-align: center; margin-bottom: 1.5rem;
     }
+
+    /* محتوى الشعار: ثابت الحجم و نسق مرن */
+    .logo-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 340px; /* يمكن تغييره حسب الحاجة، المقياس متناسب */
+      height: 80px;
+      transform-origin: left center;
+      user-select: none;
+    }
+
+    /* هنا نعرض HS كطبقة نص فوق كل شيء */
+    .hs-text {
+      position: absolute;
+      left: 6%; /* مكان HS داخل الحاوية */
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 44px;
+      letter-spacing: -1px;
+      line-height: 1;
+      color: var(--logo-hs-color);
+      z-index: 4; /* أعلى من البطاقة */
+      text-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 2px 12px rgba(0,0,0,0.08);
+      pointer-events: none;
+    }
+
+    /* تصغير للحجم على الشاشات الصغيرة */
+    @media (max-width: 420px) {
+      .logo-wrapper { width: 240px; height: 56px; }
+      .hs-text { font-size: 32px; left: 5%; }
+    }
+
+    /* SVG البطاقة (TV) - تبقى هندستها كما هي */
     .logo-svg {
-        height: 40px; /* التحكم بحجم الشعار */
-        width: auto;
-        position: relative;
+      position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+      width: 58%; height: 72%; /* يملأ الحيز الأيمن من الحاوية */
+      z-index: 2;
+      overflow: visible;
     }
-    .logo-svg .hs-part { fill: var(--logo-hs-color); }
-    .logo-svg .tv-card { fill: var(--logo-tv-bg); }
-    .logo-svg .tv-part { fill: var(--logo-tv-text); }
-    
-    .live-badge {
-        position: absolute;
-        top: 8px; /* ضبط دقيق لموقع "مباشر" */
-        right: 0;
-        transform: translateX(100%);
-        font-size: 0.7rem;
-        font-family: 'Cairo', sans-serif;
-        font-weight: 600;
-        color: #E50914;
-        display: flex; align-items: center; gap: 3px;
-        direction: rtl;
+
+    /* غلاف زجاجي فوق البطاقة (أكريليك خفيف) */
+    .tv-glass {
+      position: absolute;
+      /* هذه القيم مبنية على نسبة الـ SVG الأصلية */
+      right: 5.2%;           /* تقريبًا يطابق مكان البداية x=92 في viewBox 170 */
+      top: 10%;              /* تقريبًا y=4 من ارتفاع 40 */
+      width: 38%;            /* تقريبًا عرض البطاقة 66/170 */
+      height: 80%;           /* تقريبًا ارتفاع البطاقة 32/40 */
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      backdrop-filter: blur(6px) saturate(120%);
+      -webkit-backdrop-filter: blur(6px) saturate(120%);
+      border: 1px solid rgba(255,255,255,0.06);
+      pointer-events: none;
+      z-index: 3;
+      mix-blend-mode: normal;
+      transition: background .25s ease, border-color .25s ease, backdrop-filter .25s ease;
+      box-shadow: 0 6px 18px rgba(32,40,60,0.08) inset;
     }
-    .live-dot {
-        width: 6px; height: 6px;
-        background-color: #E50914;
-        border-radius: 50%;
-        animation: pulse 1.5s infinite;
+
+    /* نغير لون خلفية الغلاف قليلًا في الليل ليظهر كأكريليك مع فرق */
+    html.dark-mode .tv-glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.6) inset;
     }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    #theme-toggle {
-        position: absolute; top: 50%; right: 0;
-        transform: translateY(-50%);
-        width: 36px; height: 36px;
-        display: flex; align-items: center; justify-content: center;
-        background: var(--btn-bg); border: 1px solid var(--btn-border);
-        border-radius: 50%; color: var(--text-main);
-        cursor: pointer; transition: all 0.2s ease;
+
+    /* البادج الأحمر داخل البطاقة: "مباشر" */
+    .live-pill {
+      position: absolute;
+      right: calc(5.2% + 50% - 36px); /* تقريبًا في منتصف البطاقة الأفقية */
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 10px;
+      background: linear-gradient(180deg, #FF4B4B, #E50914);
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      border-radius: 999px;
+      box-shadow: 0 4px 18px rgba(229,9,20,0.25);
+      z-index: 5; /* أعلى حتى من الغلاف الزجاجي لو احتجنا */
+      pointer-events: none;
+      white-space: nowrap;
     }
-    #theme-toggle:hover { background: var(--card-hover-bg); }
-    /* -->> نهاية تصميم الهوية <<-- */
-    
-    .crest { 
-        width: 50px; height: 50px; object-fit: contain; margin: auto;
-        border-radius: 50%;
+
+    /* نقطة البث داخل البادج */
+    .live-pill .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #fff; box-shadow: 0 0 0 3px rgba(229,9,20,0.12);
+      flex: 0 0 auto;
     }
-    .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; line-height: 1; color: var(--text-main);}
+
+    /* الليل: نحتفظ بالبادج مرئياً لكن بلون مختلف قليلاً */
+    html.dark-mode .live-pill {
+      background: linear-gradient(180deg, #FF6B6B, #B9090B);
+      box-shadow: 0 6px 20px rgba(185,10,10,0.32);
+    }
+
+    /* نص "TV" داخل SVG يمكن أن يحصل على توهج خفيف */
+    .logo-svg .tv-part { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12)); }
+
+    /* التأكد من عدم تداخل باقي عناصر الهيدر */
+    #theme-toggle { position: absolute; top: 50%; right: -46px; transform: translateY(-50%); width: 40px; height: 40px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:var(--btn-bg); color:var(--text-main); border:1px solid var(--btn-border); z-index:6; }
+    #theme-toggle:hover { transform: translateY(-50%) scale(1.04); }
+
+    /* بقية التنسيقات البسيطة للموقع */
+    .header-subtitle { color: var(--text-secondary); }
+    .crest { width: 50px; height: 50px; object-fit: contain; margin: auto; border-radius: 50%; }
+    .score-box { font-size: 1.4rem; font-weight: 700; text-align:center; line-height: 1; color: var(--text-main); }
     .team-name { font-size: 0.85rem; font-weight: 600; text-align:center; line-height:1.2; word-break: break-word; }
     .status-text, .time-period, .match-details { color: var(--text-secondary); }
-    .match-details { 
-      border-top: 1px solid var(--card-border); 
-      margin-top: 1rem; padding-top: 0.75rem;
-      font-size: 0.75rem; font-weight: 400; 
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
+    .match-details { border-top: 1px solid var(--card-border); margin-top: 1rem; padding-top: 0.75rem; font-size: 0.75rem; font-weight: 400; display:flex; justify-content:space-between; align-items:center; }
   </style>
-  
+
   <script>
     (function() {
       if (localStorage.getItem('theme') === 'dark') {
@@ -137,31 +195,48 @@
     })();
   </script>
 </head>
+
 <body class="p-4">
   <header class="header">
-    <div class="inline-block relative">
-        <svg class="logo-svg" viewBox="0 0 170 40" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <filter id="glow">
-                    <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
-                    <feMerge>
-                        <feMergeNode in="coloredBlur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-            </defs>
-            <text class="hs-part" x="0" y="32" font-family="Poppins, sans-serif" font-size="32" font-weight="700">HS</text>
-            <path class="tv-card" d="M92 4C90.8954 4 90 4.89543 90 6V34C90 35.1046 90.8954 36 92 36H158C159.105 36 160 35.1046 160 34V6C160 4.89543 159.105 4 158 4H92Z"/>
-            <text class="tv-part" x="98" y="32" font-family="Poppins, sans-serif" font-size="32" font-weight="700" style="filter: url(#glow);">TV</text>
-        </svg>
-        <div class="live-badge">
-            <span class="live-dot"></span>
-            <span>مباشر</span>
-        </div>
+    <!-- شعار مُعاد تصميمه: HS كطبقة نص أعلى البطاقة -->
+    <div class="logo-wrapper">
+      <!-- HS نصي - أعلى طبقة -->
+      <div class="hs-text" aria-hidden="true">HS</div>
+
+      <!-- SVG البطاقة (TV) كما هي هندسياً - لا نغير موقعها أو شكلها -->
+      <svg class="logo-svg" viewBox="0 0 170 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="شعار HSTV">
+        <defs>
+          <filter id="glow-small" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="1" result="gblur" />
+            <feMerge>
+              <feMergeNode in="gblur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- البطاقة الحقيقية (ابقى بنفس الشكل الهندسي) -->
+        <path class="tv-card" d="M92 4C90.8954 4 90 4.89543 90 6V34C90 35.1046 90.8954 36 92 36H158C159.105 36 160 35.1046 160 34V6C160 4.89543 159.105 4 158 4H92Z"
+          fill="var(--logo-tv-bg)"></path>
+
+        <!-- نص TV داخل البطاقة (يبقى قابل للقراءة) -->
+        <text class="tv-part" x="98" y="28" font-family="Poppins, sans-serif" font-size="28" font-weight="700" fill="var(--logo-tv-text)" filter="url(#glow-small)">TV</text>
+      </svg>
+
+      <!-- غلاف زجاجي خفيف فوق البطاقة ليعطي تأثير أكريليك/زجاج -->
+      <div class="tv-glass" aria-hidden="true"></div>
+
+      <!-- البادج الأحمر "مباشر" موضوع داخل البطاقة وبمنتصفها تقريبًا -->
+      <div class="live-pill" aria-hidden="true">
+        <span class="dot" style=""></span>
+        <span>مباشر</span>
+      </div>
     </div>
-    <button id="theme-toggle" title="تغيير الوضع"></button>
+
+    <!-- زر تبديل الوضع -->
+    <button id="theme-toggle" title="تغيير الوضع" aria-label="تبديل الوضع"></button>
   </header>
-  
+
   <div class="max-w-3xl mx-auto mb-6">
     <p class="text-center text-sm header-subtitle mb-4">أهم مباريات اليوم والأمس والغد</p>
     <div class="flex gap-3">
@@ -170,16 +245,32 @@
       <button id="tomorrow" class="btn-tab flex-1 px-4 py-2">الغد</button>
     </div>
   </div>
+
   <main id="matches" class="max-w-3xl mx-auto space-y-4"></main>
-  
+
   <script>
-    // ... الكود بالكامل هنا بدون أي تغيير ...
+    // أي تغييرات على الأيقونات معلّقة محليًا هنا
     const themeToggle = document.getElementById('theme-toggle');
-    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
-    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
-    function updateIcon() { if (document.documentElement.classList.contains('dark-mode')) { themeToggle.innerHTML = sunIcon; } else { themeToggle.innerHTML = moonIcon; } }
-    themeToggle.addEventListener('click', () => { document.documentElement.classList.toggle('dark-mode'); localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'); updateIcon(); });
+    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" style="width:20px;height:20px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
+    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" style="width:20px;height:20px"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
+
+    function updateIcon() { 
+      if (document.documentElement.classList.contains('dark-mode')) { 
+        themeToggle.innerHTML = sunIcon; 
+      } else { 
+        themeToggle.innerHTML = moonIcon; 
+      } 
+    }
+
+    themeToggle.addEventListener('click', () => { 
+      document.documentElement.classList.toggle('dark-mode'); 
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'); 
+      updateIcon(); 
+    });
+
     updateIcon();
+
+    /* ======= بقية كود تحميل المباريات كما كان (لم يمس) ======= */
     const API_URL = 'matches.json';
     const matchesContainer = document.getElementById('matches');
     const leagueTranslations = { 'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم', 'PD': 'الدوري الإنجليزي', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي', 'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي' };
