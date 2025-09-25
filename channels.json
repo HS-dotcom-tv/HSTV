@@ -52,6 +52,20 @@
         { "id": "dazn_2", "name": "DAZN 2", "logo": { "light": "Svg/Dznblack.svg", "dark": "Svg/Dznwhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
         { "id": "dazn_fights", "name": "DAZN Fights", "logo": { "light": "Svg/Dznblack.svg", "dark": "Svg/Dznwhite.svg" }, "streams": { "HD": "#" } }
       ]
+    },
+    {
+      "package_id": "sky",
+      "package_name": "Sky Sports",
+      "package_logo": {
+        "light": "Svg/Sksblack.svg",
+        "dark": "Svg/Skswhite.svg"
+      },
+      "channels": [
+        { "id": "sky_main", "name": "Sky Sports Main Event", "logo": { "light": "Svg/Sksblack.svg", "dark": "Svg/Skswhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "sky_pl", "name": "Sky Sports Premier League", "logo": { "light": "Svg/Sksblack.svg", "dark": "Svg/Skswhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "sky_football", "name": "Sky Sports Football", "logo": { "light": "Svg/Sksblack.svg", "dark": "Svg/Skswhite.svg" }, "streams": { "HD": "#" } },
+        { "id": "sky_news", "name": "Sky Sports News", "logo": { "light": "Svg/Sksblack.svg", "dark": "Svg/Skswhite.svg" }, "streams": { "HD": "#" } }
+      ]
     }
   ],
   "news": [],
