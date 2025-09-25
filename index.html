@@ -252,11 +252,16 @@
     }
     html.dark-mode .channel-card:hover, html.dark-mode .package-card-item:hover { box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4); }
     .channel-logo, .package-logo {
-      width: 100%; height: auto; max-height: 60%; 
+      width: 100%; height: auto; max-height: 80%; /* زيادة حجم شعار الباقة */
       object-fit: contain;
     }
+    .channel-card .channel-logo {
+        max-height: 60%; /* حجم شعار القناة لترك مساحة للاسم */
+    }
     .channel-name { 
-        font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);
+        font-size: 0.875rem; /* تكبير الخط */
+        font-weight: 700; /* جعل الخط أثقل */
+        color: var(--text-main); /* استخدام اللون الأساسي للوضوح */
         text-align: center; line-height: 1.2;
     }
     .quality-options {
@@ -369,7 +374,6 @@
         const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
         const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
         
-        // --- تعديل: إضافة دالة تحديث الشعارات هنا ---
         function updateChannelLogos() {
             const isDarkMode = document.documentElement.classList.contains('dark-mode');
             document.querySelectorAll('img.dynamic-logo').forEach(img => {
@@ -380,7 +384,7 @@
         function updateIcon() { 
             if (document.documentElement.classList.contains('dark-mode')) { themeToggle.innerHTML = sunIcon; } 
             else { themeToggle.innerHTML = moonIcon; } 
-            updateChannelLogos(); // تحديث الشعارات عند تغيير الثيم
+            updateChannelLogos(); 
         }
         
         themeToggle.addEventListener('click', () => { 
@@ -425,6 +429,15 @@
             }
         }
         
+        function getShortChannelName(fullName) {
+            return fullName.replace('beIN Sports', '')
+                           .replace('beIN', '')
+                           .replace('SSC', '')
+                           .replace('DAZN', '')
+                           .replace('Sky Sports', '')
+                           .trim();
+        }
+
         function renderPackages(category) {
             switchView('packages');
             packagesGrid.innerHTML = '';
@@ -437,12 +450,11 @@
                 const packageHTML = `
                     <div class="package-card-item" data-package-id="${pkg.package_id}">
                         <img class="dynamic-logo package-logo" data-light-src="${pkg.package_logo.light}" data-dark-src="${pkg.package_logo.dark}" alt="${pkg.package_name}" onerror="this.style.display='none';">
-                        <span class="channel-name">${pkg.package_name}</span>
                     </div>
                 `;
                 packagesGrid.innerHTML += packageHTML;
             });
-            updateChannelLogos(); // تحديث الشعارات بعد عرضها
+            updateChannelLogos();
         }
         
         function renderPackageChannels(packageId) {
@@ -456,18 +468,21 @@
                  const qualityButtonsHTML = Object.keys(channel.streams).map(quality => 
                     `<a href="${channel.streams[quality]}" class="quality-btn">${quality.toUpperCase()}</a>`
                 ).join('');
+
+                const shortName = getShortChannelName(channel.name);
+
                 const cardHTML = `
                     <div class="channel-card-wrapper" id="${channel.id}">
                         <div class="channel-card">
                             <img class="dynamic-logo channel-logo" data-light-src="${channel.logo.light}" data-dark-src="${channel.logo.dark}" alt="${channel.name}" onerror="this.style.display='none';">
-                            <span class="channel-name">${channel.name}</span>
+                            <span class="channel-name">${shortName}</span>
                         </div>
                         <div class="quality-options">${qualityButtonsHTML}</div>
                     </div>
                 `;
                 channelsGrid.innerHTML += cardHTML;
             });
-            updateChannelLogos(); // تحديث الشعارات بعد عرضها
+            updateChannelLogos();
         }
 
         async function loadChannels() {
@@ -510,7 +525,7 @@
         backToPackagesBtn.addEventListener('click', () => renderPackages(currentCategory));
         
         loadChannels();
-        updateIcon(); // استدعاء أولي عند تحميل الصفحة
+        updateIcon();
     });
   </script>
 </body>
