@@ -1,190 +1,15 @@
 {
-  "generated_at": "2025-09-24T03:21:10.893Z",
+  "generated_at": "2025-09-25T03:24:08.817Z",
   "source": "football-data.org",
   "response": [
-    {
-      "fixture": {
-        "id": 544263,
-        "date": "2025-09-23T17:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2014,
-        "code": "PD",
-        "name": "Primera Division",
-        "logo": "https://crests.football-data.org/laliga.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 80,
-          "name": "RCD Espanyol de Barcelona",
-          "logo": "https://crests.football-data.org/80.svg"
-        },
-        "away": {
-          "id": 95,
-          "name": "Valencia CF",
-          "logo": "https://crests.football-data.org/95.svg"
-        }
-      },
-      "goals": {
-        "home": 2,
-        "away": 2
-      }
-    },
-    {
-      "fixture": {
-        "id": 544261,
-        "date": "2025-09-23T17:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2014,
-        "code": "PD",
-        "name": "Primera Division",
-        "logo": "https://crests.football-data.org/laliga.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 77,
-          "name": "Athletic Club",
-          "logo": "https://crests.football-data.org/77.svg"
-        },
-        "away": {
-          "id": 298,
-          "name": "Girona FC",
-          "logo": "https://crests.football-data.org/298.svg"
-        }
-      },
-      "goals": {
-        "home": 1,
-        "away": 1
-      }
-    },
-    {
-      "fixture": {
-        "id": 545702,
-        "date": "2025-09-23T19:15:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2017,
-        "code": "PPL",
-        "name": "Primeira Liga",
-        "logo": "https://crests.football-data.org/PPL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 1903,
-          "name": "Sport Lisboa e Benfica",
-          "logo": "https://crests.football-data.org/1903.svg"
-        },
-        "away": {
-          "id": 496,
-          "name": "Rio Ave FC",
-          "logo": "https://crests.football-data.org/496.svg"
-        }
-      },
-      "goals": {
-        "home": 1,
-        "away": 1
-      }
-    },
-    {
-      "fixture": {
-        "id": 544265,
-        "date": "2025-09-23T19:30:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2014,
-        "code": "PD",
-        "name": "Primera Division",
-        "logo": "https://crests.football-data.org/laliga.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 559,
-          "name": "Sevilla FC",
-          "logo": "https://crests.football-data.org/559.svg"
-        },
-        "away": {
-          "id": 94,
-          "name": "Villarreal CF",
-          "logo": "https://crests.football-data.org/94.svg"
-        }
-      },
-      "goals": {
-        "home": 1,
-        "away": 2
-      }
-    },
-    {
-      "fixture": {
-        "id": 544264,
-        "date": "2025-09-23T19:30:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2014,
-        "code": "PD",
-        "name": "Primera Division",
-        "logo": "https://crests.football-data.org/laliga.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 88,
-          "name": "Levante UD",
-          "logo": "https://crests.football-data.org/88.svg"
-        },
-        "away": {
-          "id": 86,
-          "name": "Real Madrid CF",
-          "logo": "https://crests.football-data.org/86.svg"
-        }
-      },
-      "goals": {
-        "home": 1,
-        "away": 4
-      }
-    },
     {
       "fixture": {
         "id": 544266,
         "date": "2025-09-24T17:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -208,8 +33,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 1
       }
     },
     {
@@ -218,8 +43,8 @@
         "date": "2025-09-24T18:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -243,43 +68,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
-      }
-    },
-    {
-      "fixture": {
-        "id": 544270,
-        "date": "2025-09-24T19:30:00Z",
-        "venue": null,
-        "status": {
-          "short": "NS",
-          "long": "TIMED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2014,
-        "code": "PD",
-        "name": "Primera Division",
-        "logo": "https://crests.football-data.org/laliga.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 92,
-          "name": "Real Sociedad de Fútbol",
-          "logo": "https://crests.football-data.org/92.svg"
-        },
-        "away": {
-          "id": 89,
-          "name": "RCD Mallorca",
-          "logo": "https://crests.football-data.org/89.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 2
       }
     },
     {
@@ -288,8 +78,8 @@
         "date": "2025-09-24T19:30:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -313,8 +103,43 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 2
+      }
+    },
+    {
+      "fixture": {
+        "id": 544270,
+        "date": "2025-09-24T19:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "logo": "https://crests.football-data.org/laliga.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 92,
+          "name": "Real Sociedad de Fútbol",
+          "logo": "https://crests.football-data.org/92.svg"
+        },
+        "away": {
+          "id": 89,
+          "name": "RCD Mallorca",
+          "logo": "https://crests.football-data.org/89.svg"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 0
       }
     },
     {
@@ -380,6 +205,181 @@
           "id": 81,
           "name": "FC Barcelona",
           "logo": "https://crests.football-data.org/81.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537495,
+        "date": "2025-09-26T18:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 666,
+          "name": "FC Twente '65",
+          "logo": "https://crests.football-data.org/666.svg"
+        },
+        "away": {
+          "id": 1920,
+          "name": "Fortuna Sittard",
+          "logo": "https://crests.football-data.org/1920.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 540442,
+        "date": "2025-09-26T18:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2002,
+        "code": "BL1",
+        "name": "Bundesliga",
+        "logo": "https://crests.football-data.org/BL1.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 5,
+          "name": "FC Bayern München",
+          "logo": "https://crests.football-data.org/5.svg"
+        },
+        "away": {
+          "id": 12,
+          "name": "SV Werder Bremen",
+          "logo": "https://crests.football-data.org/12.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 542457,
+        "date": "2025-09-26T18:45:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2015,
+        "code": "FL1",
+        "name": "Ligue 1",
+        "logo": "https://crests.football-data.org/FL1.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 576,
+          "name": "RC Strasbourg Alsace",
+          "logo": "https://crests.football-data.org/576.svg"
+        },
+        "away": {
+          "id": 516,
+          "name": "Olympique de Marseille",
+          "logo": "https://crests.football-data.org/516.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 544279,
+        "date": "2025-09-26T19:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "logo": "https://crests.football-data.org/laliga.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 298,
+          "name": "Girona FC",
+          "logo": "https://crests.football-data.org/298.svg"
+        },
+        "away": {
+          "id": 80,
+          "name": "RCD Espanyol de Barcelona",
+          "logo": "https://crests.football-data.org/80.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 545760,
+        "date": "2025-09-26T19:15:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2017,
+        "code": "PPL",
+        "name": "Primeira Liga",
+        "logo": "https://crests.football-data.org/PPL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 1903,
+          "name": "Sport Lisboa e Benfica",
+          "logo": "https://crests.football-data.org/1903.svg"
+        },
+        "away": {
+          "id": 5533,
+          "name": "Gil Vicente FC",
+          "logo": "https://crests.football-data.org/5533.svg"
         }
       },
       "goals": {
