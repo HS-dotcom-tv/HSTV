@@ -243,8 +243,8 @@
     .channel-card, .package-card-item {
       background: var(--card-bg); border: 1px solid var(--card-border); box-shadow: var(--card-shadow);
       border-radius: 16px; padding: 1rem; aspect-ratio: 1 / 1; 
-      display: flex; flex-direction: column; /* تعديل */
-      align-items: center; justify-content: center; gap: 0.5rem; /* تعديل */
+      display: flex; flex-direction: column; 
+      align-items: center; justify-content: center; gap: 0.5rem; 
       transition: all 0.3s ease; cursor: pointer;
     }
     .channel-card:hover, .package-card-item:hover {
@@ -252,10 +252,10 @@
     }
     html.dark-mode .channel-card:hover, html.dark-mode .package-card-item:hover { box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4); }
     .channel-logo, .package-logo {
-      width: 100%; height: auto; max-height: 60%; /* تعديل */
+      width: 100%; height: auto; max-height: 60%; 
       object-fit: contain;
     }
-    .channel-name { /* كلاس جديد */
+    .channel-name { 
         font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);
         text-align: center; line-height: 1.2;
     }
@@ -331,12 +331,12 @@
           </div>
           
           <div id="packages-view" class="channels-view visible">
-            <div id="packages-grid" class="channel-grid package-grid"></div>
+            <div id="packages-grid" class="channel-grid package-grid" dir="ltr"></div>
           </div>
 
           <div id="channels-view" class="channels-view">
             <button id="back-to-packages-btn" class="main-tab back-btn"> &larr; عودة للباقات </button>
-            <div id="channels-grid" class="channel-grid"></div>
+            <div id="channels-grid" class="channel-grid" dir="ltr"></div>
           </div>
       </div>
 
@@ -348,7 +348,6 @@
   
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // --- الكود الحالي (بدون تغيير) ---
         const mainTabs = document.querySelectorAll('.main-tab');
         const pageSections = document.querySelectorAll('.page-section');
         const dateTabsContainer = document.getElementById('date-tabs-container');
@@ -369,9 +368,27 @@
         const themeToggle = document.getElementById('theme-toggle');
         const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
         const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
-        function updateIcon() { if (document.documentElement.classList.contains('dark-mode')) { themeToggle.innerHTML = sunIcon; } else { themeToggle.innerHTML = moonIcon; } }
-        themeToggle.addEventListener('click', () => { document.documentElement.classList.toggle('dark-mode'); localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'); updateIcon(); });
-        updateIcon();
+        
+        // --- تعديل: إضافة دالة تحديث الشعارات هنا ---
+        function updateChannelLogos() {
+            const isDarkMode = document.documentElement.classList.contains('dark-mode');
+            document.querySelectorAll('img.dynamic-logo').forEach(img => {
+                img.src = isDarkMode ? img.dataset.darkSrc : img.dataset.lightSrc;
+            });
+        }
+
+        function updateIcon() { 
+            if (document.documentElement.classList.contains('dark-mode')) { themeToggle.innerHTML = sunIcon; } 
+            else { themeToggle.innerHTML = moonIcon; } 
+            updateChannelLogos(); // تحديث الشعارات عند تغيير الثيم
+        }
+        
+        themeToggle.addEventListener('click', () => { 
+            document.documentElement.classList.toggle('dark-mode'); 
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'); 
+            updateIcon(); 
+        });
+        
         const API_URL = 'matches.json';
         const matchesContainer = document.getElementById('matches');
         const leagueTranslations = { 'PL': 'الدوري الإنجليزي', 'CL': 'دوري أبطال أوروبا', 'EC': 'بطولة أمم أوروبا', 'WC': 'كأس العالم', 'PD': 'الدوري الإنجليزي', 'BL1': 'الدوري الألماني', 'SA': 'الدوري الإيطالي', 'FL1': 'الدوري الفرنسي', 'PPL': 'الدوري البرتغالي', 'DED': 'الدوري الهولندي' };
@@ -419,12 +436,13 @@
             packages.forEach(pkg => {
                 const packageHTML = `
                     <div class="package-card-item" data-package-id="${pkg.package_id}">
-                        <img src="${pkg.package_logo}" alt="${pkg.package_name}" class="package-logo" onerror="this.src='default-logo.svg';">
+                        <img class="dynamic-logo package-logo" data-light-src="${pkg.package_logo.light}" data-dark-src="${pkg.package_logo.dark}" alt="${pkg.package_name}" onerror="this.style.display='none';">
                         <span class="channel-name">${pkg.package_name}</span>
                     </div>
                 `;
                 packagesGrid.innerHTML += packageHTML;
             });
+            updateChannelLogos(); // تحديث الشعارات بعد عرضها
         }
         
         function renderPackageChannels(packageId) {
@@ -441,7 +459,7 @@
                 const cardHTML = `
                     <div class="channel-card-wrapper" id="${channel.id}">
                         <div class="channel-card">
-                            <img src="${channel.logo}" alt="${channel.name}" class="channel-logo" onerror="this.src='default-logo.svg';">
+                            <img class="dynamic-logo channel-logo" data-light-src="${channel.logo.light}" data-dark-src="${channel.logo.dark}" alt="${channel.name}" onerror="this.style.display='none';">
                             <span class="channel-name">${channel.name}</span>
                         </div>
                         <div class="quality-options">${qualityButtonsHTML}</div>
@@ -449,6 +467,7 @@
                 `;
                 channelsGrid.innerHTML += cardHTML;
             });
+            updateChannelLogos(); // تحديث الشعارات بعد عرضها
         }
 
         async function loadChannels() {
@@ -480,7 +499,7 @@
 
         channelsGrid.addEventListener('click', (e) => {
             const cardWrapper = e.target.closest('.channel-card-wrapper');
-            if (cardWrapper && e.target.closest('.channel-card')) { // تأكد من أن الضغطة على البطاقة نفسها وليس زر الجودة
+            if (cardWrapper && e.target.closest('.channel-card')) { 
                 document.querySelectorAll('.channel-card-wrapper.expanded').forEach(cw => {
                     if (cw.id !== cardWrapper.id) cw.classList.remove('expanded');
                 });
@@ -491,6 +510,7 @@
         backToPackagesBtn.addEventListener('click', () => renderPackages(currentCategory));
         
         loadChannels();
+        updateIcon(); // استدعاء أولي عند تحميل الصفحة
     });
   </script>
 </body>
