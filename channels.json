@@ -1,0 +1,60 @@
+{
+  "sports": [
+    {
+      "id": "sport_1",
+      "name": "قناة رياضية 1",
+      "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png",
+      "streams": {
+        "SD": "#",
+        "HD": "#",
+        "FHD": "#"
+      }
+    },
+    {
+      "id": "sport_2",
+      "name": "قناة رياضية 2",
+      "logo": "https://i.ibb.co/bX0v4d9/espn-logo.png",
+      "streams": {
+        "HD": "#",
+        "4K": "#"
+      }
+    },
+    {
+      "id": "sport_3",
+      "name": "قناة رياضية 3",
+      "logo": "https://i.ibb.co/3cHqG6C/bt-sport-logo.png",
+      "streams": {
+        "HD": "#"
+      }
+    }
+  ],
+  "news": [
+    {
+      "id": "news_1",
+      "name": "قناة إخبارية 1",
+      "logo": "https://i.ibb.co/D5b7t2j/aljazeera-logo.png",
+      "streams": {
+        "HD": "#"
+      }
+    },
+    {
+      "id": "news_2",
+      "name": "قناة إخبارية 2",
+      "logo": "https://i.ibb.co/xLwNrcD/bbc-news-logo.png",
+      "streams": {
+        "FHD": "#"
+      }
+    }
+  ],
+  "international": [
+    {
+      "id": "inter_1",
+      "name": "قناة عالمية 1",
+      "logo": "https://i.ibb.co/8Y4nL9Q/discovery-logo.png",
+      "streams": {
+        "SD": "#",
+        "HD": "#"
+      }
+    }
+  ]
+}
