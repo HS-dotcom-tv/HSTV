@@ -8,7 +8,11 @@
         "dark": "Svg/Bswhite.svg"
       },
       "channels": [
-        { "id": "bein_1", "name": "beIN Sports 1", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "bein_1", "name": "beIN Sports 1", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { 
+            "HD": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+            "FHD": "#" 
+          } 
+        },
         { "id": "bein_2", "name": "beIN Sports 2", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
         { "id": "bein_3", "name": "beIN Sports 3", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
         { "id": "bein_4", "name": "beIN Sports 4", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
