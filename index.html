@@ -258,15 +258,13 @@
     .channel-card .channel-logo {
         max-height: 60%;
     }
-    /* --- تم تعديل هذا الجزء --- */
     .channel-name { 
-        font-family: 'Oswald', sans-serif; /* تطبيق الخط الجديد */
-        font-size: 1.25rem; /* 20px - حجم أكبر */
+        font-family: 'Oswald', sans-serif;
+        font-size: 1.25rem;
         font-weight: 700;
         color: var(--text-main);
-        text-align: center; 
-        line-height: 1.2;
-        text-transform: uppercase; /* لجعل الحروف كبيرة وواضحة */
+        text-align: center; line-height: 1.2;
+        text-transform: uppercase;
     }
     .quality-options {
       display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; max-height: 0;
@@ -279,7 +277,7 @@
     }
     html.dark-mode .quality-btn { background-color: rgba(255,255,255,0.1); }
     .quality-btn:hover { background-color: var(--btn-active-gradient-start); color: #fff; }
-    .back-btn { margin-bottom: 1rem; }
+    .back-btn { margin-bottom: 1rem; width: fit-content; }
   </style>
   
   <script>
@@ -328,7 +326,7 @@
     </div>
 
     <main>
-      <div id="matches-section" class="page-section active">
+      <div id="matches-section" class="page-section">
           <div id="matches" class="max-w-3xl mx-auto space-y-4"></div>
       </div>
 
@@ -339,12 +337,12 @@
               <button class="channel-filter-btn" data-category="international">عالمية</button>
           </div>
           
-          <div id="packages-view" class="channels-view visible">
+          <div id="packages-view" class="channels-view">
             <div id="packages-grid" class="channel-grid package-grid" dir="ltr"></div>
           </div>
 
           <div id="channels-view" class="channels-view">
-            <button id="back-to-packages-btn" class="main-tab back-btn"> &larr; عودة للباقات </button>
+            <button id="back-to-packages-btn" class="date-tab back-btn"> &larr; عودة </button>
             <div id="channels-grid" class="channel-grid" dir="ltr"></div>
           </div>
       </div>
@@ -360,9 +358,23 @@
         const mainTabs = document.querySelectorAll('.main-tab');
         const pageSections = document.querySelectorAll('.page-section');
         const dateTabsContainer = document.getElementById('date-tabs-container');
-        const initialActiveTab = document.querySelector('.main-tab[data-section="matches-section"]');
-        initialActiveTab.classList.add('active');
-        dateTabsContainer.classList.add('visible');
+        
+        // --- تعديل: منطق حفظ الحالة عند التحديث ---
+        const savedTabId = localStorage.getItem('activeTab') || 'matches-section';
+        const tabToActivate = document.querySelector(`[data-section="${savedTabId}"]`);
+        const sectionToActivate = document.getElementById(savedTabId);
+
+        if (tabToActivate && sectionToActivate) {
+            tabToActivate.classList.add('active');
+            sectionToActivate.classList.add('active');
+        }
+        if (savedTabId === 'matches-section') {
+            dateTabsContainer.classList.add('visible');
+        } else {
+            dateTabsContainer.classList.remove('visible');
+        }
+        // --- نهاية تعديل حفظ الحالة ---
+
         mainTabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 mainTabs.forEach(t => t.classList.remove('active'));
@@ -370,10 +382,15 @@
                 tab.classList.add('active');
                 const sectionId = tab.getAttribute('data-section');
                 document.getElementById(sectionId).classList.add('active');
+                
+                // --- تعديل: حفظ الحالة عند الضغط ---
+                localStorage.setItem('activeTab', sectionId);
+
                 if (sectionId === 'matches-section') { dateTabsContainer.classList.add('visible'); } 
                 else { dateTabsContainer.classList.remove('visible'); }
             });
         });
+
         const themeToggle = document.getElementById('theme-toggle');
         const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
         const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
@@ -410,7 +427,12 @@
         function renderMatches(allMatches, view) { matchesContainer.innerHTML = ''; const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0; const target = getDateString(offset); let filtered = allMatches.filter(m => m.fixture.date && m.fixture.date.startsWith(target)); if (!filtered.length) { matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`; return; } filtered.forEach(match => { matchesContainer.innerHTML += renderMatchHTML(match); }); }
         function renderMatchHTML(match) { const status = match.fixture.status.short || 'NS'; let centerTop = '', centerBottom = ''; if (["LIVE", "HT"].includes(status)) { centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text text-red-400">مباشر</div>`; } else if (["FT", "AET", "PEN"].includes(status)) { centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text">انتهت</div>`; } else { const formattedTime = formatTime(match.fixture.date); const timeParts = formattedTime.split(' '); centerTop = `<div class="score-box">${timeParts[0]}<span class="time-period">${timeParts[1]}</span></div>`; } const leagueNameAr = leagueTranslations[match.league.code] || match.league.name; const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`; const homeLogo = (match.teams.home.logo || 'default-logo.svg'); const awayLogo = (match.teams.away.logo || 'default-logo.svg'); return `<div class="match-card p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`; }
         ['yesterday', 'today', 'tomorrow'].forEach(id => document.getElementById(id).addEventListener('click', () => loadMatches(id)));
-        loadMatches('today'); setInterval(() => { if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
+        
+        // استدعاء دالة المباريات فقط إذا كانت هي التاب النشط
+        if (savedTabId === 'matches-section') {
+            loadMatches('today');
+            setInterval(() => { if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
+        }
 
         // --- الكود الجديد والمحدث الخاص بقسم البث المباشر ---
         const channelsDataUrl = 'channels.json';
