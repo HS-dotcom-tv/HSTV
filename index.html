@@ -287,26 +287,30 @@
     
     /* --- تعديلات المشغل --- */
     .player-container {
-      position: fixed; /* تثبيت المشغل في الأعلى */
+      position: fixed;
       top: 0; left: 0;
       width: 100%;
-      height: auto; /* السماح بتحديد الارتفاع تلقائياً */
-      z-index: 50; /* z-index عالي ليظهر فوق المحتوى */
-      display: none; /* إخفاء الحاوية افتراضياً */
+      z-index: 50;
+      display: none;
       background-color: #000;
+      height: 56.25vw; /* 16:9 aspect ratio */
+      max-height: 100vh;
     }
     .player-container.active {
         display: block;
     }
-    /* هذا الكلاس يضاف إلى body لدفع المحتوى للأسفل */
     body.player-active .page-content {
-        padding-top: 56.25vw; /* 16:9 aspect ratio */
+        padding-top: 56.25vw;
         transition: padding-top 0.3s ease;
     }
-    @media (min-width: 768px) { /* حد أقصى لارتفاع المشغل على الشاشات الكبيرة */
+    @media (min-width: 768px) {
         body.player-active .page-content {
             padding-top: calc(768px * 0.5625);
         }
+    }
+    /* --- تعديل: إخفاء القوائم الرئيسية عند تشغيل الفيديو --- */
+    body.player-active .navigation-container {
+        display: none;
     }
 
     :root {
@@ -516,13 +520,18 @@
             document.body.classList.remove('player-active');
         }
         
-        // ربط زر الإغلاق المخصص (إذا أردنا إضافته لاحقاً)
-        // closeModalBtn.addEventListener('click', stopStream);
-        
-        // إيقاف البث عند الضغط على زر الرجوع في المتصفح أو أي تنقل
-        window.addEventListener('popstate', stopStream);
-        player.on('exitfullscreen', stopStream); // إيقاف عند الخروج من ملء الشاشة
+        // --- تعديل: إضافة التحكم في دوران الشاشة ---
+        player.on('enterfullscreen', () => {
+          try {
+            screen.orientation.lock('landscape').catch(err => {});
+          } catch(err) {}
+        });
 
+        player.on('exitfullscreen', () => {
+          try {
+            screen.orientation.unlock().catch(err => {});
+          } catch(err) {}
+        });
 
         function getShortChannelName(fullName) {return fullName.replace('beIN Sports', '').replace('beIN', '').replace('SSC', '').replace('DAZN', '').replace('Sky Sports', '').trim();}
         function switchView(viewToShow) {if (viewToShow === 'packages') {packagesView.classList.add('visible'); channelsView.classList.remove('visible');} else {packagesView.classList.remove('visible'); channelsView.classList.add('visible');}}
@@ -617,7 +626,7 @@
         });
 
         backToPackagesBtn.addEventListener('click', () => {
-            stopStream(); // إيقاف البث عند الضغط على زر العودة
+            stopStream();
             renderPackages(currentCategory);
         });
         
