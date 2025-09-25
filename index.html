@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&family=Oswald:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
         /* -- الوضع النهاري -- */
@@ -258,11 +258,15 @@
     .channel-card .channel-logo {
         max-height: 60%;
     }
+    /* --- تم تعديل هذا الجزء --- */
     .channel-name { 
-        font-size: 1rem; /* تم تكبير الخط */
+        font-family: 'Oswald', sans-serif; /* تطبيق الخط الجديد */
+        font-size: 1.25rem; /* 20px - حجم أكبر */
         font-weight: 700;
         color: var(--text-main);
-        text-align: center; line-height: 1.2;
+        text-align: center; 
+        line-height: 1.2;
+        text-transform: uppercase; /* لجعل الحروف كبيرة وواضحة */
     }
     .quality-options {
       display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; max-height: 0;
