@@ -1,60 +1,51 @@
 {
   "sports": [
     {
-      "id": "sport_1",
-      "name": "قناة رياضية 1",
-      "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png",
-      "streams": {
-        "SD": "#",
-        "HD": "#",
-        "FHD": "#"
-      }
+      "package_id": "bein",
+      "package_name": "beIN SPORTS",
+      "package_logo": "https://i.ibb.co/b3B3c3n/bein-logo.png",
+      "channels": [
+        { "id": "bein_1", "name": "beIN Sports 1", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "bein_2", "name": "beIN Sports 2", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "bein_3", "name": "beIN Sports 3", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "bein_4", "name": "beIN Sports 4", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "bein_5", "name": "beIN Sports 5", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
+        { "id": "bein_6", "name": "beIN Sports 6", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
+        { "id": "bein_7", "name": "beIN Sports 7", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
+        { "id": "bein_8", "name": "beIN Sports 8", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
+        { "id": "bein_9", "name": "beIN Sports 9", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
+        { "id": "bein_10", "name": "beIN Sports 10", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
+        { "id": "bein_xtra1", "name": "beIN Xtra 1", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
+        { "id": "bein_xtra2", "name": "beIN Xtra 2", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
+        { "id": "bein_xtra3", "name": "beIN Xtra 3", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } }
+      ]
     },
     {
-      "id": "sport_2",
-      "name": "قناة رياضية 2",
-      "logo": "https://i.ibb.co/bX0v4d9/espn-logo.png",
-      "streams": {
-        "HD": "#",
-        "4K": "#"
-      }
+      "package_id": "ssc",
+      "package_name": "SSC",
+      "package_logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png",
+      "channels": [
+        { "id": "ssc_1", "name": "SSC 1", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "FHD": "#" } },
+        { "id": "ssc_2", "name": "SSC 2", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "FHD": "#" } },
+        { "id": "ssc_3", "name": "SSC 3", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "FHD": "#" } },
+        { "id": "ssc_4", "name": "SSC 4", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "FHD": "#" } },
+        { "id": "ssc_5", "name": "SSC 5", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "FHD": "#" } },
+        { "id": "ssc_extra1", "name": "SSC Extra 1", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "HD": "#" } },
+        { "id": "ssc_extra2", "name": "SSC Extra 2", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "HD": "#" } },
+        { "id": "ssc_extra3", "name": "SSC Extra 3", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "HD": "#" } }
+      ]
     },
     {
-      "id": "sport_3",
-      "name": "قناة رياضية 3",
-      "logo": "https://i.ibb.co/3cHqG6C/bt-sport-logo.png",
-      "streams": {
-        "HD": "#"
-      }
+      "package_id": "dazn",
+      "package_name": "DAZN",
+      "package_logo": "https://i.ibb.co/8mP4z7W/dazn-logo.png",
+      "channels": [
+        { "id": "dazn_1", "name": "DAZN 1", "logo": "https://i.ibb.co/8mP4z7W/dazn-logo.png", "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "dazn_2", "name": "DAZN 2", "logo": "https://i.ibb.co/8mP4z7W/dazn-logo.png", "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "dazn_fights", "name": "DAZN Fights", "logo": "https://i.ibb.co/8mP4z7W/dazn-logo.png", "streams": { "HD": "#" } }
+      ]
     }
   ],
-  "news": [
-    {
-      "id": "news_1",
-      "name": "قناة إخبارية 1",
-      "logo": "https://i.ibb.co/D5b7t2j/aljazeera-logo.png",
-      "streams": {
-        "HD": "#"
-      }
-    },
-    {
-      "id": "news_2",
-      "name": "قناة إخبارية 2",
-      "logo": "https://i.ibb.co/xLwNrcD/bbc-news-logo.png",
-      "streams": {
-        "FHD": "#"
-      }
-    }
-  ],
-  "international": [
-    {
-      "id": "inter_1",
-      "name": "قناة عالمية 1",
-      "logo": "https://i.ibb.co/8Y4nL9Q/discovery-logo.png",
-      "streams": {
-        "SD": "#",
-        "HD": "#"
-      }
-    }
-  ]
+  "news": [],
+  "international": []
 }
