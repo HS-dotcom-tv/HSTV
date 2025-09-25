@@ -288,30 +288,21 @@
     .modal-overlay {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background: #000;
-        display: flex; align-items: center; justify-content: center;
         z-index: 1000;
-        opacity: 0; visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
+        /* هذا الجزء لم نعد بحاجة إليه لأن المشغل سيتحكم بالعرض */
     }
-    .modal-overlay.visible {
-        opacity: 1; visibility: visible;
-    }
-    .modal-container {
-        width: 100%; height: 100%;
-        display: flex; flex-direction: column;
-    }
-    .modal-header {
-        position: absolute; top: 0; left: 0; width: 100%;
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 1rem; z-index: 1001;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
-    }
-    #modal-channel-title { font-weight: 700; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
-    .close-btn { background: none; border: none; font-size: 2rem; color: #fff; cursor: pointer; line-height: 1; }
     .player-container {
-      width: 100%;
-      height: 100%;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1001;
+      /* إخفاء الحاوية افتراضياً */
+      display: none;
     }
+    .player-container.active {
+        display: block;
+    }
+
     :root {
       --plyr-color-main: #3B82F6;
     }
@@ -411,16 +402,8 @@
     </main>
   </div>
   
-  <div id="player-modal" class="modal-overlay">
-      <div class="modal-container">
-          <div class="modal-header">
-              <span id="modal-channel-title"></span>
-              <button id="close-modal-btn" class="close-btn">&times;</button>
-          </div>
-          <div class="player-container">
-              <video id="video-player" playsinline controls></video>
-          </div>
-      </div>
+  <div id="player-container" class="player-container">
+      <video id="video-player" playsinline controls></video>
   </div>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
@@ -516,9 +499,7 @@
         let allChannelsData = {};
         let currentCategory = 'sports';
 
-        const playerModal = document.getElementById('player-modal');
-        const closeModalBtn = document.getElementById('close-modal-btn');
-        const modalChannelTitle = document.getElementById('modal-channel-title');
+        const playerContainer = document.getElementById('player-container');
         const videoElement = document.getElementById('video-player');
         const player = new Plyr(videoElement, {
             captions: { active: false, language: 'auto', update: false },
@@ -526,10 +507,8 @@
         });
         let hls = new Hls();
         
-        function playStream(url, channelName) {
-            modalChannelTitle.textContent = channelName;
-            playerModal.classList.add('visible');
-            
+        function playStream(url) {
+            playerContainer.classList.add('active'); // إظهار حاوية المشغل
             if (Hls.isSupported() && url.includes('.m3u8')) {
                 hls.destroy(); 
                 hls = new Hls();
@@ -538,35 +517,27 @@
             } else {
                 videoElement.src = url;
             }
+            
+            // طلب ملء الشاشة بعد التأكد من أن المستخدم تفاعل مع الصفحة
+            player.once('ready', () => {
+                player.fullscreen.enter();
+            });
+            player.play();
         }
         
-        // --- تعديل: إضافة التحكم في دوران الشاشة ---
         player.on('enterfullscreen', () => {
           try {
-            screen.orientation.lock('landscape').catch(err => console.log(err));
-          } catch(err) {
-            console.log(err);
-          }
+            screen.orientation.lock('landscape').catch(err => {});
+          } catch(err) {}
         });
 
         player.on('exitfullscreen', () => {
+          player.stop();
+          playerContainer.classList.remove('active'); // إخفاء الحاوية عند الخروج
           try {
-            screen.orientation.unlock().catch(err => console.log(err));
-          } catch(err) {
-            console.log(err);
-          }
+            screen.orientation.unlock().catch(err => {});
+          } catch(err) {}
         });
-        // --- نهاية التعديل ---
-
-        function stopStream() {
-            player.stop();
-            if(player.fullscreen.active) {
-                player.fullscreen.exit();
-            }
-            playerModal.classList.remove('visible');
-        }
-
-        closeModalBtn.addEventListener('click', stopStream);
         
         function getShortChannelName(fullName) {return fullName.replace('beIN Sports', '').replace('beIN', '').replace('SSC', '').replace('DAZN', '').replace('Sky Sports', '').trim();}
         function switchView(viewToShow) {if (viewToShow === 'packages') {packagesView.classList.add('visible'); channelsView.classList.remove('visible');} else {packagesView.classList.remove('visible'); channelsView.classList.add('visible');}}
@@ -644,9 +615,7 @@
             if (qualityBtn) {
                 const streamUrl = qualityBtn.dataset.streamSrc;
                 if(streamUrl && streamUrl !== '#') {
-                    const cardWrapper = qualityBtn.closest('.channel-card-wrapper');
-                    const channelName = cardWrapper.dataset.fullName;
-                    playStream(streamUrl, channelName);
+                    playStream(streamUrl);
                 }
                 return;
             }
