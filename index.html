@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Montserrat:wght@700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
         /* -- الوضع النهاري -- */
@@ -244,8 +244,9 @@
       background: var(--card-bg); border: 1px solid var(--card-border); box-shadow: var(--card-shadow);
       border-radius: 16px; padding: 1rem; aspect-ratio: 1 / 1; 
       display: flex; flex-direction: column; 
-      align-items: center; justify-content: center; gap: 0.5rem; 
+      align-items: center; justify-content: center;
       transition: all 0.3s ease; cursor: pointer;
+      position: relative; /* تمت الإضافة لتثبيت النص في الأسفل */
     }
     .channel-card:hover, .package-card-item:hover {
       transform: translateY(-6px); box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
@@ -256,15 +257,21 @@
       object-fit: contain;
     }
     .channel-card .channel-logo {
-        max-height: 60%;
+        max-height: 70%; /* تعديل بسيط لإعطاء مساحة أكبر للنص */
     }
+    /* --- تم تعديل هذا الجزء بالكامل --- */
     .channel-name { 
-        font-family: 'Oswald', sans-serif;
-        font-size: 1.25rem;
-        font-weight: 700;
+        font-family: 'Bebas Neue', sans-serif; /* تطبيق الخط الجديد */
+        font-size: 1.5rem; /* 24px - حجم أكبر وواضح */
         color: var(--text-main);
-        text-align: center; line-height: 1.2;
-        text-transform: uppercase;
+        text-align: center; 
+        line-height: 1;
+        
+        position: absolute; /* تثبيت الموضع */
+        bottom: 0.75rem; /* 12px من الأسفل */
+        left: 50%; /* في المنتصف أفقياً */
+        transform: translateX(-50%); /* لضمان التوسيط المثالي */
+        width: 100%;
     }
     .quality-options {
       display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; max-height: 0;
@@ -359,7 +366,6 @@
         const pageSections = document.querySelectorAll('.page-section');
         const dateTabsContainer = document.getElementById('date-tabs-container');
         
-        // --- تعديل: منطق حفظ الحالة عند التحديث ---
         const savedTabId = localStorage.getItem('activeTab') || 'matches-section';
         const tabToActivate = document.querySelector(`[data-section="${savedTabId}"]`);
         const sectionToActivate = document.getElementById(savedTabId);
@@ -373,7 +379,6 @@
         } else {
             dateTabsContainer.classList.remove('visible');
         }
-        // --- نهاية تعديل حفظ الحالة ---
 
         mainTabs.forEach(tab => {
             tab.addEventListener('click', () => {
@@ -383,7 +388,6 @@
                 const sectionId = tab.getAttribute('data-section');
                 document.getElementById(sectionId).classList.add('active');
                 
-                // --- تعديل: حفظ الحالة عند الضغط ---
                 localStorage.setItem('activeTab', sectionId);
 
                 if (sectionId === 'matches-section') { dateTabsContainer.classList.add('visible'); } 
@@ -428,7 +432,6 @@
         function renderMatchHTML(match) { const status = match.fixture.status.short || 'NS'; let centerTop = '', centerBottom = ''; if (["LIVE", "HT"].includes(status)) { centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text text-red-400">مباشر</div>`; } else if (["FT", "AET", "PEN"].includes(status)) { centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text">انتهت</div>`; } else { const formattedTime = formatTime(match.fixture.date); const timeParts = formattedTime.split(' '); centerTop = `<div class="score-box">${timeParts[0]}<span class="time-period">${timeParts[1]}</span></div>`; } const leagueNameAr = leagueTranslations[match.league.code] || match.league.name; const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`; const homeLogo = (match.teams.home.logo || 'default-logo.svg'); const awayLogo = (match.teams.away.logo || 'default-logo.svg'); return `<div class="match-card p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`; }
         ['yesterday', 'today', 'tomorrow'].forEach(id => document.getElementById(id).addEventListener('click', () => loadMatches(id)));
         
-        // استدعاء دالة المباريات فقط إذا كانت هي التاب النشط
         if (savedTabId === 'matches-section') {
             loadMatches('today');
             setInterval(() => { if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
