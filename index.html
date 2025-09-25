@@ -231,26 +231,33 @@
         background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); color: var(--btn-active-text); border: none;
         backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: var(--btn-active-shadow);
     }
-    .channels-view { display: none; } /* لإخفاء وإظهار الأقسام الفرعية */
+    .channels-view { display: none; } 
     .channels-view.visible { display: block; }
     .channel-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1.25rem; max-w-3xl; margin: auto;
     }
-    .package-card { /* بطاقة الباقة الرئيسية */
+    .package-grid {
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
     .channel-card-wrapper { position: relative; }
     .channel-card, .package-card-item {
       background: var(--card-bg); border: 1px solid var(--card-border); box-shadow: var(--card-shadow);
-      border-radius: 16px; padding: 1rem; aspect-ratio: 1 / 1; display: flex; align-items: center;
-      justify-content: center; transition: all 0.3s ease; cursor: pointer;
+      border-radius: 16px; padding: 1rem; aspect-ratio: 1 / 1; 
+      display: flex; flex-direction: column; /* تعديل */
+      align-items: center; justify-content: center; gap: 0.5rem; /* تعديل */
+      transition: all 0.3s ease; cursor: pointer;
     }
     .channel-card:hover, .package-card-item:hover {
       transform: translateY(-6px); box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
     }
     html.dark-mode .channel-card:hover, html.dark-mode .package-card-item:hover { box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4); }
     .channel-logo, .package-logo {
-      width: 100%; height: auto; max-height: 80%; object-fit: contain;
+      width: 100%; height: auto; max-height: 60%; /* تعديل */
+      object-fit: contain;
+    }
+    .channel-name { /* كلاس جديد */
+        font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);
+        text-align: center; line-height: 1.2;
     }
     .quality-options {
       display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; max-height: 0;
@@ -391,7 +398,6 @@
         let allChannelsData = {};
         let currentCategory = 'sports';
 
-        // دالة للتبديل بين عرض الباقات وعرض القنوات
         function switchView(viewToShow) {
             if (viewToShow === 'packages') {
                 packagesView.classList.add('visible');
@@ -402,7 +408,6 @@
             }
         }
         
-        // دالة لعرض باقات القنوات حسب الفئة
         function renderPackages(category) {
             switchView('packages');
             packagesGrid.innerHTML = '';
@@ -415,13 +420,13 @@
                 const packageHTML = `
                     <div class="package-card-item" data-package-id="${pkg.package_id}">
                         <img src="${pkg.package_logo}" alt="${pkg.package_name}" class="package-logo" onerror="this.src='default-logo.svg';">
+                        <span class="channel-name">${pkg.package_name}</span>
                     </div>
                 `;
                 packagesGrid.innerHTML += packageHTML;
             });
         }
         
-        // دالة جديدة لعرض قنوات الباقة المحددة
         function renderPackageChannels(packageId) {
             switchView('channels');
             channelsGrid.innerHTML = '';
@@ -437,6 +442,7 @@
                     <div class="channel-card-wrapper" id="${channel.id}">
                         <div class="channel-card">
                             <img src="${channel.logo}" alt="${channel.name}" class="channel-logo" onerror="this.src='default-logo.svg';">
+                            <span class="channel-name">${channel.name}</span>
                         </div>
                         <div class="quality-options">${qualityButtonsHTML}</div>
                     </div>
@@ -456,7 +462,6 @@
           }
         }
         
-        // --- Event Listeners ---
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
@@ -475,7 +480,7 @@
 
         channelsGrid.addEventListener('click', (e) => {
             const cardWrapper = e.target.closest('.channel-card-wrapper');
-            if (cardWrapper) {
+            if (cardWrapper && e.target.closest('.channel-card')) { // تأكد من أن الضغطة على البطاقة نفسها وليس زر الجودة
                 document.querySelectorAll('.channel-card-wrapper.expanded').forEach(cw => {
                     if (cw.id !== cardWrapper.id) cw.classList.remove('expanded');
                 });
