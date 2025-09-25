@@ -3,46 +3,54 @@
     {
       "package_id": "bein",
       "package_name": "beIN SPORTS",
-      "package_logo": "https://i.ibb.co/b3B3c3n/bein-logo.png",
+      "package_logo": {
+        "light": "Svg/Bsblack.svg",
+        "dark": "Svg/Bswhite.svg"
+      },
       "channels": [
-        { "id": "bein_1", "name": "beIN Sports 1", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#", "FHD": "#" } },
-        { "id": "bein_2", "name": "beIN Sports 2", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#", "FHD": "#" } },
-        { "id": "bein_3", "name": "beIN Sports 3", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#", "FHD": "#" } },
-        { "id": "bein_4", "name": "beIN Sports 4", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#", "FHD": "#" } },
-        { "id": "bein_5", "name": "beIN Sports 5", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
-        { "id": "bein_6", "name": "beIN Sports 6", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
-        { "id": "bein_7", "name": "beIN Sports 7", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
-        { "id": "bein_8", "name": "beIN Sports 8", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
-        { "id": "bein_9", "name": "beIN Sports 9", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
-        { "id": "bein_10", "name": "beIN Sports 10", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
-        { "id": "bein_xtra1", "name": "beIN Xtra 1", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
-        { "id": "bein_xtra2", "name": "beIN Xtra 2", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } },
-        { "id": "bein_xtra3", "name": "beIN Xtra 3", "logo": "https://i.ibb.co/L9qY1pP/bein-sports-1-logo.png", "streams": { "HD": "#" } }
+        { "id": "bein_1", "name": "beIN Sports 1", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "bein_2", "name": "beIN Sports 2", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "bein_3", "name": "beIN Sports 3", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "bein_4", "name": "beIN Sports 4", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "bein_5", "name": "beIN Sports 5", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#" } },
+        { "id": "bein_6", "name": "beIN Sports 6", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#" } },
+        { "id": "bein_7", "name": "beIN Sports 7", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#" } },
+        { "id": "bein_8", "name": "beIN Sports 8", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#" } },
+        { "id": "bein_9", "name": "beIN Sports 9", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#" } },
+        { "id": "bein_xtra1", "name": "beIN Xtra 1", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#" } },
+        { "id": "bein_xtra2", "name": "beIN Xtra 2", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#" } },
+        { "id": "bein_xtra3", "name": "beIN Xtra 3", "logo": { "light": "Svg/Bsblack.svg", "dark": "Svg/Bswhite.svg" }, "streams": { "HD": "#" } }
       ]
     },
     {
       "package_id": "ssc",
       "package_name": "SSC",
-      "package_logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png",
+      "package_logo": {
+        "light": "Svg/Scblack.svg",
+        "dark": "Svg/Scwhite.svg"
+      },
       "channels": [
-        { "id": "ssc_1", "name": "SSC 1", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "FHD": "#" } },
-        { "id": "ssc_2", "name": "SSC 2", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "FHD": "#" } },
-        { "id": "ssc_3", "name": "SSC 3", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "FHD": "#" } },
-        { "id": "ssc_4", "name": "SSC 4", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "FHD": "#" } },
-        { "id": "ssc_5", "name": "SSC 5", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "FHD": "#" } },
-        { "id": "ssc_extra1", "name": "SSC Extra 1", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "HD": "#" } },
-        { "id": "ssc_extra2", "name": "SSC Extra 2", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "HD": "#" } },
-        { "id": "ssc_extra3", "name": "SSC Extra 3", "logo": "https://i.ibb.co/Q8Q49y8/ssc-logo.png", "streams": { "HD": "#" } }
+        { "id": "ssc_1", "name": "SSC 1", "logo": { "light": "Svg/Scblack.svg", "dark": "Svg/Scwhite.svg" }, "streams": { "FHD": "#" } },
+        { "id": "ssc_2", "name": "SSC 2", "logo": { "light": "Svg/Scblack.svg", "dark": "Svg/Scwhite.svg" }, "streams": { "FHD": "#" } },
+        { "id": "ssc_3", "name": "SSC 3", "logo": { "light": "Svg/Scblack.svg", "dark": "Svg/Scwhite.svg" }, "streams": { "FHD": "#" } },
+        { "id": "ssc_4", "name": "SSC 4", "logo": { "light": "Svg/Scblack.svg", "dark": "Svg/Scwhite.svg" }, "streams": { "FHD": "#" } },
+        { "id": "ssc_5", "name": "SSC 5", "logo": { "light": "Svg/Scblack.svg", "dark": "Svg/Scwhite.svg" }, "streams": { "FHD": "#" } },
+        { "id": "ssc_extra1", "name": "SSC Extra 1", "logo": { "light": "Svg/Scblack.svg", "dark": "Svg/Scwhite.svg" }, "streams": { "HD": "#" } },
+        { "id": "ssc_extra2", "name": "SSC Extra 2", "logo": { "light": "Svg/Scblack.svg", "dark": "Svg/Scwhite.svg" }, "streams": { "HD": "#" } },
+        { "id": "ssc_extra3", "name": "SSC Extra 3", "logo": { "light": "Svg/Scblack.svg", "dark": "Svg/Scwhite.svg" }, "streams": { "HD": "#" } }
       ]
     },
     {
       "package_id": "dazn",
       "package_name": "DAZN",
-      "package_logo": "https://i.ibb.co/8mP4z7W/dazn-logo.png",
+      "package_logo": {
+        "light": "Svg/Dznblack.svg",
+        "dark": "Svg/Dznwhite.svg"
+      },
       "channels": [
-        { "id": "dazn_1", "name": "DAZN 1", "logo": "https://i.ibb.co/8mP4z7W/dazn-logo.png", "streams": { "HD": "#", "FHD": "#" } },
-        { "id": "dazn_2", "name": "DAZN 2", "logo": "https://i.ibb.co/8mP4z7W/dazn-logo.png", "streams": { "HD": "#", "FHD": "#" } },
-        { "id": "dazn_fights", "name": "DAZN Fights", "logo": "https://i.ibb.co/8mP4z7W/dazn-logo.png", "streams": { "HD": "#" } }
+        { "id": "dazn_1", "name": "DAZN 1", "logo": { "light": "Svg/Dznblack.svg", "dark": "Svg/Dznwhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "dazn_2", "name": "DAZN 2", "logo": { "light": "Svg/Dznblack.svg", "dark": "Svg/Dznwhite.svg" }, "streams": { "HD": "#", "FHD": "#" } },
+        { "id": "dazn_fights", "name": "DAZN Fights", "logo": { "light": "Svg/Dznblack.svg", "dark": "Svg/Dznwhite.svg" }, "streams": { "HD": "#" } }
       ]
     }
   ],
