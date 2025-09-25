@@ -218,95 +218,52 @@
     }
     .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
 
-    /* --- أكواد قسم البث المباشر --- */
+    /* --- أكواد قسم البث المباشر المحدثة --- */
     .channel-filters {
-      display: flex;
-      gap: 0.75rem; /* 12px */
-      margin-bottom: 1.5rem; /* 24px */
-      max-w-3xl;
-      margin-left: auto;
-      margin-right: auto;
+      display: flex; gap: 0.75rem; margin-bottom: 1.5rem; max-w-3xl; margin-left: auto; margin-right: auto;
     }
-    .channel-filter-btn { /* سنستخدم نفس تصميم الأزرار الفرعية */
-        background: var(--btn-glass-bg);
-        border: 1px solid var(--btn-glass-border);
-        box-shadow: 0 2px 10px var(--btn-glass-shadow);
-        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        color: var(--btn-text-color);
-        transition: all .3s ease;
-        border-radius: 12px; font-weight: 600;
-        padding: 0.5rem 1rem; flex: 1;
+    .channel-filter-btn {
+        background: var(--btn-glass-bg); border: 1px solid var(--btn-glass-border); box-shadow: 0 2px 10px var(--btn-glass-shadow);
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--btn-text-color);
+        transition: all .3s ease; border-radius: 12px; font-weight: 600; padding: 0.5rem 1rem; flex: 1;
     }
     .channel-filter-btn.active {
-        background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); 
-        color: var(--btn-active-text); border: none;
-        backdrop-filter: none; -webkit-backdrop-filter: none;
-        box-shadow: var(--btn-active-shadow);
+        background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); color: var(--btn-active-text); border: none;
+        backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: var(--btn-active-shadow);
     }
+    .channels-view { display: none; } /* لإخفاء وإظهار الأقسام الفرعية */
+    .channels-view.visible { display: block; }
     .channel-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 1.25rem; /* 20px */
-      max-w-3xl;
-      margin: auto;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1.25rem; max-w-3xl; margin: auto;
     }
-    .channel-card-wrapper { /* حاوية لكل بطاقة + خيارات الجودة */
-      position: relative;
+    .package-card { /* بطاقة الباقة الرئيسية */
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
-    .channel-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      box-shadow: var(--card-shadow);
-      border-radius: 16px;
-      padding: 1rem;
-      aspect-ratio: 1 / 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      cursor: pointer;
+    .channel-card-wrapper { position: relative; }
+    .channel-card, .package-card-item {
+      background: var(--card-bg); border: 1px solid var(--card-border); box-shadow: var(--card-shadow);
+      border-radius: 16px; padding: 1rem; aspect-ratio: 1 / 1; display: flex; align-items: center;
+      justify-content: center; transition: all 0.3s ease; cursor: pointer;
     }
-    .channel-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
+    .channel-card:hover, .package-card-item:hover {
+      transform: translateY(-6px); box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
     }
-    html.dark-mode .channel-card:hover {
-      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4);
-    }
-    .channel-logo {
-      width: 100%;
-      height: auto;
-      max-height: 80%;
-      object-fit: contain;
+    html.dark-mode .channel-card:hover, html.dark-mode .package-card-item:hover { box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4); }
+    .channel-logo, .package-logo {
+      width: 100%; height: auto; max-height: 80%; object-fit: contain;
     }
     .quality-options {
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-      margin-top: 0.5rem;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease-out, margin-top 0.4s ease-out;
+      display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; max-height: 0;
+      overflow: hidden; transition: max-height 0.4s ease-out, margin-top 0.4s ease-out;
     }
-    .channel-card-wrapper.expanded .quality-options {
-      max-height: 50px; /* إظهار الخيارات */
-    }
+    .channel-card-wrapper.expanded .quality-options { max-height: 50px; }
     .quality-btn {
-      background-color: rgba(0,0,0,0.1);
-      color: var(--text-secondary);
-      border-radius: 6px;
-      padding: 0.2rem 0.6rem;
-      font-size: 0.7rem;
-      font-weight: 600;
-      transition: all 0.2s ease;
+      background-color: rgba(0,0,0,0.1); color: var(--text-secondary); border-radius: 6px;
+      padding: 0.2rem 0.6rem; font-size: 0.7rem; font-weight: 600; transition: all 0.2s ease;
     }
-    html.dark-mode .quality-btn {
-      background-color: rgba(255,255,255,0.1);
-    }
-    .quality-btn:hover {
-      background-color: var(--btn-active-gradient-start);
-      color: #fff;
-    }
+    html.dark-mode .quality-btn { background-color: rgba(255,255,255,0.1); }
+    .quality-btn:hover { background-color: var(--btn-active-gradient-start); color: #fff; }
+    .back-btn { margin-bottom: 1rem; }
   </style>
   
   <script>
@@ -322,7 +279,6 @@
     <div class="header-side left">
       <button id="theme-toggle" title="تغيير الوضع"></button>
     </div>
-
     <div class="header-center">
       <div class="logo-card">
           <span class="logo-text">
@@ -334,9 +290,7 @@
         <span>مباشر</span>
       </div>
     </div>
-
-    <div class="header-side right">
-      </div>
+    <div class="header-side right"></div>
   </header>
   
   <div class="page-content p-4">
@@ -368,14 +322,19 @@
               <button class="channel-filter-btn" data-category="news">إخبارية</button>
               <button class="channel-filter-btn" data-category="international">عالمية</button>
           </div>
-          <div id="channel-grid-container" class="channel-grid">
-              </div>
+          
+          <div id="packages-view" class="channels-view visible">
+            <div id="packages-grid" class="channel-grid package-grid"></div>
+          </div>
+
+          <div id="channels-view" class="channels-view">
+            <button id="back-to-packages-btn" class="main-tab back-btn"> &larr; عودة للباقات </button>
+            <div id="channels-grid" class="channel-grid"></div>
+          </div>
       </div>
 
       <div id="news-section" class="page-section">
-          <div class="text-center py-12 text-slate-400">
-              📰 قسـم الأخبار سيتوفر قريباً...
-          </div>
+          <div class="text-center py-12 text-slate-400"> 📰 قسـم الأخبار سيتوفر قريباً... </div>
       </div>
     </main>
   </div>
@@ -389,24 +348,17 @@
         const initialActiveTab = document.querySelector('.main-tab[data-section="matches-section"]');
         initialActiveTab.classList.add('active');
         dateTabsContainer.classList.add('visible');
-
         mainTabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 mainTabs.forEach(t => t.classList.remove('active'));
                 pageSections.forEach(s => s.classList.remove('active'));
-
                 tab.classList.add('active');
                 const sectionId = tab.getAttribute('data-section');
                 document.getElementById(sectionId).classList.add('active');
-
-                if (sectionId === 'matches-section') {
-                    dateTabsContainer.classList.add('visible');
-                } else {
-                    dateTabsContainer.classList.remove('visible');
-                }
+                if (sectionId === 'matches-section') { dateTabsContainer.classList.add('visible'); } 
+                else { dateTabsContainer.classList.remove('visible'); }
             });
         });
-
         const themeToggle = document.getElementById('theme-toggle');
         const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
         const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
@@ -419,87 +371,121 @@
         function setActiveDateTab(id) { document.querySelectorAll('.date-tab').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); }
         function getDateString(offset = 0) { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().split('T')[0]; }
         function formatTime(iso) { 
-            const d = new Date(iso); 
-            let timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' }); 
+            const d = new Date(iso); let timeString = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Asia/Riyadh' }); 
             return timeString.replace('AM', 'صباحًا').replace('PM', 'مساءً'); 
         }
         async function loadMatches(view='today') { setActiveDateTab(view); matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">جاري تحميل المباريات...</div>`; try { const res = await fetch(API_URL + '?t=' + Date.now()); const data = await res.json(); renderMatches(data.response || [], view); } catch (err) { console.error(err); matchesContainer.innerHTML = `<div class="text-center py-12 text-red-400">فشل تحميل البيانات</div>`; } }
         function renderMatches(allMatches, view) { matchesContainer.innerHTML = ''; const offset = view === 'yesterday' ? -1 : view === 'tomorrow' ? 1 : 0; const target = getDateString(offset); let filtered = allMatches.filter(m => m.fixture.date && m.fixture.date.startsWith(target)); if (!filtered.length) { matchesContainer.innerHTML = `<div class="text-center py-12 text-slate-400">⚽ لا توجد مباريات لهذا اليوم</div>`; return; } filtered.forEach(match => { matchesContainer.innerHTML += renderMatchHTML(match); }); }
         function renderMatchHTML(match) { const status = match.fixture.status.short || 'NS'; let centerTop = '', centerBottom = ''; if (["LIVE", "HT"].includes(status)) { centerTop = `<div class="score-box text-emerald-400">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text text-red-400">مباشر</div>`; } else if (["FT", "AET", "PEN"].includes(status)) { centerTop = `<div class="score-box">${match.goals.home ?? 0} - ${match.goals.away ?? 0}</div>`; centerBottom = `<div class="status-text">انتهت</div>`; } else { const formattedTime = formatTime(match.fixture.date); const timeParts = formattedTime.split(' '); centerTop = `<div class="score-box">${timeParts[0]}<span class="time-period">${timeParts[1]}</span></div>`; } const leagueNameAr = leagueTranslations[match.league.code] || match.league.name; const competitionInfo = `<div class="match-details"><span>🏆 ${leagueNameAr}</span><span>🏟️ ${match.fixture.venue || 'ملعب غير محدد'}</span></div>`; const homeLogo = (match.teams.home.logo || 'default-logo.svg'); const awayLogo = (match.teams.away.logo || 'default-logo.svg'); return `<div class="match-card p-4"><div class="grid grid-cols-3 items-center text-center"><div><img src="${homeLogo}" class="crest" onerror="this.src='default-logo.svg';"></div><div>${centerTop}</div><div><img src="${awayLogo}" class="crest" onerror="this.src='default-logo.svg';"></div></div><div class="grid grid-cols-3 items-center text-center mt-2"><div class="team-name">${match.teams.home.name}</div><div>${centerBottom}</div><div class="team-name">${match.teams.away.name}</div></div>${competitionInfo}</div>`; }
         ['yesterday', 'today', 'tomorrow'].forEach(id => document.getElementById(id).addEventListener('click', () => loadMatches(id)));
-        loadMatches('today');
-        setInterval(() => { if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
+        loadMatches('today'); setInterval(() => { if (document.getElementById('today').classList.contains('active')) loadMatches('today'); }, 60000);
 
-
-        // --- الكود الجديد الخاص بقسم البث المباشر ---
+        // --- الكود الجديد والمحدث الخاص بقسم البث المباشر ---
         const channelsDataUrl = 'channels.json';
-        const gridContainer = document.getElementById('channel-grid-container');
+        const packagesView = document.getElementById('packages-view');
+        const channelsView = document.getElementById('channels-view');
+        const packagesGrid = document.getElementById('packages-grid');
+        const channelsGrid = document.getElementById('channels-grid');
         const filterBtns = document.querySelectorAll('.channel-filter-btn');
+        const backToPackagesBtn = document.getElementById('back-to-packages-btn');
         let allChannelsData = {};
+        let currentCategory = 'sports';
 
-        async function loadChannels() {
-          try {
-            const res = await fetch(channelsDataUrl + '?t=' + Date.now());
-            allChannelsData = await res.json();
-            renderChannels('sports'); // عرض القنوات الرياضية افتراضياً
-          } catch(err) {
-            console.error(err);
-            gridContainer.innerHTML = `<div class="text-center text-red-400 col-span-full">فشل تحميل بيانات القنوات.</div>`;
-          }
+        // دالة للتبديل بين عرض الباقات وعرض القنوات
+        function switchView(viewToShow) {
+            if (viewToShow === 'packages') {
+                packagesView.classList.add('visible');
+                channelsView.classList.remove('visible');
+            } else {
+                packagesView.classList.remove('visible');
+                channelsView.classList.add('visible');
+            }
         }
-
-        function renderChannels(category) {
-            gridContainer.innerHTML = '';
-            const channels = allChannelsData[category] || [];
-
-            if (channels.length === 0) {
-                gridContainer.innerHTML = `<div class="text-center text-slate-400 col-span-full">لا توجد قنوات في هذا القسم حالياً.</div>`;
+        
+        // دالة لعرض باقات القنوات حسب الفئة
+        function renderPackages(category) {
+            switchView('packages');
+            packagesGrid.innerHTML = '';
+            const packages = allChannelsData[category] || [];
+            if (packages.length === 0) {
+                packagesGrid.innerHTML = `<div class="text-center text-slate-400 col-span-full">لا توجد باقات في هذا القسم حالياً.</div>`;
                 return;
             }
+            packages.forEach(pkg => {
+                const packageHTML = `
+                    <div class="package-card-item" data-package-id="${pkg.package_id}">
+                        <img src="${pkg.package_logo}" alt="${pkg.package_name}" class="package-logo" onerror="this.src='default-logo.svg';">
+                    </div>
+                `;
+                packagesGrid.innerHTML += packageHTML;
+            });
+        }
+        
+        // دالة جديدة لعرض قنوات الباقة المحددة
+        function renderPackageChannels(packageId) {
+            switchView('channels');
+            channelsGrid.innerHTML = '';
+            const packages = allChannelsData[currentCategory] || [];
+            const selectedPackage = packages.find(p => p.package_id === packageId);
+            if (!selectedPackage) return;
 
-            channels.forEach(channel => {
-                const qualityButtonsHTML = Object.keys(channel.streams).map(quality => 
+            selectedPackage.channels.forEach(channel => {
+                 const qualityButtonsHTML = Object.keys(channel.streams).map(quality => 
                     `<a href="${channel.streams[quality]}" class="quality-btn">${quality.toUpperCase()}</a>`
                 ).join('');
-
                 const cardHTML = `
                     <div class="channel-card-wrapper" id="${channel.id}">
                         <div class="channel-card">
                             <img src="${channel.logo}" alt="${channel.name}" class="channel-logo" onerror="this.src='default-logo.svg';">
                         </div>
-                        <div class="quality-options">
-                            ${qualityButtonsHTML}
-                        </div>
+                        <div class="quality-options">${qualityButtonsHTML}</div>
                     </div>
                 `;
-                gridContainer.innerHTML += cardHTML;
+                channelsGrid.innerHTML += cardHTML;
             });
         }
+
+        async function loadChannels() {
+          try {
+            const res = await fetch(channelsDataUrl + '?t=' + Date.now());
+            allChannelsData = await res.json();
+            renderPackages(currentCategory); 
+          } catch(err) {
+            console.error(err);
+            packagesGrid.innerHTML = `<div class="text-center text-red-400 col-span-full">فشل تحميل بيانات القنوات.</div>`;
+          }
+        }
         
+        // --- Event Listeners ---
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                renderChannels(btn.dataset.category);
+                currentCategory = btn.dataset.category;
+                renderPackages(currentCategory);
             });
         });
 
-        gridContainer.addEventListener('click', (e) => {
+        packagesGrid.addEventListener('click', e => {
+            const packageCard = e.target.closest('.package-card-item');
+            if (packageCard) {
+                renderPackageChannels(packageCard.dataset.packageId);
+            }
+        });
+
+        channelsGrid.addEventListener('click', (e) => {
             const cardWrapper = e.target.closest('.channel-card-wrapper');
             if (cardWrapper) {
-                // إغلاق أي بطاقة أخرى مفتوحة
                 document.querySelectorAll('.channel-card-wrapper.expanded').forEach(cw => {
-                    if (cw.id !== cardWrapper.id) {
-                        cw.classList.remove('expanded');
-                    }
+                    if (cw.id !== cardWrapper.id) cw.classList.remove('expanded');
                 });
-                // فتح أو إغلاق البطاقة الحالية
                 cardWrapper.classList.toggle('expanded');
             }
         });
-        
-        loadChannels(); // استدعاء الدالة الرئيسية عند تحميل الصفحة
 
+        backToPackagesBtn.addEventListener('click', () => renderPackages(currentCategory));
+        
+        loadChannels();
     });
   </script>
 </body>
