@@ -285,10 +285,10 @@
     .quality-btn:hover { background-color: var(--btn-active-gradient-start); color: #fff; }
     .back-btn { margin-bottom: 1rem; width: fit-content; }
     
-    /* 2. إضافة تصميم النافذة المنبثقة (Modal) */
+    /* --- تعديل: تصميم المشغل ليملأ الشاشة --- */
     .modal-overlay {
-        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0, 0, 0, 0.8);
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: #000;
         display: flex; align-items: center; justify-content: center;
         z-index: 1000;
         opacity: 0; visibility: hidden;
@@ -297,29 +297,21 @@
     .modal-overlay.visible {
         opacity: 1; visibility: visible;
     }
-    .modal-container {
-        width: 90%; max-width: 800px;
-        background: var(--card-bg);
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        padding: 1rem;
-        transform: scale(0.9);
-        transition: transform 0.3s ease;
-    }
-    .modal-overlay.visible .modal-container {
-        transform: scale(1);
+    .modal-container { /* لم نعد بحاجة للحاوية الصغيرة */
+        width: 100%; height: 100%;
+        display: flex; flex-direction: column;
     }
     .modal-header {
+        position: absolute; top: 0; left: 0; width: 100%;
         display: flex; justify-content: space-between; align-items: center;
-        margin-bottom: 1rem;
+        padding: 1rem; z-index: 1001;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
     }
-    #modal-channel-title {
-        font-weight: 700;
-        color: var(--text-main);
-    }
-    .close-btn {
-        background: none; border: none; font-size: 1.5rem;
-        color: var(--text-secondary); cursor: pointer; line-height: 1;
+    #modal-channel-title { font-weight: 700; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+    .close-btn { background: none; border: none; font-size: 2rem; color: #fff; cursor: pointer; line-height: 1; }
+    .player-container {
+      width: 100%;
+      height: 100%;
     }
     /* تعديل تصميم Plyr ليتناسب مع الثيم */
     :root {
@@ -327,6 +319,26 @@
     }
     html.dark-mode {
       --plyr-color-main: #B9090B;
+    }
+    /* إضافة شعار HSTV كعلامة مائية */
+    .plyr--video::after {
+        content: 'HSTV';
+        font-family: 'Montserrat', sans-serif;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 24px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.4);
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        pointer-events: none; /* مهم جداً للسماح بالضغط عبره */
+        z-index: 25;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    /* إظهار الشعار فقط عند تشغيل الفيديو */
+    .plyr--playing .plyr--video::after {
+        opacity: 1;
     }
   </style>
   
@@ -508,7 +520,6 @@
         let allChannelsData = {};
         let currentCategory = 'sports';
 
-        // --- 5. تهيئة المشغل والنافذة المنبثقة ---
         const playerModal = document.getElementById('player-modal');
         const closeModalBtn = document.getElementById('close-modal-btn');
         const modalChannelTitle = document.getElementById('modal-channel-title');
@@ -521,30 +532,30 @@
         
         function playStream(url, channelName) {
             modalChannelTitle.textContent = channelName;
+            playerModal.classList.add('visible');
+            
             if (Hls.isSupported() && url.includes('.m3u8')) {
-                hls.destroy(); // تدمير المثيل القديم قبل إنشاء واحد جديد
+                hls.destroy(); 
                 hls = new Hls();
                 hls.loadSource(url);
                 hls.attachMedia(videoElement);
             } else {
                 videoElement.src = url;
             }
-            playerModal.classList.add('visible');
-            player.play();
+            // تأخير بسيط لضمان عرض الـ modal قبل محاولة ملء الشاشة
+            setTimeout(() => player.fullscreen.enter(), 100);
         }
 
         function stopStream() {
             player.stop();
+            if(player.fullscreen.active) {
+                player.fullscreen.exit();
+            }
             playerModal.classList.remove('visible');
         }
 
         closeModalBtn.addEventListener('click', stopStream);
-        playerModal.addEventListener('click', (e) => {
-            if (e.target === playerModal) {
-                stopStream();
-            }
-        });
-
+        
         function getShortChannelName(fullName) {return fullName.replace('beIN Sports', '').replace('beIN', '').replace('SSC', '').replace('DAZN', '').replace('Sky Sports', '').trim();}
         function switchView(viewToShow) {if (viewToShow === 'packages') {packagesView.classList.add('visible'); channelsView.classList.remove('visible');} else {packagesView.classList.remove('visible'); channelsView.classList.add('visible');}}
         
@@ -620,8 +631,7 @@
             const qualityBtn = e.target.closest('.quality-btn');
             if (qualityBtn) {
                 const streamUrl = qualityBtn.dataset.streamSrc;
-                // تم حذف الشرط الذي يمنع الروابط الوهمية
-                if(streamUrl) {
+                if(streamUrl && streamUrl !== '#') {
                     const cardWrapper = qualityBtn.closest('.channel-card-wrapper');
                     const channelName = cardWrapper.dataset.fullName;
                     playStream(streamUrl, channelName);
