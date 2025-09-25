@@ -308,8 +308,8 @@
             padding-top: calc(768px * 0.5625);
         }
     }
-    /* --- تعديل: إخفاء القوائم الرئيسية عند تشغيل الفيديو --- */
-    body.player-active .navigation-container {
+    /* --- **الإصلاح** إخفاء حاوية القوائم الرئيسية عند تشغيل الفيديو --- */
+    body.player-active .main-nav-wrapper {
         display: none;
     }
 
@@ -349,7 +349,7 @@
   </header>
   
   <div class="page-content p-4">
-    <div class="max-w-3xl mx-auto mb-6">
+    <div class="max-w-3xl mx-auto mb-6 main-nav-wrapper">
       <div class="navigation-container">
           <div class="main-tabs flex gap-3">
             <button id="matches-btn" data-section="matches-section" class="main-tab flex-1">المباريات</button>
@@ -520,7 +520,7 @@
             document.body.classList.remove('player-active');
         }
         
-        // --- تعديل: إضافة التحكم في دوران الشاشة ---
+        // --- **الإصلاح**: إضافة التحكم في دوران الشاشة ---
         player.on('enterfullscreen', () => {
           try {
             screen.orientation.lock('landscape').catch(err => {});
@@ -528,6 +528,7 @@
         });
 
         player.on('exitfullscreen', () => {
+          stopStream(); // إيقاف البث عند الخروج من ملء الشاشة
           try {
             screen.orientation.unlock().catch(err => {});
           } catch(err) {}
