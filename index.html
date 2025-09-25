@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cairo:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
   <style>
     :root {
         /* -- الوضع النهاري -- */
@@ -285,7 +286,6 @@
     .quality-btn:hover { background-color: var(--btn-active-gradient-start); color: #fff; }
     .back-btn { margin-bottom: 1rem; width: fit-content; }
     
-    /* --- تعديلات المشغل --- */
     .player-container {
       position: fixed;
       top: 0; left: 0;
@@ -303,24 +303,19 @@
         padding-top: 56.25vw;
         transition: padding-top 0.3s ease;
     }
-    /* --- **الإصلاح 1**: تعديل المسافة العلوية لتقليص الفراغ --- */
-    body.player-active .page-content {
-        padding-top: calc(56.25vw - 1rem);
-    }
     @media (min-width: 768px) {
         body.player-active .page-content {
-            padding-top: calc(768px * 0.5625 - 1rem);
+            padding-top: calc(768px * 0.5625);
         }
     }
     body.player-active .main-nav-wrapper {
         display: none;
     }
-    /* --- **الإصلاح 2**: تقليص الفراغات بين العناصر --- */
     body.player-active #channel-filters-container {
-      margin-bottom: 1rem;
+        padding-top: 1rem; /* تقليص الفراغ العلوي */
     }
     body.player-active #channels-view .back-btn {
-      margin-bottom: 1rem;
+        margin-bottom: 1rem;
     }
 
     :root {
@@ -328,6 +323,33 @@
     }
     html.dark-mode {
       --plyr-color-main: #B9090B;
+    }
+
+    /* 6. تصميم أزرار الجودة المخصصة داخل المشغل */
+    .plyr__controls .custom-quality-controls {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-right: 5px; /* لليمين في RTL */
+    }
+    .plyr__controls .quality-switch-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: #fff;
+        font-family: 'Cairo', sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        border-radius: 4px;
+        padding: 5px 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .plyr__controls .quality-switch-btn:hover {
+        background: var(--plyr-color-main);
+    }
+    .plyr__controls .quality-switch-btn.active {
+        background: var(--plyr-color-main);
+        text-shadow: 0 0 5px rgba(0,0,0,0.5);
     }
   </style>
   
@@ -500,16 +522,31 @@
         const backToPackagesBtn = document.getElementById('back-to-packages-btn');
         let allChannelsData = {};
         let currentCategory = 'sports';
+        let currentChannel = null;
 
         const playerContainer = document.getElementById('player-container');
         const videoElement = document.getElementById('video-player');
+        
+        // 2. تفعيل الميزات الاحترافية في المشغل
         const player = new Plyr(videoElement, {
-            captions: { active: false, language: 'auto', update: false },
-            tooltips: { controls: true, seek: true }
+            tooltips: { controls: true, seek: true },
+            // إضافة الأزرار الجديدة لشريط التحكم
+            controls: [
+                'play-large', 'play', 'progress', 'current-time', 'mute', 
+                'volume', 'pip', 'airplay', 'fullscreen'
+            ]
         });
         let hls = new Hls();
         
-        function playStream(url, channelName) {
+        // 7. إضافة منطق حفظ مستوى الصوت
+        const savedVolume = localStorage.getItem('hstvPlayerVolume') || 1;
+        player.volume = parseFloat(savedVolume);
+        player.on('volumechange', () => {
+            localStorage.setItem('hstvPlayerVolume', player.volume);
+        });
+        
+        function playStream(url, channel) {
+            currentChannel = channel; // حفظ بيانات القناة الحالية
             document.body.classList.add('player-active');
             playerContainer.style.display = 'block';
 
@@ -522,6 +559,7 @@
                 videoElement.src = url;
             }
             player.play();
+            updateQualityControls(); // تحديث أزرار الجودة
         }
 
         function stopStream() {
@@ -543,76 +581,49 @@
           } catch(err) {}
         });
 
+        // 8. برمجة أزرار الجودة المخصصة
+        function updateQualityControls() {
+            const controls = player.elements.controls;
+            // إزالة الأزرار القديمة إن وجدت
+            const oldControls = controls.querySelector('.custom-quality-controls');
+            if(oldControls) oldControls.remove();
+            
+            if (!currentChannel || !currentChannel.streams) return;
+
+            const qualityContainer = document.createElement('div');
+            qualityContainer.className = 'custom-quality-controls';
+            
+            Object.entries(currentChannel.streams).forEach(([quality, url]) => {
+                const button = document.createElement('button');
+                button.className = 'quality-switch-btn';
+                button.type = 'button';
+                button.innerText = quality.toUpperCase();
+                
+                // تمييز الجودة الحالية
+                if(player.source === url) button.classList.add('active');
+                
+                button.addEventListener('click', () => {
+                    const currentTime = player.currentTime;
+                    playStream(url, currentChannel);
+                    player.once('canplay', () => {
+                        player.currentTime = currentTime;
+                    });
+                });
+                qualityContainer.appendChild(button);
+            });
+            // إضافة الأزرار في بداية شريط التحكم
+            controls.prepend(qualityContainer);
+        }
+
         function getShortChannelName(fullName) {return fullName.replace('beIN Sports', '').replace('beIN', '').replace('SSC', '').replace('DAZN', '').replace('Sky Sports', '').trim();}
         function switchView(viewToShow) {if (viewToShow === 'packages') {packagesView.classList.add('visible'); channelsView.classList.remove('visible');} else {packagesView.classList.remove('visible'); channelsView.classList.add('visible');}}
         
-        function renderPackages(category) {
-            switchView('packages');
-            packagesGrid.innerHTML = '';
-            const packages = allChannelsData[category] || [];
-            if (packages.length === 0) {
-                packagesGrid.innerHTML = `<div class="text-center text-slate-400 col-span-full">لا توجد باقات في هذا القسم حالياً.</div>`;
-                return;
-            }
-            packages.forEach(pkg => {
-                const packageHTML = `<div class="package-card-item" data-package-id="${pkg.package_id}"><img class="dynamic-logo package-logo" data-light-src="${pkg.package_logo.light}" data-dark-src="${pkg.package_logo.dark}" alt="${pkg.package_name}" onerror="this.style.display='none';"></div>`;
-                packagesGrid.innerHTML += packageHTML;
-            });
-            updateChannelLogos();
-        }
+        function renderPackages(category) { /* ... الكود كما هو ... */ }
+        function renderPackageChannels(packageId) { /* ... الكود كما هو ... */ }
+        async function loadChannels() { /* ... الكود كما هو ... */ }
         
-        function renderPackageChannels(packageId) {
-            switchView('channels');
-            channelsGrid.innerHTML = '';
-            const packages = allChannelsData[currentCategory] || [];
-            const selectedPackage = packages.find(p => p.package_id === packageId);
-            if (!selectedPackage) return;
-
-            selectedPackage.channels.forEach(channel => {
-                 const qualityButtonsHTML = Object.keys(channel.streams).map(quality => 
-                    `<button class="quality-btn" data-stream-src="${channel.streams[quality]}">${quality.toUpperCase()}</button>`
-                ).join('');
-                const shortName = getShortChannelName(channel.name);
-                const cardHTML = `
-                    <div class="channel-card-wrapper" id="${channel.id}" data-full-name="${channel.name}">
-                        <div class="channel-card">
-                            <img class="dynamic-logo channel-logo" data-light-src="${channel.logo.light}" data-dark-src="${channel.logo.dark}" alt="${channel.name}" onerror="this.style.display='none';">
-                            <span class="channel-name">${shortName}</span>
-                        </div>
-                        <div class="quality-options">${qualityButtonsHTML}</div>
-                    </div>
-                `;
-                channelsGrid.innerHTML += cardHTML;
-            });
-            updateChannelLogos();
-        }
-
-        async function loadChannels() {
-          try {
-            const res = await fetch(channelsDataUrl + '?t=' + Date.now());
-            allChannelsData = await res.json();
-            renderPackages(currentCategory); 
-          } catch(err) {
-            console.error(err);
-            packagesGrid.innerHTML = `<div class="text-center text-red-400 col-span-full">فشل تحميل بيانات القنوات.</div>`;
-          }
-        }
-        
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentCategory = btn.dataset.category;
-                renderPackages(currentCategory);
-            });
-        });
-
-        packagesGrid.addEventListener('click', e => {
-            const packageCard = e.target.closest('.package-card-item');
-            if (packageCard) {
-                renderPackageChannels(packageCard.dataset.packageId);
-            }
-        });
+        filterBtns.forEach(btn => { /* ... الكود كما هو ... */ });
+        packagesGrid.addEventListener('click', e => { /* ... الكود كما هو ... */ });
 
         channelsGrid.addEventListener('click', (e) => {
             const qualityBtn = e.target.closest('.quality-btn');
@@ -620,8 +631,10 @@
                 const streamUrl = qualityBtn.dataset.streamSrc;
                 if(streamUrl && streamUrl !== '#') {
                     const cardWrapper = qualityBtn.closest('.channel-card-wrapper');
-                    const channelName = cardWrapper.dataset.fullName;
-                    playStream(streamUrl, channelName);
+                    const channelId = cardWrapper.id;
+                    const selectedPackage = allChannelsData[currentCategory].find(p => p.channels.some(c => c.id === channelId));
+                    const channelData = selectedPackage.channels.find(c => c.id === channelId);
+                    playStream(streamUrl, channelData);
                 }
                 return;
             }
@@ -635,13 +648,17 @@
             }
         });
 
-        backToPackagesBtn.addEventListener('click', () => {
-            stopStream();
-            renderPackages(currentCategory);
-        });
+        backToPackagesBtn.addEventListener('click', () => { stopStream(); renderPackages(currentCategory); });
         
         loadChannels();
         updateIcon();
+
+        // --- نسخ ولصق للدوال التي لم تتغير لضمان عدم وجود أخطاء ---
+        function renderPackages(category) {switchView('packages'); packagesGrid.innerHTML = ''; const packages = allChannelsData[category] || []; if (packages.length === 0) {packagesGrid.innerHTML = `<div class="text-center text-slate-400 col-span-full">لا توجد باقات في هذا القسم حالياً.</div>`; return;} packages.forEach(pkg => {const packageHTML = `<div class="package-card-item" data-package-id="${pkg.package_id}"><img class="dynamic-logo package-logo" data-light-src="${pkg.package_logo.light}" data-dark-src="${pkg.package_logo.dark}" alt="${pkg.package_name}" onerror="this.style.display='none';"></div>`; packagesGrid.innerHTML += packageHTML;}); updateChannelLogos();}
+        function renderPackageChannels(packageId) {switchView('channels'); channelsGrid.innerHTML = ''; const packages = allChannelsData[currentCategory] || []; const selectedPackage = packages.find(p => p.package_id === packageId); if (!selectedPackage) return; selectedPackage.channels.forEach(channel => { const qualityButtonsHTML = Object.keys(channel.streams).map(quality => `<button class="quality-btn" data-stream-src="${channel.streams[quality]}">${quality.toUpperCase()}</button>`).join(''); const shortName = getShortChannelName(channel.name); const cardHTML = `<div class="channel-card-wrapper" id="${channel.id}" data-full-name="${channel.name}"><div class="channel-card"><img class="dynamic-logo channel-logo" data-light-src="${channel.logo.light}" data-dark-src="${channel.logo.dark}" alt="${channel.name}" onerror="this.style.display='none';"><span class="channel-name">${shortName}</span></div><div class="quality-options">${qualityButtonsHTML}</div></div>`; channelsGrid.innerHTML += cardHTML; }); updateChannelLogos();}
+        async function loadChannels() {try {const res = await fetch(channelsDataUrl + '?t=' + Date.now()); allChannelsData = await res.json(); renderPackages(currentCategory); } catch(err) {console.error(err); packagesGrid.innerHTML = `<div class="text-center text-red-400 col-span-full">فشل تحميل بيانات القنوات.</div>`;}}
+        filterBtns.forEach(btn => {btn.addEventListener('click', () => {filterBtns.forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentCategory = btn.dataset.category; renderPackages(currentCategory);});});
+        packagesGrid.addEventListener('click', e => {const packageCard = e.target.closest('.package-card-item'); if (packageCard) {renderPackageChannels(packageCard.dataset.packageId);}});
     });
   </script>
 </body>
