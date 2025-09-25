@@ -303,14 +303,24 @@
         padding-top: 56.25vw;
         transition: padding-top 0.3s ease;
     }
+    /* --- **الإصلاح 1**: تعديل المسافة العلوية لتقليص الفراغ --- */
+    body.player-active .page-content {
+        padding-top: calc(56.25vw - 1rem);
+    }
     @media (min-width: 768px) {
         body.player-active .page-content {
-            padding-top: calc(768px * 0.5625);
+            padding-top: calc(768px * 0.5625 - 1rem);
         }
     }
-    /* --- **الإصلاح** إخفاء حاوية القوائم الرئيسية عند تشغيل الفيديو --- */
     body.player-active .main-nav-wrapper {
         display: none;
+    }
+    /* --- **الإصلاح 2**: تقليص الفراغات بين العناصر --- */
+    body.player-active #channel-filters-container {
+      margin-bottom: 1rem;
+    }
+    body.player-active #channels-view .back-btn {
+      margin-bottom: 1rem;
     }
 
     :root {
@@ -520,7 +530,6 @@
             document.body.classList.remove('player-active');
         }
         
-        // --- **الإصلاح**: إضافة التحكم في دوران الشاشة ---
         player.on('enterfullscreen', () => {
           try {
             screen.orientation.lock('landscape').catch(err => {});
@@ -528,7 +537,7 @@
         });
 
         player.on('exitfullscreen', () => {
-          stopStream(); // إيقاف البث عند الخروج من ملء الشاشة
+          stopStream();
           try {
             screen.orientation.unlock().catch(err => {});
           } catch(err) {}
