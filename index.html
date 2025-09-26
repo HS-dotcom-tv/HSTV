@@ -317,10 +317,10 @@
     .plyr__time { font-size: 13px !important; }
     .plyr__video-wrapper video#video-player { transition: object-fit 0.2s ease-in-out; }
     .plyr__controls .plyr__volume input[data-plyr="volume"] { display: none !important; }
-    .plyr__volume--value { margin-left: 8px; font-size: 14px; font-weight: 600; color: #fff; width: 40px; text-align: center; }
-    .plyr__control.plyr__control--disabled, .plyr__control.plyr__control--disabled:active, .plyr__control.plyr__control--disabled:focus, .plyr__control.plyr__control--disabled:hover { opacity: 0.4; cursor: not-allowed; background: transparent !important; box-shadow: none !important; }
-    
-    .controls-group-left, .controls-group-center, .controls-group-right { display: flex; align-items: center; gap: 10px; }
+    .plyr__volume { display: flex; align-items: center; } /* لجعل الأيقونة والعداد متجاورين */
+    .plyr__volume--value { margin-left: 5px; font-size: 14px; font-weight: 600; color: #fff; width: 40px; text-align: right; }
+    .plyr__control.plyr__control--disabled, .plyr__control.plyr__control--disabled:active, .plyr__control.plyr__control--disabled:focus, .plyr__control.plyr__control--disabled:hover { opacity: 0.4 !important; cursor: not-allowed !important; background: transparent !important; box-shadow: none !important; }
+    .controls-group-left, .controls-group-center, .controls-group-right { display: flex; align-items: center; gap: 5px; }
     .controls-group-center { flex: 1; min-width: 0; }
     /* --- END: تعديلات شريط التحكم النهائية --- */
 
@@ -564,8 +564,6 @@
             currentFitModeIndex = initialFitIndex !== -1 ? initialFitIndex : 0;
             videoElement.style.objectFit = fitModes[currentFitModeIndex];
             
-            // --- START: إعادة بناء شريط التحكم بالكامل ---
-            // 1. إنشاء الحاويات الجديدة
             const controls = player.elements.controls;
             const leftGroup = document.createElement('div');
             leftGroup.className = 'controls-group-left';
@@ -574,7 +572,6 @@
             const rightGroup = document.createElement('div');
             rightGroup.className = 'controls-group-right';
 
-            // 2. العثور على جميع العناصر الأصلية
             const qualityContainer = document.createElement('div');
             qualityContainer.className = 'custom-quality-controls';
             const playBtn = controls.querySelector('button[data-plyr="play"]');
@@ -583,7 +580,6 @@
             const volumeContainer = controls.querySelector('.plyr__volume');
             const fullscreenBtn = controls.querySelector('button[data-plyr="fullscreen"]');
 
-            // 3. إنشاء الأزرار الجديدة
             const audioButton = document.createElement('button');
             audioButton.className = 'plyr__controls__item plyr__control';
             audioButton.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9v7a2 2 0 002 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4a2 2 0 002-2v-7c0-4.97-4.03-9-9-9z" fill="currentColor"></path></svg>`;
@@ -609,21 +605,17 @@
             player.on('volumechange', updateVolumeDisplay);
             updateVolumeDisplay();
 
-            // 4. تجميع العناصر بالترتيب الصحيح
             leftGroup.appendChild(qualityContainer);
             if(playBtn) leftGroup.appendChild(playBtn);
-            
             if(progressContainer) centerGroup.appendChild(progressContainer);
             if(timeContainer) centerGroup.appendChild(timeContainer);
-            
             if(volumeContainer) rightGroup.appendChild(volumeContainer);
             volumeContainer.appendChild(volumeValue);
             rightGroup.appendChild(audioButton);
             rightGroup.appendChild(castButton);
             rightGroup.appendChild(fitToggleButton);
             if(fullscreenBtn) rightGroup.appendChild(fullscreenBtn);
-
-            // 5. إفراغ الشريط الأصلي وإضافة المجموعات الجديدة
+            
             controls.innerHTML = '';
             controls.appendChild(leftGroup);
             controls.appendChild(centerGroup);
@@ -633,9 +625,7 @@
                 if (player.audioTracks && player.audioTracks.length > 1) { audioButton.disabled = false; } 
                 else { audioButton.disabled = true; }
             });
-            // --- END: إعادة بناء شريط التحكم ---
             
-            // --- START: إعادة كود التحكم باللمس ---
             const gestureZone = player.elements.container;
             const seekFeedback = document.createElement('div');
             seekFeedback.className = 'touch-overlay-feedback';
@@ -692,7 +682,6 @@
                 isDragging = false;
                 hideIndicatorTimeout = setTimeout(() => volumeIndicator.classList.remove('visible'), 500);
             });
-             // --- END: إعادة كود التحكم باللمس ---
         });
 
         player.on('playing', () => {
