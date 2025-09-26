@@ -514,25 +514,15 @@
         });
         let hls = new Hls();
         
-        // --- START: حفظ واسترجاع الإعدادات ---
         const fitModes = ['contain', 'cover', 'fill'];
-        const savedFitMode = localStorage.getItem('hstv_player_fit_mode') || 'contain';
-        const savedVolume = localStorage.getItem('hstv_player_volume') || '1';
-
-        let initialFitIndex = fitModes.indexOf(savedFitMode);
-        let currentFitModeIndex = initialFitIndex !== -1 ? initialFitIndex : 0;
-        
-        player.volume = parseFloat(savedVolume);
-        videoElement.style.objectFit = fitModes[currentFitModeIndex];
+        let currentFitModeIndex = 0;
 
         player.on('volumechange', () => {
             localStorage.setItem('hstv_player_volume', player.volume);
         });
-        // --- END: حفظ واسترجاع الإعدادات ---
-
+        
         function playStream(url, channel) {
             currentChannel = channel;
-            videoElement.style.objectFit = fitModes[currentFitModeIndex]; // تطبيق الوضع المحفوظ
             playerContainer.style.display = 'block';
 
             const currentTime = player.currentTime > 0 ? player.currentTime : 0;
@@ -542,7 +532,7 @@
                 hls = new Hls();
                 hls.loadSource(url);
                 hls.attachMedia(videoElement);
-                hls.on(Hls.Events.MANIFEST_PARSED', function() {
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
                     player.currentTime = currentTime;
                     player.play();
                     player.fullscreen.enter();
@@ -563,10 +553,23 @@
         }
         
         player.on('ready', () => {
+            // ** START: تطبيق الإعدادات المحفوظة عند جهوزية المشغل **
+            const savedVolume = localStorage.getItem('hstv_player_volume') || '1';
+            const savedFitMode = localStorage.getItem('hstv_player_fit_mode') || 'contain';
+            
+            player.volume = parseFloat(savedVolume);
+            
+            let initialFitIndex = fitModes.indexOf(savedFitMode);
+            currentFitModeIndex = initialFitIndex !== -1 ? initialFitIndex : 0;
+            videoElement.style.objectFit = fitModes[currentFitModeIndex];
+            // ** END: تطبيق الإعدادات **
+
+            // إضافة أزرار الجودة
             const qualityContainer = document.createElement('div');
             qualityContainer.className = 'custom-quality-controls';
             player.elements.controls.prepend(qualityContainer);
 
+            // إضافة زر تغيير المقاس
             const fitToggleButton = document.createElement('button');
             fitToggleButton.type = 'button';
             fitToggleButton.className = 'plyr__controls__item plyr__control';
@@ -578,7 +581,7 @@
                 currentFitModeIndex = (currentFitModeIndex + 1) % fitModes.length;
                 const newMode = fitModes[currentFitModeIndex];
                 videoElement.style.objectFit = newMode;
-                localStorage.setItem('hstv_player_fit_mode', newMode); // حفظ الوضع الجديد
+                localStorage.setItem('hstv_player_fit_mode', newMode);
             });
 
             const fullscreenBtn = player.elements.buttons.fullscreen;
