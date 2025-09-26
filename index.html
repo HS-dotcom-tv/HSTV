@@ -353,67 +353,71 @@
         display: none !important;
     }
 
-    /* --- START: أكواد شريط الصوت الجانبي (النسخة النهائية) --- */
-    .plyr__controls input[data-plyr="volume"] {
-        display: none;
+    /* --- START: أكواد التحكم باللمس --- */
+    .plyr__video-wrapper {
+        position: relative; /* ضروري لوضع العناصر فوقه */
     }
-    .vertical-volume-panel {
+    .touch-overlay-feedback {
         position: absolute;
         top: 50%;
-        right: 20px;
-        transform: translateY(-50%);
-        width: 40px;
-        height: 160px;
-        background: rgba(30, 30, 30, 0.7); /* 1. زيادة الشفافية */
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.6);
         border-radius: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        padding: 10px 20px;
+        font-size: 20px;
+        font-weight: bold;
         opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s ease-in-out;
-        z-index: 10;
+        transition: opacity 0.3s ease;
+        pointer-events: none; /* لمنع اعتراض اللمس */
+        z-index: 25;
     }
-    .vertical-volume-panel.visible {
+    .touch-overlay-feedback.visible {
         opacity: 1;
-        pointer-events: auto;
     }
-    input[type=range].vertical-volume-slider {
-        -webkit-appearance: none;
-        appearance: none;
-        background: transparent;
-        cursor: pointer;
-        width: 136px; /* 2. زيادة طول الشريط */
-        transform: rotate(-90deg);
+    .volume-gesture-indicator {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 160px;
+      background: rgba(30, 30, 30, 0.7);
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-in-out;
+      z-index: 25;
     }
-    /* Track Styles */
-    input[type=range].vertical-volume-slider::-webkit-slider-runnable-track {
-        height: 6px;
-        border-radius: 3px;
-        background: transparent; /* 3. إخفاء المسار الأصلي */
+    .volume-gesture-indicator.visible {
+      opacity: 1;
     }
-    input[type=range].vertical-volume-slider::-moz-range-track {
-        height: 6px;
-        border-radius: 3px;
-        background: transparent; /* 3. إخفاء المسار الأصلي */
+    .volume-gesture-indicator .icon {
+      color: white;
+      margin-bottom: 8px;
     }
-    /* Thumb Styles */
-    input[type=range].vertical-volume-slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        margin-top: -7px;
-        width: 20px;
-        height: 20px;
-        background: #ffffff;
-        border-radius: 50%;
+    .volume-gesture-indicator .level-bar {
+      width: 6px;
+      height: 100px;
+      background-color: rgba(255,255,255,0.25);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
     }
-    input[type=range].vertical-volume-slider::-moz-range-thumb {
-        width: 20px;
-        height: 20px;
-        background: #ffffff;
-        border-radius: 50%;
-        border: none;
+    .volume-gesture-indicator .level-bar-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--plyr-color-main);
+      border-radius: 3px;
     }
-    /* --- END: أكواد شريط الصوت الجانبي --- */
+    /* --- END: أكواد التحكم باللمس --- */
   </style>
   
   <script>
@@ -598,22 +602,9 @@
         
         const fitModes = ['contain', 'cover', 'fill'];
         let currentFitModeIndex = 0;
-        let verticalSlider, volumePanel, hideVolumeTimeout;
-
-        function updateVolumeSliderFill(slider) {
-            if (!slider) return;
-            const percent = (slider.value / slider.max) * 100;
-            const color = getComputedStyle(document.documentElement).getPropertyValue('--plyr-color-main').trim();
-            // 4. تعديل دالة التلوين لتخفي الجزء غير الملون
-            slider.style.background = `linear-gradient(to right, ${color} ${percent}%, transparent ${percent}%)`;
-        }
 
         player.on('volumechange', () => {
             localStorage.setItem('hstv_player_volume', player.volume);
-            if(verticalSlider) {
-                verticalSlider.value = player.volume;
-                updateVolumeSliderFill(verticalSlider);
-            }
         });
         
         function playStream(url, channel) {
@@ -682,49 +673,83 @@
                 player.elements.controls.appendChild(fitToggleButton);
             }
             
-            volumePanel = document.createElement('div');
-            volumePanel.className = 'vertical-volume-panel';
+            // --- START: كود التحكم باللمس الاحترافي ---
+            const gestureZone = player.elements.container;
+            const seekFeedback = document.createElement('div');
+            seekFeedback.className = 'touch-overlay-feedback';
+            gestureZone.appendChild(seekFeedback);
 
-            verticalSlider = document.createElement('input');
-            verticalSlider.type = 'range';
-            verticalSlider.min = 0;
-            verticalSlider.max = 1;
-            verticalSlider.step = 0.05;
-            verticalSlider.value = player.volume;
-            verticalSlider.className = 'vertical-volume-slider';
-            
-            volumePanel.appendChild(verticalSlider);
-            player.elements.container.appendChild(volumePanel);
-            
-            updateVolumeSliderFill(verticalSlider);
+            const volumeIndicator = document.createElement('div');
+            volumeIndicator.className = 'volume-gesture-indicator';
+            volumeIndicator.innerHTML = `<div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></div><div class="level-bar"><div class="level-bar-fill"></div></div>`;
+            gestureZone.appendChild(volumeIndicator);
+            const volumeFill = volumeIndicator.querySelector('.level-bar-fill');
 
-            function resetHideTimeout() {
-                clearTimeout(hideVolumeTimeout);
-                hideVolumeTimeout = setTimeout(() => volumePanel.classList.remove('visible'), 2500);
+            let lastTap = 0;
+            let startY = 0;
+            let startVolume = 0;
+            let isDragging = false;
+            let hideIndicatorTimeout;
+            
+            function showSeekFeedback(text) {
+                seekFeedback.textContent = text;
+                seekFeedback.classList.add('visible');
+                setTimeout(() => seekFeedback.classList.remove('visible'), 500);
             }
 
-            player.elements.buttons.mute.addEventListener('click', (e) => {
+            gestureZone.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                const rect = gestureZone.getBoundingClientRect();
+
+                // Double Tap Logic
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTap;
+                if (tapLength < 300 && tapLength > 0) {
+                    if (touch.clientX > rect.left + rect.width / 2) {
+                        player.forward();
+                        showSeekFeedback('>> 10s');
+                    } else {
+                        player.rewind();
+                        showSeekFeedback('<< 10s');
+                    }
+                    e.preventDefault();
+                }
+                lastTap = currentTime;
+
+                // Volume Drag Logic
+                if (touch.clientX > rect.left + rect.width / 2) {
+                    isDragging = true;
+                    startY = touch.clientY;
+                    startVolume = player.volume;
+                }
+            });
+
+            gestureZone.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
                 e.preventDefault();
-                e.stopPropagation();
-                volumePanel.classList.toggle('visible');
-                if (volumePanel.classList.contains('visible')) {
-                    resetHideTimeout();
-                }
+                
+                const touch = e.touches[0];
+                const deltaY = startY - touch.clientY;
+                const sensitivity = 150; // pixels to swipe for full volume change
+                
+                let newVolume = startVolume + deltaY / sensitivity;
+                if (newVolume < 0) newVolume = 0;
+                if (newVolume > 1) newVolume = 1;
+                player.volume = newVolume;
+
+                // Show visual indicator
+                volumeIndicator.classList.add('visible');
+                volumeFill.style.height = `${newVolume * 100}%`;
+                clearTimeout(hideIndicatorTimeout);
             });
 
-            verticalSlider.addEventListener('input', e => {
-                player.volume = e.target.value;
-                resetHideTimeout();
+            gestureZone.addEventListener('touchend', () => {
+                isDragging = false;
+                hideIndicatorTimeout = setTimeout(() => {
+                    volumeIndicator.classList.remove('visible');
+                }, 500);
             });
-            player.on('click', (e) => {
-                if(e.target !== player.elements.buttons.mute && !player.elements.buttons.mute.contains(e.target)) {
-                    volumePanel.classList.remove('visible');
-                }
-            });
-        });
-
-        player.on('playing', () => {
-            updateQualityControls(player.source);
+            // --- END: كود التحكم باللمس الاحترافي ---
         });
 
         player.on('enterfullscreen', () => {
@@ -740,7 +765,6 @@
             screen.orientation.unlock().catch(err => {});
           } catch(err) {}
         });
-
 
         function updateQualityControls(activeUrl) {
             const qualityContainer = player.elements.controls.querySelector('.custom-quality-controls');
