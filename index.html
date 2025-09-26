@@ -296,9 +296,14 @@
             padding-top: calc(768px * 0.5625);
         }
     }
+
+    /* --- حذف السطر المسبب للمشكلة --- */
+    /*
     body.player-active .main-nav-wrapper {
         display: none;
     }
+    */
+    /* --- --- */
     
     :root {
       --plyr-color-main: #3B82F6;
@@ -422,17 +427,16 @@
         const pageSections = document.querySelectorAll('.page-section');
         const dateTabsContainer = document.getElementById('date-tabs-container');
         
-        // --- START: كود حفظ واستعادة حالة الصفحة ---
         window.addEventListener('beforeunload', () => {
             if (document.body.classList.contains('player-active')) {
                 localStorage.setItem('scrollPosition', window.scrollY);
             } else {
                 localStorage.removeItem('scrollPosition');
+                localStorage.removeItem('activeChannelState');
             }
         });
 
         const savedScrollPosition = localStorage.getItem('scrollPosition');
-        // --- END: كود حفظ واستعادة حالة الصفحة ---
 
         const savedTabId = localStorage.getItem('activeTab') || 'matches-section';
         document.querySelector('.main-tab.active')?.classList.remove('active');
@@ -641,8 +645,15 @@
 
             let lastTap = 0, startY = 0, startVolume = 0, isDragging = false, hideIndicatorTimeout;
             
-            function showSeekFeedback(text) {
+            function showSeekFeedback(text, side) {
                 seekFeedback.textContent = text;
+                if (side === 'right') {
+                    seekFeedback.style.left = 'auto';
+                    seekFeedback.style.right = '20px';
+                } else {
+                    seekFeedback.style.right = 'auto';
+                    seekFeedback.style.left = '20px';
+                }
                 seekFeedback.classList.add('visible');
                 setTimeout(() => seekFeedback.classList.remove('visible'), 500);
             }
@@ -786,18 +797,15 @@
             const res = await fetch(channelsDataUrl + '?t=' + Date.now());
             allChannelsData = await res.json();
             renderPackages(currentCategory); 
-
-            // --- استعادة حالة المشغل بعد تحميل بيانات القنوات ---
+            
             const savedStateJSON = localStorage.getItem('activeChannelState');
             if(savedStateJSON) {
                 const savedState = JSON.parse(savedStateJSON);
                 playStream(savedState.url, savedState.channel, false);
-
                 if (savedScrollPosition) {
                     setTimeout(() => window.scrollTo(0, parseInt(savedScrollPosition, 10)), 100);
                 }
             }
-            // --- ---
           } catch(err) {
             console.error(err);
             packagesGrid.innerHTML = `<div class="text-center text-red-400 col-span-full">فشل تحميل بيانات القنوات.</div>`;
