@@ -313,12 +313,12 @@
       --plyr-color-main: #B9090B;
     }
     
-    /* تصميم أزرار الجودة (داخل شريط التحكم السفلي) */
+    /* --- تعديلات تصميم المشغل --- */
     .custom-quality-controls {
         display: flex;
         align-items: center;
         gap: 5px;
-        margin-right: auto; /* لوضعها في أقصى اليسار */
+        margin-right: auto; /* لوضع الأزرار في أقصى اليسار */
     }
     .quality-switch-btn {
         background: rgba(255, 255, 255, 0.1);
@@ -339,6 +339,16 @@
         background: var(--plyr-color-main);
         text-shadow: 0 0 5px rgba(0,0,0,0.5);
     }
+    .quality-switch-btn.disabled { /* تصميم الزر غير المتاح */
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.3);
+        cursor: not-allowed;
+    }
+    /* تصغير حجم عداد الوقت لإفساح المجال */
+    .plyr__time {
+        font-size: 13px !important;
+    }
+
   </style>
   
   <script>
@@ -581,41 +591,41 @@
             qualityContainer.innerHTML = '';
             
             if (!currentChannel || !currentChannel.streams) return;
-            
-            const autoBtn = document.createElement('button');
-            autoBtn.className = 'quality-switch-btn';
-            autoBtn.type = 'button';
-            autoBtn.innerText = 'AUTO';
-            autoBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const speed = navigator.connection ? navigator.connection.downlink : 10;
-                const qualities = currentChannel.streams;
-                let bestQualityUrl = qualities['SD'] || qualities['HD'] || qualities['FHD'] || qualities['4K'];
 
-                if(speed > 8 && qualities['4K']) { bestQualityUrl = qualities['4K']; }
-                else if (speed > 5 && qualities['FHD']) { bestQualityUrl = qualities['FHD']; }
-                else if (speed > 2 && qualities['HD']) { bestQualityUrl = qualities['HD']; }
-                
-                if (player.source !== bestQualityUrl) {
-                    playStream(bestQualityUrl, currentChannel);
-                }
-            });
-            qualityContainer.appendChild(autoBtn);
+            const allQualities = ['AUTO', '4K', 'FHD', 'HD', 'SD'];
+            const availableStreams = currentChannel.streams;
 
-            Object.entries(currentChannel.streams).forEach(([quality, url]) => {
+            allQualities.forEach(quality => {
                 const button = document.createElement('button');
                 button.className = 'quality-switch-btn';
                 button.type = 'button';
-                button.innerText = quality.toUpperCase();
-                
-                if(activeUrl === url) button.classList.add('active');
-                
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if (player.source !== url) {
-                       playStream(url, currentChannel);
+                button.innerText = quality;
+
+                const url = availableStreams[quality.toLowerCase()]; // fhd -> FHD
+                const isAuto = quality === 'AUTO';
+
+                if (isAuto || url) {
+                    if (isAuto) {
+                         button.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const speed = navigator.connection ? navigator.connection.downlink : 10;
+                            let bestQualityUrl = availableStreams['sd'] || availableStreams['hd'] || availableStreams['fhd'] || availableStreams['4k'];
+                            if(speed > 8 && availableStreams['4k']) { bestQualityUrl = availableStreams['4k']; }
+                            else if (speed > 5 && availableStreams['fhd']) { bestQualityUrl = availableStreams['fhd']; }
+                            else if (speed > 2 && availableStreams['hd']) { bestQualityUrl = availableStreams['hd']; }
+                            if (player.source !== bestQualityUrl) playStream(bestQualityUrl, currentChannel);
+                        });
+                    } else {
+                        if(activeUrl === url) button.classList.add('active');
+                        button.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            if (player.source !== url) playStream(url, currentChannel);
+                        });
                     }
-                });
+                } else {
+                    button.disabled = true;
+                    button.classList.add('disabled');
+                }
                 qualityContainer.appendChild(button);
             });
         }
