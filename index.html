@@ -348,12 +348,12 @@
         transition: object-fit 0.2s ease-in-out;
     }
     
-    /* --- START: إخفاء الأزرار الإضافية في الوضع المصغر --- */
+    /* --- START: الكود المصحح لإخفاء الأزرار الإضافية في الوضع المصغر --- */
     body.player-active .plyr:not(.plyr--fullscreen-enabled) .custom-quality-controls,
     body.player-active .plyr:not(.plyr--fullscreen-enabled) .custom-fit-btn {
-        display: none;
+        display: none !important;
     }
-    /* --- END: إخفاء الأزرار الإضافية في الوضع المصغر --- */
+    /* --- END: الكود المصحح --- */
 
   </style>
   
@@ -591,7 +591,6 @@
 
             const fitToggleButton = document.createElement('button');
             fitToggleButton.type = 'button';
-            // إضافة كلاس جديد لاستهدافه في CSS
             fitToggleButton.className = 'plyr__controls__item plyr__control custom-fit-btn';
             fitToggleButton.innerHTML = `<svg role="presentation" focusable="false" width="22" height="22" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>`;
             fitToggleButton.setAttribute('aria-label', 'تغيير مقاس الفيديو');
