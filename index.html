@@ -277,6 +277,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%;
+      height: 100%;
       z-index: 50;
       display: none; /* المشغل مخفي بشكل افتراضي */
       background-color: #000;
@@ -315,14 +316,21 @@
         background: var(--plyr-color-main);
         text-shadow: 0 0 5px rgba(0,0,0,0.5);
     }
-    .quality-switch-btn.disabled { /* تصميم الزر غير المتاح */
+    .quality-switch-btn.disabled {
         background: rgba(255, 255, 255, 0.05);
         color: rgba(255, 255, 255, 0.3);
         cursor: not-allowed;
     }
-    /* تصغير حجم عداد الوقت لإفساح المجال */
     .plyr__time {
         font-size: 13px !important;
+    }
+    /* --- CSS للزر الجديد وتصغير شريط الوقت --- */
+    .plyr--video .plyr__progress__container {
+        flex-shrink: 2; /* السماح لشريط الوقت بالتقلص */
+        min-width: 50px;
+    }
+    .plyr__video-wrapper video#video-player {
+        transition: object-fit 0.2s ease-in-out;
     }
 
   </style>
@@ -507,9 +515,14 @@
         });
         let hls = new Hls();
         
+        // --- START: كود زر تغيير مقاس الفيديو ---
+        const fitModes = ['contain', 'cover', 'fill'];
+        let currentFitModeIndex = 0;
+        // --- END: كود زر تغيير مقاس الفيديو ---
+
         function playStream(url, channel) {
             currentChannel = channel;
-            playerContainer.style.display = 'block'; // إظهار المشغل فقط عند الحاجة
+            playerContainer.style.display = 'block';
 
             const currentTime = player.currentTime > 0 ? player.currentTime : 0;
 
@@ -535,13 +548,38 @@
 
         function stopStream() {
             player.stop();
-            playerContainer.style.display = 'none'; // إخفاء المشغل عند التوقف
+            playerContainer.style.display = 'none';
+            // إعادة الفيديو للوضع الافتراضي عند إيقاف البث
+            videoElement.style.objectFit = 'contain';
+            currentFitModeIndex = 0;
         }
         
         player.on('ready', () => {
+            // إضافة أزرار الجودة
             const qualityContainer = document.createElement('div');
             qualityContainer.className = 'custom-quality-controls';
             player.elements.controls.prepend(qualityContainer);
+
+            // --- START: إضافة زر تغيير المقاس لواجهة المشغل ---
+            const fitToggleButton = document.createElement('button');
+            fitToggleButton.type = 'button';
+            fitToggleButton.className = 'plyr__controls__item plyr__control';
+            fitToggleButton.innerHTML = `<svg role="presentation" focusable="false" width="22" height="22" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>`;
+            fitToggleButton.setAttribute('aria-label', 'تغيير مقاس الفيديو');
+
+            fitToggleButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentFitModeIndex = (currentFitModeIndex + 1) % fitModes.length;
+                videoElement.style.objectFit = fitModes[currentFitModeIndex];
+            });
+
+            const fullscreenBtn = player.elements.buttons.fullscreen;
+            if (fullscreenBtn) {
+                fullscreenBtn.parentNode.insertBefore(fitToggleButton, fullscreenBtn);
+            } else {
+                player.elements.controls.appendChild(fitToggleButton);
+            }
+            // --- END: إضافة زر تغيير المقاس لواجهة المشغل ---
         });
 
         player.on('playing', () => {
