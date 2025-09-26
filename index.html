@@ -271,6 +271,18 @@
         transform: translateX(-50%);
         width: 100%;
     }
+    .quality-options {
+      display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; max-height: 0;
+      overflow: hidden; transition: max-height 0.4s ease-out, margin-top 0.4s ease-out;
+    }
+    .channel-card-wrapper.expanded .quality-options { max-height: 50px; }
+    .quality-btn {
+      background-color: rgba(0,0,0,0.1); color: var(--text-secondary); border-radius: 6px;
+      padding: 0.2rem 0.6rem; font-size: 0.7rem; font-weight: 600; transition: all 0.2s ease;
+      cursor: pointer; border: none;
+    }
+    html.dark-mode .quality-btn { background-color: rgba(255,255,255,0.1); }
+    .quality-btn:hover { background-color: var(--btn-active-gradient-start); color: #fff; }
     .back-btn { margin-bottom: 1rem; width: fit-content; }
     
     .player-container {
@@ -279,15 +291,15 @@
       width: 100%;
       height: 100%;
       z-index: 1000;
-      display: none; /* يتم التحكم به عبر JS */
+      display: none;
     }
-
     :root {
       --plyr-color-main: #3B82F6;
     }
     html.dark-mode {
       --plyr-color-main: #B9090B;
     }
+    
   </style>
   
   <script>
@@ -470,11 +482,10 @@
         });
         let hls = new Hls();
         
-        // ** تعديل: تفعيل ملء الشاشة والدوران التلقائي **
         function playStream(url, channel) {
             currentChannel = channel;
-            playerContainer.style.display = 'block';
-
+            playerContainer.style.display = 'block'; // إظهار الحاوية أولاً
+        
             if (Hls.isSupported() && url.includes('.m3u8')) {
                 hls.destroy(); 
                 hls = new Hls();
@@ -483,12 +494,9 @@
             } else {
                 videoElement.src = url;
             }
-            
-            // عند أول تشغيل، انتظر قليلاً ثم اطلب ملء الشاشة
+            // انتظر حتى يتمكن المشغل من التشغيل ثم اطلب ملء الشاشة
             player.once('canplay', () => {
-                if (player.playing) {
-                   player.fullscreen.enter();
-                }
+                player.fullscreen.enter();
             });
             player.play();
         }
@@ -500,15 +508,15 @@
         
         player.on('enterfullscreen', () => {
           try {
-            screen.orientation.lock('landscape').catch(err => {});
-          } catch(err) {}
+            screen.orientation.lock('landscape').catch(() => {});
+          } catch(e) {}
         });
 
         player.on('exitfullscreen', () => {
           stopStream();
           try {
-            screen.orientation.unlock().catch(err => {});
-          } catch(err) {}
+            screen.orientation.unlock().catch(() => {});
+          } catch(e) {}
         });
 
         function getShortChannelName(fullName) {return fullName.replace('beIN Sports', '').replace('beIN', '').replace('SSC', '').replace('DAZN', '').replace('Sky Sports', '').trim();}
@@ -544,6 +552,9 @@
                             <img class="dynamic-logo channel-logo" data-light-src="${channel.logo.light}" data-dark-src="${channel.logo.dark}" alt="${channel.name}" onerror="this.style.display='none';">
                             <span class="channel-name">${shortName}</span>
                         </div>
+                        <div class="quality-options">
+                            <button class="quality-btn" data-stream-src="${Object.values(channel.streams)[0]}">PLAY</button>
+                        </div>
                     </div>
                 `;
                 channelsGrid.innerHTML += cardHTML;
@@ -578,17 +589,27 @@
             }
         });
 
-        // ** تعديل: حذف أزرار الجودة القديمة واستخدام البطاقة بأكملها للتشغيل **
+        // تم تعديل هذا الجزء ليعمل على البطاقة كاملة أو زر التشغيل بداخلها
         channelsGrid.addEventListener('click', (e) => {
             const cardWrapper = e.target.closest('.channel-card-wrapper');
             if (cardWrapper) {
-                const channelId = cardWrapper.id;
-                const selectedPackage = allChannelsData[currentCategory].find(p => p.channels.some(c => c.id === channelId));
-                const channelData = selectedPackage.channels.find(c => c.id === channelId);
+                // منطق فتح وإغلاق خيارات الجودة
+                if(e.target.closest('.channel-card')) {
+                    const isExpanded = cardWrapper.classList.contains('expanded');
+                    document.querySelectorAll('.channel-card-wrapper.expanded').forEach(cw => cw.classList.remove('expanded'));
+                    if(!isExpanded) cardWrapper.classList.add('expanded');
+                }
                 
-                const firstStreamUrl = Object.values(channelData.streams)[0];
-                if (firstStreamUrl && firstStreamUrl !== '#') {
-                    playStream(firstStreamUrl, channelData);
+                // منطق تشغيل الفيديو
+                const qualityBtn = e.target.closest('.quality-btn');
+                if(qualityBtn) {
+                    const streamUrl = qualityBtn.dataset.streamSrc;
+                    if(streamUrl && streamUrl !== '#') {
+                        const channelId = cardWrapper.id;
+                        const selectedPackage = allChannelsData[currentCategory].find(p => p.channels.some(c => c.id === channelId));
+                        const channelData = selectedPackage.channels.find(c => c.id === channelId);
+                        playStream(streamUrl, channelData);
+                    }
                 }
             }
         });
