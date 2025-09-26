@@ -276,13 +276,13 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      z-index: -1; /* إخفاء المشغل افتراضياً وبشكل صحيح */
+      z-index: -1; 
       opacity: 0;
       background-color: #000;
       transition: opacity 0.3s ease;
     }
     body.player-active .player-container {
-        height: 56.25vw; /* 16:9 aspect ratio */
+        height: 56.25vw;
         max-height: 100vh;
         z-index: 50;
         opacity: 1;
@@ -347,6 +347,17 @@
     .plyr__video-wrapper video#video-player {
         transition: object-fit 0.2s ease-in-out;
     }
+    
+    /* --- START: تعديلات الوضع المصغر للهاتف --- */
+    body.player-active .plyr:not(.plyr--fullscreen-enabled) .plyr__progress__container {
+        max-width: 80px;
+        margin: 0 8px;
+    }
+    body.player-active .plyr:not(.plyr--fullscreen-enabled) .quality-switch-btn {
+        padding: 4px 6px;
+        font-size: 10px;
+    }
+    /* --- END: تعديلات الوضع المصغر للهاتف --- */
 
   </style>
   
