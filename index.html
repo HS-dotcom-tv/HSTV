@@ -277,26 +277,12 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      z-index: 1000; /* يجب أن يكون فوق كل شيء */
+      height: 100%; /* تعديل ليأخذ الشاشة الكاملة دائماً */
+      z-index: 1000;
       display: none;
     }
     .player-container.active {
         display: block;
-    }
-    /* شاشة التحميل السوداء (اللمسة السحرية) */
-    #fullscreen-preloader {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background-color: #000;
-        z-index: 9999;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-    #fullscreen-preloader.visible {
-        opacity: 1;
-        visibility: visible;
     }
 
     :root {
@@ -305,6 +291,7 @@
     html.dark-mode {
       --plyr-color-main: #B9090B;
     }
+    
   </style>
   
   <script>
@@ -383,8 +370,6 @@
   <div id="player-container" class="player-container">
       <video id="video-player" playsinline controls></video>
   </div>
-
-  <div id="fullscreen-preloader"></div>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -480,7 +465,6 @@
         let currentCategory = 'sports';
         let currentChannel = null;
 
-        const fullscreenPreloader = document.getElementById('fullscreen-preloader');
         const playerContainer = document.getElementById('player-container');
         const videoElement = document.getElementById('video-player');
         
@@ -490,10 +474,11 @@
         });
         let hls = new Hls();
         
+        // ** الخطة الجديدة والمبسطة **
         function playStream(url, channel) {
             currentChannel = channel;
-            fullscreenPreloader.classList.add('visible'); // إظهار شاشة التحميل السوداء
-            
+            playerContainer.style.display = 'block';
+
             if (Hls.isSupported() && url.includes('.m3u8')) {
                 hls.destroy(); 
                 hls = new Hls();
@@ -502,38 +487,27 @@
             } else {
                 videoElement.src = url;
             }
-
-            player.once('ready', () => {
-                player.fullscreen.enter();
-            });
-             player.play();
+            
+            player.once('ready', () => player.fullscreen.enter());
+            player.play();
         }
 
         function stopStream() {
             player.stop();
-            if(player.fullscreen.active) {
-                player.fullscreen.exit();
-            }
+            playerContainer.style.display = 'none';
         }
         
         player.on('enterfullscreen', () => {
           try {
-            screen.orientation.lock('landscape').catch(err => {});
-          } catch(err) {}
-
-          // إخفاء شاشة التحميل بعد الدخول في وضع ملء الشاشة
-          setTimeout(() => {
-            fullscreenPreloader.classList.remove('visible');
-            playerContainer.style.display = 'block';
-          }, 300); // تأخير بسيط لضمان سلاسة الانتقال
+            screen.orientation.lock('landscape').catch(() => {});
+          } catch(e) {}
         });
 
         player.on('exitfullscreen', () => {
-          playerContainer.style.display = 'none';
           stopStream();
           try {
-            screen.orientation.unlock().catch(err => {});
-          } catch(err) {}
+            screen.orientation.unlock().catch(() => {});
+          } catch(e) {}
         });
 
         function getShortChannelName(fullName) {return fullName.replace('beIN Sports', '').replace('beIN', '').replace('SSC', '').replace('DAZN', '').replace('Sky Sports', '').trim();}
