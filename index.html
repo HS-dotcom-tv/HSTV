@@ -313,20 +313,17 @@
       --plyr-color-main: #B9090B;
     }
     
+    /* --- الخطة البديلة: تصميم أزرار الجودة --- */
+    .plyr__controls {
+        position: relative !important; /* للسماح بتموضع الأزرار الجديدة */
+    }
     .custom-quality-controls {
         position: absolute;
-        top: 15px;
-        left: 15px;
+        bottom: 55px; /* رفع الأزرار فوق شريط التحكم */
+        left: 10px;   /* وضعها في اليسار */
         z-index: 25;
         display: flex;
         gap: 8px;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-        pointer-events: none;
-    }
-    .plyr--show-controls .custom-quality-controls {
-        opacity: 1;
-        pointer-events: all;
     }
     .quality-switch-btn {
         background: rgba(23, 23, 23, 0.7);
@@ -565,7 +562,7 @@
         player.on('ready', () => {
             const qualityContainer = document.createElement('div');
             qualityContainer.className = 'custom-quality-controls';
-            player.elements.container.appendChild(qualityContainer);
+            player.elements.controls.prepend(qualityContainer);
         });
 
         player.on('playing', () => {
@@ -586,7 +583,7 @@
         });
 
         function updateQualityControls(activeUrl) {
-            const qualityContainer = player.elements.container.querySelector('.custom-quality-controls');
+            const qualityContainer = player.elements.controls.querySelector('.custom-quality-controls');
             if (!qualityContainer) return;
             qualityContainer.innerHTML = '';
             
@@ -704,7 +701,6 @@
                 const selectedPackage = allChannelsData[currentCategory].find(p => p.channels.some(c => c.id === channelId));
                 const channelData = selectedPackage.channels.find(c => c.id === channelId);
                 
-                // تشغيل أول جودة متاحة كجودة افتراضية
                 const firstStreamUrl = Object.values(channelData.streams)[0];
                 if (firstStreamUrl && firstStreamUrl !== '#') {
                     playStream(firstStreamUrl, channelData);
