@@ -422,6 +422,18 @@
         const pageSections = document.querySelectorAll('.page-section');
         const dateTabsContainer = document.getElementById('date-tabs-container');
         
+        // --- START: كود حفظ واستعادة حالة الصفحة ---
+        window.addEventListener('beforeunload', () => {
+            if (document.body.classList.contains('player-active')) {
+                localStorage.setItem('scrollPosition', window.scrollY);
+            } else {
+                localStorage.removeItem('scrollPosition');
+            }
+        });
+
+        const savedScrollPosition = localStorage.getItem('scrollPosition');
+        // --- END: كود حفظ واستعادة حالة الصفحة ---
+
         const savedTabId = localStorage.getItem('activeTab') || 'matches-section';
         document.querySelector('.main-tab.active')?.classList.remove('active');
         document.querySelector('.page-section.active')?.classList.remove('active');
@@ -437,19 +449,6 @@
         } else {
             dateTabsContainer.classList.remove('visible');
         }
-
-        mainTabs.forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                mainTabs.forEach(t => t.classList.remove('active'));
-                pageSections.forEach(s => s.classList.remove('active'));
-                tab.classList.add('active');
-                const sectionId = tab.getAttribute('data-section');
-                document.getElementById(sectionId).classList.add('active');
-                localStorage.setItem('activeTab', sectionId);
-                if (sectionId === 'matches-section') { dateTabsContainer.classList.add('visible'); } 
-                else { dateTabsContainer.classList.remove('visible'); }
-            });
-        });
 
         const themeToggle = document.getElementById('theme-toggle');
         const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
@@ -523,9 +522,10 @@
             localStorage.setItem('hstv_player_volume', player.volume);
         });
         
-        function playStream(url, channel) {
+        function playStream(url, channel, enterFullscreen = true) {
             currentChannel = channel;
             document.body.classList.add('player-active');
+            localStorage.setItem('activeChannelState', JSON.stringify({url, channel}));
             
             const currentTime = player.currentTime > 0 ? player.currentTime : 0;
 
@@ -537,14 +537,14 @@
                 hls.on(Hls.Events.MANIFEST_PARSED, function() {
                     player.currentTime = currentTime;
                     player.play();
-                    player.fullscreen.enter();
+                    if (enterFullscreen) player.fullscreen.enter();
                 });
             } else {
                 videoElement.src = url;
                 player.once('canplay', () => {
                    player.currentTime = currentTime;
                    player.play();
-                   player.fullscreen.enter();
+                   if (enterFullscreen) player.fullscreen.enter();
                 });
             }
         }
@@ -552,6 +552,8 @@
         function stopStream() {
             player.stop();
             document.body.classList.remove('player-active');
+            localStorage.removeItem('activeChannelState');
+            localStorage.removeItem('scrollPosition');
         }
         
         player.on('ready', () => {
@@ -639,15 +641,8 @@
 
             let lastTap = 0, startY = 0, startVolume = 0, isDragging = false, hideIndicatorTimeout;
             
-            function showSeekFeedback(text, side) {
+            function showSeekFeedback(text) {
                 seekFeedback.textContent = text;
-                if (side === 'right') {
-                    seekFeedback.style.left = 'auto';
-                    seekFeedback.style.right = '20px';
-                } else {
-                    seekFeedback.style.right = 'auto';
-                    seekFeedback.style.left = '20px';
-                }
                 seekFeedback.classList.add('visible');
                 setTimeout(() => seekFeedback.classList.remove('visible'), 500);
             }
@@ -659,8 +654,8 @@
                 const currentTime = new Date().getTime();
                 const tapLength = currentTime - lastTap;
                 if (tapLength < 300 && tapLength > 0) {
-                    if (touch.clientX > rect.left + rect.width / 2) { player.forward(); showSeekFeedback('>>', 'right'); } 
-                    else { player.rewind(); showSeekFeedback('<<', 'left'); }
+                    if (touch.clientX > rect.left + rect.width / 2) { player.forward(); showSeekFeedback('>>'); } 
+                    else { player.rewind(); showSeekFeedback('<<'); }
                     e.preventDefault();
                 }
                 lastTap = currentTime;
@@ -791,6 +786,18 @@
             const res = await fetch(channelsDataUrl + '?t=' + Date.now());
             allChannelsData = await res.json();
             renderPackages(currentCategory); 
+
+            // --- استعادة حالة المشغل بعد تحميل بيانات القنوات ---
+            const savedStateJSON = localStorage.getItem('activeChannelState');
+            if(savedStateJSON) {
+                const savedState = JSON.parse(savedStateJSON);
+                playStream(savedState.url, savedState.channel, false);
+
+                if (savedScrollPosition) {
+                    setTimeout(() => window.scrollTo(0, parseInt(savedScrollPosition, 10)), 100);
+                }
+            }
+            // --- ---
           } catch(err) {
             console.error(err);
             packagesGrid.innerHTML = `<div class="text-center text-red-400 col-span-full">فشل تحميل بيانات القنوات.</div>`;
