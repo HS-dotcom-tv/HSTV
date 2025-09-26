@@ -324,9 +324,8 @@
     .plyr__time {
         font-size: 13px !important;
     }
-    /* --- CSS للزر الجديد وتصغير شريط الوقت --- */
     .plyr--video .plyr__progress__container {
-        flex-shrink: 2; /* السماح لشريط الوقت بالتقلص */
+        flex-shrink: 2; 
         min-width: 50px;
     }
     .plyr__video-wrapper video#video-player {
@@ -515,13 +514,25 @@
         });
         let hls = new Hls();
         
-        // --- START: كود زر تغيير مقاس الفيديو ---
+        // --- START: حفظ واسترجاع الإعدادات ---
         const fitModes = ['contain', 'cover', 'fill'];
-        let currentFitModeIndex = 0;
-        // --- END: كود زر تغيير مقاس الفيديو ---
+        const savedFitMode = localStorage.getItem('hstv_player_fit_mode') || 'contain';
+        const savedVolume = localStorage.getItem('hstv_player_volume') || '1';
+
+        let initialFitIndex = fitModes.indexOf(savedFitMode);
+        let currentFitModeIndex = initialFitIndex !== -1 ? initialFitIndex : 0;
+        
+        player.volume = parseFloat(savedVolume);
+        videoElement.style.objectFit = fitModes[currentFitModeIndex];
+
+        player.on('volumechange', () => {
+            localStorage.setItem('hstv_player_volume', player.volume);
+        });
+        // --- END: حفظ واسترجاع الإعدادات ---
 
         function playStream(url, channel) {
             currentChannel = channel;
+            videoElement.style.objectFit = fitModes[currentFitModeIndex]; // تطبيق الوضع المحفوظ
             playerContainer.style.display = 'block';
 
             const currentTime = player.currentTime > 0 ? player.currentTime : 0;
@@ -531,7 +542,7 @@
                 hls = new Hls();
                 hls.loadSource(url);
                 hls.attachMedia(videoElement);
-                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                hls.on(Hls.Events.MANIFEST_PARSED', function() {
                     player.currentTime = currentTime;
                     player.play();
                     player.fullscreen.enter();
@@ -549,18 +560,13 @@
         function stopStream() {
             player.stop();
             playerContainer.style.display = 'none';
-            // إعادة الفيديو للوضع الافتراضي عند إيقاف البث
-            videoElement.style.objectFit = 'contain';
-            currentFitModeIndex = 0;
         }
         
         player.on('ready', () => {
-            // إضافة أزرار الجودة
             const qualityContainer = document.createElement('div');
             qualityContainer.className = 'custom-quality-controls';
             player.elements.controls.prepend(qualityContainer);
 
-            // --- START: إضافة زر تغيير المقاس لواجهة المشغل ---
             const fitToggleButton = document.createElement('button');
             fitToggleButton.type = 'button';
             fitToggleButton.className = 'plyr__controls__item plyr__control';
@@ -570,7 +576,9 @@
             fitToggleButton.addEventListener('click', (e) => {
                 e.stopPropagation();
                 currentFitModeIndex = (currentFitModeIndex + 1) % fitModes.length;
-                videoElement.style.objectFit = fitModes[currentFitModeIndex];
+                const newMode = fitModes[currentFitModeIndex];
+                videoElement.style.objectFit = newMode;
+                localStorage.setItem('hstv_player_fit_mode', newMode); // حفظ الوضع الجديد
             });
 
             const fullscreenBtn = player.elements.buttons.fullscreen;
@@ -579,7 +587,6 @@
             } else {
                 player.elements.controls.appendChild(fitToggleButton);
             }
-            // --- END: إضافة زر تغيير المقاس لواجهة المشغل ---
         });
 
         player.on('playing', () => {
