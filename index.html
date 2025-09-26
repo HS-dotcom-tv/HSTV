@@ -348,12 +348,33 @@
         transition: object-fit 0.2s ease-in-out;
     }
     
-    /* --- START: كلاس CSS لإخفاء الأزرار --- */
     .plyr.hide-custom-controls .custom-quality-controls,
     .plyr.hide-custom-controls .custom-fit-btn {
         display: none !important;
     }
-    /* --- END: كلاس CSS لإخفاء الأزرار --- */
+
+    /* --- START: أكواد شريط الصوت العمودي --- */
+    .plyr__controls .plyr__volume {
+        position: relative;
+    }
+    .plyr__controls input[type=range].plyr__volume--vertical {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px; /* height of the slider */
+        height: 20px; /* width of the slider track */
+        transform-origin: center;
+        transform: rotate(-90deg) translateX(calc(50% + 20px));
+        background: rgba(0,0,0,0.7);
+        border-radius: 5px;
+        padding: 5px;
+        display: none; /* مخفي افتراضياً */
+    }
+    .plyr__volume:hover input[type=range].plyr__volume--vertical {
+        display: block;
+    }
+    /* --- END: أكواد شريط الصوت العمودي --- */
 
   </style>
   
@@ -609,13 +630,36 @@
             } else {
                 player.elements.controls.appendChild(fitToggleButton);
             }
+            
+            // --- START: تعديل JavaScript الخاص بالصوت العمودي ---
+            const volumeContainer = player.elements.volume;
+            if (volumeContainer) {
+                const horizontalSlider = volumeContainer.querySelector('input');
+                // إنشاء الشريط العمودي وإضافته
+                const verticalSlider = document.createElement('input');
+                verticalSlider.type = 'range';
+                verticalSlider.min = 0;
+                verticalSlider.max = 1;
+                verticalSlider.step = 0.05;
+                verticalSlider.value = player.volume;
+                verticalSlider.className = 'plyr__volume--vertical';
+                
+                volumeContainer.appendChild(verticalSlider);
+                // إخفاء الشريط الأفقي الأصلي
+                horizontalSlider.style.display = 'none';
+                
+                // ربط حركة الشريط العمودي بصوت المشغل
+                verticalSlider.addEventListener('input', e => {
+                    player.volume = e.target.value;
+                });
+            }
+            // --- END: تعديل JavaScript الخاص بالصوت العمودي ---
         });
 
         player.on('playing', () => {
             updateQualityControls(player.source);
         });
 
-        // --- START: تعديل JavaScript للتحكم المباشر في إخفاء وإظهار الأزرار ---
         player.on('enterfullscreen', () => {
           player.elements.container.classList.remove('hide-custom-controls');
           try {
@@ -629,7 +673,6 @@
             screen.orientation.unlock().catch(err => {});
           } catch(err) {}
         });
-        // --- END: تعديل JavaScript ---
 
 
         function updateQualityControls(activeUrl) {
