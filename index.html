@@ -271,28 +271,41 @@
         transform: translateX(-50%);
         width: 100%;
     }
-    .quality-options {
-      display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; max-height: 0;
-      overflow: hidden; transition: max-height 0.4s ease-out, margin-top 0.4s ease-out;
-    }
-    .channel-card-wrapper.expanded .quality-options { max-height: 50px; }
-    .quality-btn {
-      background-color: rgba(0,0,0,0.1); color: var(--text-secondary); border-radius: 6px;
-      padding: 0.2rem 0.6rem; font-size: 0.7rem; font-weight: 600; transition: all 0.2s ease;
-      cursor: pointer; border: none;
-    }
-    html.dark-mode .quality-btn { background-color: rgba(255,255,255,0.1); }
-    .quality-btn:hover { background-color: var(--btn-active-gradient-start); color: #fff; }
     .back-btn { margin-bottom: 1rem; width: fit-content; }
     
     .player-container {
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      height: 100%;
-      z-index: 1000;
+      z-index: 50;
       display: none;
+      background-color: #000;
+      height: 56.25vw;
+      max-height: 100vh;
     }
+    .player-container.active {
+        display: block;
+    }
+    body.player-active .page-content {
+        padding-top: 56.25vw;
+        transition: padding-top 0.3s ease;
+    }
+    @media (min-width: 768px) {
+        body.player-active .page-content {
+            padding-top: calc(768px * 0.5625);
+        }
+    }
+    body.player-active .main-nav-wrapper {
+        display: none;
+    }
+    body.player-active #channel-filters-container {
+        margin-top: -1.5rem;
+        margin-bottom: 1rem;
+    }
+    body.player-active #channels-view .back-btn {
+        margin-bottom: 1rem;
+    }
+
     :root {
       --plyr-color-main: #3B82F6;
     }
@@ -300,11 +313,12 @@
       --plyr-color-main: #B9090B;
     }
     
+    /* --- تعديلات تصميم المشغل --- */
     .custom-quality-controls {
         display: flex;
         align-items: center;
         gap: 5px;
-        margin-right: auto;
+        margin-right: auto; /* لوضع الأزرار في أقصى اليسار */
     }
     .quality-switch-btn {
         background: rgba(255, 255, 255, 0.1);
@@ -325,11 +339,12 @@
         background: var(--plyr-color-main);
         text-shadow: 0 0 5px rgba(0,0,0,0.5);
     }
-    .quality-switch-btn.disabled {
+    .quality-switch-btn.disabled { /* تصميم الزر غير المتاح */
         background: rgba(255, 255, 255, 0.05);
         color: rgba(255, 255, 255, 0.3);
         cursor: not-allowed;
     }
+    /* تصغير حجم عداد الوقت لإفساح المجال */
     .plyr__time {
         font-size: 13px !important;
     }
@@ -518,40 +533,102 @@
         
         function playStream(url, channel) {
             currentChannel = channel;
+            document.body.classList.add('player-active');
             playerContainer.style.display = 'block';
+
+            const currentTime = player.currentTime > 0 ? player.currentTime : 0;
 
             if (Hls.isSupported() && url.includes('.m3u8')) {
                 hls.destroy(); 
                 hls = new Hls();
                 hls.loadSource(url);
                 hls.attachMedia(videoElement);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    player.currentTime = currentTime;
+                    player.play();
+                });
             } else {
                 videoElement.src = url;
+                player.once('canplay', () => {
+                   player.currentTime = currentTime;
+                   player.play();
+                });
             }
-            
-            player.once('ready', () => {
-                player.fullscreen.enter();
-            });
-            player.play();
         }
 
         function stopStream() {
             player.stop();
             playerContainer.style.display = 'none';
+            document.body.classList.remove('player-active');
         }
         
+        player.on('ready', () => {
+            const qualityContainer = document.createElement('div');
+            qualityContainer.className = 'custom-quality-controls';
+            player.elements.controls.prepend(qualityContainer);
+        });
+
+        player.on('playing', () => {
+            updateQualityControls(player.source);
+        });
+
         player.on('enterfullscreen', () => {
           try {
-            screen.orientation.lock('landscape').catch(() => {});
-          } catch(e) {}
+            screen.orientation.lock('landscape').catch(err => {});
+          } catch(err) {}
         });
 
         player.on('exitfullscreen', () => {
           stopStream();
           try {
-            screen.orientation.unlock().catch(() => {});
-          } catch(e) {}
+            screen.orientation.unlock().catch(err => {});
+          } catch(err) {}
         });
+
+        function updateQualityControls(activeUrl) {
+            const qualityContainer = player.elements.controls.querySelector('.custom-quality-controls');
+            if (!qualityContainer) return;
+            qualityContainer.innerHTML = '';
+            
+            if (!currentChannel || !currentChannel.streams) return;
+
+            const allQualities = ['AUTO', '4K', 'FHD', 'HD', 'SD'];
+            const availableStreams = currentChannel.streams;
+
+            allQualities.forEach(quality => {
+                const button = document.createElement('button');
+                button.className = 'quality-switch-btn';
+                button.type = 'button';
+                button.innerText = quality;
+
+                const url = availableStreams[quality.toLowerCase()]; // fhd -> FHD
+                const isAuto = quality === 'AUTO';
+
+                if (isAuto || url) {
+                    if (isAuto) {
+                         button.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const speed = navigator.connection ? navigator.connection.downlink : 10;
+                            let bestQualityUrl = availableStreams['sd'] || availableStreams['hd'] || availableStreams['fhd'] || availableStreams['4k'];
+                            if(speed > 8 && availableStreams['4k']) { bestQualityUrl = availableStreams['4k']; }
+                            else if (speed > 5 && availableStreams['fhd']) { bestQualityUrl = availableStreams['fhd']; }
+                            else if (speed > 2 && availableStreams['hd']) { bestQualityUrl = availableStreams['hd']; }
+                            if (player.source !== bestQualityUrl) playStream(bestQualityUrl, currentChannel);
+                        });
+                    } else {
+                        if(activeUrl === url) button.classList.add('active');
+                        button.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            if (player.source !== url) playStream(url, currentChannel);
+                        });
+                    }
+                } else {
+                    button.disabled = true;
+                    button.classList.add('disabled');
+                }
+                qualityContainer.appendChild(button);
+            });
+        }
 
         function getShortChannelName(fullName) {return fullName.replace('beIN Sports', '').replace('beIN', '').replace('SSC', '').replace('DAZN', '').replace('Sky Sports', '').trim();}
         function switchView(viewToShow) {if (viewToShow === 'packages') {packagesView.classList.add('visible'); channelsView.classList.remove('visible');} else {packagesView.classList.remove('visible'); channelsView.classList.add('visible');}}
@@ -585,9 +662,6 @@
                         <div class="channel-card">
                             <img class="dynamic-logo channel-logo" data-light-src="${channel.logo.light}" data-dark-src="${channel.logo.dark}" alt="${channel.name}" onerror="this.style.display='none';">
                             <span class="channel-name">${shortName}</span>
-                        </div>
-                        <div class="quality-options">
-                            <button class="quality-btn" data-stream-src="${Object.values(channel.streams)[0]}">PLAY</button>
                         </div>
                     </div>
                 `;
@@ -626,28 +700,19 @@
         channelsGrid.addEventListener('click', (e) => {
             const cardWrapper = e.target.closest('.channel-card-wrapper');
             if (cardWrapper) {
-                // منطق فتح وإغلاق خيارات الجودة
-                if(e.target.closest('.channel-card')) {
-                    const isExpanded = cardWrapper.classList.contains('expanded');
-                    document.querySelectorAll('.channel-card-wrapper.expanded').forEach(cw => cw.classList.remove('expanded'));
-                    if(!isExpanded) cardWrapper.classList.add('expanded');
-                }
+                const channelId = cardWrapper.id;
+                const selectedPackage = allChannelsData[currentCategory].find(p => p.channels.some(c => c.id === channelId));
+                const channelData = selectedPackage.channels.find(c => c.id === channelId);
                 
-                // منطق تشغيل الفيديو
-                const qualityBtn = e.target.closest('.quality-btn');
-                if(qualityBtn) {
-                    const streamUrl = qualityBtn.dataset.streamSrc;
-                    if(streamUrl && streamUrl !== '#') {
-                        const channelId = cardWrapper.id;
-                        const selectedPackage = allChannelsData[currentCategory].find(p => p.channels.some(c => c.id === channelId));
-                        const channelData = selectedPackage.channels.find(c => c.id === channelId);
-                        playStream(streamUrl, channelData);
-                    }
+                const firstStreamUrl = Object.values(channelData.streams)[0];
+                if (firstStreamUrl && firstStreamUrl !== '#') {
+                    playStream(firstStreamUrl, channelData);
                 }
             }
         });
 
         backToPackagesBtn.addEventListener('click', () => {
+            stopStream();
             renderPackages(currentCategory);
         });
         
