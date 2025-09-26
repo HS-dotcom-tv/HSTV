@@ -278,34 +278,10 @@
       top: 0; left: 0;
       width: 100%;
       z-index: 50;
-      display: none;
+      display: none; /* المشغل مخفي بشكل افتراضي */
       background-color: #000;
-      height: 56.25vw;
-      max-height: 100vh;
     }
-    .player-container.active {
-        display: block;
-    }
-    body.player-active .page-content {
-        padding-top: 56.25vw;
-        transition: padding-top 0.3s ease;
-    }
-    @media (min-width: 768px) {
-        body.player-active .page-content {
-            padding-top: calc(768px * 0.5625);
-        }
-    }
-    body.player-active .main-nav-wrapper {
-        display: none;
-    }
-    body.player-active #channel-filters-container {
-        margin-top: -1.5rem;
-        margin-bottom: 1rem;
-    }
-    body.player-active #channels-view .back-btn {
-        margin-bottom: 1rem;
-    }
-
+    
     :root {
       --plyr-color-main: #3B82F6;
     }
@@ -533,10 +509,7 @@
         
         function playStream(url, channel) {
             currentChannel = channel;
-            
-            // *** إزالة السطرين التاليين لمنع ظهور المشغل في النصف العلوي ***
-            // document.body.classList.add('player-active');
-            // playerContainer.style.display = 'block';
+            playerContainer.style.display = 'block'; // إظهار المشغل فقط عند الحاجة
 
             const currentTime = player.currentTime > 0 ? player.currentTime : 0;
 
@@ -548,7 +521,6 @@
                 hls.on(Hls.Events.MANIFEST_PARSED, function() {
                     player.currentTime = currentTime;
                     player.play();
-                    // *** التعديل المطلوب: الدخول في وضع ملء الشاشة تلقائياً ***
                     player.fullscreen.enter();
                 });
             } else {
@@ -556,7 +528,6 @@
                 player.once('canplay', () => {
                    player.currentTime = currentTime;
                    player.play();
-                   // *** التعديل المطلوب: الدخول في وضع ملء الشاشة تلقائياً ***
                    player.fullscreen.enter();
                 });
             }
@@ -564,13 +535,10 @@
 
         function stopStream() {
             player.stop();
-            // *** إزالة السطرين التاليين لأنهما لم يعودا ضروريين بنفس الطريقة ***
-            // playerContainer.style.display = 'none';
-            // document.body.classList.remove('player-active');
+            playerContainer.style.display = 'none'; // إخفاء المشغل عند التوقف
         }
         
         player.on('ready', () => {
-            playerContainer.style.display = 'block'; // إظهار حاوية المشغل دائماً
             const qualityContainer = document.createElement('div');
             qualityContainer.className = 'custom-quality-controls';
             player.elements.controls.prepend(qualityContainer);
@@ -587,7 +555,6 @@
         });
 
         player.on('exitfullscreen', () => {
-          // *** تعديل: عند الخروج من ملء الشاشة، أوقف البث ***
           stopStream();
           try {
             screen.orientation.unlock().catch(err => {});
