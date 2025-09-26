@@ -317,8 +317,8 @@
     .plyr__time { font-size: 13px !important; }
     .plyr__video-wrapper video#video-player { transition: object-fit 0.2s ease-in-out; }
     .plyr__controls .plyr__volume input[data-plyr="volume"] { display: none !important; }
-    .plyr__volume { display: flex; align-items: center; gap: 5px; } /* تعديل هنا */
-    .plyr__volume--value { margin-left: 0; font-size: 14px; font-weight: 600; color: #fff; width: 40px; text-align: right; } /* تعديل هنا */
+    .plyr__volume { display: flex; align-items: center; gap: 5px; }
+    .plyr__volume--value { margin-left: 0; font-size: 14px; font-weight: 600; color: #fff; width: 40px; text-align: right; }
     .plyr__control.plyr__control--disabled, .plyr__control.plyr__control--disabled:active, .plyr__control.plyr__control--disabled:focus, .plyr__control.plyr__control--disabled:hover { opacity: 0.4 !important; cursor: not-allowed !important; background: transparent !important; box-shadow: none !important; }
     .controls-group-left, .controls-group-center, .controls-group-right { display: flex; align-items: center; gap: 5px; }
     .controls-group-center { flex: 1; min-width: 0; }
@@ -326,7 +326,7 @@
 
     /* --- START: أكواد التحكم باللمس --- */
     .plyr__video-wrapper { position: relative; }
-    .touch-overlay-feedback { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; background-color: rgba(0, 0, 0, 0.6); border-radius: 20px; padding: 10px 20px; font-size: 20px; font-weight: bold; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 25; }
+    .touch-overlay-feedback { position: absolute; top: 50%; transform: translateY(-50%); color: #fff; background-color: rgba(0, 0, 0, 0.6); border-radius: 20px; padding: 10px 20px; font-size: 24px; font-weight: bold; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 25; }
     .touch-overlay-feedback.visible { opacity: 1; }
     .volume-gesture-indicator { position: absolute; top: 50%; right: 20px; transform: translateY(-50%); width: 40px; height: 160px; background: rgba(30, 30, 30, 0.7); border-radius: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.3s ease-in-out; z-index: 25; }
     .volume-gesture-indicator.visible { opacity: 1; }
@@ -564,7 +564,6 @@
             currentFitModeIndex = initialFitIndex !== -1 ? initialFitIndex : 0;
             videoElement.style.objectFit = fitModes[currentFitModeIndex];
             
-            // --- START: إعادة بناء شريط التحكم بالكامل ---
             const controls = player.elements.controls;
             const leftGroup = document.createElement('div');
             leftGroup.className = 'controls-group-left';
@@ -626,9 +625,7 @@
                 if (player.audioTracks && player.audioTracks.length > 1) { audioButton.disabled = false; } 
                 else { audioButton.disabled = true; }
             });
-            // --- END: إعادة بناء شريط التحكم ---
             
-            // --- START: إعادة كود التحكم باللمس ---
             const gestureZone = player.elements.container;
             const seekFeedback = document.createElement('div');
             seekFeedback.className = 'touch-overlay-feedback';
@@ -642,8 +639,15 @@
 
             let lastTap = 0, startY = 0, startVolume = 0, isDragging = false, hideIndicatorTimeout;
             
-            function showSeekFeedback(text) {
+            function showSeekFeedback(text, side) {
                 seekFeedback.textContent = text;
+                if (side === 'right') {
+                    seekFeedback.style.left = 'auto';
+                    seekFeedback.style.right = '20px';
+                } else {
+                    seekFeedback.style.right = 'auto';
+                    seekFeedback.style.left = '20px';
+                }
                 seekFeedback.classList.add('visible');
                 setTimeout(() => seekFeedback.classList.remove('visible'), 500);
             }
@@ -655,8 +659,8 @@
                 const currentTime = new Date().getTime();
                 const tapLength = currentTime - lastTap;
                 if (tapLength < 300 && tapLength > 0) {
-                    if (touch.clientX > rect.left + rect.width / 2) { player.forward(); showSeekFeedback('>> 10s'); } 
-                    else { player.rewind(); showSeekFeedback('<< 10s'); }
+                    if (touch.clientX > rect.left + rect.width / 2) { player.forward(); showSeekFeedback('>>', 'right'); } 
+                    else { player.rewind(); showSeekFeedback('<<', 'left'); }
                     e.preventDefault();
                 }
                 lastTap = currentTime;
@@ -685,7 +689,6 @@
                 isDragging = false;
                 hideIndicatorTimeout = setTimeout(() => volumeIndicator.classList.remove('visible'), 500);
             });
-             // --- END: إعادة كود التحكم باللمس ---
         });
 
         player.on('playing', () => {
@@ -707,7 +710,7 @@
             
             if (!currentChannel || !currentChannel.streams) return;
 
-            const allQualities = ['SD', 'HD', 'FHD', '4K'];
+            const allQualities = ['SD', 'HD', 'FHD', '4K', 'AUTO'];
             const availableStreams = currentChannel.streams;
 
             allQualities.forEach(quality => {
@@ -716,12 +719,26 @@
                 button.type = 'button';
                 button.innerText = quality;
                 const url = availableStreams[quality.toLowerCase()];
-                if (url) {
-                    if(activeUrl === url) button.classList.add('active');
-                    button.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        if (player.source !== url) playStream(url, currentChannel);
-                    });
+                const isAuto = quality === 'AUTO';
+
+                if (isAuto || url) {
+                    if (isAuto) {
+                         button.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const speed = navigator.connection ? navigator.connection.downlink : 10;
+                            let bestQualityUrl = availableStreams['sd'] || availableStreams['hd'] || availableStreams['fhd'] || availableStreams['4k'];
+                            if(speed > 8 && availableStreams['4k']) { bestQualityUrl = availableStreams['4k']; }
+                            else if (speed > 5 && availableStreams['fhd']) { bestQualityUrl = availableStreams['fhd']; }
+                            else if (speed > 2 && availableStreams['hd']) { bestQualityUrl = availableStreams['hd']; }
+                            if (player.source !== bestQualityUrl) playStream(bestQualityUrl, currentChannel);
+                        });
+                    } else {
+                        if(activeUrl === url) button.classList.add('active');
+                        button.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            if (player.source !== url) playStream(url, currentChannel);
+                        });
+                    }
                 } else {
                     button.disabled = true;
                 }
