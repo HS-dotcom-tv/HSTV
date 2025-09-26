@@ -353,7 +353,7 @@
         display: none !important;
     }
 
-    /* --- START: أكواد شريط الصوت الجانبي --- */
+    /* --- START: أكواد شريط الصوت الجانبي (النسخة النهائية) --- */
     .plyr__controls input[data-plyr="volume"] {
         display: none;
     }
@@ -364,7 +364,7 @@
         transform: translateY(-50%);
         width: 40px;
         height: 160px;
-        background: rgba(30, 30, 30, 0.9);
+        background: rgba(30, 30, 30, 0.7); /* زيادة الشفافية */
         border-radius: 20px;
         display: flex;
         justify-content: center;
@@ -383,7 +383,7 @@
         appearance: none;
         background: transparent;
         cursor: pointer;
-        width: 120px; /* طول الشريط */
+        width: 140px; /* زيادة طول الشريط */
         transform: rotate(-90deg);
     }
     /* Track Styles */
@@ -680,7 +680,6 @@
                 player.elements.controls.appendChild(fitToggleButton);
             }
             
-            // --- START: تعديل JavaScript الخاص بالصوت الجانبي ---
             volumePanel = document.createElement('div');
             volumePanel.className = 'vertical-volume-panel';
 
@@ -720,7 +719,6 @@
                     volumePanel.classList.remove('visible');
                 }
             });
-            // --- END: تعديل JavaScript ---
         });
 
         player.on('playing', () => {
