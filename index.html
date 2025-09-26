@@ -277,31 +277,78 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      height: 100%;
-      z-index: 1000;
+      z-index: 50;
       display: none;
+      background-color: #000;
+      height: 56.25vw;
+      max-height: 100vh;
     }
-    /* شاشة التحميل السوداء (اللمسة السحرية) */
-    #fullscreen-preloader {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background-color: #000;
-        z-index: 9999;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
+    .player-container.active {
+        display: block;
     }
-    #fullscreen-preloader.visible {
-        opacity: 1;
-        visibility: visible;
+    body.player-active .page-content {
+        padding-top: 56.25vw;
+        transition: padding-top 0.3s ease;
     }
+    @media (min-width: 768px) {
+        body.player-active .page-content {
+            padding-top: calc(768px * 0.5625);
+        }
+    }
+    body.player-active .main-nav-wrapper {
+        display: none;
+    }
+    body.player-active #channel-filters-container {
+        margin-top: -1.5rem;
+        margin-bottom: 1rem;
+    }
+    body.player-active #channels-view .back-btn {
+        margin-bottom: 1rem;
+    }
+
     :root {
       --plyr-color-main: #3B82F6;
     }
     html.dark-mode {
       --plyr-color-main: #B9090B;
     }
+    
+    /* --- تعديلات تصميم المشغل --- */
+    .custom-quality-controls {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-right: auto; /* لوضع الأزرار في أقصى اليسار */
+    }
+    .quality-switch-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: #fff;
+        font-family: 'Cairo', sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        border-radius: 4px;
+        padding: 5px 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .quality-switch-btn:hover {
+        background: var(--plyr-color-main);
+    }
+    .quality-switch-btn.active {
+        background: var(--plyr-color-main);
+        text-shadow: 0 0 5px rgba(0,0,0,0.5);
+    }
+    .quality-switch-btn.disabled { /* تصميم الزر غير المتاح */
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.3);
+        cursor: not-allowed;
+    }
+    /* تصغير حجم عداد الوقت لإفساح المجال */
+    .plyr__time {
+        font-size: 13px !important;
+    }
+
   </style>
   
   <script>
@@ -380,8 +427,6 @@
   <div id="player-container" class="player-container">
       <video id="video-player" playsinline controls></video>
   </div>
-  
-  <div id="fullscreen-preloader"></div>
 
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -477,7 +522,6 @@
         let currentCategory = 'sports';
         let currentChannel = null;
 
-        const fullscreenPreloader = document.getElementById('fullscreen-preloader');
         const playerContainer = document.getElementById('player-container');
         const videoElement = document.getElementById('video-player');
         
@@ -489,48 +533,102 @@
         
         function playStream(url, channel) {
             currentChannel = channel;
-            fullscreenPreloader.classList.add('visible');
-            
+            document.body.classList.add('player-active');
+            playerContainer.style.display = 'block';
+
+            const currentTime = player.currentTime > 0 ? player.currentTime : 0;
+
             if (Hls.isSupported() && url.includes('.m3u8')) {
                 hls.destroy(); 
                 hls = new Hls();
                 hls.loadSource(url);
                 hls.attachMedia(videoElement);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    player.currentTime = currentTime;
+                    player.play();
+                });
             } else {
                 videoElement.src = url;
+                player.once('canplay', () => {
+                   player.currentTime = currentTime;
+                   player.play();
+                });
             }
-
-            player.once('ready', () => {
-                player.fullscreen.enter();
-            });
-             player.play();
         }
 
         function stopStream() {
             player.stop();
-            if(player.fullscreen.active) {
-                player.fullscreen.exit();
-            }
+            playerContainer.style.display = 'none';
+            document.body.classList.remove('player-active');
         }
         
+        player.on('ready', () => {
+            const qualityContainer = document.createElement('div');
+            qualityContainer.className = 'custom-quality-controls';
+            player.elements.controls.prepend(qualityContainer);
+        });
+
+        player.on('playing', () => {
+            updateQualityControls(player.source);
+        });
+
         player.on('enterfullscreen', () => {
           try {
             screen.orientation.lock('landscape').catch(err => {});
           } catch(err) {}
-
-          setTimeout(() => {
-            fullscreenPreloader.classList.remove('visible');
-            playerContainer.style.display = 'block';
-          }, 300);
         });
 
         player.on('exitfullscreen', () => {
-          playerContainer.style.display = 'none';
           stopStream();
           try {
             screen.orientation.unlock().catch(err => {});
           } catch(err) {}
         });
+
+        function updateQualityControls(activeUrl) {
+            const qualityContainer = player.elements.controls.querySelector('.custom-quality-controls');
+            if (!qualityContainer) return;
+            qualityContainer.innerHTML = '';
+            
+            if (!currentChannel || !currentChannel.streams) return;
+
+            const allQualities = ['AUTO', '4K', 'FHD', 'HD', 'SD'];
+            const availableStreams = currentChannel.streams;
+
+            allQualities.forEach(quality => {
+                const button = document.createElement('button');
+                button.className = 'quality-switch-btn';
+                button.type = 'button';
+                button.innerText = quality;
+
+                const url = availableStreams[quality.toLowerCase()]; // fhd -> FHD
+                const isAuto = quality === 'AUTO';
+
+                if (isAuto || url) {
+                    if (isAuto) {
+                         button.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const speed = navigator.connection ? navigator.connection.downlink : 10;
+                            let bestQualityUrl = availableStreams['sd'] || availableStreams['hd'] || availableStreams['fhd'] || availableStreams['4k'];
+                            if(speed > 8 && availableStreams['4k']) { bestQualityUrl = availableStreams['4k']; }
+                            else if (speed > 5 && availableStreams['fhd']) { bestQualityUrl = availableStreams['fhd']; }
+                            else if (speed > 2 && availableStreams['hd']) { bestQualityUrl = availableStreams['hd']; }
+                            if (player.source !== bestQualityUrl) playStream(bestQualityUrl, currentChannel);
+                        });
+                    } else {
+                        if(activeUrl === url) button.classList.add('active');
+                        button.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            if (player.source !== url) playStream(url, currentChannel);
+                        });
+                    }
+                } else {
+                    button.disabled = true;
+                    button.classList.add('disabled');
+                }
+                qualityContainer.appendChild(button);
+            });
+        }
 
         function getShortChannelName(fullName) {return fullName.replace('beIN Sports', '').replace('beIN', '').replace('SSC', '').replace('DAZN', '').replace('Sky Sports', '').trim();}
         function switchView(viewToShow) {if (viewToShow === 'packages') {packagesView.classList.add('visible'); channelsView.classList.remove('visible');} else {packagesView.classList.remove('visible'); channelsView.classList.add('visible');}}
@@ -614,6 +712,7 @@
         });
 
         backToPackagesBtn.addEventListener('click', () => {
+            stopStream();
             renderPackages(currentCategory);
         });
         
