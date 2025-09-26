@@ -348,12 +348,12 @@
         transition: object-fit 0.2s ease-in-out;
     }
     
-    /* --- START: الكود المصحح لإخفاء الأزرار الإضافية في الوضع المصغر --- */
-    body.player-active .plyr:not(.plyr--fullscreen-enabled) .custom-quality-controls,
-    body.player-active .plyr:not(.plyr--fullscreen-enabled) .custom-fit-btn {
+    /* --- START: كلاس CSS لإخفاء الأزرار --- */
+    .plyr.hide-custom-controls .custom-quality-controls,
+    .plyr.hide-custom-controls .custom-fit-btn {
         display: none !important;
     }
-    /* --- END: الكود المصحح --- */
+    /* --- END: كلاس CSS لإخفاء الأزرار --- */
 
   </style>
   
@@ -615,17 +615,22 @@
             updateQualityControls(player.source);
         });
 
+        // --- START: تعديل JavaScript للتحكم المباشر في إخفاء وإظهار الأزرار ---
         player.on('enterfullscreen', () => {
+          player.elements.container.classList.remove('hide-custom-controls');
           try {
             screen.orientation.lock('landscape').catch(err => {});
           } catch(err) {}
         });
 
         player.on('exitfullscreen', () => {
+          player.elements.container.classList.add('hide-custom-controls');
           try {
             screen.orientation.unlock().catch(err => {});
           } catch(err) {}
         });
+        // --- END: تعديل JavaScript ---
+
 
         function updateQualityControls(activeUrl) {
             const qualityContainer = player.elements.controls.querySelector('.custom-quality-controls');
