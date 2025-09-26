@@ -353,29 +353,62 @@
         display: none !important;
     }
 
-    /* --- START: أكواد شريط الصوت العمودي --- */
+    /* --- START: أكواد شريط الصوت العمودي الملون --- */
     .plyr__controls .plyr__volume {
         position: relative;
     }
-    .plyr__controls input[type=range].plyr__volume--vertical {
+    .plyr__controls input[data-plyr="volume"] {
+        display: none; /* إخفاء الشريط الأفقي تماما */
+    }
+    .plyr__volume .custom-volume-slider-panel {
+        display: none;
         position: absolute;
-        bottom: 40px;
+        bottom: 115%;
         left: 50%;
         transform: translateX(-50%);
-        width: 100px; /* height of the slider */
-        height: 20px; /* width of the slider track */
-        transform-origin: center;
-        transform: rotate(-90deg) translateX(calc(50% + 20px));
-        background: rgba(0,0,0,0.7);
-        border-radius: 5px;
-        padding: 5px;
-        display: none; /* مخفي افتراضياً */
+        background: rgba(30, 30, 30, 0.9);
+        padding: 12px 8px;
+        border-radius: 6px;
+        z-index: 3;
     }
-    .plyr__volume:hover input[type=range].plyr__volume--vertical {
+    .plyr__volume:hover .custom-volume-slider-panel {
         display: block;
     }
-    /* --- END: أكواد شريط الصوت العمودي --- */
-
+    input[type=range].vertical-volume-slider {
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+        width: 100px; /* طول الشريط */
+        transform: rotate(-90deg);
+    }
+    /* Track Styles */
+    input[type=range].vertical-volume-slider::-webkit-slider-runnable-track {
+        height: 5px;
+        border-radius: 3px;
+        background: linear-gradient(to right, var(--plyr-color-main) 0%, var(--plyr-color-main) 0%, rgba(255, 255, 255, 0.2) 0%);
+    }
+    input[type=range].vertical-volume-slider::-moz-range-track {
+        height: 5px;
+        border-radius: 3px;
+    }
+    /* Thumb Styles */
+    input[type=range].vertical-volume-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        margin-top: -5px; /* (Track height - Thumb height) / 2 */
+        width: 15px;
+        height: 15px;
+        background: #ffffff;
+        border-radius: 50%;
+    }
+    input[type=range].vertical-volume-slider::-moz-range-thumb {
+        width: 15px;
+        height: 15px;
+        background: #ffffff;
+        border-radius: 50%;
+        border: none;
+    }
+    /* --- END: أكواد شريط الصوت العمودي الملون --- */
   </style>
   
   <script>
@@ -561,8 +594,23 @@
         const fitModes = ['contain', 'cover', 'fill'];
         let currentFitModeIndex = 0;
 
+        let verticalSlider; // تعريف المتغير هنا ليكون متاحاً للجميع
+
+        // --- START: دالة تلوين شريط الصوت ---
+        function updateVolumeSliderFill(slider) {
+            if (!slider) return;
+            const percent = (slider.value / slider.max) * 100;
+            const color = getComputedStyle(document.documentElement).getPropertyValue('--plyr-color-main').trim();
+            slider.style.background = `linear-gradient(to right, ${color} ${percent}%, rgba(255, 255, 255, 0.2) ${percent}%)`;
+        }
+        // --- END: دالة تلوين شريط الصوت ---
+
         player.on('volumechange', () => {
             localStorage.setItem('hstv_player_volume', player.volume);
+            if(verticalSlider) {
+                verticalSlider.value = player.volume;
+                updateVolumeSliderFill(verticalSlider);
+            }
         });
         
         function playStream(url, channel) {
@@ -631,29 +679,30 @@
                 player.elements.controls.appendChild(fitToggleButton);
             }
             
-            // --- START: تعديل JavaScript الخاص بالصوت العمودي ---
+            // --- START: تعديل JavaScript الخاص بالصوت العمودي الملون ---
             const volumeContainer = player.elements.volume;
             if (volumeContainer) {
-                const horizontalSlider = volumeContainer.querySelector('input');
-                // إنشاء الشريط العمودي وإضافته
-                const verticalSlider = document.createElement('input');
+                const panel = document.createElement('div');
+                panel.className = 'custom-volume-slider-panel';
+
+                verticalSlider = document.createElement('input');
                 verticalSlider.type = 'range';
                 verticalSlider.min = 0;
                 verticalSlider.max = 1;
                 verticalSlider.step = 0.05;
                 verticalSlider.value = player.volume;
-                verticalSlider.className = 'plyr__volume--vertical';
+                verticalSlider.className = 'vertical-volume-slider';
                 
-                volumeContainer.appendChild(verticalSlider);
-                // إخفاء الشريط الأفقي الأصلي
-                horizontalSlider.style.display = 'none';
+                panel.appendChild(verticalSlider);
+                volumeContainer.appendChild(panel);
                 
-                // ربط حركة الشريط العمودي بصوت المشغل
+                updateVolumeSliderFill(verticalSlider);
+
                 verticalSlider.addEventListener('input', e => {
                     player.volume = e.target.value;
                 });
             }
-            // --- END: تعديل JavaScript الخاص بالصوت العمودي ---
+            // --- END: تعديل JavaScript ---
         });
 
         player.on('playing', () => {
