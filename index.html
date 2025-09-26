@@ -411,6 +411,21 @@
       background-color: var(--plyr-color-main);
       border-radius: 3px;
     }
+
+    /* --- START: أكواد إخفاء شريط الصوت وإضافة العداد الرقمي --- */
+    .plyr__controls .plyr__volume input[data-plyr="volume"] {
+      display: none !important;
+    }
+    .plyr__volume--value {
+      margin-left: 8px; /* For RTL */
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      width: 40px; /* To prevent layout shift */
+      text-align: center;
+    }
+    /* --- END: أكواد إخفاء شريط الصوت وإضافة العداد الرقمي --- */
+
   </style>
   
   <script>
@@ -596,10 +611,6 @@
         const fitModes = ['contain', 'cover', 'fill'];
         let currentFitModeIndex = 0;
 
-        player.on('volumechange', () => {
-            localStorage.setItem('hstv_player_volume', player.volume);
-        });
-        
         function playStream(url, channel) {
             currentChannel = channel;
             document.body.classList.add('player-active');
@@ -666,6 +677,30 @@
                 player.elements.controls.appendChild(fitToggleButton);
             }
             
+            // --- START: كود عداد الصوت الرقمي ---
+            const volumeContainer = player.elements.volume;
+            if(volumeContainer) {
+                const volumeValue = document.createElement('span');
+                volumeValue.className = 'plyr__volume--value';
+                
+                const muteBtn = player.elements.buttons.mute;
+                if(muteBtn) {
+                    muteBtn.parentNode.insertBefore(volumeValue, muteBtn.nextSibling);
+                }
+                
+                const updateVolumeDisplay = () => {
+                    if (player.muted || player.volume === 0) {
+                        volumeValue.textContent = '---';
+                    } else {
+                        volumeValue.textContent = `${Math.round(player.volume * 100)}%`;
+                    }
+                };
+                
+                player.on('volumechange', updateVolumeDisplay);
+                updateVolumeDisplay(); // Set initial value
+            }
+            // --- END: كود عداد الصوت الرقمي ---
+            
             const gestureZone = player.elements.container;
             const seekFeedback = document.createElement('div');
             seekFeedback.className = 'touch-overlay-feedback';
@@ -688,10 +723,9 @@
                 seekFeedback.classList.add('visible');
                 setTimeout(() => seekFeedback.classList.remove('visible'), 500);
             }
-
-            // *** START: التعديل على كود اللمس ليظهر الأزرار ***
+            
             gestureZone.addEventListener('touchstart', (e) => {
-                player.toggleControls(true); // إظهار الأزرار عند بدء اللمس
+                player.toggleControls(true);
                 const touch = e.touches[0];
                 const rect = gestureZone.getBoundingClientRect();
                 
@@ -718,7 +752,7 @@
 
             gestureZone.addEventListener('touchmove', (e) => {
                 if (!isDragging) return;
-                player.toggleControls(true); // إبقاء الأزرار ظاهرة أثناء السحب
+                player.toggleControls(true);
                 e.preventDefault();
                 
                 const touch = e.touches[0];
@@ -741,11 +775,6 @@
                     volumeIndicator.classList.remove('visible');
                 }, 500);
             });
-            // *** END: التعديل على كود اللمس ***
-        });
-
-        player.on('playing', () => {
-            updateQualityControls(player.source);
         });
 
         player.on('enterfullscreen', () => {
