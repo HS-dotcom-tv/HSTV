@@ -568,8 +568,10 @@
                 });
             } else {
                 videoElement.src = url;
-                player.currentTime = currentTime;
-                player.play();
+                player.once('canplay', () => {
+                   player.currentTime = currentTime;
+                   player.play();
+                });
             }
             updateQualityControls(url);
         }
