@@ -348,14 +348,8 @@
         transition: object-fit 0.2s ease-in-out;
     }
     
-    .plyr.hide-custom-controls .custom-quality-controls,
-    .plyr.hide-custom-controls .custom-fit-btn {
-        display: none !important;
-    }
-
-    /* --- START: أكواد التحكم باللمس --- */
     .plyr__video-wrapper {
-        position: relative; /* ضروري لوضع العناصر فوقه */
+        position: relative;
     }
     .touch-overlay-feedback {
         position: absolute;
@@ -370,7 +364,7 @@
         font-weight: bold;
         opacity: 0;
         transition: opacity 0.3s ease;
-        pointer-events: none; /* لمنع اعتراض اللمس */
+        pointer-events: none;
         z-index: 25;
     }
     .touch-overlay-feedback.visible {
@@ -417,7 +411,6 @@
       background-color: var(--plyr-color-main);
       border-radius: 3px;
     }
-    /* --- END: أكواد التحكم باللمس --- */
   </style>
   
   <script>
@@ -673,7 +666,6 @@
                 player.elements.controls.appendChild(fitToggleButton);
             }
             
-            // --- START: كود التحكم باللمس الاحترافي ---
             const gestureZone = player.elements.container;
             const seekFeedback = document.createElement('div');
             seekFeedback.className = 'touch-overlay-feedback';
@@ -697,11 +689,12 @@
                 setTimeout(() => seekFeedback.classList.remove('visible'), 500);
             }
 
+            // *** START: التعديل على كود اللمس ليظهر الأزرار ***
             gestureZone.addEventListener('touchstart', (e) => {
+                player.toggleControls(true); // إظهار الأزرار عند بدء اللمس
                 const touch = e.touches[0];
                 const rect = gestureZone.getBoundingClientRect();
-
-                // Double Tap Logic
+                
                 const currentTime = new Date().getTime();
                 const tapLength = currentTime - lastTap;
                 if (tapLength < 300 && tapLength > 0) {
@@ -716,7 +709,6 @@
                 }
                 lastTap = currentTime;
 
-                // Volume Drag Logic
                 if (touch.clientX > rect.left + rect.width / 2) {
                     isDragging = true;
                     startY = touch.clientY;
@@ -726,18 +718,18 @@
 
             gestureZone.addEventListener('touchmove', (e) => {
                 if (!isDragging) return;
+                player.toggleControls(true); // إبقاء الأزرار ظاهرة أثناء السحب
                 e.preventDefault();
                 
                 const touch = e.touches[0];
                 const deltaY = startY - touch.clientY;
-                const sensitivity = 150; // pixels to swipe for full volume change
+                const sensitivity = 150; 
                 
                 let newVolume = startVolume + deltaY / sensitivity;
                 if (newVolume < 0) newVolume = 0;
                 if (newVolume > 1) newVolume = 1;
                 player.volume = newVolume;
 
-                // Show visual indicator
                 volumeIndicator.classList.add('visible');
                 volumeFill.style.height = `${newVolume * 100}%`;
                 clearTimeout(hideIndicatorTimeout);
@@ -749,18 +741,20 @@
                     volumeIndicator.classList.remove('visible');
                 }, 500);
             });
-            // --- END: كود التحكم باللمس الاحترافي ---
+            // *** END: التعديل على كود اللمس ***
+        });
+
+        player.on('playing', () => {
+            updateQualityControls(player.source);
         });
 
         player.on('enterfullscreen', () => {
-          player.elements.container.classList.remove('hide-custom-controls');
           try {
             screen.orientation.lock('landscape').catch(err => {});
           } catch(err) {}
         });
 
         player.on('exitfullscreen', () => {
-          player.elements.container.classList.add('hide-custom-controls');
           try {
             screen.orientation.unlock().catch(err => {});
           } catch(err) {}
