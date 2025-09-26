@@ -533,8 +533,10 @@
         
         function playStream(url, channel) {
             currentChannel = channel;
-            document.body.classList.add('player-active');
-            playerContainer.style.display = 'block';
+            
+            // *** إزالة السطرين التاليين لمنع ظهور المشغل في النصف العلوي ***
+            // document.body.classList.add('player-active');
+            // playerContainer.style.display = 'block';
 
             const currentTime = player.currentTime > 0 ? player.currentTime : 0;
 
@@ -546,23 +548,29 @@
                 hls.on(Hls.Events.MANIFEST_PARSED, function() {
                     player.currentTime = currentTime;
                     player.play();
+                    // *** التعديل المطلوب: الدخول في وضع ملء الشاشة تلقائياً ***
+                    player.fullscreen.enter();
                 });
             } else {
                 videoElement.src = url;
                 player.once('canplay', () => {
                    player.currentTime = currentTime;
                    player.play();
+                   // *** التعديل المطلوب: الدخول في وضع ملء الشاشة تلقائياً ***
+                   player.fullscreen.enter();
                 });
             }
         }
 
         function stopStream() {
             player.stop();
-            playerContainer.style.display = 'none';
-            document.body.classList.remove('player-active');
+            // *** إزالة السطرين التاليين لأنهما لم يعودا ضروريين بنفس الطريقة ***
+            // playerContainer.style.display = 'none';
+            // document.body.classList.remove('player-active');
         }
         
         player.on('ready', () => {
+            playerContainer.style.display = 'block'; // إظهار حاوية المشغل دائماً
             const qualityContainer = document.createElement('div');
             qualityContainer.className = 'custom-quality-controls';
             player.elements.controls.prepend(qualityContainer);
@@ -579,6 +587,7 @@
         });
 
         player.on('exitfullscreen', () => {
+          // *** تعديل: عند الخروج من ملء الشاشة، أوقف البث ***
           stopStream();
           try {
             screen.orientation.unlock().catch(err => {});
@@ -601,7 +610,7 @@
                 button.type = 'button';
                 button.innerText = quality;
 
-                const url = availableStreams[quality.toLowerCase()]; // fhd -> FHD
+                const url = availableStreams[quality.toLowerCase()];
                 const isAuto = quality === 'AUTO';
 
                 if (isAuto || url) {
