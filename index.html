@@ -300,6 +300,40 @@
       --plyr-color-main: #B9090B;
     }
     
+    .custom-quality-controls {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-right: auto;
+    }
+    .quality-switch-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: #fff;
+        font-family: 'Cairo', sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        border-radius: 4px;
+        padding: 5px 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .quality-switch-btn:hover {
+        background: var(--plyr-color-main);
+    }
+    .quality-switch-btn.active {
+        background: var(--plyr-color-main);
+        text-shadow: 0 0 5px rgba(0,0,0,0.5);
+    }
+    .quality-switch-btn.disabled {
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.3);
+        cursor: not-allowed;
+    }
+    .plyr__time {
+        font-size: 13px !important;
+    }
+
   </style>
   
   <script>
@@ -484,8 +518,8 @@
         
         function playStream(url, channel) {
             currentChannel = channel;
-            playerContainer.style.display = 'block'; // إظهار الحاوية أولاً
-        
+            playerContainer.style.display = 'block';
+
             if (Hls.isSupported() && url.includes('.m3u8')) {
                 hls.destroy(); 
                 hls = new Hls();
@@ -494,8 +528,8 @@
             } else {
                 videoElement.src = url;
             }
-            // انتظر حتى يتمكن المشغل من التشغيل ثم اطلب ملء الشاشة
-            player.once('canplay', () => {
+            
+            player.once('ready', () => {
                 player.fullscreen.enter();
             });
             player.play();
@@ -589,7 +623,6 @@
             }
         });
 
-        // تم تعديل هذا الجزء ليعمل على البطاقة كاملة أو زر التشغيل بداخلها
         channelsGrid.addEventListener('click', (e) => {
             const cardWrapper = e.target.closest('.channel-card-wrapper');
             if (cardWrapper) {
