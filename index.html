@@ -364,7 +364,7 @@
         transform: translateY(-50%);
         width: 40px;
         height: 160px;
-        background: rgba(30, 30, 30, 0.7); /* زيادة الشفافية */
+        background: rgba(30, 30, 30, 0.7); /* 1. زيادة الشفافية */
         border-radius: 20px;
         display: flex;
         justify-content: center;
@@ -383,18 +383,19 @@
         appearance: none;
         background: transparent;
         cursor: pointer;
-        width: 140px; /* زيادة طول الشريط */
+        width: 136px; /* 2. زيادة طول الشريط */
         transform: rotate(-90deg);
     }
     /* Track Styles */
     input[type=range].vertical-volume-slider::-webkit-slider-runnable-track {
         height: 6px;
         border-radius: 3px;
-        background: linear-gradient(to right, var(--plyr-color-main) 0%, var(--plyr-color-main) 0%, rgba(255, 255, 255, 0.25) 0%);
+        background: transparent; /* 3. إخفاء المسار الأصلي */
     }
     input[type=range].vertical-volume-slider::-moz-range-track {
         height: 6px;
         border-radius: 3px;
+        background: transparent; /* 3. إخفاء المسار الأصلي */
     }
     /* Thumb Styles */
     input[type=range].vertical-volume-slider::-webkit-slider-thumb {
@@ -603,7 +604,8 @@
             if (!slider) return;
             const percent = (slider.value / slider.max) * 100;
             const color = getComputedStyle(document.documentElement).getPropertyValue('--plyr-color-main').trim();
-            slider.style.background = `linear-gradient(to right, ${color} ${percent}%, rgba(255, 255, 255, 0.25) ${percent}%)`;
+            // 4. تعديل دالة التلوين لتخفي الجزء غير الملون
+            slider.style.background = `linear-gradient(to right, ${color} ${percent}%, transparent ${percent}%)`;
         }
 
         player.on('volumechange', () => {
