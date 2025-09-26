@@ -317,8 +317,8 @@
     .plyr__time { font-size: 13px !important; }
     .plyr__video-wrapper video#video-player { transition: object-fit 0.2s ease-in-out; }
     .plyr__controls .plyr__volume input[data-plyr="volume"] { display: none !important; }
-    .plyr__volume { display: flex; align-items: center; } /* لجعل الأيقونة والعداد متجاورين */
-    .plyr__volume--value { margin-left: 5px; font-size: 14px; font-weight: 600; color: #fff; width: 40px; text-align: right; }
+    .plyr__volume { display: flex; align-items: center; gap: 5px; } /* تعديل هنا */
+    .plyr__volume--value { margin-left: 0; font-size: 14px; font-weight: 600; color: #fff; width: 40px; text-align: right; } /* تعديل هنا */
     .plyr__control.plyr__control--disabled, .plyr__control.plyr__control--disabled:active, .plyr__control.plyr__control--disabled:focus, .plyr__control.plyr__control--disabled:hover { opacity: 0.4 !important; cursor: not-allowed !important; background: transparent !important; box-shadow: none !important; }
     .controls-group-left, .controls-group-center, .controls-group-right { display: flex; align-items: center; gap: 5px; }
     .controls-group-center { flex: 1; min-width: 0; }
@@ -564,6 +564,7 @@
             currentFitModeIndex = initialFitIndex !== -1 ? initialFitIndex : 0;
             videoElement.style.objectFit = fitModes[currentFitModeIndex];
             
+            // --- START: إعادة بناء شريط التحكم بالكامل ---
             const controls = player.elements.controls;
             const leftGroup = document.createElement('div');
             leftGroup.className = 'controls-group-left';
@@ -571,7 +572,7 @@
             centerGroup.className = 'controls-group-center';
             const rightGroup = document.createElement('div');
             rightGroup.className = 'controls-group-right';
-
+            
             const qualityContainer = document.createElement('div');
             qualityContainer.className = 'custom-quality-controls';
             const playBtn = controls.querySelector('button[data-plyr="play"]');
@@ -625,7 +626,9 @@
                 if (player.audioTracks && player.audioTracks.length > 1) { audioButton.disabled = false; } 
                 else { audioButton.disabled = true; }
             });
+            // --- END: إعادة بناء شريط التحكم ---
             
+            // --- START: إعادة كود التحكم باللمس ---
             const gestureZone = player.elements.container;
             const seekFeedback = document.createElement('div');
             seekFeedback.className = 'touch-overlay-feedback';
@@ -682,6 +685,7 @@
                 isDragging = false;
                 hideIndicatorTimeout = setTimeout(() => volumeIndicator.classList.remove('visible'), 500);
             });
+             // --- END: إعادة كود التحكم باللمس ---
         });
 
         player.on('playing', () => {
