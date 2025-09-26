@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>HSTV - جداول المباريات</title>
-  <script src="https://cdn/tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -219,7 +219,6 @@
     }
     .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
 
-    /* --- أكواد قسم البث المباشر --- */
     .channel-filters {
       display: flex; gap: 0.75rem; margin-bottom: 1.5rem; max-w-3xl; margin-left: auto; margin-right: auto;
     }
@@ -273,16 +272,20 @@
     }
     .back-btn { margin-bottom: 1rem; width: fit-content; }
     
-    /* --- START: تعديلات CSS للمشغل العائم --- */
     .player-container {
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      z-index: 50;
-      display: none;
+      z-index: -1; /* إخفاء المشغل افتراضياً وبشكل صحيح */
+      opacity: 0;
       background-color: #000;
-      height: 56.25vw; /* 16:9 aspect ratio */
-      max-height: 100vh;
+      transition: opacity 0.3s ease;
+    }
+    body.player-active .player-container {
+        height: 56.25vw; /* 16:9 aspect ratio */
+        max-height: 100vh;
+        z-index: 50;
+        opacity: 1;
     }
     body.player-active .page-content {
         padding-top: 56.25vw;
@@ -296,7 +299,6 @@
     body.player-active .main-nav-wrapper {
         display: none;
     }
-    /* --- END: تعديلات CSS للمشغل العائم --- */
     
     :root {
       --plyr-color-main: #3B82F6;
@@ -537,9 +539,8 @@
         
         function playStream(url, channel) {
             currentChannel = channel;
-            document.body.classList.add('player-active'); // <-- إضافة الكلاس لتهيئة الصفحة
-            playerContainer.style.display = 'block';
-
+            document.body.classList.add('player-active');
+            
             const currentTime = player.currentTime > 0 ? player.currentTime : 0;
 
             if (Hls.isSupported() && url.includes('.m3u8')) {
@@ -564,8 +565,7 @@
 
         function stopStream() {
             player.stop();
-            playerContainer.style.display = 'none';
-            document.body.classList.remove('player-active'); // <-- إزالة الكلاس عند التوقف
+            document.body.classList.remove('player-active');
         }
         
         player.on('ready', () => {
@@ -614,9 +614,7 @@
           } catch(err) {}
         });
 
-        // --- تعديل سلوك الخروج من ملء الشاشة ---
         player.on('exitfullscreen', () => {
-          // لا تفعل شيئًا، فقط اسمح للبث بالاستمرار في الوضع المصغر
           try {
             screen.orientation.unlock().catch(err => {});
           } catch(err) {}
