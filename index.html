@@ -271,18 +271,6 @@
         transform: translateX(-50%);
         width: 100%;
     }
-    .quality-options {
-      display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; max-height: 0;
-      overflow: hidden; transition: max-height 0.4s ease-out, margin-top 0.4s ease-out;
-    }
-    .channel-card-wrapper.expanded .quality-options { max-height: 50px; }
-    .quality-btn {
-      background-color: rgba(0,0,0,0.1); color: var(--text-secondary); border-radius: 6px;
-      padding: 0.2rem 0.6rem; font-size: 0.7rem; font-weight: 600; transition: all 0.2s ease;
-      cursor: pointer; border: none;
-    }
-    html.dark-mode .quality-btn { background-color: rgba(255,255,255,0.1); }
-    .quality-btn:hover { background-color: var(--btn-active-gradient-start); color: #fff; }
     .back-btn { margin-bottom: 1rem; width: fit-content; }
     
     .player-container {
@@ -539,15 +527,9 @@
         
         const player = new Plyr(videoElement, {
             tooltips: { controls: true, seek: true },
-            controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'pip', 'airplay', 'fullscreen' ]
+            controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen' ]
         });
         let hls = new Hls();
-        
-        const savedVolume = localStorage.getItem('hstvPlayerVolume') || 1;
-        player.volume = parseFloat(savedVolume);
-        player.on('volumechange', () => {
-            localStorage.setItem('hstvPlayerVolume', player.volume);
-        });
         
         function playStream(url, channel) {
             currentChannel = channel;
@@ -572,7 +554,6 @@
                    player.play();
                 });
             }
-            updateQualityControls(url);
         }
 
         function stopStream() {
@@ -581,6 +562,16 @@
             document.body.classList.remove('player-active');
         }
         
+        player.on('ready', () => {
+            const qualityContainer = document.createElement('div');
+            qualityContainer.className = 'custom-quality-controls';
+            player.elements.container.appendChild(qualityContainer);
+        });
+
+        player.on('playing', () => {
+            updateQualityControls(player.source);
+        });
+
         player.on('enterfullscreen', () => {
           try {
             screen.orientation.lock('landscape').catch(err => {});
@@ -595,20 +586,18 @@
         });
 
         function updateQualityControls(activeUrl) {
-            const playerUiContainer = player.elements.container;
-            const oldControls = playerUiContainer.querySelector('.custom-quality-controls');
-            if(oldControls) oldControls.remove();
+            const qualityContainer = player.elements.container.querySelector('.custom-quality-controls');
+            if (!qualityContainer) return;
+            qualityContainer.innerHTML = '';
             
             if (!currentChannel || !currentChannel.streams) return;
-
-            const qualityContainer = document.createElement('div');
-            qualityContainer.className = 'custom-quality-controls';
             
             const autoBtn = document.createElement('button');
             autoBtn.className = 'quality-switch-btn';
             autoBtn.type = 'button';
             autoBtn.innerText = 'AUTO';
-            autoBtn.addEventListener('click', () => {
+            autoBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const speed = navigator.connection ? navigator.connection.downlink : 10;
                 const qualities = currentChannel.streams;
                 let bestQualityUrl = qualities['SD'] || qualities['HD'] || qualities['FHD'] || qualities['4K'];
@@ -631,14 +620,14 @@
                 
                 if(activeUrl === url) button.classList.add('active');
                 
-                button.addEventListener('click', () => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     if (player.source !== url) {
                        playStream(url, currentChannel);
                     }
                 });
                 qualityContainer.appendChild(button);
             });
-            playerUiContainer.appendChild(qualityContainer);
         }
 
         function getShortChannelName(fullName) {return fullName.replace('beIN Sports', '').replace('beIN', '').replace('SSC', '').replace('DAZN', '').replace('Sky Sports', '').trim();}
@@ -667,9 +656,6 @@
             if (!selectedPackage) return;
 
             selectedPackage.channels.forEach(channel => {
-                 const qualityButtonsHTML = Object.keys(channel.streams).map(quality => 
-                    `<button class="quality-btn" data-stream-src="${channel.streams[quality]}">${quality.toUpperCase()}</button>`
-                ).join('');
                 const shortName = getShortChannelName(channel.name);
                 const cardHTML = `
                     <div class="channel-card-wrapper" id="${channel.id}" data-full-name="${channel.name}">
@@ -677,7 +663,6 @@
                             <img class="dynamic-logo channel-logo" data-light-src="${channel.logo.light}" data-dark-src="${channel.logo.dark}" alt="${channel.name}" onerror="this.style.display='none';">
                             <span class="channel-name">${shortName}</span>
                         </div>
-                        <div class="quality-options">${qualityButtonsHTML}</div>
                     </div>
                 `;
                 channelsGrid.innerHTML += cardHTML;
@@ -713,25 +698,17 @@
         });
 
         channelsGrid.addEventListener('click', (e) => {
-            const qualityBtn = e.target.closest('.quality-btn');
-            if (qualityBtn) {
-                const streamUrl = qualityBtn.dataset.streamSrc;
-                if(streamUrl && streamUrl !== '#') {
-                    const cardWrapper = qualityBtn.closest('.channel-card-wrapper');
-                    const channelId = cardWrapper.id;
-                    const selectedPackage = allChannelsData[currentCategory].find(p => p.channels.some(c => c.id === channelId));
-                    const channelData = selectedPackage.channels.find(c => c.id === channelId);
-                    playStream(streamUrl, channelData);
-                }
-                return;
-            }
-
             const cardWrapper = e.target.closest('.channel-card-wrapper');
-            if (cardWrapper && e.target.closest('.channel-card')) { 
-                document.querySelectorAll('.channel-card-wrapper.expanded').forEach(cw => {
-                    if (cw.id !== cardWrapper.id) cw.classList.remove('expanded');
-                });
-                cardWrapper.classList.toggle('expanded');
+            if (cardWrapper) {
+                const channelId = cardWrapper.id;
+                const selectedPackage = allChannelsData[currentCategory].find(p => p.channels.some(c => c.id === channelId));
+                const channelData = selectedPackage.channels.find(c => c.id === channelId);
+                
+                // تشغيل أول جودة متاحة كجودة افتراضية
+                const firstStreamUrl = Object.values(channelData.streams)[0];
+                if (firstStreamUrl && firstStreamUrl !== '#') {
+                    playStream(firstStreamUrl, channelData);
+                }
             }
         });
 
