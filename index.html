@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>HSTV - جداول المباريات</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn/tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -273,15 +273,30 @@
     }
     .back-btn { margin-bottom: 1rem; width: fit-content; }
     
+    /* --- START: تعديلات CSS للمشغل العائم --- */
     .player-container {
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      height: 100%;
       z-index: 50;
-      display: none; /* المشغل مخفي بشكل افتراضي */
+      display: none;
       background-color: #000;
+      height: 56.25vw; /* 16:9 aspect ratio */
+      max-height: 100vh;
     }
+    body.player-active .page-content {
+        padding-top: 56.25vw;
+        transition: padding-top 0.3s ease;
+    }
+    @media (min-width: 768px) {
+        body.player-active .page-content {
+            padding-top: calc(768px * 0.5625);
+        }
+    }
+    body.player-active .main-nav-wrapper {
+        display: none;
+    }
+    /* --- END: تعديلات CSS للمشغل العائم --- */
     
     :root {
       --plyr-color-main: #3B82F6;
@@ -290,12 +305,11 @@
       --plyr-color-main: #B9090B;
     }
     
-    /* --- تعديلات تصميم المشغل --- */
     .custom-quality-controls {
         display: flex;
         align-items: center;
         gap: 5px;
-        margin-right: auto; /* لوضع الأزرار في أقصى اليسار */
+        margin-right: auto;
     }
     .quality-switch-btn {
         background: rgba(255, 255, 255, 0.1);
@@ -523,6 +537,7 @@
         
         function playStream(url, channel) {
             currentChannel = channel;
+            document.body.classList.add('player-active'); // <-- إضافة الكلاس لتهيئة الصفحة
             playerContainer.style.display = 'block';
 
             const currentTime = player.currentTime > 0 ? player.currentTime : 0;
@@ -550,10 +565,10 @@
         function stopStream() {
             player.stop();
             playerContainer.style.display = 'none';
+            document.body.classList.remove('player-active'); // <-- إزالة الكلاس عند التوقف
         }
         
         player.on('ready', () => {
-            // ** START: تطبيق الإعدادات المحفوظة عند جهوزية المشغل **
             const savedVolume = localStorage.getItem('hstv_player_volume') || '1';
             const savedFitMode = localStorage.getItem('hstv_player_fit_mode') || 'contain';
             
@@ -562,14 +577,11 @@
             let initialFitIndex = fitModes.indexOf(savedFitMode);
             currentFitModeIndex = initialFitIndex !== -1 ? initialFitIndex : 0;
             videoElement.style.objectFit = fitModes[currentFitModeIndex];
-            // ** END: تطبيق الإعدادات **
 
-            // إضافة أزرار الجودة
             const qualityContainer = document.createElement('div');
             qualityContainer.className = 'custom-quality-controls';
             player.elements.controls.prepend(qualityContainer);
 
-            // إضافة زر تغيير المقاس
             const fitToggleButton = document.createElement('button');
             fitToggleButton.type = 'button';
             fitToggleButton.className = 'plyr__controls__item plyr__control';
@@ -602,8 +614,9 @@
           } catch(err) {}
         });
 
+        // --- تعديل سلوك الخروج من ملء الشاشة ---
         player.on('exitfullscreen', () => {
-          stopStream();
+          // لا تفعل شيئًا، فقط اسمح للبث بالاستمرار في الوضع المصغر
           try {
             screen.orientation.unlock().catch(err => {});
           } catch(err) {}
