@@ -353,62 +353,66 @@
         display: none !important;
     }
 
-    /* --- START: أكواد شريط الصوت العمودي الملون --- */
-    .plyr__controls .plyr__volume {
-        position: relative;
-    }
+    /* --- START: أكواد شريط الصوت الجانبي --- */
     .plyr__controls input[data-plyr="volume"] {
-        display: none; /* إخفاء الشريط الأفقي تماما */
-    }
-    .plyr__volume .custom-volume-slider-panel {
         display: none;
-        position: absolute;
-        bottom: 115%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(30, 30, 30, 0.9);
-        padding: 12px 8px;
-        border-radius: 6px;
-        z-index: 3;
     }
-    .plyr__volume:hover .custom-volume-slider-panel {
-        display: block;
+    .vertical-volume-panel {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 160px;
+        background: rgba(30, 30, 30, 0.9);
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease-in-out;
+        z-index: 10;
+    }
+    .vertical-volume-panel.visible {
+        opacity: 1;
+        pointer-events: auto;
     }
     input[type=range].vertical-volume-slider {
         -webkit-appearance: none;
         appearance: none;
         background: transparent;
         cursor: pointer;
-        width: 100px; /* طول الشريط */
+        width: 120px; /* طول الشريط */
         transform: rotate(-90deg);
     }
     /* Track Styles */
     input[type=range].vertical-volume-slider::-webkit-slider-runnable-track {
-        height: 5px;
+        height: 6px;
         border-radius: 3px;
-        background: linear-gradient(to right, var(--plyr-color-main) 0%, var(--plyr-color-main) 0%, rgba(255, 255, 255, 0.2) 0%);
+        background: linear-gradient(to right, var(--plyr-color-main) 0%, var(--plyr-color-main) 0%, rgba(255, 255, 255, 0.25) 0%);
     }
     input[type=range].vertical-volume-slider::-moz-range-track {
-        height: 5px;
+        height: 6px;
         border-radius: 3px;
     }
     /* Thumb Styles */
     input[type=range].vertical-volume-slider::-webkit-slider-thumb {
         -webkit-appearance: none;
-        margin-top: -5px; /* (Track height - Thumb height) / 2 */
-        width: 15px;
-        height: 15px;
+        margin-top: -7px;
+        width: 20px;
+        height: 20px;
         background: #ffffff;
         border-radius: 50%;
     }
     input[type=range].vertical-volume-slider::-moz-range-thumb {
-        width: 15px;
-        height: 15px;
+        width: 20px;
+        height: 20px;
         background: #ffffff;
         border-radius: 50%;
         border: none;
     }
-    /* --- END: أكواد شريط الصوت العمودي الملون --- */
+    /* --- END: أكواد شريط الصوت الجانبي --- */
   </style>
   
   <script>
@@ -593,17 +597,14 @@
         
         const fitModes = ['contain', 'cover', 'fill'];
         let currentFitModeIndex = 0;
+        let verticalSlider, volumePanel, hideVolumeTimeout;
 
-        let verticalSlider; // تعريف المتغير هنا ليكون متاحاً للجميع
-
-        // --- START: دالة تلوين شريط الصوت ---
         function updateVolumeSliderFill(slider) {
             if (!slider) return;
             const percent = (slider.value / slider.max) * 100;
             const color = getComputedStyle(document.documentElement).getPropertyValue('--plyr-color-main').trim();
-            slider.style.background = `linear-gradient(to right, ${color} ${percent}%, rgba(255, 255, 255, 0.2) ${percent}%)`;
+            slider.style.background = `linear-gradient(to right, ${color} ${percent}%, rgba(255, 255, 255, 0.25) ${percent}%)`;
         }
-        // --- END: دالة تلوين شريط الصوت ---
 
         player.on('volumechange', () => {
             localStorage.setItem('hstv_player_volume', player.volume);
@@ -679,29 +680,46 @@
                 player.elements.controls.appendChild(fitToggleButton);
             }
             
-            // --- START: تعديل JavaScript الخاص بالصوت العمودي الملون ---
-            const volumeContainer = player.elements.volume;
-            if (volumeContainer) {
-                const panel = document.createElement('div');
-                panel.className = 'custom-volume-slider-panel';
+            // --- START: تعديل JavaScript الخاص بالصوت الجانبي ---
+            volumePanel = document.createElement('div');
+            volumePanel.className = 'vertical-volume-panel';
 
-                verticalSlider = document.createElement('input');
-                verticalSlider.type = 'range';
-                verticalSlider.min = 0;
-                verticalSlider.max = 1;
-                verticalSlider.step = 0.05;
-                verticalSlider.value = player.volume;
-                verticalSlider.className = 'vertical-volume-slider';
-                
-                panel.appendChild(verticalSlider);
-                volumeContainer.appendChild(panel);
-                
-                updateVolumeSliderFill(verticalSlider);
+            verticalSlider = document.createElement('input');
+            verticalSlider.type = 'range';
+            verticalSlider.min = 0;
+            verticalSlider.max = 1;
+            verticalSlider.step = 0.05;
+            verticalSlider.value = player.volume;
+            verticalSlider.className = 'vertical-volume-slider';
+            
+            volumePanel.appendChild(verticalSlider);
+            player.elements.container.appendChild(volumePanel);
+            
+            updateVolumeSliderFill(verticalSlider);
 
-                verticalSlider.addEventListener('input', e => {
-                    player.volume = e.target.value;
-                });
+            function resetHideTimeout() {
+                clearTimeout(hideVolumeTimeout);
+                hideVolumeTimeout = setTimeout(() => volumePanel.classList.remove('visible'), 2500);
             }
+
+            player.elements.buttons.mute.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                volumePanel.classList.toggle('visible');
+                if (volumePanel.classList.contains('visible')) {
+                    resetHideTimeout();
+                }
+            });
+
+            verticalSlider.addEventListener('input', e => {
+                player.volume = e.target.value;
+                resetHideTimeout();
+            });
+            player.on('click', (e) => {
+                if(e.target !== player.elements.buttons.mute && !player.elements.buttons.mute.contains(e.target)) {
+                    volumePanel.classList.remove('visible');
+                }
+            });
             // --- END: تعديل JavaScript ---
         });
 
