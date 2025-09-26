@@ -308,94 +308,34 @@
     }
     
     /* --- START: تعديلات شريط التحكم --- */
-    .custom-quality-controls {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        margin-right: 5px;
-    }
-    .quality-switch-btn {
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        color: #fff;
-        font-family: 'Cairo', sans-serif;
-        font-weight: 600;
-        font-size: 11px;
-        border-radius: 4px;
-        padding: 5px 8px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-    .quality-switch-btn:hover {
-        background: var(--plyr-color-main);
-    }
-    .quality-switch-btn.active {
-        background: var(--plyr-color-main);
-        text-shadow: 0 0 5px rgba(0,0,0,0.5);
-    }
-    .quality-switch-btn.disabled {
-        background: rgba(255, 255, 255, 0.05);
-        color: rgba(255, 255, 255, 0.3);
-        cursor: not-allowed;
-    }
-    .plyr__time {
-        font-size: 13px !important;
-        margin-left: 5px;
-    }
-    .plyr--video .plyr__progress__container {
-        flex-shrink: 2; 
-        min-width: 50px;
-        max-width: 30%; /* تصغير شريط الوقت */
-        margin: 0 10px;
-    }
-    .plyr__video-wrapper video#video-player {
-        transition: object-fit 0.2s ease-in-out;
-    }
-    
-    .plyr__controls .plyr__volume input[data-plyr="volume"] {
-      display: none !important;
-    }
-    .plyr__volume--value {
-      margin-left: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #fff;
-      width: 40px;
-      text-align: center;
-    }
-    .plyr__control.plyr__control--disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-    }
-    .plyr__controls .custom-buttons-group {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        margin-right: auto; /* لدفع الأزرار لليمين بجانب شريط الوقت */
-    }
-    .plyr.plyr--locked .plyr__controls {
-        opacity: 0 !important;
-        pointer-events: none !important;
-    }
-    #unlock-button {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(0,0,0,0.7);
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 30;
-    }
-    .plyr.plyr--locked #unlock-button {
-        display: flex;
-    }
+    .custom-quality-controls { display: flex; align-items: center; gap: 5px; margin-left: 5px; }
+    .quality-switch-btn { background: rgba(255, 255, 255, 0.1); border: none; color: #fff; font-family: 'Cairo', sans-serif; font-weight: 600; font-size: 11px; border-radius: 4px; padding: 5px 8px; cursor: pointer; transition: all 0.2s ease; }
+    .quality-switch-btn:hover { background: var(--plyr-color-main); }
+    .quality-switch-btn.active { background: var(--plyr-color-main); text-shadow: 0 0 5px rgba(0,0,0,0.5); }
+    .quality-switch-btn.disabled { background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.3); cursor: not-allowed; }
+    .plyr__time { font-size: 13px !important; }
+    .plyr--video .plyr__progress__container { flex-shrink: 2 !important; min-width: 50px !important; max-width: 25% !important; margin: 0 5px !important; }
+    .plyr__video-wrapper video#video-player { transition: object-fit 0.2s ease-in-out; }
+    .plyr__controls .plyr__volume input[data-plyr="volume"] { display: none !important; }
+    .plyr__volume--value { margin-left: 8px; font-size: 14px; font-weight: 600; color: #fff; width: 40px; text-align: center; }
+    .plyr__control.plyr__control--disabled, .plyr__control.plyr__control--disabled:hover { opacity: 0.4; cursor: not-allowed; background: transparent !important; box-shadow: none !important; }
+    .plyr__controls .custom-buttons-group { display: flex; align-items: center; gap: 0; margin-left: auto; }
+    .plyr.plyr--locked .plyr__controls { opacity: 0 !important; pointer-events: none !important; }
+    #unlock-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); border-radius: 50%; width: 60px; height: 60px; display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 30; transition: opacity 0.3s ease-in-out; }
+    .plyr.plyr--locked #unlock-button { display: flex; }
+    .plyr.plyr--locked.plyr--hide-controls #unlock-button { opacity: 0; pointer-events: none; }
     /* --- END: تعديلات شريط التحكم --- */
+
+    /* --- START: أكواد التحكم باللمس --- */
+    .plyr__video-wrapper { position: relative; }
+    .touch-overlay-feedback { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; background-color: rgba(0, 0, 0, 0.6); border-radius: 20px; padding: 10px 20px; font-size: 20px; font-weight: bold; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 25; }
+    .touch-overlay-feedback.visible { opacity: 1; }
+    .volume-gesture-indicator { position: absolute; top: 50%; right: 20px; transform: translateY(-50%); width: 40px; height: 160px; background: rgba(30, 30, 30, 0.7); border-radius: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.3s ease-in-out; z-index: 25; }
+    .volume-gesture-indicator.visible { opacity: 1; }
+    .volume-gesture-indicator .icon { color: white; margin-bottom: 8px; }
+    .volume-gesture-indicator .level-bar { width: 6px; height: 100px; background-color: rgba(255,255,255,0.25); border-radius: 3px; position: relative; overflow: hidden; }
+    .volume-gesture-indicator .level-bar-fill { position: absolute; bottom: 0; left: 0; width: 100%; background-color: var(--plyr-color-main); border-radius: 3px; }
+    /* --- END: أكواد التحكم باللمس --- */
   </style>
   
   <script>
@@ -629,79 +569,73 @@
             const qualityContainer = document.createElement('div');
             qualityContainer.className = 'custom-quality-controls';
             player.elements.controls.prepend(qualityContainer);
-
-            // --- START: إنشاء مجموعة الأزرار الجديدة ---
+            
+            // --- START: تعديل ترتيب ومحتوى شريط التحكم ---
             const customButtonsGroup = document.createElement('div');
             customButtonsGroup.className = 'custom-buttons-group';
-            // إدراج المجموعة الجديدة بعد شريط الوقت
-            const progressContainer = player.elements.controls.querySelector('.plyr__progress__container');
-            if(progressContainer) {
-                progressContainer.parentNode.insertBefore(customButtonsGroup, progressContainer.nextSibling);
-            }
             
-            // 1. زر القفل (Lock)
+            const timeContainer = player.elements.controls.querySelector('.plyr__time');
+            if(timeContainer) {
+                // نقل الوقت إلى أقصى اليسار
+                player.elements.controls.prepend(timeContainer);
+                // إدراج مجموعة الأزرار الجديدة بعده
+                timeContainer.parentNode.insertBefore(customButtonsGroup, timeContainer.nextSibling);
+            }
+
             const lockButton = document.createElement('button');
             lockButton.className = 'plyr__controls__item plyr__control';
-            lockButton.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24"><path d="M17 11H7a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2zM12 2a5 5 0 00-5 5v4h10V7a5 5 0 00-5-5z" fill="currentColor"></path></svg>`;
+            lockButton.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z" fill="currentColor"></path></svg>`;
             lockButton.onclick = () => player.elements.container.classList.toggle('plyr--locked');
             customButtonsGroup.appendChild(lockButton);
             
             const unlockButton = document.createElement('div');
             unlockButton.id = 'unlock-button';
-            unlockButton.innerHTML = `<svg width="32" height="32" viewBox="0 0 24 24"><path d="M17 11H7a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2zM12 2a5 5 0 00-5 5v4h2V7a3 3 0 116 0v4h2V7a5 5 0 00-5-5z" fill="currentColor"></path></svg>`;
+            unlockButton.innerHTML = `<svg width="32" height="32" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-1.66-1.34-3-3-3s-3 1.34-3 3v2H9V6c0-2.76 2.24-5 5-5s5 2.24 5 5v2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" fill="currentColor"></path></svg>`;
             unlockButton.onclick = () => player.elements.container.classList.remove('plyr--locked');
             player.elements.container.appendChild(unlockButton);
-
-            // 2. زر البث (Casting)
+            
             const castButton = document.createElement('button');
             castButton.className = 'plyr__controls__item plyr__control';
             castButton.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v3h2V5h18v14h-7v2h7c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM1 18v3h3c0-1.66-1.34-3-3-3zm0-4v2c2.76 0 5 2.24 5 5h2c0-3.87-3.13-7-7-7zm0-4v2c4.97 0 9 4.03 9 9h2c0-6.08-4.93-11-11-11z" fill="currentColor"></path></svg>`;
-            if (!window.chrome || !window.chrome.cast) { // التحقق من توفر Chromecast
+            if (!window.chrome || !window.chrome.cast) {
                 castButton.disabled = true;
                 castButton.classList.add('plyr__control--disabled');
             }
             customButtonsGroup.appendChild(castButton);
-
-            // 3. زر الصوت (Audio Track)
+            
             const audioButton = document.createElement('button');
             audioButton.className = 'plyr__controls__item plyr__control';
             audioButton.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9v7a2 2 0 002 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4a2 2 0 002-2v-7c0-4.97-4.03-9-9-9z" fill="currentColor"></path></svg>`;
             customButtonsGroup.appendChild(audioButton);
-
-            // 4. زر تعديل حجم الصورة
+            
             const fitToggleButton = document.createElement('button');
             fitToggleButton.className = 'plyr__controls__item plyr__control custom-fit-btn';
             fitToggleButton.innerHTML = `<svg role="presentation" focusable="false" width="22" height="22" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>`;
             fitToggleButton.onclick = (e) => {
                 e.stopPropagation();
                 currentFitModeIndex = (currentFitModeIndex + 1) % fitModes.length;
-                const newMode = fitModes[currentFitModeIndex];
-                videoElement.style.objectFit = newMode;
-                localStorage.setItem('hstv_player_fit_mode', newMode);
+                videoElement.style.objectFit = fitModes[currentFitModeIndex];
+                localStorage.setItem('hstv_player_fit_mode', fitModes[currentFitModeIndex]);
             };
-            // إدراج الزر بعد مجموعة الأزرار الجديدة
-            customButtonsGroup.parentNode.insertBefore(fitToggleButton, customButtonsGroup.nextSibling);
+            player.elements.controls.appendChild(fitToggleButton);
             
-            // كود عداد الصوت الرقمي
             const volumeContainer = player.elements.volume;
             if(volumeContainer) {
                 const volumeValue = document.createElement('span');
                 volumeValue.className = 'plyr__volume--value';
                 const muteBtn = player.elements.buttons.mute;
-                if(muteBtn) {
-                    muteBtn.parentNode.insertBefore(volumeValue, muteBtn.nextSibling);
-                }
+                if(muteBtn) { muteBtn.parentNode.insertBefore(volumeValue, muteBtn.nextSibling); }
+                
                 const updateVolumeDisplay = () => {
                     volumeValue.textContent = player.muted ? '---' : `${Math.round(player.volume * 100)}%`;
                 };
+                
                 player.on('volumechange', updateVolumeDisplay);
                 updateVolumeDisplay();
             }
-            // --- END: إنشاء مجموعة الأزرار الجديدة ---
-
-            // التحقق من المسارات الصوتية عند تحميل الفيديو
+            
             player.on('loadedmetadata', () => {
-                if (player.audioTracks.length > 1) {
+                if (player.audioTracks && player.audioTracks.length > 1) {
                     audioButton.disabled = false;
                     audioButton.classList.remove('plyr__control--disabled');
                 } else {
@@ -709,6 +643,70 @@
                     audioButton.classList.add('plyr__control--disabled');
                 }
             });
+            // --- END: تعديل شريط التحكم ---
+            
+            // --- START: إعادة كود التحكم باللمس ---
+            const gestureZone = player.elements.container;
+            const seekFeedback = document.createElement('div');
+            seekFeedback.className = 'touch-overlay-feedback';
+            gestureZone.appendChild(seekFeedback);
+
+            const volumeIndicator = document.createElement('div');
+            volumeIndicator.className = 'volume-gesture-indicator';
+            volumeIndicator.innerHTML = `<div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></div><div class="level-bar"><div class="level-bar-fill"></div></div>`;
+            gestureZone.appendChild(volumeIndicator);
+            const volumeFill = volumeIndicator.querySelector('.level-bar-fill');
+
+            let lastTap = 0, startY = 0, startVolume = 0, isDragging = false, hideIndicatorTimeout;
+            
+            function showSeekFeedback(text) {
+                seekFeedback.textContent = text;
+                seekFeedback.classList.add('visible');
+                setTimeout(() => seekFeedback.classList.remove('visible'), 500);
+            }
+            
+            gestureZone.addEventListener('touchstart', (e) => {
+                player.toggleControls(true); // Always show controls on touch
+                const touch = e.touches[0];
+                const rect = gestureZone.getBoundingClientRect();
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTap;
+                if (tapLength < 300 && tapLength > 0) {
+                    if (touch.clientX > rect.left + rect.width / 2) { player.forward(); showSeekFeedback('>> 10s'); } 
+                    else { player.rewind(); showSeekFeedback('<< 10s'); }
+                    e.preventDefault();
+                }
+                lastTap = currentTime;
+                if (touch.clientX > rect.left + rect.width * 0.4) { // Right 60% of screen for volume
+                    isDragging = true;
+                    startY = touch.clientY;
+                    startVolume = player.volume;
+                }
+            });
+
+            gestureZone.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                player.toggleControls(true);
+                e.preventDefault();
+                
+                const touch = e.touches[0];
+                const deltaY = startY - touch.clientY;
+                const sensitivity = 150; 
+                let newVolume = startVolume + deltaY / sensitivity;
+                if (newVolume < 0) newVolume = 0;
+                if (newVolume > 1) newVolume = 1;
+                player.volume = newVolume;
+
+                volumeIndicator.classList.add('visible');
+                volumeFill.style.height = `${newVolume * 100}%`;
+                clearTimeout(hideIndicatorTimeout);
+            });
+
+            gestureZone.addEventListener('touchend', () => {
+                isDragging = false;
+                hideIndicatorTimeout = setTimeout(() => volumeIndicator.classList.remove('visible'), 500);
+            });
+             // --- END: إعادة كود التحكم باللمس ---
         });
 
         player.on('playing', () => {
@@ -716,15 +714,11 @@
         });
 
         player.on('enterfullscreen', () => {
-          try {
-            screen.orientation.lock('landscape').catch(err => {});
-          } catch(err) {}
+          try { screen.orientation.lock('landscape').catch(err => {}); } catch(err) {}
         });
 
         player.on('exitfullscreen', () => {
-          try {
-            screen.orientation.unlock().catch(err => {});
-          } catch(err) {}
+          try { screen.orientation.unlock().catch(err => {}); } catch(err) {}
         });
 
         function updateQualityControls(activeUrl) {
@@ -734,7 +728,7 @@
             
             if (!currentChannel || !currentChannel.streams) return;
 
-            const allQualities = ['SD', 'HD', 'FHD', '4K', 'AUTO']; // الترتيب الجديد
+            const allQualities = ['SD', 'HD', 'FHD', '4K', 'AUTO'];
             const availableStreams = currentChannel.streams;
 
             allQualities.forEach(quality => {
