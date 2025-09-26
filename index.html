@@ -307,24 +307,22 @@
       --plyr-color-main: #B9090B;
     }
     
-    /* --- START: تعديلات شريط التحكم --- */
-    .custom-quality-controls { display: flex; align-items: center; gap: 5px; margin-left: 5px; }
+    /* --- START: تعديلات شريط التحكم النهائية --- */
+    .plyr__controls { gap: 10px; }
+    .custom-quality-controls { display: flex; align-items: center; gap: 5px; }
     .quality-switch-btn { background: rgba(255, 255, 255, 0.1); border: none; color: #fff; font-family: 'Cairo', sans-serif; font-weight: 600; font-size: 11px; border-radius: 4px; padding: 5px 8px; cursor: pointer; transition: all 0.2s ease; }
     .quality-switch-btn:hover { background: var(--plyr-color-main); }
     .quality-switch-btn.active { background: var(--plyr-color-main); text-shadow: 0 0 5px rgba(0,0,0,0.5); }
     .quality-switch-btn.disabled { background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.3); cursor: not-allowed; }
     .plyr__time { font-size: 13px !important; }
-    .plyr--video .plyr__progress__container { flex-shrink: 2 !important; min-width: 50px !important; max-width: 25% !important; margin: 0 5px !important; }
     .plyr__video-wrapper video#video-player { transition: object-fit 0.2s ease-in-out; }
     .plyr__controls .plyr__volume input[data-plyr="volume"] { display: none !important; }
     .plyr__volume--value { margin-left: 8px; font-size: 14px; font-weight: 600; color: #fff; width: 40px; text-align: center; }
-    .plyr__control.plyr__control--disabled, .plyr__control.plyr__control--disabled:hover { opacity: 0.4; cursor: not-allowed; background: transparent !important; box-shadow: none !important; }
-    .plyr__controls .custom-buttons-group { display: flex; align-items: center; gap: 0; margin-left: auto; }
-    .plyr.plyr--locked .plyr__controls { opacity: 0 !important; pointer-events: none !important; }
-    #unlock-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); border-radius: 50%; width: 60px; height: 60px; display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 30; transition: opacity 0.3s ease-in-out; }
-    .plyr.plyr--locked #unlock-button { display: flex; }
-    .plyr.plyr--locked.plyr--hide-controls #unlock-button { opacity: 0; pointer-events: none; }
-    /* --- END: تعديلات شريط التحكم --- */
+    .plyr__control.plyr__control--disabled, .plyr__control.plyr__control--disabled:active, .plyr__control.plyr__control--disabled:focus, .plyr__control.plyr__control--disabled:hover { opacity: 0.4; cursor: not-allowed; background: transparent !important; box-shadow: none !important; }
+    
+    .controls-group-left, .controls-group-center, .controls-group-right { display: flex; align-items: center; gap: 10px; }
+    .controls-group-center { flex: 1; min-width: 0; }
+    /* --- END: تعديلات شريط التحكم النهائية --- */
 
     /* --- START: أكواد التحكم باللمس --- */
     .plyr__video-wrapper { position: relative; }
@@ -514,7 +512,7 @@
         
         const player = new Plyr(videoElement, {
             tooltips: { controls: true, seek: true },
-            controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen' ]
+            controls: [ 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen' ]
         });
         let hls = new Hls();
         
@@ -566,48 +564,35 @@
             currentFitModeIndex = initialFitIndex !== -1 ? initialFitIndex : 0;
             videoElement.style.objectFit = fitModes[currentFitModeIndex];
             
+            // --- START: إعادة بناء شريط التحكم بالكامل ---
+            // 1. إنشاء الحاويات الجديدة
+            const controls = player.elements.controls;
+            const leftGroup = document.createElement('div');
+            leftGroup.className = 'controls-group-left';
+            const centerGroup = document.createElement('div');
+            centerGroup.className = 'controls-group-center';
+            const rightGroup = document.createElement('div');
+            rightGroup.className = 'controls-group-right';
+
+            // 2. العثور على جميع العناصر الأصلية
             const qualityContainer = document.createElement('div');
             qualityContainer.className = 'custom-quality-controls';
-            player.elements.controls.prepend(qualityContainer);
-            
-            // --- START: تعديل ترتيب ومحتوى شريط التحكم ---
-            const customButtonsGroup = document.createElement('div');
-            customButtonsGroup.className = 'custom-buttons-group';
-            
-            const timeContainer = player.elements.controls.querySelector('.plyr__time');
-            if(timeContainer) {
-                // نقل الوقت إلى أقصى اليسار
-                player.elements.controls.prepend(timeContainer);
-                // إدراج مجموعة الأزرار الجديدة بعده
-                timeContainer.parentNode.insertBefore(customButtonsGroup, timeContainer.nextSibling);
-            }
+            const playBtn = controls.querySelector('button[data-plyr="play"]');
+            const progressContainer = controls.querySelector('.plyr__progress__container');
+            const timeContainer = controls.querySelector('.plyr__time');
+            const volumeContainer = controls.querySelector('.plyr__volume');
+            const fullscreenBtn = controls.querySelector('button[data-plyr="fullscreen"]');
 
-            const lockButton = document.createElement('button');
-            lockButton.className = 'plyr__controls__item plyr__control';
-            lockButton.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z" fill="currentColor"></path></svg>`;
-            lockButton.onclick = () => player.elements.container.classList.toggle('plyr--locked');
-            customButtonsGroup.appendChild(lockButton);
-            
-            const unlockButton = document.createElement('div');
-            unlockButton.id = 'unlock-button';
-            unlockButton.innerHTML = `<svg width="32" height="32" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-1.66-1.34-3-3-3s-3 1.34-3 3v2H9V6c0-2.76 2.24-5 5-5s5 2.24 5 5v2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" fill="currentColor"></path></svg>`;
-            unlockButton.onclick = () => player.elements.container.classList.remove('plyr--locked');
-            player.elements.container.appendChild(unlockButton);
-            
-            const castButton = document.createElement('button');
-            castButton.className = 'plyr__controls__item plyr__control';
-            castButton.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v3h2V5h18v14h-7v2h7c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM1 18v3h3c0-1.66-1.34-3-3-3zm0-4v2c2.76 0 5 2.24 5 5h2c0-3.87-3.13-7-7-7zm0-4v2c4.97 0 9 4.03 9 9h2c0-6.08-4.93-11-11-11z" fill="currentColor"></path></svg>`;
-            if (!window.chrome || !window.chrome.cast) {
-                castButton.disabled = true;
-                castButton.classList.add('plyr__control--disabled');
-            }
-            customButtonsGroup.appendChild(castButton);
-            
+            // 3. إنشاء الأزرار الجديدة
             const audioButton = document.createElement('button');
             audioButton.className = 'plyr__controls__item plyr__control';
             audioButton.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9v7a2 2 0 002 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4a2 2 0 002-2v-7c0-4.97-4.03-9-9-9z" fill="currentColor"></path></svg>`;
-            customButtonsGroup.appendChild(audioButton);
-            
+
+            const castButton = document.createElement('button');
+            castButton.className = 'plyr__controls__item plyr__control';
+            castButton.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v3h2V5h18v14h-7v2h7c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM1 18v3h3c0-1.66-1.34-3-3-3zm0-4v2c2.76 0 5 2.24 5 5h2c0-3.87-3.13-7-7-7zm0-4v2c4.97 0 9 4.03 9 9h2c0-6.08-4.93-11-11-11z" fill="currentColor"></path></svg>`;
+            if (!window.chrome || !window.chrome.cast) { castButton.disabled = true; }
+
             const fitToggleButton = document.createElement('button');
             fitToggleButton.className = 'plyr__controls__item plyr__control custom-fit-btn';
             fitToggleButton.innerHTML = `<svg role="presentation" focusable="false" width="22" height="22" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>`;
@@ -617,33 +602,38 @@
                 videoElement.style.objectFit = fitModes[currentFitModeIndex];
                 localStorage.setItem('hstv_player_fit_mode', fitModes[currentFitModeIndex]);
             };
-            player.elements.controls.appendChild(fitToggleButton);
             
-            const volumeContainer = player.elements.volume;
-            if(volumeContainer) {
-                const volumeValue = document.createElement('span');
-                volumeValue.className = 'plyr__volume--value';
-                const muteBtn = player.elements.buttons.mute;
-                if(muteBtn) { muteBtn.parentNode.insertBefore(volumeValue, muteBtn.nextSibling); }
-                
-                const updateVolumeDisplay = () => {
-                    volumeValue.textContent = player.muted ? '---' : `${Math.round(player.volume * 100)}%`;
-                };
-                
-                player.on('volumechange', updateVolumeDisplay);
-                updateVolumeDisplay();
-            }
+            const volumeValue = document.createElement('span');
+            volumeValue.className = 'plyr__volume--value';
+            const updateVolumeDisplay = () => { volumeValue.textContent = player.muted ? '---' : `${Math.round(player.volume * 100)}%`; };
+            player.on('volumechange', updateVolumeDisplay);
+            updateVolumeDisplay();
+
+            // 4. تجميع العناصر بالترتيب الصحيح
+            leftGroup.appendChild(qualityContainer);
+            if(playBtn) leftGroup.appendChild(playBtn);
+            
+            if(progressContainer) centerGroup.appendChild(progressContainer);
+            if(timeContainer) centerGroup.appendChild(timeContainer);
+            
+            if(volumeContainer) rightGroup.appendChild(volumeContainer);
+            volumeContainer.appendChild(volumeValue);
+            rightGroup.appendChild(audioButton);
+            rightGroup.appendChild(castButton);
+            rightGroup.appendChild(fitToggleButton);
+            if(fullscreenBtn) rightGroup.appendChild(fullscreenBtn);
+
+            // 5. إفراغ الشريط الأصلي وإضافة المجموعات الجديدة
+            controls.innerHTML = '';
+            controls.appendChild(leftGroup);
+            controls.appendChild(centerGroup);
+            controls.appendChild(rightGroup);
             
             player.on('loadedmetadata', () => {
-                if (player.audioTracks && player.audioTracks.length > 1) {
-                    audioButton.disabled = false;
-                    audioButton.classList.remove('plyr__control--disabled');
-                } else {
-                    audioButton.disabled = true;
-                    audioButton.classList.add('plyr__control--disabled');
-                }
+                if (player.audioTracks && player.audioTracks.length > 1) { audioButton.disabled = false; } 
+                else { audioButton.disabled = true; }
             });
-            // --- END: تعديل شريط التحكم ---
+            // --- END: إعادة بناء شريط التحكم ---
             
             // --- START: إعادة كود التحكم باللمس ---
             const gestureZone = player.elements.container;
@@ -666,7 +656,7 @@
             }
             
             gestureZone.addEventListener('touchstart', (e) => {
-                player.toggleControls(true); // Always show controls on touch
+                player.toggleControls(true);
                 const touch = e.touches[0];
                 const rect = gestureZone.getBoundingClientRect();
                 const currentTime = new Date().getTime();
@@ -677,18 +667,16 @@
                     e.preventDefault();
                 }
                 lastTap = currentTime;
-                if (touch.clientX > rect.left + rect.width * 0.4) { // Right 60% of screen for volume
+                if (touch.clientX > rect.left + rect.width * 0.4) {
                     isDragging = true;
                     startY = touch.clientY;
                     startVolume = player.volume;
                 }
             });
-
             gestureZone.addEventListener('touchmove', (e) => {
                 if (!isDragging) return;
-                player.toggleControls(true);
                 e.preventDefault();
-                
+                player.toggleControls(true);
                 const touch = e.touches[0];
                 const deltaY = startY - touch.clientY;
                 const sensitivity = 150; 
@@ -696,12 +684,10 @@
                 if (newVolume < 0) newVolume = 0;
                 if (newVolume > 1) newVolume = 1;
                 player.volume = newVolume;
-
                 volumeIndicator.classList.add('visible');
                 volumeFill.style.height = `${newVolume * 100}%`;
                 clearTimeout(hideIndicatorTimeout);
             });
-
             gestureZone.addEventListener('touchend', () => {
                 isDragging = false;
                 hideIndicatorTimeout = setTimeout(() => volumeIndicator.classList.remove('visible'), 500);
@@ -728,7 +714,7 @@
             
             if (!currentChannel || !currentChannel.streams) return;
 
-            const allQualities = ['SD', 'HD', 'FHD', '4K', 'AUTO'];
+            const allQualities = ['SD', 'HD', 'FHD', '4K'];
             const availableStreams = currentChannel.streams;
 
             allQualities.forEach(quality => {
@@ -737,29 +723,14 @@
                 button.type = 'button';
                 button.innerText = quality;
                 const url = availableStreams[quality.toLowerCase()];
-                const isAuto = quality === 'AUTO';
-
-                if (isAuto || url) {
-                    if (isAuto) {
-                         button.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            const speed = navigator.connection ? navigator.connection.downlink : 10;
-                            let bestQualityUrl = availableStreams['sd'] || availableStreams['hd'] || availableStreams['fhd'] || availableStreams['4k'];
-                            if(speed > 8 && availableStreams['4k']) { bestQualityUrl = availableStreams['4k']; }
-                            else if (speed > 5 && availableStreams['fhd']) { bestQualityUrl = availableStreams['fhd']; }
-                            else if (speed > 2 && availableStreams['hd']) { bestQualityUrl = availableStreams['hd']; }
-                            if (player.source !== bestQualityUrl) playStream(bestQualityUrl, currentChannel);
-                        });
-                    } else {
-                        if(activeUrl === url) button.classList.add('active');
-                        button.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            if (player.source !== url) playStream(url, currentChannel);
-                        });
-                    }
+                if (url) {
+                    if(activeUrl === url) button.classList.add('active');
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (player.source !== url) playStream(url, currentChannel);
+                    });
                 } else {
                     button.disabled = true;
-                    button.classList.add('disabled');
                 }
                 qualityContainer.appendChild(button);
             });
