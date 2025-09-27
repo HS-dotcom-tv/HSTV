@@ -300,15 +300,6 @@
         display: none;
     }
     
-    /* --- START: تنسيق حاوية زر الخروج --- */
-    #player-exit-wrapper {
-        display: flex;
-        justify-content: flex-end;
-        max-width: 100%;
-        padding: 0 1rem 1.5rem;
-    }
-    /* --- END: تنسيق حاوية زر الخروج --- */
-
     :root {
       --plyr-color-main: #3B82F6;
     }
@@ -436,7 +427,7 @@
         });
         let hls = new Hls();
         
-        // --- START: دوال التحكم بزر الخروج ---
+        // --- START: دوال التحكم بزر الخروج (الطريقة الجديدة) ---
         function showExitButton() {
             if (document.getElementById('player-exit-wrapper')) return;
 
@@ -446,7 +437,13 @@
             if (channelsSection && filtersContainer) {
                 const wrapper = document.createElement('div');
                 wrapper.id = 'player-exit-wrapper';
-                wrapper.className = 'player-exit-container';
+                // تطبيق الستايل مباشرة لضمان عدم التداخل
+                wrapper.style.display = 'flex';
+                wrapper.style.justifyContent = 'flex-end';
+                wrapper.style.marginBottom = '1.5rem';
+                wrapper.style.maxWidth = '48rem'; // max-w-3xl
+                wrapper.style.marginLeft = 'auto';
+                wrapper.style.marginRight = 'auto';
 
                 const button = document.createElement('button');
                 button.className = 'main-tab active';
@@ -458,6 +455,7 @@
                 });
 
                 wrapper.appendChild(button);
+                // إضافة الزر قبل فلاتر القنوات ليكون جزءاً من التصميم
                 channelsSection.insertBefore(wrapper, filtersContainer);
             }
         }
