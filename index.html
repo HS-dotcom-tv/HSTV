@@ -117,15 +117,23 @@
         font-size: 0.8rem;
         border-radius: 12px;
     }
+    
+    /* --- START: تعديل حركة الأزرار الفرعية --- */
     .sub-tabs-container {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out;
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.4s ease-out;
     }
     .sub-tabs-container.visible {
-        max-height: 100px;
-        margin-top: 0.75rem;
+        grid-template-rows: 1fr;
     }
+    .sub-tabs-content {
+        overflow: hidden;
+    }
+    .sub-tabs-inner {
+        padding-top: 0.75rem;
+    }
+    /* --- END: تعديل حركة الأزرار الفرعية --- */
 
     .header {
         background: var(--header-bg);
@@ -392,21 +400,27 @@
             <button id="channels-btn" data-section="channels-section" class="main-tab flex-1">بث مباشر</button>
             <button id="news-btn" data-section="news-section" class="main-tab flex-1">أخبار</button>
           </div>
+          
           <div id="date-tabs-container" class="sub-tabs-container">
-              <div class="date-tabs flex gap-3">
+            <div class="sub-tabs-content">
+              <div class="sub-tabs-inner flex gap-3">
                 <button id="yesterday" class="date-tab flex-1">الأمس</button>
                 <button id="today" class="date-tab flex-1 active">اليوم</button>
                 <button id="tomorrow" class="date-tab flex-1">الغد</button>
               </div>
+            </div>
           </div>
+
           <div id="live-filters-container" class="sub-tabs-container">
-              <div class="flex gap-3">
+             <div class="sub-tabs-content">
+              <div class="sub-tabs-inner flex gap-3">
                 <button class="channel-filter-btn flex-1 active" data-category="sports">رياضية</button>
                 <button class="channel-filter-btn flex-1" data-category="news">إخبارية</button>
                 <button class="channel-filter-btn flex-1" data-category="international">عالمية</button>
               </div>
+            </div>
           </div>
-          </div>
+      </div>
     </div>
 
     <main>
@@ -449,7 +463,6 @@
         const pageSections = document.querySelectorAll('.page-section');
         const fabCloseBtn = document.getElementById('fab-close-player');
         
-        // --- START: تعديل منطق الأزرار الفرعية ---
         const dateTabsContainer = document.getElementById('date-tabs-container');
         const liveFiltersContainer = document.getElementById('live-filters-container');
 
@@ -476,26 +489,29 @@
                 liveFiltersContainer.classList.remove('visible');
             }
         }
-        updateSubTabs(savedTabId); // تحديث الأزرار عند تحميل الصفحة
+        updateSubTabs(savedTabId); 
         
         mainTabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                mainTabs.forEach(t => t.classList.remove('active'));
-                pageSections.forEach(s => s.classList.remove('active'));
+                const currentActiveTab = document.querySelector('.main-tab.active');
+                if (currentActiveTab) currentActiveTab.classList.remove('active');
+                
+                const currentActiveSection = document.querySelector('.page-section.active');
+                if (currentActiveSection) currentActiveSection.classList.remove('active');
+
                 tab.classList.add('active');
                 
                 const sectionId = tab.getAttribute('data-section');
                 document.getElementById(sectionId).classList.add('active');
                 localStorage.setItem('activeTab', sectionId);
                 
-                updateSubTabs(sectionId); // تحديث الأزرار عند النقر
+                updateSubTabs(sectionId);
 
                 if (document.body.classList.contains('player-active') && sectionId !== 'channels-section') {
                     stopStream();
                 }
             });
         });
-        // --- END: تعديل منطق الأزرار الفرعية ---
 
         const playerContainer = document.getElementById('player-container');
         const videoElement = document.getElementById('video-player');
