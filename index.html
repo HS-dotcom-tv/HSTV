@@ -427,7 +427,7 @@
         });
         let hls = new Hls();
         
-        // --- START: دوال التحكم بزر الخروج (الطريقة الجديدة) ---
+        // --- START: دوال التحكم بزر الخروج (الطريقة النهائية والمحسنة) ---
         function showExitButton() {
             if (document.getElementById('player-exit-wrapper')) return;
 
@@ -437,17 +437,19 @@
             if (channelsSection && filtersContainer) {
                 const wrapper = document.createElement('div');
                 wrapper.id = 'player-exit-wrapper';
-                // تطبيق الستايل مباشرة لضمان عدم التداخل
+                // تطبيق ستايل يضمن المحاذاة والتباعد الصحيح
                 wrapper.style.display = 'flex';
-                wrapper.style.justifyContent = 'flex-end';
-                wrapper.style.marginBottom = '1.5rem';
-                wrapper.style.maxWidth = '48rem'; // max-w-3xl
+                wrapper.style.justifyContent = 'flex-start'; // لصفحة RTL، هذا يضع العنصر يميناً
+                wrapper.style.marginBottom = '1.5rem'; // مسافة أسفل الزر
+                wrapper.style.maxWidth = '48rem';
                 wrapper.style.marginLeft = 'auto';
                 wrapper.style.marginRight = 'auto';
 
                 const button = document.createElement('button');
-                button.className = 'main-tab active';
+                // استخدام تنسيق زر "عودة" الأنيق
+                button.className = 'date-tab back-btn'; 
                 button.textContent = 'العودة للرئيسية';
+                
                 button.addEventListener('click', () => {
                     stopStream();
                     document.getElementById('matches-btn').click();
@@ -455,7 +457,6 @@
                 });
 
                 wrapper.appendChild(button);
-                // إضافة الزر قبل فلاتر القنوات ليكون جزءاً من التصميم
                 channelsSection.insertBefore(wrapper, filtersContainer);
             }
         }
