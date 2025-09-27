@@ -225,9 +225,6 @@
     }
     .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
     
-    #channels-section-content {
-        position: relative;
-    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -237,10 +234,10 @@
       to { opacity: 0; transform: translateY(-10px); }
     }
     .channels-view {
-        display: none; /* Hide by default */
+        display: none;
     }
     .channels-view.visible {
-        display: block; /* Show when visible */
+        display: block;
     }
     .channels-view.animate-in {
         animation: fadeIn 0.3s ease-out forwards;
@@ -608,43 +605,36 @@
         const channelsDataUrl = 'channels.json';
         const packagesView = document.getElementById('packages-view');
         const channelsView = document.getElementById('channels-view');
-        const packagesGrid = document.getElementById('packages-grid');
-        const channelsGrid = document.getElementById('channels-grid');
-        const filterBtns = document.querySelectorAll('.channel-filter-btn');
-        const backToPackagesBtn = document.getElementById('back-to-packages-btn');
         let allChannelsData = {};
         let currentCategory = 'sports';
         let currentChannel = null;
         
         const fitModes = ['contain', 'cover', 'fill'];
         let currentFitModeIndex = 0;
-        let isSwitchingView = false;
 
         function switchView(viewToShow) {
-            if (isSwitchingView) return;
-            isSwitchingView = true;
-
             const viewToHide = viewToShow === 'packages' ? channelsView : packagesView;
             const viewToShowEl = viewToShow === 'packages' ? packagesView : channelsView;
-            
+
+            if (viewToShowEl.classList.contains('visible')) return;
+
             viewToHide.classList.add('animate-out');
             
-            viewToHide.addEventListener('animationend', () => {
+            setTimeout(() => {
                 viewToHide.classList.remove('visible');
                 viewToHide.classList.remove('animate-out');
-                
+
                 if (viewToShowEl.style.display === 'none') {
                     viewToShowEl.style.display = 'block';
                 }
                 viewToShowEl.classList.add('visible');
                 viewToShowEl.classList.add('animate-in');
                 
-                viewToShowEl.addEventListener('animationend', () => {
+                setTimeout(() => {
                     viewToShowEl.classList.remove('animate-in');
-                    isSwitchingView = false;
-                }, { once: true });
+                }, 300);
 
-            }, { once: true });
+            }, 300);
         }
 
         player.on('volumechange', () => {
@@ -895,18 +885,6 @@
         
         function renderPackages(category) {
             switchView('packages');
-            const packagesGrid = document.getElementById('packages-grid');
-            packagesGrid.innerHTML = '';
-            const packages = allChannelsData[category] || [];
-            if (packages.length === 0) {
-                packagesGrid.innerHTML = `<div class="text-center text-slate-400 col-span-full">لا توجد باقات في هذا القسم حالياً.</div>`;
-                return;
-            }
-            packages.forEach(pkg => {
-                const packageHTML = `<div class="package-card-item" data-package-id="${pkg.package_id}"><img class="dynamic-logo package-logo" data-light-src="${pkg.package_logo.light}" data-dark-src="${pkg.package_logo.dark}" alt="${pkg.package_name}" onerror="this.style.display='none';"></div>`;
-                packagesGrid.innerHTML += packageHTML;
-            });
-            updateChannelLogos();
         }
         
         function renderPackageChannels(packageId) {
@@ -936,7 +914,18 @@
           try {
             const res = await fetch(channelsDataUrl + '?t=' + Date.now());
             allChannelsData = await res.json();
-            renderPackages(currentCategory); 
+            const packagesGrid = document.getElementById('packages-grid');
+            packagesGrid.innerHTML = '';
+            const packages = allChannelsData[currentCategory] || [];
+            if (packages.length === 0) {
+                packagesGrid.innerHTML = `<div class="text-center text-slate-400 col-span-full">لا توجد باقات في هذا القسم حالياً.</div>`;
+                return;
+            }
+            packages.forEach(pkg => {
+                const packageHTML = `<div class="package-card-item" data-package-id="${pkg.package_id}"><img class="dynamic-logo package-logo" data-light-src="${pkg.package_logo.light}" data-dark-src="${pkg.package_logo.dark}" alt="${pkg.package_name}" onerror="this.style.display='none';"></div>`;
+                packagesGrid.innerHTML += packageHTML;
+            });
+            updateChannelLogos();
           } catch(err) {
             console.error(err);
             document.getElementById('packages-grid').innerHTML = `<div class="text-center text-red-400 col-span-full">فشل تحميل بيانات القنوات.</div>`;
@@ -949,7 +938,8 @@
                 channelFilterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentCategory = btn.dataset.category;
-                renderPackages(currentCategory);
+                loadChannels(); // Reload channels for the new category
+                switchView('packages'); // Ensure we go back to packages view
             });
         });
 
@@ -974,8 +964,8 @@
             }
         });
 
-        backToPackagesBtn.addEventListener('click', () => {
-            renderPackages(currentCategory);
+        document.getElementById('back-to-packages-btn').addEventListener('click', () => {
+            switchView('packages');
         });
         
         loadChannels();
