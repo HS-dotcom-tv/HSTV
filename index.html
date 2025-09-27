@@ -300,18 +300,15 @@
         display: none;
     }
     
-    /* --- START: تعديل تنسيق زر الخروج من المشغل --- */
+    /* --- START: تنسيق حاوية زر الخروج --- */
     #player-exit-wrapper {
-        top: calc(56.25vw + 1.5rem); /* زيادة المسافة العمودية إلى 1.5rem */
-        transition: opacity 0.3s ease;
+        display: flex;
+        justify-content: flex-end;
+        max-width: 100%;
+        padding: 0 1rem 1.5rem;
     }
-    @media (min-width: 768px) {
-        #player-exit-wrapper {
-            top: calc((768px * 0.5625) + 1.5rem); /* زيادة نفس المسافة للشاشات الأكبر */
-        }
-    }
-    /* --- END: تعديل تنسيق زر الخروج من المشغل --- */
-    
+    /* --- END: تنسيق حاوية زر الخروج --- */
+
     :root {
       --plyr-color-main: #3B82F6;
     }
@@ -319,7 +316,6 @@
       --plyr-color-main: #B9090B;
     }
     
-    /* --- START: تعديلات شريط التحكم النهائية --- */
     .plyr__controls { gap: 10px; }
     .custom-quality-controls { display: flex; align-items: center; gap: 5px; }
     .quality-switch-btn { background: rgba(255, 255, 255, 0.1); border: none; color: #fff; font-family: 'Cairo', sans-serif; font-weight: 600; font-size: 11px; border-radius: 4px; padding: 5px 8px; cursor: pointer; transition: all 0.2s ease; }
@@ -334,9 +330,7 @@
     .plyr__control.plyr__control--disabled, .plyr__control.plyr__control--disabled:active, .plyr__control.plyr__control--disabled:focus, .plyr__control.plyr__control--disabled:hover { opacity: 0.4 !important; cursor: not-allowed !important; background: transparent !important; box-shadow: none !important; }
     .controls-group-left, .controls-group-center, .controls-group-right { display: flex; align-items: center; gap: 5px; }
     .controls-group-center { flex: 1; min-width: 0; }
-    /* --- END: تعديلات شريط التحكم النهائية --- */
-
-    /* --- START: أكواد التحكم باللمس --- */
+    
     .plyr__video-wrapper { position: relative; }
     .touch-overlay-feedback { position: absolute; top: 50%; transform: translateY(-50%); color: #fff; background-color: rgba(0, 0, 0, 0.6); border-radius: 20px; padding: 10px 20px; font-size: 24px; font-weight: bold; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 25; }
     .touch-overlay-feedback.visible { opacity: 1; }
@@ -345,7 +339,6 @@
     .volume-gesture-indicator .icon { color: white; margin-bottom: 8px; }
     .volume-gesture-indicator .level-bar { width: 6px; height: 100px; background-color: rgba(255,255,255,0.25); border-radius: 3px; position: relative; overflow: hidden; }
     .volume-gesture-indicator .level-bar-fill { position: absolute; bottom: 0; left: 0; width: 100%; background-color: var(--plyr-color-main); border-radius: 3px; }
-    /* --- END: أكواد التحكم باللمس --- */
   </style>
   
   <script>
@@ -425,10 +418,6 @@
       <video id="video-player" playsinline controls></video>
   </div>
   
-  <div id="player-exit-wrapper" class="hidden fixed right-0 p-4 z-50">
-      <button id="close-player-btn" class="main-tab active">العودة للرئيسية</button>
-  </div>
-
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
@@ -437,8 +426,6 @@
         const mainTabs = document.querySelectorAll('.main-tab');
         const pageSections = document.querySelectorAll('.page-section');
         const dateTabsContainer = document.getElementById('date-tabs-container');
-        const playerExitWrapper = document.getElementById('player-exit-wrapper');
-        const closePlayerBtn = document.getElementById('close-player-btn');
         
         const playerContainer = document.getElementById('player-container');
         const videoElement = document.getElementById('video-player');
@@ -448,13 +435,45 @@
             controls: [ 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen' ]
         });
         let hls = new Hls();
+        
+        // --- START: دوال التحكم بزر الخروج ---
+        function showExitButton() {
+            if (document.getElementById('player-exit-wrapper')) return;
+
+            const channelsSection = document.getElementById('channels-section');
+            const filtersContainer = document.getElementById('channel-filters-container');
+
+            if (channelsSection && filtersContainer) {
+                const wrapper = document.createElement('div');
+                wrapper.id = 'player-exit-wrapper';
+                wrapper.className = 'player-exit-container';
+
+                const button = document.createElement('button');
+                button.className = 'main-tab active';
+                button.textContent = 'العودة للرئيسية';
+                button.addEventListener('click', () => {
+                    stopStream();
+                    document.getElementById('matches-btn').click();
+                    document.getElementById('today').click();
+                });
+
+                wrapper.appendChild(button);
+                channelsSection.insertBefore(wrapper, filtersContainer);
+            }
+        }
+
+        function hideExitButton() {
+            const wrapper = document.getElementById('player-exit-wrapper');
+            if (wrapper) wrapper.remove();
+        }
+        // --- END: دوال التحكم بزر الخروج ---
 
         function stopStream() {
             player.stop();
             document.body.classList.remove('player-active');
             sessionStorage.removeItem('activeChannel');
             sessionStorage.removeItem('activeStreamUrl');
-            playerExitWrapper.classList.add('hidden');
+            hideExitButton();
         }
         
         const savedTabId = localStorage.getItem('activeTab') || 'matches-section';
@@ -498,12 +517,6 @@
             });
         });
         
-        closePlayerBtn.addEventListener('click', () => {
-            stopStream();
-            document.getElementById('matches-btn').click();
-            document.getElementById('today').click();
-        });
-
         const themeToggle = document.getElementById('theme-toggle');
         const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
         const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>`;
@@ -574,7 +587,7 @@
             document.body.classList.add('player-active');
             
             if (isRestoring) {
-                playerExitWrapper.classList.remove('hidden');
+                showExitButton();
             }
             
             const currentTime = player.currentTime > 0 ? player.currentTime : 0;
@@ -756,12 +769,12 @@
         });
 
         player.on('enterfullscreen', () => {
-          playerExitWrapper.classList.add('hidden');
+          hideExitButton();
           try { screen.orientation.lock('landscape').catch(err => {}); } catch(err) {}
         });
 
         player.on('exitfullscreen', () => {
-          playerExitWrapper.classList.remove('hidden');
+          showExitButton();
           try { screen.orientation.unlock().catch(err => {}); } catch(err) {}
         });
 
