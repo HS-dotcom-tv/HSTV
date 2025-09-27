@@ -220,7 +220,7 @@
     .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
 
     .channel-filters {
-      display: flex; gap: 0.75rem; margin-bottom: 1.5rem; max-w-3xl; margin-left: auto; margin-right: auto;
+      display: flex; gap: 0.75rem; margin-bottom: 1rem; max-w-3xl; margin-left: auto; margin-right: auto;
     }
     .channel-filter-btn {
         background: var(--btn-glass-bg); border: 1px solid var(--btn-glass-border); box-shadow: 0 2px 10px var(--btn-glass-shadow);
@@ -437,17 +437,15 @@
             if (channelsSection && filtersContainer) {
                 const wrapper = document.createElement('div');
                 wrapper.id = 'player-exit-wrapper';
-                // تطبيق ستايل يضمن المحاذاة والتباعد الصحيح
                 wrapper.style.display = 'flex';
-                wrapper.style.justifyContent = 'flex-start'; // لصفحة RTL، هذا يضع العنصر يميناً
-                wrapper.style.marginBottom = '1.5rem'; // مسافة أسفل الزر
+                wrapper.style.justifyContent = 'flex-start';
+                wrapper.style.marginBottom = '1rem'; // توحيد المسافة السفلية
                 wrapper.style.maxWidth = '48rem';
                 wrapper.style.marginLeft = 'auto';
                 wrapper.style.marginRight = 'auto';
 
                 const button = document.createElement('button');
-                // استخدام تنسيق زر "عودة" الأنيق
-                button.className = 'date-tab back-btn'; 
+                button.className = 'date-tab back-btn'; // استخدام نفس تنسيق زر "عودة"
                 button.textContent = 'العودة للرئيسية';
                 
                 button.addEventListener('click', () => {
