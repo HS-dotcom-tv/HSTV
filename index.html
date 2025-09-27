@@ -422,6 +422,23 @@
         const pageSections = document.querySelectorAll('.page-section');
         const dateTabsContainer = document.getElementById('date-tabs-container');
         
+        // --- START: تعديل منطق التبويبات ---
+        const playerContainer = document.getElementById('player-container');
+        const videoElement = document.getElementById('video-player');
+        
+        const player = new Plyr(videoElement, {
+            tooltips: { controls: true, seek: true },
+            controls: [ 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen' ]
+        });
+        let hls = new Hls();
+
+        function stopStream() {
+            player.stop();
+            document.body.classList.remove('player-active');
+            sessionStorage.removeItem('activeChannel');
+            sessionStorage.removeItem('activeStreamUrl');
+        }
+        
         const savedTabId = localStorage.getItem('activeTab') || 'matches-section';
         document.querySelector('.main-tab.active')?.classList.remove('active');
         document.querySelector('.page-section.active')?.classList.remove('active');
@@ -440,16 +457,29 @@
 
         mainTabs.forEach(tab => {
             tab.addEventListener('click', (e) => {
+                const previousSectionId = document.querySelector('.page-section.active')?.id;
+                const sectionId = tab.getAttribute('data-section');
+
+                if (previousSectionId === 'channels-section' && sectionId !== 'channels-section') {
+                    if (document.body.classList.contains('player-active')) {
+                        stopStream();
+                    }
+                }
+
                 mainTabs.forEach(t => t.classList.remove('active'));
                 pageSections.forEach(s => s.classList.remove('active'));
                 tab.classList.add('active');
-                const sectionId = tab.getAttribute('data-section');
                 document.getElementById(sectionId).classList.add('active');
                 localStorage.setItem('activeTab', sectionId);
-                if (sectionId === 'matches-section') { dateTabsContainer.classList.add('visible'); } 
-                else { dateTabsContainer.classList.remove('visible'); }
+                
+                if (sectionId === 'matches-section') { 
+                    dateTabsContainer.classList.add('visible'); 
+                } else { 
+                    dateTabsContainer.classList.remove('visible'); 
+                }
             });
         });
+        // --- END: تعديل منطق التبويبات ---
 
         const themeToggle = document.getElementById('theme-toggle');
         const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
@@ -506,15 +536,6 @@
         let allChannelsData = {};
         let currentCategory = 'sports';
         let currentChannel = null;
-
-        const playerContainer = document.getElementById('player-container');
-        const videoElement = document.getElementById('video-player');
-        
-        const player = new Plyr(videoElement, {
-            tooltips: { controls: true, seek: true },
-            controls: [ 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen' ]
-        });
-        let hls = new Hls();
         
         const fitModes = ['contain', 'cover', 'fill'];
         let currentFitModeIndex = 0;
@@ -523,8 +544,11 @@
             localStorage.setItem('hstv_player_volume', player.volume);
         });
         
-        function playStream(url, channel) {
+        function playStream(url, channel, isRestoring = false) {
             currentChannel = channel;
+            sessionStorage.setItem('activeChannel', JSON.stringify(channel));
+            sessionStorage.setItem('activeStreamUrl', url);
+            
             document.body.classList.add('player-active');
             
             const currentTime = player.currentTime > 0 ? player.currentTime : 0;
@@ -535,23 +559,26 @@
                 hls.loadSource(url);
                 hls.attachMedia(videoElement);
                 hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                    player.currentTime = currentTime;
-                    player.play();
-                    player.fullscreen.enter();
+                    if (!isRestoring) {
+                        player.currentTime = currentTime;
+                        player.play();
+                        player.fullscreen.enter();
+                    } else {
+                        player.play();
+                    }
                 });
             } else {
                 videoElement.src = url;
                 player.once('canplay', () => {
-                   player.currentTime = currentTime;
-                   player.play();
-                   player.fullscreen.enter();
+                   if (!isRestoring) {
+                       player.currentTime = currentTime;
+                       player.play();
+                       player.fullscreen.enter();
+                   } else {
+                       player.play();
+                   }
                 });
             }
-        }
-
-        function stopStream() {
-            player.stop();
-            document.body.classList.remove('player-active');
         }
         
         player.on('ready', () => {
@@ -689,6 +716,14 @@
                 isDragging = false;
                 hideIndicatorTimeout = setTimeout(() => volumeIndicator.classList.remove('visible'), 500);
             });
+
+            // --- START: استعادة المشغل عند تحديث الصفحة ---
+            const savedChannelData = sessionStorage.getItem('activeChannel');
+            const savedStreamUrl = sessionStorage.getItem('activeStreamUrl');
+            if (savedChannelData && savedStreamUrl && savedTabId === 'channels-section') {
+                playStream(savedStreamUrl, JSON.parse(savedChannelData), true);
+            }
+            // --- END: استعادة المشغل عند تحديث الصفحة ---
         });
 
         player.on('playing', () => {
@@ -827,10 +862,11 @@
             }
         });
 
+        // --- START: تعديل زر العودة ---
         backToPackagesBtn.addEventListener('click', () => {
-            stopStream();
             renderPackages(currentCategory);
         });
+        // --- END: تعديل زر العودة ---
         
         loadChannels();
         updateIcon();
