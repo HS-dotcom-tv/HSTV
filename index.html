@@ -619,7 +619,7 @@
             if (viewToShowEl.classList.contains('visible')) return;
 
             viewToHide.classList.add('animate-out');
-            
+
             setTimeout(() => {
                 viewToHide.classList.remove('visible');
                 viewToHide.classList.remove('animate-out');
@@ -884,11 +884,22 @@
         function getShortChannelName(fullName) {return fullName.replace('beIN Sports', '').replace('beIN', '').replace('SSC', '').replace('DAZN', '').replace('Sky Sports', '').trim();}
         
         function renderPackages(category) {
+            const packagesGrid = document.getElementById('packages-grid');
+            packagesGrid.innerHTML = '';
+            const packages = allChannelsData[category] || [];
+            if (packages.length === 0) {
+                packagesGrid.innerHTML = `<div class="text-center text-slate-400 col-span-full">لا توجد باقات في هذا القسم حالياً.</div>`;
+                return;
+            }
+            packages.forEach(pkg => {
+                const packageHTML = `<div class="package-card-item" data-package-id="${pkg.package_id}"><img class="dynamic-logo package-logo" data-light-src="${pkg.package_logo.light}" data-dark-src="${pkg.package_logo.dark}" alt="${pkg.package_name}" onerror="this.style.display='none';"></div>`;
+                packagesGrid.innerHTML += packageHTML;
+            });
+            updateChannelLogos();
             switchView('packages');
         }
         
         function renderPackageChannels(packageId) {
-            switchView('channels');
             const channelsGrid = document.getElementById('channels-grid');
             channelsGrid.innerHTML = '';
             const packages = allChannelsData[currentCategory] || [];
@@ -908,24 +919,14 @@
                 channelsGrid.innerHTML += cardHTML;
             });
             updateChannelLogos();
+            switchView('channels');
         }
 
         async function loadChannels() {
           try {
             const res = await fetch(channelsDataUrl + '?t=' + Date.now());
             allChannelsData = await res.json();
-            const packagesGrid = document.getElementById('packages-grid');
-            packagesGrid.innerHTML = '';
-            const packages = allChannelsData[currentCategory] || [];
-            if (packages.length === 0) {
-                packagesGrid.innerHTML = `<div class="text-center text-slate-400 col-span-full">لا توجد باقات في هذا القسم حالياً.</div>`;
-                return;
-            }
-            packages.forEach(pkg => {
-                const packageHTML = `<div class="package-card-item" data-package-id="${pkg.package_id}"><img class="dynamic-logo package-logo" data-light-src="${pkg.package_logo.light}" data-dark-src="${pkg.package_logo.dark}" alt="${pkg.package_name}" onerror="this.style.display='none';"></div>`;
-                packagesGrid.innerHTML += packageHTML;
-            });
-            updateChannelLogos();
+            renderPackages(currentCategory); 
           } catch(err) {
             console.error(err);
             document.getElementById('packages-grid').innerHTML = `<div class="text-center text-red-400 col-span-full">فشل تحميل بيانات القنوات.</div>`;
@@ -938,8 +939,7 @@
                 channelFilterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentCategory = btn.dataset.category;
-                loadChannels(); // Reload channels for the new category
-                switchView('packages'); // Ensure we go back to packages view
+                renderPackages(currentCategory);
             });
         });
 
@@ -965,7 +965,7 @@
         });
 
         document.getElementById('back-to-packages-btn').addEventListener('click', () => {
-            switchView('packages');
+            renderPackages(currentCategory);
         });
         
         loadChannels();
