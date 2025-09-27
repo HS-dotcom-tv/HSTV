@@ -288,12 +288,12 @@
         opacity: 1;
     }
     body.player-active .page-content {
-        padding-top: 56.25vw;
+        padding-top: 54vw; /* تم تقليص المسافة */
         transition: padding-top 0.3s ease;
     }
     @media (min-width: 768px) {
         body.player-active .page-content {
-            padding-top: calc(768px * 0.5625);
+            padding-top: calc(768px * 0.54); /* تم تقليص المسافة للشاشات الكبيرة */
         }
     }
     body.player-active .main-nav-wrapper {
@@ -304,7 +304,7 @@
     #fab-close-player {
         position: fixed;
         top: 20px;
-        left: 20px; /* تم التغيير إلى اليسار */
+        left: 20px;
         width: 40px;
         height: 40px;
         border-radius: 50%;
