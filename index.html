@@ -225,27 +225,27 @@
     }
     .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
     
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeOut {
-      from { opacity: 1; transform: translateY(0); }
-      to { opacity: 0; transform: translateY(-10px); }
+    #channels-section-content {
+        position: relative;
     }
     .channels-view {
-        display: none;
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        width: 100%;
+    }
+    .channels-view:not(.visible) {
+        opacity: 0;
+        transform: scale(0.98);
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
     .channels-view.visible {
-        display: block;
+        opacity: 1;
+        transform: scale(1);
+        position: relative;
     }
-    .channels-view.animate-in {
-        animation: fadeIn 0.3s ease-out forwards;
-    }
-    .channels-view.animate-out {
-        animation: fadeOut 0.3s ease-out forwards;
-    }
-
+    
     .channel-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1.25rem; max-w-3xl; margin: auto;
     }
@@ -450,7 +450,7 @@
             <div id="packages-view" class="channels-view visible">
               <div id="packages-grid" class="channel-grid package-grid" dir="ltr"></div>
             </div>
-            <div id="channels-view" class="channels-view" style="display: none;">
+            <div id="channels-view" class="channels-view">
               <button id="back-to-packages-btn" class="date-tab back-btn"> &larr; عودة </button>
               <div id="channels-grid" class="channel-grid" dir="ltr"></div>
             </div>
@@ -616,25 +616,19 @@
             const viewToHide = viewToShow === 'packages' ? channelsView : packagesView;
             const viewToShowEl = viewToShow === 'packages' ? packagesView : channelsView;
 
-            if (viewToShowEl.classList.contains('visible')) return;
+            if (viewToShowEl.classList.contains('visible') && !viewToShowEl.classList.contains('animate-out')) return;
 
             viewToHide.classList.add('animate-out');
-
-            setTimeout(() => {
+            viewToHide.addEventListener('animationend', () => {
                 viewToHide.classList.remove('visible');
                 viewToHide.classList.remove('animate-out');
-
-                if (viewToShowEl.style.display === 'none') {
-                    viewToShowEl.style.display = 'block';
-                }
-                viewToShowEl.classList.add('visible');
-                viewToShowEl.classList.add('animate-in');
-                
-                setTimeout(() => {
-                    viewToShowEl.classList.remove('animate-in');
-                }, 300);
-
-            }, 300);
+            }, { once: true });
+            
+            viewToShowEl.classList.add('visible');
+            viewToShowEl.classList.add('animate-in');
+            viewToShowEl.addEventListener('animationend', () => {
+                viewToShowEl.classList.remove('animate-in');
+            }, { once: true });
         }
 
         player.on('volumechange', () => {
