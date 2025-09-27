@@ -201,6 +201,18 @@
         box-shadow: 0 4px 15px var(--btn-glass-shadow);
     }
     
+    /* --- START: تنسيق زر إغلاق المشغل --- */
+    #close-player-btn {
+        background: var(--btn-glass-bg); border: 1px solid var(--btn-glass-border);
+        color: var(--text-main); width: 36px; height: 36px; border-radius: 50%;
+        font-size: 24px; line-height: 1; cursor: pointer; transition: all 0.2s ease;
+        display: flex; align-items: center; justify-content: center;
+    }
+    #close-player-btn:hover { 
+        transform: scale(1.1); box-shadow: 0 4px 15px var(--btn-glass-shadow);
+    }
+    /* --- END: تنسيق زر إغلاق المشغل --- */
+    
     .page-section { display: none; }
     .page-section.active { display: block; }
     
@@ -360,7 +372,9 @@
         <span>مباشر</span>
       </div>
     </div>
-    <div class="header-side right"></div>
+    <div class="header-side right">
+      <button id="close-player-btn" class="hidden" title="إغلاق المشغل">&times;</button>
+      </div>
   </header>
   
   <div class="page-content p-4">
@@ -421,6 +435,7 @@
         const mainTabs = document.querySelectorAll('.main-tab');
         const pageSections = document.querySelectorAll('.page-section');
         const dateTabsContainer = document.getElementById('date-tabs-container');
+        const closePlayerBtn = document.getElementById('close-player-btn');
         
         // --- START: تعديل منطق التبويبات ---
         const playerContainer = document.getElementById('player-container');
@@ -437,6 +452,7 @@
             document.body.classList.remove('player-active');
             sessionStorage.removeItem('activeChannel');
             sessionStorage.removeItem('activeStreamUrl');
+            closePlayerBtn.classList.add('hidden'); // إخفاء زر الإغلاق
         }
         
         const savedTabId = localStorage.getItem('activeTab') || 'matches-section';
@@ -479,7 +495,8 @@
                 }
             });
         });
-        // --- END: تعديل منطق التبويبات ---
+        
+        closePlayerBtn.addEventListener('click', stopStream); // ربط زر الإغلاق بوظيفة الإيقاف
 
         const themeToggle = document.getElementById('theme-toggle');
         const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
@@ -548,6 +565,7 @@
             currentChannel = channel;
             sessionStorage.setItem('activeChannel', JSON.stringify(channel));
             sessionStorage.setItem('activeStreamUrl', url);
+            closePlayerBtn.classList.remove('hidden'); // إظهار زر الإغلاق
             
             document.body.classList.add('player-active');
             
@@ -862,11 +880,9 @@
             }
         });
 
-        // --- START: تعديل زر العودة ---
         backToPackagesBtn.addEventListener('click', () => {
             renderPackages(currentCategory);
         });
-        // --- END: تعديل زر العودة ---
         
         loadChannels();
         updateIcon();
