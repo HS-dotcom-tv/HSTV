@@ -201,18 +201,6 @@
         box-shadow: 0 4px 15px var(--btn-glass-shadow);
     }
     
-    /* --- START: تنسيق زر إغلاق المشغل --- */
-    #close-player-btn {
-        background: var(--btn-glass-bg); border: 1px solid var(--btn-glass-border);
-        color: var(--text-main); width: 36px; height: 36px; border-radius: 50%;
-        font-size: 24px; line-height: 1; cursor: pointer; transition: all 0.2s ease;
-        display: flex; align-items: center; justify-content: center;
-    }
-    #close-player-btn:hover { 
-        transform: scale(1.1); box-shadow: 0 4px 15px var(--btn-glass-shadow);
-    }
-    /* --- END: تنسيق زر إغلاق المشغل --- */
-    
     .page-section { display: none; }
     .page-section.active { display: block; }
     
@@ -312,6 +300,18 @@
         display: none;
     }
     
+    /* --- START: تنسيق زر الخروج من المشغل --- */
+    #player-exit-wrapper {
+        top: 56.25vw; /* يوضع أسفل الفيديو مباشرة */
+        transition: opacity 0.3s ease;
+    }
+    @media (min-width: 768px) {
+        #player-exit-wrapper {
+            top: calc(768px * 0.5625);
+        }
+    }
+    /* --- END: تنسيق زر الخروج من المشغل --- */
+    
     :root {
       --plyr-color-main: #3B82F6;
     }
@@ -372,9 +372,7 @@
         <span>مباشر</span>
       </div>
     </div>
-    <div class="header-side right">
-      <button id="close-player-btn" class="hidden" title="إغلاق المشغل">&times;</button>
-      </div>
+    <div class="header-side right"></div>
   </header>
   
   <div class="page-content p-4">
@@ -426,7 +424,10 @@
   <div id="player-container" class="player-container">
       <video id="video-player" playsinline controls></video>
   </div>
-
+  
+  <div id="player-exit-wrapper" class="hidden fixed right-0 p-4 z-50">
+      <button id="close-player-btn" class="main-tab active">العودة للرئيسية</button>
+  </div>
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
@@ -435,9 +436,9 @@
         const mainTabs = document.querySelectorAll('.main-tab');
         const pageSections = document.querySelectorAll('.page-section');
         const dateTabsContainer = document.getElementById('date-tabs-container');
+        const playerExitWrapper = document.getElementById('player-exit-wrapper');
         const closePlayerBtn = document.getElementById('close-player-btn');
         
-        // --- START: تعديل منطق التبويبات ---
         const playerContainer = document.getElementById('player-container');
         const videoElement = document.getElementById('video-player');
         
@@ -452,7 +453,7 @@
             document.body.classList.remove('player-active');
             sessionStorage.removeItem('activeChannel');
             sessionStorage.removeItem('activeStreamUrl');
-            closePlayerBtn.classList.add('hidden'); // إخفاء زر الإغلاق
+            playerExitWrapper.classList.add('hidden'); // إخفاء زر العودة
         }
         
         const savedTabId = localStorage.getItem('activeTab') || 'matches-section';
@@ -496,7 +497,7 @@
             });
         });
         
-        closePlayerBtn.addEventListener('click', stopStream); // ربط زر الإغلاق بوظيفة الإيقاف
+        closePlayerBtn.addEventListener('click', stopStream); // ربط زر العودة بوظيفة الإيقاف
 
         const themeToggle = document.getElementById('theme-toggle');
         const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>`;
@@ -565,9 +566,11 @@
             currentChannel = channel;
             sessionStorage.setItem('activeChannel', JSON.stringify(channel));
             sessionStorage.setItem('activeStreamUrl', url);
-            closePlayerBtn.classList.remove('hidden'); // إظهار زر الإغلاق
-            
             document.body.classList.add('player-active');
+            
+            if (isRestoring) {
+                playerExitWrapper.classList.remove('hidden');
+            }
             
             const currentTime = player.currentTime > 0 ? player.currentTime : 0;
 
@@ -735,13 +738,12 @@
                 hideIndicatorTimeout = setTimeout(() => volumeIndicator.classList.remove('visible'), 500);
             });
 
-            // --- START: استعادة المشغل عند تحديث الصفحة ---
+            // --- استعادة المشغل عند تحديث الصفحة ---
             const savedChannelData = sessionStorage.getItem('activeChannel');
             const savedStreamUrl = sessionStorage.getItem('activeStreamUrl');
             if (savedChannelData && savedStreamUrl && savedTabId === 'channels-section') {
                 playStream(savedStreamUrl, JSON.parse(savedChannelData), true);
             }
-            // --- END: استعادة المشغل عند تحديث الصفحة ---
         });
 
         player.on('playing', () => {
@@ -749,10 +751,12 @@
         });
 
         player.on('enterfullscreen', () => {
+          playerExitWrapper.classList.add('hidden'); // إخفاء الزر عند الدخول لملء الشاشة
           try { screen.orientation.lock('landscape').catch(err => {}); } catch(err) {}
         });
 
         player.on('exitfullscreen', () => {
+          playerExitWrapper.classList.remove('hidden'); // إظهار الزر عند الخروج من ملء الشاشة
           try { screen.orientation.unlock().catch(err => {}); } catch(err) {}
         });
 
