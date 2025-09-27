@@ -225,41 +225,29 @@
     }
     .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
     
-    /* --- START: تعديل حركة قوائم القنوات --- */
     #channels-section-content {
         position: relative;
-    }
-    .channels-view {
-        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-    }
-    .channels-view:not(.visible) {
-        opacity: 0;
-        transform: scale(0.98);
-        pointer-events: none;
-        position: absolute;
-        width: 100%;
-        top: 0;
-    }
-    .channels-view.visible {
-        opacity: 1;
-        transform: scale(1);
-        position: relative; /* Or static */
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .animate-in {
-        animation: fadeIn 0.3s ease-out forwards;
-    }
     @keyframes fadeOut {
       from { opacity: 1; transform: translateY(0); }
       to { opacity: 0; transform: translateY(-10px); }
     }
-    .animate-out {
+    .channels-view {
+        display: none; /* Hide by default */
+    }
+    .channels-view.visible {
+        display: block; /* Show when visible */
+    }
+    .channels-view.animate-in {
+        animation: fadeIn 0.3s ease-out forwards;
+    }
+    .channels-view.animate-out {
         animation: fadeOut 0.3s ease-out forwards;
     }
-    /* --- END: تعديل حركة قوائم القنوات --- */
 
     .channel-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1.25rem; max-w-3xl; margin: auto;
@@ -465,7 +453,7 @@
             <div id="packages-view" class="channels-view visible">
               <div id="packages-grid" class="channel-grid package-grid" dir="ltr"></div>
             </div>
-            <div id="channels-view" class="channels-view">
+            <div id="channels-view" class="channels-view" style="display: none;">
               <button id="back-to-packages-btn" class="date-tab back-btn"> &larr; عودة </button>
               <div id="channels-grid" class="channel-grid" dir="ltr"></div>
             </div>
@@ -630,15 +618,14 @@
         
         const fitModes = ['contain', 'cover', 'fill'];
         let currentFitModeIndex = 0;
-
-        // --- START: تعديل وظيفة تبديل القوائم ---
         let isSwitchingView = false;
+
         function switchView(viewToShow) {
             if (isSwitchingView) return;
             isSwitchingView = true;
 
-            const viewToHide = (viewToShow === 'packages') ? channelsView : packagesView;
-            const viewToShowEl = (viewToShow === 'packages') ? packagesView : channelsView;
+            const viewToHide = viewToShow === 'packages' ? channelsView : packagesView;
+            const viewToShowEl = viewToShow === 'packages' ? packagesView : channelsView;
             
             viewToHide.classList.add('animate-out');
             
@@ -646,16 +633,19 @@
                 viewToHide.classList.remove('visible');
                 viewToHide.classList.remove('animate-out');
                 
+                if (viewToShowEl.style.display === 'none') {
+                    viewToShowEl.style.display = 'block';
+                }
                 viewToShowEl.classList.add('visible');
                 viewToShowEl.classList.add('animate-in');
-                isSwitchingView = false;
-            }, { once: true });
+                
+                viewToShowEl.addEventListener('animationend', () => {
+                    viewToShowEl.classList.remove('animate-in');
+                    isSwitchingView = false;
+                }, { once: true });
 
-            viewToShowEl.addEventListener('animationend', () => {
-                viewToShowEl.classList.remove('animate-in');
             }, { once: true });
         }
-        // --- END: تعديل وظيفة تبديل القوائم ---
 
         player.on('volumechange', () => {
             localStorage.setItem('hstv_player_volume', player.volume);
@@ -905,6 +895,7 @@
         
         function renderPackages(category) {
             switchView('packages');
+            const packagesGrid = document.getElementById('packages-grid');
             packagesGrid.innerHTML = '';
             const packages = allChannelsData[category] || [];
             if (packages.length === 0) {
@@ -920,6 +911,7 @@
         
         function renderPackageChannels(packageId) {
             switchView('channels');
+            const channelsGrid = document.getElementById('channels-grid');
             channelsGrid.innerHTML = '';
             const packages = allChannelsData[currentCategory] || [];
             const selectedPackage = packages.find(p => p.package_id === packageId);
@@ -947,7 +939,7 @@
             renderPackages(currentCategory); 
           } catch(err) {
             console.error(err);
-            packagesGrid.innerHTML = `<div class="text-center text-red-400 col-span-full">فشل تحميل بيانات القنوات.</div>`;
+            document.getElementById('packages-grid').innerHTML = `<div class="text-center text-red-400 col-span-full">فشل تحميل بيانات القنوات.</div>`;
           }
         }
         
@@ -961,14 +953,14 @@
             });
         });
 
-        packagesGrid.addEventListener('click', e => {
+        document.getElementById('packages-grid').addEventListener('click', e => {
             const packageCard = e.target.closest('.package-card-item');
             if (packageCard) {
                 renderPackageChannels(packageCard.dataset.packageId);
             }
         });
 
-        channelsGrid.addEventListener('click', (e) => {
+        document.getElementById('channels-grid').addEventListener('click', (e) => {
             const cardWrapper = e.target.closest('.channel-card-wrapper');
             if (cardWrapper) {
                 const channelId = cardWrapper.id;
