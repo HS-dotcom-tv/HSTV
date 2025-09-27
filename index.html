@@ -87,7 +87,7 @@
         box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     }
 
-    .main-tab, .date-tab {
+    .main-tab, .date-tab, .channel-filter-btn {
         background: var(--btn-glass-bg);
         border: 1px solid var(--btn-glass-border);
         box-shadow: 0 2px 10px var(--btn-glass-shadow);
@@ -99,11 +99,11 @@
         font-weight: 600;
         padding: 0.5rem 1rem;
     }
-    .main-tab:hover, .date-tab:hover {
+    .main-tab:hover, .date-tab:hover, .channel-filter-btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 15px var(--btn-glass-shadow);
     }
-    .main-tab.active, .date-tab.active { 
+    .main-tab.active, .date-tab.active, .channel-filter-btn.active { 
         background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); 
         color: var(--btn-active-text);
         border: none;
@@ -112,17 +112,17 @@
         box-shadow: var(--btn-active-shadow);
         transform: translateY(-1px);
     }
-    .date-tab {
+    .date-tab, .channel-filter-btn {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
         border-radius: 12px;
     }
-    .date-tabs-container {
+    .sub-tabs-container {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out;
     }
-    .date-tabs-container.visible {
+    .sub-tabs-container.visible {
         max-height: 100px;
         margin-top: 0.75rem;
     }
@@ -219,18 +219,6 @@
     }
     .time-period { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
 
-    .channel-filters {
-      display: flex; gap: 0.75rem; margin-bottom: 1rem; max-w-3xl; margin-left: auto; margin-right: auto;
-    }
-    .channel-filter-btn {
-        background: var(--btn-glass-bg); border: 1px solid var(--btn-glass-border); box-shadow: 0 2px 10px var(--btn-glass-shadow);
-        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--btn-text-color);
-        transition: all .3s ease; border-radius: 12px; font-weight: 600; padding: 0.5rem 1rem; flex: 1;
-    }
-    .channel-filter-btn.active {
-        background: linear-gradient(90deg, var(--btn-active-gradient-start), var(--btn-active-gradient-end)); color: var(--btn-active-text); border: none;
-        backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: var(--btn-active-shadow);
-    }
     .channels-view { display: none; } 
     .channels-view.visible { display: block; }
     .channel-grid {
@@ -288,19 +276,18 @@
         opacity: 1;
     }
     body.player-active .page-content {
-        padding-top: 48vw; /* تم تقليص المسافة بشكل كبير */
+        padding-top: 48vw;
         transition: padding-top 0.3s ease;
     }
     @media (min-width: 768px) {
         body.player-active .page-content {
-            padding-top: 369px; /* 768 * 0.48, تم تقليص المسافة للشاشات الكبيرة */
+            padding-top: 369px;
         }
     }
     body.player-active .main-nav-wrapper {
         display: none;
     }
     
-    /* --- START: تنسيق زر الإغلاق العائم --- */
     #fab-close-player {
         position: fixed;
         top: 20px;
@@ -337,7 +324,6 @@
     #fab-close-player:hover {
         transform: scale(1.1);
     }
-    /* --- END: تنسيق زر الإغلاق العائم --- */
     
     :root {
       --plyr-color-main: #3B82F6;
@@ -406,14 +392,21 @@
             <button id="channels-btn" data-section="channels-section" class="main-tab flex-1">بث مباشر</button>
             <button id="news-btn" data-section="news-section" class="main-tab flex-1">أخبار</button>
           </div>
-          <div id="date-tabs-container" class="date-tabs-container">
+          <div id="date-tabs-container" class="sub-tabs-container">
               <div class="date-tabs flex gap-3">
                 <button id="yesterday" class="date-tab flex-1">الأمس</button>
                 <button id="today" class="date-tab flex-1 active">اليوم</button>
                 <button id="tomorrow" class="date-tab flex-1">الغد</button>
               </div>
           </div>
-      </div>
+          <div id="live-filters-container" class="sub-tabs-container">
+              <div class="flex gap-3">
+                <button class="channel-filter-btn flex-1 active" data-category="sports">رياضية</button>
+                <button class="channel-filter-btn flex-1" data-category="news">إخبارية</button>
+                <button class="channel-filter-btn flex-1" data-category="international">عالمية</button>
+              </div>
+          </div>
+          </div>
     </div>
 
     <main>
@@ -422,16 +415,9 @@
       </div>
 
       <div id="channels-section" class="page-section">
-          <div id="channel-filters-container" class="channel-filters">
-              <button class="channel-filter-btn active" data-category="sports">رياضية</button>
-              <button class="channel-filter-btn" data-category="news">إخبارية</button>
-              <button class="channel-filter-btn" data-category="international">عالمية</button>
-          </div>
-          
           <div id="packages-view" class="channels-view">
             <div id="packages-grid" class="channel-grid package-grid" dir="ltr"></div>
           </div>
-
           <div id="channels-view" class="channels-view">
             <button id="back-to-packages-btn" class="date-tab back-btn"> &larr; عودة </button>
             <div id="channels-grid" class="channel-grid" dir="ltr"></div>
@@ -461,34 +447,12 @@
     document.addEventListener('DOMContentLoaded', () => {
         const mainTabs = document.querySelectorAll('.main-tab');
         const pageSections = document.querySelectorAll('.page-section');
-        const dateTabsContainer = document.getElementById('date-tabs-container');
         const fabCloseBtn = document.getElementById('fab-close-player');
         
-        const playerContainer = document.getElementById('player-container');
-        const videoElement = document.getElementById('video-player');
-        
-        const player = new Plyr(videoElement, {
-            tooltips: { controls: true, seek: true },
-            controls: [ 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen' ]
-        });
-        let hls = new Hls();
-        
-        function showExitButton() {
-            fabCloseBtn.classList.add('visible');
-        }
+        // --- START: تعديل منطق الأزرار الفرعية ---
+        const dateTabsContainer = document.getElementById('date-tabs-container');
+        const liveFiltersContainer = document.getElementById('live-filters-container');
 
-        function hideExitButton() {
-            fabCloseBtn.classList.remove('visible');
-        }
-
-        function stopStream() {
-            player.stop();
-            document.body.classList.remove('player-active');
-            sessionStorage.removeItem('activeChannel');
-            sessionStorage.removeItem('activeStreamUrl');
-            hideExitButton();
-        }
-        
         const savedTabId = localStorage.getItem('activeTab') || 'matches-section';
         document.querySelector('.main-tab.active')?.classList.remove('active');
         document.querySelector('.page-section.active')?.classList.remove('active');
@@ -499,36 +463,59 @@
             tabToActivate.classList.add('active');
             sectionToActivate.classList.add('active');
         }
-        if (savedTabId === 'matches-section') {
-            dateTabsContainer.classList.add('visible');
-        } else {
-            dateTabsContainer.classList.remove('visible');
+
+        function updateSubTabs(activeTabId) {
+            if (activeTabId === 'matches-section') {
+                liveFiltersContainer.classList.remove('visible');
+                dateTabsContainer.classList.add('visible');
+            } else if (activeTabId === 'channels-section') {
+                dateTabsContainer.classList.remove('visible');
+                liveFiltersContainer.classList.add('visible');
+            } else {
+                dateTabsContainer.classList.remove('visible');
+                liveFiltersContainer.classList.remove('visible');
+            }
         }
-
+        updateSubTabs(savedTabId); // تحديث الأزرار عند تحميل الصفحة
+        
         mainTabs.forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                const previousSectionId = document.querySelector('.page-section.active')?.id;
-                const sectionId = tab.getAttribute('data-section');
-
-                if (previousSectionId === 'channels-section' && sectionId !== 'channels-section') {
-                    if (document.body.classList.contains('player-active')) {
-                        stopStream();
-                    }
-                }
-
+            tab.addEventListener('click', () => {
                 mainTabs.forEach(t => t.classList.remove('active'));
                 pageSections.forEach(s => s.classList.remove('active'));
                 tab.classList.add('active');
+                
+                const sectionId = tab.getAttribute('data-section');
                 document.getElementById(sectionId).classList.add('active');
                 localStorage.setItem('activeTab', sectionId);
                 
-                if (sectionId === 'matches-section') { 
-                    dateTabsContainer.classList.add('visible'); 
-                } else { 
-                    dateTabsContainer.classList.remove('visible'); 
+                updateSubTabs(sectionId); // تحديث الأزرار عند النقر
+
+                if (document.body.classList.contains('player-active') && sectionId !== 'channels-section') {
+                    stopStream();
                 }
             });
         });
+        // --- END: تعديل منطق الأزرار الفرعية ---
+
+        const playerContainer = document.getElementById('player-container');
+        const videoElement = document.getElementById('video-player');
+        
+        const player = new Plyr(videoElement, {
+            tooltips: { controls: true, seek: true },
+            controls: [ 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen' ]
+        });
+        let hls = new Hls();
+        
+        function showExitButton() { fabCloseBtn.classList.add('visible'); }
+        function hideExitButton() { fabCloseBtn.classList.remove('visible'); }
+
+        function stopStream() {
+            player.stop();
+            document.body.classList.remove('player-active');
+            sessionStorage.removeItem('activeChannel');
+            sessionStorage.removeItem('activeStreamUrl');
+            hideExitButton();
+        }
         
         fabCloseBtn.addEventListener('click', () => {
             stopStream();
@@ -775,7 +762,6 @@
                 hideIndicatorTimeout = setTimeout(() => volumeIndicator.classList.remove('visible'), 500);
             });
 
-            // --- استعادة المشغل عند تحديث الصفحة ---
             const savedChannelData = sessionStorage.getItem('activeChannel');
             const savedStreamUrl = sessionStorage.getItem('activeStreamUrl');
             if (savedChannelData && savedStreamUrl && savedTabId === 'channels-section') {
@@ -891,9 +877,10 @@
           }
         }
         
-        filterBtns.forEach(btn => {
+        const channelFilterBtns = document.querySelectorAll('.channel-filter-btn');
+        channelFilterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
+                channelFilterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentCategory = btn.dataset.category;
                 renderPackages(currentCategory);
