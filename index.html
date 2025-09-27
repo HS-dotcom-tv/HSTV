@@ -44,7 +44,7 @@
         --card-bg: #282828; --card-hover-bg: #333333;
         --card-shadow: 0 0 0 0 transparent; --card-border: #282828;
         
-        --btn-glass-bg: linear-gradient(135deg, rgba(40, 40, 40, 0.4), rgba(40, 40, 40, 0.2));
+        --btn-glass-bg: linear-gradient(135deg, rgba(40, 40, 40, 0.2), rgba(40, 40, 40, 0.1));
         --btn-glass-border: rgba(255, 255, 255, 0.1);
         --btn-glass-shadow: rgba(0, 0, 0, 0.3);
         --btn-text-color: var(--text-secondary);
@@ -300,6 +300,43 @@
         display: none;
     }
     
+    /* --- START: تنسيق زر الإغلاق العائم --- */
+    #fab-close-player {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1px solid var(--btn-glass-border);
+        background: var(--btn-glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        color: var(--text-main);
+        font-size: 28px;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        line-height: 44px;
+        text-align: center;
+        padding: 0;
+        cursor: pointer;
+        z-index: 100;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        opacity: 0;
+        transform: scale(0.7);
+        pointer-events: none;
+    }
+    #fab-close-player.visible {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+    }
+    #fab-close-player:hover {
+        transform: scale(1.1);
+    }
+    /* --- END: تنسيق زر الإغلاق العائم --- */
+    
     :root {
       --plyr-color-main: #3B82F6;
     }
@@ -408,6 +445,8 @@
   <div id="player-container" class="player-container">
       <video id="video-player" playsinline controls></video>
   </div>
+
+  <button id="fab-close-player" title="إغلاق المشغل">&times;</button>
   
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -417,6 +456,7 @@
         const mainTabs = document.querySelectorAll('.main-tab');
         const pageSections = document.querySelectorAll('.page-section');
         const dateTabsContainer = document.getElementById('date-tabs-container');
+        const fabCloseBtn = document.getElementById('fab-close-player');
         
         const playerContainer = document.getElementById('player-container');
         const videoElement = document.getElementById('video-player');
@@ -427,43 +467,15 @@
         });
         let hls = new Hls();
         
-        // --- START: دوال التحكم بزر الخروج (الطريقة النهائية والمحسنة) ---
+        // --- START: دوال التحكم بزر الإغلاق العائم ---
         function showExitButton() {
-            if (document.getElementById('player-exit-wrapper')) return;
-
-            const channelsSection = document.getElementById('channels-section');
-            const filtersContainer = document.getElementById('channel-filters-container');
-
-            if (channelsSection && filtersContainer) {
-                const wrapper = document.createElement('div');
-                wrapper.id = 'player-exit-wrapper';
-                wrapper.style.display = 'flex';
-                wrapper.style.justifyContent = 'flex-start';
-                wrapper.style.marginBottom = '1rem'; // توحيد المسافة السفلية
-                wrapper.style.maxWidth = '48rem';
-                wrapper.style.marginLeft = 'auto';
-                wrapper.style.marginRight = 'auto';
-
-                const button = document.createElement('button');
-                button.className = 'date-tab back-btn'; // استخدام نفس تنسيق زر "عودة"
-                button.textContent = 'العودة للرئيسية';
-                
-                button.addEventListener('click', () => {
-                    stopStream();
-                    document.getElementById('matches-btn').click();
-                    document.getElementById('today').click();
-                });
-
-                wrapper.appendChild(button);
-                channelsSection.insertBefore(wrapper, filtersContainer);
-            }
+            fabCloseBtn.classList.add('visible');
         }
 
         function hideExitButton() {
-            const wrapper = document.getElementById('player-exit-wrapper');
-            if (wrapper) wrapper.remove();
+            fabCloseBtn.classList.remove('visible');
         }
-        // --- END: دوال التحكم بزر الخروج ---
+        // --- END: دوال التحكم بزر الإغلاق العائم ---
 
         function stopStream() {
             player.stop();
@@ -512,6 +524,12 @@
                     dateTabsContainer.classList.remove('visible'); 
                 }
             });
+        });
+        
+        fabCloseBtn.addEventListener('click', () => {
+            stopStream();
+            document.getElementById('matches-btn').click();
+            document.getElementById('today').click();
         });
         
         const themeToggle = document.getElementById('theme-toggle');
