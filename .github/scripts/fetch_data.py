@@ -5,30 +5,28 @@ from datetime import datetime, timezone, timedelta
 
 # --- Configuration ---
 # احصل على مفاتيح الـ API من متغيرات البيئة (GitHub Secrets)
-FOOTBALL_DATA_API_KEY = os.environ.get('FOOTBALL_DATA_API_KEY')
-NEWS_API_KEY = os.environ.get('NEWS_API_KEY')
+FOOTBALL_DATA_API_KEY_ENV = os.environ.get('API_TEAMDATA_KEY') # تم التعديل ليطابق API_TEAMDATA_KEY
+NEWS_API_KEY_ENV = os.environ.get('NEWS_API_KEY')
 
 # معرف الدوري الإسباني (La Liga) في Football-Data.org v4
-# هذا هو المعرف الأكثر شيوعاً، تأكد من صحته في وثائق الـ API إذا واجهت مشكلة
 LA_LIGA_COMPETITION_ID = 2014 # 2014 هو معرف La Liga في Football-Data.org v4
 
 # لغة الأخبار (ar للعربية، en للإنجليزية)
 NEWS_LANGUAGE = 'ar' 
 
 # الكلمات المفتاحية للأخبار
-NEWS_KEYWORDS = 'كرة قدم الدوري الاسباني ريال مدريد برشلونة' # يمكن تخصيصها أكثر
-# NEWS_KEYWORDS = 'football La Liga Real Madrid Barcelona' # مثال للغة الإنجليزية
+NEWS_KEYWORDS = 'كرة قدم الدوري الاسباني ريال مدريد برشلونة' 
 
 # عدد المقالات الإخبارية المراد جلبها
 NEWS_PAGE_SIZE = 10 
 
 # --- API Headers ---
 FOOTBALL_DATA_HEADERS = {
-    'X-Auth-Token': FOOTBALL_DATA_API_KEY,
+    'X-Auth-Token': FOOTBALL_DATA_API_KEY_ENV, # استخدام المتغير المعدل
     'Accept': 'application/json'
 }
 
-# --- Football-Data.org Base URL ---
+# --- API Base URLs ---
 FOOTBALL_DATA_BASE_URL = 'https://api.football-data.org/v4'
 NEWS_API_BASE_URL = 'https://newsapi.org/v2'
 
@@ -37,8 +35,8 @@ NEWS_API_BASE_URL = 'https://newsapi.org/v2'
 def fetch_football_standings():
     """Fetches La Liga standings from Football-Data.org."""
     print("🔄 Fetching La Liga standings...")
-    if not FOOTBALL_DATA_API_KEY:
-        print("❌ Football Data API Key not found.")
+    if not FOOTBALL_DATA_API_KEY_ENV:
+        print("❌ Football Data API Key (API_TEAMDATA_KEY) not found.")
         return None
 
     url = f"{FOOTBALL_DATA_BASE_URL}/competitions/{LA_LIGA_COMPETITION_ID}/standings"
@@ -48,8 +46,6 @@ def fetch_football_standings():
         data = response.json()
         
         standings_list = []
-        # الـ API يمكن أن يرجع بيانات لعدة أنواع من الترتيب (TOTAL, HOME, AWAY)
-        # سنأخذ الترتيب الإجمالي (TOTAL)
         for standing in data.get('standings', []):
             if standing.get('type') == 'TOTAL':
                 for table_row in standing.get('table', []):
@@ -68,7 +64,7 @@ def fetch_football_standings():
                         'goals_against': table_row.get('goalsAgainst'),
                         'goal_difference': table_row.get('goalDifference')
                     })
-                break # بما أننا وجدنا الترتيب الإجمالي، نخرج من الحلقة
+                break 
 
         print(f"✅ Fetched {len(standings_list)} teams standings.")
         return {
@@ -85,13 +81,12 @@ def fetch_football_standings():
 def fetch_football_news():
     """Fetches football news from NewsAPI.org."""
     print("🔄 Fetching football news...")
-    if not NEWS_API_KEY:
-        print("❌ News API Key not found.")
+    if not NEWS_API_KEY_ENV:
+        print("❌ News API Key (NEWS_API_KEY) not found.")
         return None
 
-    # NewsAPI تتطلب الكلمات المفتاحية مشفرة بـ URL
     encoded_keywords = requests.utils.quote(NEWS_KEYWORDS)
-    url = f"{NEWS_API_BASE_URL}/everything?q={encoded_keywords}&language={NEWS_LANGUAGE}&sortBy=publishedAt&pageSize={NEWS_PAGE_SIZE}&apiKey={NEWS_API_KEY}"
+    url = f"{NEWS_API_BASE_URL}/everything?q={encoded_keywords}&language={NEWS_LANGUAGE}&sortBy=publishedAt&pageSize={NEWS_PAGE_SIZE}&apiKey={NEWS_API_KEY_ENV}"
     
     try:
         response = requests.get(url)
@@ -100,7 +95,6 @@ def fetch_football_news():
         
         news_list = []
         for article in data.get('articles', []):
-            # تصفية المقالات التي قد لا تحتوي على عنوان أو وصف
             if article.get('title') and article.get('description') and article.get('url'):
                 news_list.append({
                     'title': article['title'],
