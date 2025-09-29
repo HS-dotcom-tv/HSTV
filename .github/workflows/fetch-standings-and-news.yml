@@ -1,0 +1,42 @@
+name: Fetch Football Standings & News
+
+on:
+  schedule:
+    - cron: '0 3 * * *'   # تشغيل كل يوم عند الساعة 03:00 بالتوقيت العالمي المنسق (UTC)
+                         # اختر توقيتاً مختلفاً عن Workflow "Update Matches JSON"
+                         # لتقليل الحمل على API وتجنب تجاوز Rate Limits.
+  workflow_dispatch: # للسماح بالتشغيل اليدوي
+
+permissions:
+  contents: write # للسماح للـ Action بدفع التغييرات إلى المستودع
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5 # استخدام أحدث إصدار من setup-python
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: pip install requests
+
+      - name: Run Python script to fetch data
+        env:
+          FOOTBALL_DATA_API_KEY: ${{ secrets.API_TEAMDATA_KEY }} # استخدام اسم الـ secret الذي قدمته
+          NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }} # اسم الـ secret للأخبار
+        run: python .github/scripts/fetch_data.py # تشغيل سكربت Python من مسار محدد
+
+      - name: Commit & Push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add football_standings.json football_news.json # إضافة ملفات JSON الجديدة
+          git diff --staged --quiet || git commit -m "chore: update football standings and news (automated)"
+          git push
