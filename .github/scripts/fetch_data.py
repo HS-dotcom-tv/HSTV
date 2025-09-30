@@ -5,13 +5,14 @@ from datetime import datetime, timezone, timedelta
 
 # --- Configuration ---
 # احصل على مفاتيح الـ API من متغيرات البيئة (GitHub Secrets)
-FOOTBALL_DATA_API_KEY_ENV = os.environ.get('API_TEAMDATA_KEY') # تم التعديل ليطابق API_TEAMDATA_KEY
-NEWS_API_KEY_ENV = os.environ.get('NEWS_API_KEY')
+FOOTBALL_DATA_API_KEY_ENV = os.environ.get('API_TEAMDATA_KEY')
+# تأكد من أن هذا الاسم يتطابق مع الـ Secret في GitHub
+NEWS_API_KEY_ENV = os.environ.get('NEWS_API_KEY') 
 
 # معرف الدوري الإسباني (La Liga) في Football-Data.org v4
-LA_LIGA_COMPETITION_ID = 2014 # 2014 هو معرف La Liga في Football-Data.org v4
+LA_LIGA_COMPETITION_ID = 2014
 
-# لغة الأخبار (ar للعربية، en للإنجليزية)
+# لغة الأخبار (ar للعربية)
 NEWS_LANGUAGE = 'ar' 
 
 # الكلمات المفتاحية للأخبار
@@ -22,13 +23,14 @@ NEWS_PAGE_SIZE = 10
 
 # --- API Headers ---
 FOOTBALL_DATA_HEADERS = {
-    'X-Auth-Token': FOOTBALL_DATA_API_KEY_ENV, # استخدام المتغير المعدل
+    'X-Auth-Token': FOOTBALL_DATA_API_KEY_ENV,
     'Accept': 'application/json'
 }
 
 # --- API Base URLs ---
 FOOTBALL_DATA_BASE_URL = 'https://api.football-data.org/v4'
-NEWS_API_BASE_URL = 'https://newsapi.org/v2'
+# تم التعديل ليتوافق مع GNews API
+GNEWS_API_BASE_URL = 'https://gnews.io/api/v4' 
 
 # --- Functions ---
 
@@ -42,7 +44,7 @@ def fetch_football_standings():
     url = f"{FOOTBALL_DATA_BASE_URL}/competitions/{LA_LIGA_COMPETITION_ID}/standings"
     try:
         response = requests.get(url, headers=FOOTBALL_DATA_HEADERS)
-        response.raise_for_status() # Raise HTTPError for bad responses (4xx or 5xx)
+        response.raise_for_status()
         data = response.json()
         
         standings_list = []
@@ -78,41 +80,54 @@ def fetch_football_standings():
         print(f"❌ Error fetching football standings: {e}")
         return None
 
+# --- الدالة المعدلة لـ GNews ---
 def fetch_football_news():
-    """Fetches football news from NewsAPI.org."""
-    print("🔄 Fetching football news...")
+    """Fetches football news from GNews.io."""
+    print("🔄 Fetching football news from GNews...")
     if not NEWS_API_KEY_ENV:
-        print("❌ News API Key (NEWS_API_KEY) not found.")
+        print("❌ GNews API Key (NEWS_API_KEY) not found.")
         return None
 
-    encoded_keywords = requests.utils.quote(NEWS_KEYWORDS)
-    url = f"{NEWS_API_BASE_URL}/everything?q={encoded_keywords}&language={NEWS_LANGUAGE}&sortBy=publishedAt&pageSize={NEWS_PAGE_SIZE}&apiKey={NEWS_API_KEY_ENV}"
+    # GNews يستخدم 'q' للبحث، 'lang' للغة، و 'token' لمفتاح API
+    params = {
+        'q': NEWS_KEYWORDS,
+        'lang': NEWS_LANGUAGE,
+        'country': 'sa', # يمكنك تغييره إلى 'eg' لمصر أو حذفه
+        'max': NEWS_PAGE_SIZE,
+        'token': NEWS_API_KEY_ENV
+    }
+    
+    url = f"{GNEWS_API_BASE_URL}/search"
     
     try:
-        response = requests.get(url)
+        response = requests.get(url, params=params)
         response.raise_for_status()
         data = response.json()
         
         news_list = []
+        # استجابة GNews تحتوي على مصفوفة باسم 'articles'
         for article in data.get('articles', []):
             if article.get('title') and article.get('description') and article.get('url'):
                 news_list.append({
                     'title': article['title'],
                     'description': article['description'],
                     'url': article['url'],
-                    'image_url': article.get('urlToImage'),
+                    'image_url': article.get('image'), # GNews تستخدم 'image'
                     'published_at': article.get('publishedAt'),
                     'source': article.get('source', {}).get('name')
                 })
         
-        print(f"✅ Fetched {len(news_list)} news articles.")
+        print(f"✅ Fetched {len(news_list)} news articles from GNews.")
         return {
             "generated_at": datetime.now(timezone.utc).isoformat(),
-            "source": "newsapi.org",
+            "source": "gnews.io",
             "articles": news_list
         }
     except requests.exceptions.RequestException as e:
-        print(f"❌ Error fetching news: {e}")
+        print(f"❌ Error fetching news from GNews: {e}")
+        # طباعة محتوى الخطأ من استجابة الـ API للمساعدة في التشخيص
+        if e.response is not None:
+            print(f"Response Body: {e.response.text}")
         return None
 
 def save_json_data(filename, data):
