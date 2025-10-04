@@ -1,5 +1,5 @@
 {
-    "generated_at": "2025-10-03T03:43:32.426331+00:00",
+    "generated_at": "2025-10-04T03:39:00.947589+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -107,14 +107,14 @@
             "team_id": 82,
             "team_name": "Getafe CF",
             "team_crest": "https://crests.football-data.org/82.png",
-            "played_games": 7,
+            "played_games": 8,
             "won": 3,
             "draw": 2,
-            "lost": 2,
+            "lost": 3,
             "points": 11,
-            "goals_for": 8,
-            "goals_against": 9,
-            "goal_difference": -1
+            "goals_for": 9,
+            "goals_against": 11,
+            "goal_difference": -2
         },
         {
             "position": 9,
@@ -145,7 +145,21 @@
             "goal_difference": -1
         },
         {
-            "position": 11,
+            "position": 10,
+            "team_id": 79,
+            "team_name": "CA Osasuna",
+            "team_crest": "https://crests.football-data.org/79.png",
+            "played_games": 8,
+            "won": 3,
+            "draw": 1,
+            "lost": 4,
+            "points": 10,
+            "goals_for": 7,
+            "goals_against": 8,
+            "goal_difference": -1
+        },
+        {
+            "position": 12,
             "team_id": 263,
             "team_name": "Deportivo Alavés",
             "team_crest": "https://crests.football-data.org/263.png",
@@ -159,7 +173,7 @@
             "goal_difference": -1
         },
         {
-            "position": 12,
+            "position": 13,
             "team_id": 95,
             "team_name": "Valencia CF",
             "team_crest": "https://crests.football-data.org/95.png",
@@ -171,20 +185,6 @@
             "goals_for": 9,
             "goals_against": 12,
             "goal_difference": -3
-        },
-        {
-            "position": 13,
-            "team_id": 79,
-            "team_name": "CA Osasuna",
-            "team_crest": "https://crests.football-data.org/79.png",
-            "played_games": 7,
-            "won": 2,
-            "draw": 1,
-            "lost": 4,
-            "points": 7,
-            "goals_for": 5,
-            "goals_against": 7,
-            "goal_difference": -2
         },
         {
             "position": 14,
