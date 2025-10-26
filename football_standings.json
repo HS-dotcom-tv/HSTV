@@ -1,5 +1,5 @@
 {
-    "generated_at": "2025-10-25T03:32:53.041764+00:00",
+    "generated_at": "2025-10-26T03:39:27.480875+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -37,17 +37,31 @@
             "team_id": 94,
             "team_name": "Villarreal CF",
             "team_crest": "https://crests.football-data.org/94.png",
-            "played_games": 9,
-            "won": 5,
+            "played_games": 10,
+            "won": 6,
             "draw": 2,
             "lost": 2,
-            "points": 17,
-            "goals_for": 16,
+            "points": 20,
+            "goals_for": 18,
             "goals_against": 10,
-            "goal_difference": 6
+            "goal_difference": 8
         },
         {
             "position": 4,
+            "team_id": 80,
+            "team_name": "RCD Espanyol de Barcelona",
+            "team_crest": "https://crests.football-data.org/80.png",
+            "played_games": 10,
+            "won": 5,
+            "draw": 3,
+            "lost": 2,
+            "points": 18,
+            "goals_for": 14,
+            "goals_against": 11,
+            "goal_difference": 3
+        },
+        {
+            "position": 5,
             "team_id": 78,
             "team_name": "Club Atlético de Madrid",
             "team_crest": "https://crests.football-data.org/78.png",
@@ -61,7 +75,7 @@
             "goal_difference": 6
         },
         {
-            "position": 5,
+            "position": 6,
             "team_id": 90,
             "team_name": "Real Betis Balompié",
             "team_crest": "https://crests.football-data.org/90.png",
@@ -75,49 +89,49 @@
             "goal_difference": 5
         },
         {
-            "position": 6,
-            "team_id": 80,
-            "team_name": "RCD Espanyol de Barcelona",
-            "team_crest": "https://crests.football-data.org/80.png",
-            "played_games": 9,
-            "won": 4,
-            "draw": 3,
-            "lost": 2,
-            "points": 15,
-            "goals_for": 13,
-            "goals_against": 11,
-            "goal_difference": 2
-        },
-        {
             "position": 7,
             "team_id": 285,
             "team_name": "Elche CF",
             "team_crest": "https://crests.football-data.org/285.png",
-            "played_games": 9,
+            "played_games": 10,
             "won": 3,
             "draw": 5,
-            "lost": 1,
+            "lost": 2,
             "points": 14,
             "goals_for": 11,
-            "goals_against": 9,
-            "goal_difference": 2
+            "goals_against": 10,
+            "goal_difference": 1
         },
         {
             "position": 8,
             "team_id": 77,
             "team_name": "Athletic Club",
             "team_crest": "https://crests.football-data.org/77.png",
-            "played_games": 9,
+            "played_games": 10,
             "won": 4,
             "draw": 2,
-            "lost": 3,
+            "lost": 4,
             "points": 14,
             "goals_for": 9,
-            "goals_against": 9,
-            "goal_difference": 0
+            "goals_against": 10,
+            "goal_difference": -1
         },
         {
             "position": 9,
+            "team_id": 82,
+            "team_name": "Getafe CF",
+            "team_crest": "https://crests.football-data.org/82.png",
+            "played_games": 10,
+            "won": 4,
+            "draw": 2,
+            "lost": 4,
+            "points": 14,
+            "goals_for": 10,
+            "goals_against": 12,
+            "goal_difference": -2
+        },
+        {
+            "position": 10,
             "team_id": 559,
             "team_name": "Sevilla FC",
             "team_crest": "https://crests.football-data.org/559.png",
@@ -131,7 +145,7 @@
             "goal_difference": 1
         },
         {
-            "position": 10,
+            "position": 11,
             "team_id": 263,
             "team_name": "Deportivo Alavés",
             "team_crest": "https://crests.football-data.org/263.png",
@@ -145,7 +159,7 @@
             "goal_difference": 1
         },
         {
-            "position": 11,
+            "position": 12,
             "team_id": 87,
             "team_name": "Rayo Vallecano de Madrid",
             "team_crest": "https://crests.football-data.org/87.png",
@@ -157,20 +171,6 @@
             "goals_for": 11,
             "goals_against": 10,
             "goal_difference": 1
-        },
-        {
-            "position": 12,
-            "team_id": 82,
-            "team_name": "Getafe CF",
-            "team_crest": "https://crests.football-data.org/82.png",
-            "played_games": 9,
-            "won": 3,
-            "draw": 2,
-            "lost": 4,
-            "points": 11,
-            "goals_for": 9,
-            "goals_against": 12,
-            "goal_difference": -3
         },
         {
             "position": 13,
@@ -201,18 +201,18 @@
             "goal_difference": -4
         },
         {
-            "position": 14,
+            "position": 15,
             "team_id": 95,
             "team_name": "Valencia CF",
             "team_crest": "https://crests.football-data.org/95.png",
-            "played_games": 9,
+            "played_games": 10,
             "won": 2,
             "draw": 3,
-            "lost": 4,
+            "lost": 5,
             "points": 9,
             "goals_for": 10,
-            "goals_against": 14,
-            "goal_difference": -4
+            "goals_against": 16,
+            "goal_difference": -6
         },
         {
             "position": 16,
@@ -261,13 +261,13 @@
             "team_id": 1048,
             "team_name": "Real Oviedo",
             "team_crest": "https://crests.football-data.org/1048.png",
-            "played_games": 9,
+            "played_games": 10,
             "won": 2,
-            "draw": 0,
+            "draw": 1,
             "lost": 7,
-            "points": 6,
-            "goals_for": 4,
-            "goals_against": 16,
+            "points": 7,
+            "goals_for": 7,
+            "goals_against": 19,
             "goal_difference": -12
         },
         {
@@ -275,13 +275,13 @@
             "team_id": 298,
             "team_name": "Girona FC",
             "team_crest": "https://crests.football-data.org/298.png",
-            "played_games": 9,
+            "played_games": 10,
             "won": 1,
-            "draw": 3,
+            "draw": 4,
             "lost": 5,
-            "points": 6,
-            "goals_for": 6,
-            "goals_against": 19,
+            "points": 7,
+            "goals_for": 9,
+            "goals_against": 22,
             "goal_difference": -13
         }
     ]
