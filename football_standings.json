@@ -1,5 +1,5 @@
 {
-    "generated_at": "2025-10-27T03:50:29.820862+00:00",
+    "generated_at": "2025-10-28T03:39:30.606156+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -48,6 +48,20 @@
         },
         {
             "position": 4,
+            "team_id": 78,
+            "team_name": "Club Atlético de Madrid",
+            "team_crest": "https://crests.football-data.org/78.png",
+            "played_games": 10,
+            "won": 5,
+            "draw": 4,
+            "lost": 1,
+            "points": 19,
+            "goals_for": 18,
+            "goals_against": 10,
+            "goal_difference": 8
+        },
+        {
+            "position": 5,
             "team_id": 80,
             "team_name": "RCD Espanyol de Barcelona",
             "team_crest": "https://crests.football-data.org/80.png",
@@ -61,32 +75,18 @@
             "goal_difference": 3
         },
         {
-            "position": 5,
-            "team_id": 78,
-            "team_name": "Club Atlético de Madrid",
-            "team_crest": "https://crests.football-data.org/78.png",
-            "played_games": 9,
-            "won": 4,
-            "draw": 4,
-            "lost": 1,
-            "points": 16,
-            "goals_for": 16,
-            "goals_against": 10,
-            "goal_difference": 6
-        },
-        {
             "position": 6,
             "team_id": 90,
             "team_name": "Real Betis Balompié",
             "team_crest": "https://crests.football-data.org/90.png",
-            "played_games": 9,
+            "played_games": 10,
             "won": 4,
             "draw": 4,
-            "lost": 1,
+            "lost": 2,
             "points": 16,
             "goals_for": 15,
-            "goals_against": 10,
-            "goal_difference": 5
+            "goals_against": 12,
+            "goal_difference": 3
         },
         {
             "position": 7,
