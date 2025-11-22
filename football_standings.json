@@ -1,5 +1,5 @@
 {
-    "generated_at": "2025-11-21T03:41:48.537871+00:00",
+    "generated_at": "2025-11-22T03:36:03.026508+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -202,6 +202,20 @@
         },
         {
             "position": 15,
+            "team_id": 95,
+            "team_name": "Valencia CF",
+            "team_crest": "https://crests.football-data.org/95.png",
+            "played_games": 13,
+            "won": 3,
+            "draw": 4,
+            "lost": 6,
+            "points": 13,
+            "goals_for": 12,
+            "goals_against": 21,
+            "goal_difference": -9
+        },
+        {
+            "position": 16,
             "team_id": 89,
             "team_name": "RCD Mallorca",
             "team_crest": "https://crests.football-data.org/89.png",
@@ -215,7 +229,7 @@
             "goal_difference": -6
         },
         {
-            "position": 16,
+            "position": 17,
             "team_id": 79,
             "team_name": "CA Osasuna",
             "team_crest": "https://crests.football-data.org/79.png",
@@ -227,20 +241,6 @@
             "goals_for": 9,
             "goals_against": 13,
             "goal_difference": -4
-        },
-        {
-            "position": 17,
-            "team_id": 95,
-            "team_name": "Valencia CF",
-            "team_crest": "https://crests.football-data.org/95.png",
-            "played_games": 12,
-            "won": 2,
-            "draw": 4,
-            "lost": 6,
-            "points": 10,
-            "goals_for": 11,
-            "goals_against": 21,
-            "goal_difference": -10
         },
         {
             "position": 18,
@@ -261,14 +261,14 @@
             "team_id": 88,
             "team_name": "Levante UD",
             "team_crest": "https://crests.football-data.org/88.png",
-            "played_games": 12,
+            "played_games": 13,
             "won": 2,
             "draw": 3,
-            "lost": 7,
+            "lost": 8,
             "points": 9,
             "goals_for": 16,
-            "goals_against": 23,
-            "goal_difference": -7
+            "goals_against": 24,
+            "goal_difference": -8
         },
         {
             "position": 20,
