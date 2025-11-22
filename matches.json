@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-11-21T02:28:12.608Z",
+  "generated_at": "2025-11-22T02:23:39.963Z",
   "source": "football-data.org",
   "response": [
     {
@@ -8,8 +8,8 @@
         "date": "2025-11-21T19:30:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -33,8 +33,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 1
       }
     },
     {
@@ -43,8 +43,8 @@
         "date": "2025-11-21T19:45:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -68,8 +68,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 5
       }
     },
     {
@@ -78,8 +78,8 @@
         "date": "2025-11-21T20:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -103,8 +103,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 0
       }
     },
     {
@@ -284,7 +284,7 @@
     },
     {
       "fixture": {
-        "id": 540496,
+        "id": 540497,
         "date": "2025-11-22T14:30:00Z",
         "venue": null,
         "status": {
@@ -302,14 +302,14 @@
       },
       "teams": {
         "home": {
-          "id": 5,
-          "name": "FC Bayern München",
-          "logo": "https://crests.football-data.org/5.svg"
+          "id": 4,
+          "name": "Borussia Dortmund",
+          "logo": "https://crests.football-data.org/4.svg"
         },
         "away": {
-          "id": 17,
-          "name": "SC Freiburg",
-          "logo": "https://crests.football-data.org/17.svg"
+          "id": 10,
+          "name": "VfB Stuttgart",
+          "logo": "https://crests.football-data.org/10.svg"
         }
       },
       "goals": {
@@ -354,41 +354,6 @@
     },
     {
       "fixture": {
-        "id": 540497,
-        "date": "2025-11-22T14:30:00Z",
-        "venue": null,
-        "status": {
-          "short": "NS",
-          "long": "TIMED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2002,
-        "code": "BL1",
-        "name": "Bundesliga",
-        "logo": "https://crests.football-data.org/BL1.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 4,
-          "name": "Borussia Dortmund",
-          "logo": "https://crests.football-data.org/4.svg"
-        },
-        "away": {
-          "id": 10,
-          "name": "VfB Stuttgart",
-          "logo": "https://crests.football-data.org/10.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
-      }
-    },
-    {
-      "fixture": {
         "id": 540500,
         "date": "2025-11-22T14:30:00Z",
         "venue": null,
@@ -424,6 +389,41 @@
     },
     {
       "fixture": {
+        "id": 540496,
+        "date": "2025-11-22T14:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2002,
+        "code": "BL1",
+        "name": "Bundesliga",
+        "logo": "https://crests.football-data.org/BL1.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 5,
+          "name": "FC Bayern München",
+          "logo": "https://crests.football-data.org/5.svg"
+        },
+        "away": {
+          "id": 17,
+          "name": "SC Freiburg",
+          "logo": "https://crests.football-data.org/17.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
         "id": 537900,
         "date": "2025-11-22T15:00:00Z",
         "venue": null,
@@ -450,6 +450,41 @@
           "id": 351,
           "name": "Nottingham Forest FC",
           "logo": "https://crests.football-data.org/351.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537896,
+        "date": "2025-11-22T15:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 397,
+          "name": "Brighton & Hove Albion FC",
+          "logo": "https://crests.football-data.org/397.svg"
+        },
+        "away": {
+          "id": 402,
+          "name": "Brentford FC",
+          "logo": "https://crests.football-data.org/402.svg"
         }
       },
       "goals": {
@@ -520,41 +555,6 @@
           "id": 354,
           "name": "Crystal Palace FC",
           "logo": "https://crests.football-data.org/354.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
-      }
-    },
-    {
-      "fixture": {
-        "id": 537896,
-        "date": "2025-11-22T15:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "NS",
-          "long": "TIMED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2021,
-        "code": "PL",
-        "name": "Premier League",
-        "logo": "https://crests.football-data.org/PL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 397,
-          "name": "Brighton & Hove Albion FC",
-          "logo": "https://crests.football-data.org/397.svg"
-        },
-        "away": {
-          "id": 402,
-          "name": "Brentford FC",
-          "logo": "https://crests.football-data.org/402.svg"
         }
       },
       "goals": {
@@ -739,6 +739,41 @@
     },
     {
       "fixture": {
+        "id": 537903,
+        "date": "2025-11-22T17:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 67,
+          "name": "Newcastle United FC",
+          "logo": "https://crests.football-data.org/67.svg"
+        },
+        "away": {
+          "id": 65,
+          "name": "Manchester City FC",
+          "logo": "https://crests.football-data.org/65.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
         "id": 544335,
         "date": "2025-11-22T17:30:00Z",
         "venue": null,
@@ -809,8 +844,8 @@
     },
     {
       "fixture": {
-        "id": 537903,
-        "date": "2025-11-22T17:30:00Z",
+        "id": 537549,
+        "date": "2025-11-22T17:45:00Z",
         "venue": null,
         "status": {
           "short": "NS",
@@ -819,22 +854,22 @@
         }
       },
       "league": {
-        "id": 2021,
-        "code": "PL",
-        "name": "Premier League",
-        "logo": "https://crests.football-data.org/PL.png",
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
         "country": ""
       },
       "teams": {
         "home": {
-          "id": 67,
-          "name": "Newcastle United FC",
-          "logo": "https://crests.football-data.org/67.svg"
+          "id": 678,
+          "name": "AFC Ajax",
+          "logo": "https://crests.football-data.org/678.svg"
         },
         "away": {
-          "id": 65,
-          "name": "Manchester City FC",
-          "logo": "https://crests.football-data.org/65.svg"
+          "id": 670,
+          "name": "SBV Excelsior",
+          "logo": "https://crests.football-data.org/670.svg"
         }
       },
       "goals": {
@@ -870,41 +905,6 @@
           "id": 666,
           "name": "FC Twente '65",
           "logo": "https://crests.football-data.org/666.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
-      }
-    },
-    {
-      "fixture": {
-        "id": 537549,
-        "date": "2025-11-22T17:45:00Z",
-        "venue": null,
-        "status": {
-          "short": "NS",
-          "long": "TIMED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2003,
-        "code": "DED",
-        "name": "Eredivisie",
-        "logo": "https://crests.football-data.org/ED.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 678,
-          "name": "AFC Ajax",
-          "logo": "https://crests.football-data.org/678.svg"
-        },
-        "away": {
-          "id": 670,
-          "name": "SBV Excelsior",
-          "logo": "https://crests.football-data.org/670.svg"
         }
       },
       "goals": {
@@ -984,41 +984,6 @@
     },
     {
       "fixture": {
-        "id": 537553,
-        "date": "2025-11-22T20:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "NS",
-          "long": "TIMED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2003,
-        "code": "DED",
-        "name": "Eredivisie",
-        "logo": "https://crests.football-data.org/ED.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 671,
-          "name": "Heracles Almelo",
-          "logo": "https://crests.football-data.org/671.svg"
-        },
-        "away": {
-          "id": 718,
-          "name": "Go Ahead Eagles",
-          "logo": "https://crests.football-data.org/718.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
-      }
-    },
-    {
-      "fixture": {
         "id": 537556,
         "date": "2025-11-22T20:00:00Z",
         "venue": null,
@@ -1089,6 +1054,41 @@
     },
     {
       "fixture": {
+        "id": 537553,
+        "date": "2025-11-22T20:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 671,
+          "name": "Heracles Almelo",
+          "logo": "https://crests.football-data.org/671.svg"
+        },
+        "away": {
+          "id": 718,
+          "name": "Go Ahead Eagles",
+          "logo": "https://crests.football-data.org/718.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
         "id": 542519,
         "date": "2025-11-22T20:05:00Z",
         "venue": null,
@@ -1115,6 +1115,741 @@
           "id": 533,
           "name": "Le Havre AC",
           "logo": "https://crests.football-data.org/533.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537555,
+        "date": "2025-11-23T11:15:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 673,
+          "name": "SC Heerenveen",
+          "logo": "https://crests.football-data.org/673.svg"
+        },
+        "away": {
+          "id": 682,
+          "name": "AZ",
+          "logo": "https://crests.football-data.org/682.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 536928,
+        "date": "2025-11-23T11:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2019,
+        "code": "SA",
+        "name": "Serie A",
+        "logo": "https://crests.football-data.org/SA.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 450,
+          "name": "Hellas Verona FC",
+          "logo": "https://crests.football-data.org/450.svg"
+        },
+        "away": {
+          "id": 112,
+          "name": "Parma Calcio 1913",
+          "logo": "https://crests.football-data.org/112.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 544336,
+        "date": "2025-11-23T13:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "logo": "https://crests.football-data.org/laliga.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 1048,
+          "name": "Real Oviedo",
+          "logo": "https://crests.football-data.org/1048.svg"
+        },
+        "away": {
+          "id": 87,
+          "name": "Rayo Vallecano de Madrid",
+          "logo": "https://crests.football-data.org/87.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537552,
+        "date": "2025-11-23T13:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 675,
+          "name": "Feyenoord Rotterdam",
+          "logo": "https://crests.football-data.org/675.svg"
+        },
+        "away": {
+          "id": 1915,
+          "name": "NEC",
+          "logo": "https://crests.football-data.org/1915.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537557,
+        "date": "2025-11-23T13:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 1912,
+          "name": "Telstar 1963",
+          "logo": "https://crests.football-data.org/1912.svg"
+        },
+        "away": {
+          "id": 676,
+          "name": "FC Utrecht",
+          "logo": "https://crests.football-data.org/676.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 542514,
+        "date": "2025-11-23T14:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2015,
+        "code": "FL1",
+        "name": "Ligue 1",
+        "logo": "https://crests.football-data.org/FL1.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 519,
+          "name": "AJ Auxerre",
+          "logo": "https://crests.football-data.org/519.svg"
+        },
+        "away": {
+          "id": 523,
+          "name": "Olympique Lyonnais",
+          "logo": "https://crests.football-data.org/523.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 536934,
+        "date": "2025-11-23T14:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2019,
+        "code": "SA",
+        "name": "Serie A",
+        "logo": "https://crests.football-data.org/SA.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 457,
+          "name": "US Cremonese",
+          "logo": "https://crests.football-data.org/457.svg"
+        },
+        "away": {
+          "id": 100,
+          "name": "AS Roma",
+          "logo": "https://crests.football-data.org/100.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537901,
+        "date": "2025-11-23T14:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 341,
+          "name": "Leeds United FC",
+          "logo": "https://crests.football-data.org/341.svg"
+        },
+        "away": {
+          "id": 58,
+          "name": "Aston Villa FC",
+          "logo": "https://crests.football-data.org/58.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 540499,
+        "date": "2025-11-23T14:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2002,
+        "code": "BL1",
+        "name": "Bundesliga",
+        "logo": "https://crests.football-data.org/BL1.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 721,
+          "name": "RB Leipzig",
+          "logo": "https://crests.football-data.org/721.svg"
+        },
+        "away": {
+          "id": 12,
+          "name": "SV Werder Bremen",
+          "logo": "https://crests.football-data.org/12.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 544332,
+        "date": "2025-11-23T15:15:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "logo": "https://crests.football-data.org/laliga.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 90,
+          "name": "Real Betis Balompié",
+          "logo": "https://crests.football-data.org/90.svg"
+        },
+        "away": {
+          "id": 298,
+          "name": "Girona FC",
+          "logo": "https://crests.football-data.org/298.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537550,
+        "date": "2025-11-23T15:45:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 677,
+          "name": "FC Groningen",
+          "logo": "https://crests.football-data.org/677.svg"
+        },
+        "away": {
+          "id": 684,
+          "name": "PEC Zwolle",
+          "logo": "https://crests.football-data.org/684.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 542516,
+        "date": "2025-11-23T16:15:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2015,
+        "code": "FL1",
+        "name": "Ligue 1",
+        "logo": "https://crests.football-data.org/FL1.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 511,
+          "name": "Toulouse FC",
+          "logo": "https://crests.football-data.org/511.svg"
+        },
+        "away": {
+          "id": 532,
+          "name": "Angers SCO",
+          "logo": "https://crests.football-data.org/532.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 542515,
+        "date": "2025-11-23T16:15:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2015,
+        "code": "FL1",
+        "name": "Ligue 1",
+        "logo": "https://crests.football-data.org/FL1.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 543,
+          "name": "FC Nantes",
+          "logo": "https://crests.football-data.org/543.svg"
+        },
+        "away": {
+          "id": 525,
+          "name": "FC Lorient",
+          "logo": "https://crests.football-data.org/525.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 542521,
+        "date": "2025-11-23T16:15:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2015,
+        "code": "FL1",
+        "name": "Ligue 1",
+        "logo": "https://crests.football-data.org/FL1.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 512,
+          "name": "Stade Brestois 29",
+          "logo": "https://crests.football-data.org/512.svg"
+        },
+        "away": {
+          "id": 545,
+          "name": "FC Metz",
+          "logo": "https://crests.football-data.org/545.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537897,
+        "date": "2025-11-23T16:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 57,
+          "name": "Arsenal FC",
+          "logo": "https://crests.football-data.org/57.svg"
+        },
+        "away": {
+          "id": 73,
+          "name": "Tottenham Hotspur FC",
+          "logo": "https://crests.football-data.org/73.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 540502,
+        "date": "2025-11-23T16:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2002,
+        "code": "BL1",
+        "name": "Bundesliga",
+        "logo": "https://crests.football-data.org/BL1.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 20,
+          "name": "FC St. Pauli 1910",
+          "logo": "https://crests.football-data.org/20.svg"
+        },
+        "away": {
+          "id": 28,
+          "name": "1. FC Union Berlin",
+          "logo": "https://crests.football-data.org/28.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 536930,
+        "date": "2025-11-23T17:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2019,
+        "code": "SA",
+        "name": "Serie A",
+        "logo": "https://crests.football-data.org/SA.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 110,
+          "name": "SS Lazio",
+          "logo": "https://crests.football-data.org/110.svg"
+        },
+        "away": {
+          "id": 5890,
+          "name": "US Lecce",
+          "logo": "https://crests.football-data.org/5890.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 544338,
+        "date": "2025-11-23T17:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "logo": "https://crests.football-data.org/laliga.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 82,
+          "name": "Getafe CF",
+          "logo": "https://crests.football-data.org/82.svg"
+        },
+        "away": {
+          "id": 78,
+          "name": "Club Atlético de Madrid",
+          "logo": "https://crests.football-data.org/78.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 542518,
+        "date": "2025-11-23T19:45:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2015,
+        "code": "FL1",
+        "name": "Ligue 1",
+        "logo": "https://crests.football-data.org/FL1.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 521,
+          "name": "Lille OSC",
+          "logo": "https://crests.football-data.org/521.svg"
+        },
+        "away": {
+          "id": 1045,
+          "name": "Paris FC",
+          "logo": "https://crests.football-data.org/1045.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 536929,
+        "date": "2025-11-23T19:45:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2019,
+        "code": "SA",
+        "name": "Serie A",
+        "logo": "https://crests.football-data.org/SA.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 108,
+          "name": "FC Internazionale Milano",
+          "logo": "https://crests.football-data.org/108.svg"
+        },
+        "away": {
+          "id": 98,
+          "name": "AC Milan",
+          "logo": "https://crests.football-data.org/98.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 544333,
+        "date": "2025-11-23T20:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2014,
+        "code": "PD",
+        "name": "Primera Division",
+        "logo": "https://crests.football-data.org/laliga.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 285,
+          "name": "Elche CF",
+          "logo": "https://crests.football-data.org/285.svg"
+        },
+        "away": {
+          "id": 86,
+          "name": "Real Madrid CF",
+          "logo": "https://crests.football-data.org/86.svg"
         }
       },
       "goals": {
