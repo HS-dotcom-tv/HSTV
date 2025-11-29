@@ -1,5 +1,5 @@
 {
-    "generated_at": "2025-11-28T03:43:16.988215+00:00",
+    "generated_at": "2025-11-29T03:43:12.973805+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -93,14 +93,14 @@
             "team_id": 82,
             "team_name": "Getafe CF",
             "team_crest": "https://crests.football-data.org/82.png",
-            "played_games": 13,
-            "won": 5,
+            "played_games": 14,
+            "won": 6,
             "draw": 2,
             "lost": 6,
-            "points": 17,
-            "goals_for": 12,
+            "points": 20,
+            "goals_for": 13,
             "goals_against": 15,
-            "goal_difference": -3
+            "goal_difference": -2
         },
         {
             "position": 8,
@@ -132,20 +132,6 @@
         },
         {
             "position": 10,
-            "team_id": 285,
-            "team_name": "Elche CF",
-            "team_crest": "https://crests.football-data.org/285.png",
-            "played_games": 13,
-            "won": 3,
-            "draw": 7,
-            "lost": 3,
-            "points": 16,
-            "goals_for": 15,
-            "goals_against": 16,
-            "goal_difference": -1
-        },
-        {
-            "position": 11,
             "team_id": 559,
             "team_name": "Sevilla FC",
             "team_crest": "https://crests.football-data.org/559.png",
@@ -159,7 +145,7 @@
             "goal_difference": -2
         },
         {
-            "position": 12,
+            "position": 11,
             "team_id": 558,
             "team_name": "RC Celta de Vigo",
             "team_crest": "https://crests.football-data.org/558.png",
@@ -170,6 +156,20 @@
             "points": 16,
             "goals_for": 16,
             "goals_against": 18,
+            "goal_difference": -2
+        },
+        {
+            "position": 12,
+            "team_id": 285,
+            "team_name": "Elche CF",
+            "team_crest": "https://crests.football-data.org/285.png",
+            "played_games": 14,
+            "won": 3,
+            "draw": 7,
+            "lost": 4,
+            "points": 16,
+            "goals_for": 15,
+            "goals_against": 17,
             "goal_difference": -2
         },
         {
