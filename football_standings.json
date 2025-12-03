@@ -1,5 +1,5 @@
 {
-    "generated_at": "2025-12-02T03:50:59.497778+00:00",
+    "generated_at": "2025-12-03T03:49:50.353730+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -9,14 +9,14 @@
             "team_id": 81,
             "team_name": "FC Barcelona",
             "team_crest": "https://crests.football-data.org/81.png",
-            "played_games": 14,
-            "won": 11,
+            "played_games": 15,
+            "won": 12,
             "draw": 1,
             "lost": 2,
-            "points": 34,
-            "goals_for": 39,
-            "goals_against": 16,
-            "goal_difference": 23
+            "points": 37,
+            "goals_for": 42,
+            "goals_against": 17,
+            "goal_difference": 25
         },
         {
             "position": 2,
@@ -51,14 +51,14 @@
             "team_id": 78,
             "team_name": "Club Atlético de Madrid",
             "team_crest": "https://crests.football-data.org/78.png",
-            "played_games": 14,
+            "played_games": 15,
             "won": 9,
             "draw": 4,
-            "lost": 1,
+            "lost": 2,
             "points": 31,
-            "goals_for": 27,
-            "goals_against": 11,
-            "goal_difference": 16
+            "goals_for": 28,
+            "goals_against": 14,
+            "goal_difference": 14
         },
         {
             "position": 5,
