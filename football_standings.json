@@ -1,5 +1,5 @@
 {
-    "generated_at": "2025-12-03T03:49:50.353730+00:00",
+    "generated_at": "2025-12-04T03:51:33.946053+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -23,14 +23,14 @@
             "team_id": 86,
             "team_name": "Real Madrid CF",
             "team_crest": "https://crests.football-data.org/86.png",
-            "played_games": 14,
-            "won": 10,
+            "played_games": 15,
+            "won": 11,
             "draw": 3,
             "lost": 1,
-            "points": 33,
-            "goals_for": 29,
+            "points": 36,
+            "goals_for": 32,
             "goals_against": 13,
-            "goal_difference": 16
+            "goal_difference": 19
         },
         {
             "position": 3,
@@ -107,14 +107,14 @@
             "team_id": 77,
             "team_name": "Athletic Club",
             "team_crest": "https://crests.football-data.org/77.png",
-            "played_games": 14,
+            "played_games": 15,
             "won": 6,
             "draw": 2,
-            "lost": 6,
+            "lost": 7,
             "points": 20,
             "goals_for": 14,
-            "goals_against": 17,
-            "goal_difference": -3
+            "goals_against": 20,
+            "goal_difference": -6
         },
         {
             "position": 9,
