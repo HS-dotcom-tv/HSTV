@@ -1,5 +1,5 @@
 {
-    "generated_at": "2025-12-05T03:49:40.759036+00:00",
+    "generated_at": "2025-12-06T03:41:13.485451+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -202,6 +202,20 @@
         },
         {
             "position": 15,
+            "team_id": 89,
+            "team_name": "RCD Mallorca",
+            "team_crest": "https://crests.football-data.org/89.png",
+            "played_games": 15,
+            "won": 3,
+            "draw": 5,
+            "lost": 7,
+            "points": 14,
+            "goals_for": 15,
+            "goals_against": 22,
+            "goal_difference": -7
+        },
+        {
+            "position": 16,
             "team_id": 95,
             "team_name": "Valencia CF",
             "team_crest": "https://crests.football-data.org/95.png",
@@ -213,20 +227,6 @@
             "goals_for": 13,
             "goals_against": 22,
             "goal_difference": -9
-        },
-        {
-            "position": 16,
-            "team_id": 89,
-            "team_name": "RCD Mallorca",
-            "team_crest": "https://crests.football-data.org/89.png",
-            "played_games": 14,
-            "won": 3,
-            "draw": 4,
-            "lost": 7,
-            "points": 13,
-            "goals_for": 15,
-            "goals_against": 22,
-            "goal_difference": -7
         },
         {
             "position": 17,
@@ -258,6 +258,20 @@
         },
         {
             "position": 19,
+            "team_id": 1048,
+            "team_name": "Real Oviedo",
+            "team_crest": "https://crests.football-data.org/1048.png",
+            "played_games": 15,
+            "won": 2,
+            "draw": 4,
+            "lost": 9,
+            "points": 10,
+            "goals_for": 7,
+            "goals_against": 22,
+            "goal_difference": -15
+        },
+        {
+            "position": 20,
             "team_id": 88,
             "team_name": "Levante UD",
             "team_crest": "https://crests.football-data.org/88.png",
@@ -269,20 +283,6 @@
             "goals_for": 16,
             "goals_against": 26,
             "goal_difference": -10
-        },
-        {
-            "position": 20,
-            "team_id": 1048,
-            "team_name": "Real Oviedo",
-            "team_crest": "https://crests.football-data.org/1048.png",
-            "played_games": 14,
-            "won": 2,
-            "draw": 3,
-            "lost": 9,
-            "points": 9,
-            "goals_for": 7,
-            "goals_against": 22,
-            "goal_difference": -15
         }
     ]
 }
