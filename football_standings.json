@@ -1,5 +1,5 @@
 {
-    "generated_at": "2025-12-08T03:53:53.023385+00:00",
+    "generated_at": "2025-12-09T03:49:34.245690+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -202,6 +202,20 @@
         },
         {
             "position": 15,
+            "team_id": 79,
+            "team_name": "CA Osasuna",
+            "team_crest": "https://crests.football-data.org/79.png",
+            "played_games": 15,
+            "won": 4,
+            "draw": 3,
+            "lost": 8,
+            "points": 15,
+            "goals_for": 14,
+            "goals_against": 18,
+            "goal_difference": -4
+        },
+        {
+            "position": 16,
             "team_id": 95,
             "team_name": "Valencia CF",
             "team_crest": "https://crests.football-data.org/95.png",
@@ -215,7 +229,7 @@
             "goal_difference": -9
         },
         {
-            "position": 16,
+            "position": 17,
             "team_id": 89,
             "team_name": "RCD Mallorca",
             "team_crest": "https://crests.football-data.org/89.png",
@@ -227,20 +241,6 @@
             "goals_for": 15,
             "goals_against": 22,
             "goal_difference": -7
-        },
-        {
-            "position": 17,
-            "team_id": 79,
-            "team_name": "CA Osasuna",
-            "team_crest": "https://crests.football-data.org/79.png",
-            "played_games": 14,
-            "won": 3,
-            "draw": 3,
-            "lost": 8,
-            "points": 12,
-            "goals_for": 12,
-            "goals_against": 18,
-            "goal_difference": -6
         },
         {
             "position": 18,
@@ -275,14 +275,14 @@
             "team_id": 88,
             "team_name": "Levante UD",
             "team_crest": "https://crests.football-data.org/88.png",
-            "played_games": 14,
+            "played_games": 15,
             "won": 2,
             "draw": 3,
-            "lost": 9,
+            "lost": 10,
             "points": 9,
             "goals_for": 16,
-            "goals_against": 26,
-            "goal_difference": -10
+            "goals_against": 28,
+            "goal_difference": -12
         }
     ]
 }
