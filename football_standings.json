@@ -1,5 +1,5 @@
 {
-    "generated_at": "2025-12-22T04:03:27.971759+00:00",
+    "generated_at": "2025-12-23T03:58:28.860823+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -65,14 +65,14 @@
             "team_id": 80,
             "team_name": "RCD Espanyol de Barcelona",
             "team_crest": "https://crests.football-data.org/80.png",
-            "played_games": 16,
-            "won": 9,
+            "played_games": 17,
+            "won": 10,
             "draw": 3,
             "lost": 4,
-            "points": 30,
-            "goals_for": 20,
-            "goals_against": 16,
-            "goal_difference": 4
+            "points": 33,
+            "goals_for": 22,
+            "goals_against": 17,
+            "goal_difference": 5
         },
         {
             "position": 6,
@@ -107,14 +107,14 @@
             "team_id": 77,
             "team_name": "Athletic Club",
             "team_crest": "https://crests.football-data.org/77.png",
-            "played_games": 17,
+            "played_games": 18,
             "won": 7,
             "draw": 2,
-            "lost": 8,
+            "lost": 9,
             "points": 23,
-            "goals_for": 15,
-            "goals_against": 22,
-            "goal_difference": -7
+            "goals_for": 16,
+            "goals_against": 24,
+            "goal_difference": -8
         },
         {
             "position": 9,
