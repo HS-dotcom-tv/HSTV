@@ -1,40 +1,40 @@
 {
-  "generated_at": "2025-12-24T02:49:51.808Z",
+  "generated_at": "2025-12-25T02:52:56.323Z",
   "source": "football-data.org",
   "response": [
     {
       "fixture": {
-        "id": 545831,
-        "date": "2025-12-23T20:45:00Z",
+        "id": 537962,
+        "date": "2025-12-26T20:00:00Z",
         "venue": null,
         "status": {
-          "short": "FT",
-          "long": "FINISHED",
+          "short": "NS",
+          "long": "TIMED",
           "elapsed": null
         }
       },
       "league": {
-        "id": 2017,
-        "code": "PPL",
-        "name": "Primeira Liga",
-        "logo": "https://crests.football-data.org/PPL.png",
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
         "country": ""
       },
       "teams": {
         "home": {
-          "id": 5543,
-          "name": "Vitória SC",
-          "logo": "https://crests.football-data.org/5543.svg"
+          "id": 66,
+          "name": "Manchester United FC",
+          "logo": "https://crests.football-data.org/66.svg"
         },
         "away": {
-          "id": 498,
-          "name": "Sporting Clube de Portugal",
-          "logo": "https://crests.football-data.org/498.svg"
+          "id": 67,
+          "name": "Newcastle United FC",
+          "logo": "https://crests.football-data.org/67.svg"
         }
       },
       "goals": {
-        "home": 1,
-        "away": 4
+        "home": null,
+        "away": null
       }
     }
   ]
