@@ -1,50 +1,15 @@
 {
-  "generated_at": "2025-12-27T02:48:38.271Z",
+  "generated_at": "2025-12-28T03:03:43.007Z",
   "source": "football-data.org",
   "response": [
-    {
-      "fixture": {
-        "id": 537962,
-        "date": "2025-12-26T20:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2021,
-        "code": "PL",
-        "name": "Premier League",
-        "logo": "https://crests.football-data.org/PL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 66,
-          "name": "Manchester United FC",
-          "logo": "https://crests.football-data.org/66.svg"
-        },
-        "away": {
-          "id": 67,
-          "name": "Newcastle United FC",
-          "logo": "https://crests.football-data.org/67.svg"
-        }
-      },
-      "goals": {
-        "home": 1,
-        "away": 0
-      }
-    },
     {
       "fixture": {
         "id": 536980,
         "date": "2025-12-27T11:30:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -68,8 +33,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 0
       }
     },
     {
@@ -78,8 +43,8 @@
         "date": "2025-12-27T12:30:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -103,8 +68,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 2
       }
     },
     {
@@ -113,8 +78,8 @@
         "date": "2025-12-27T14:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -138,8 +103,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 2
       }
     },
     {
@@ -148,8 +113,8 @@
         "date": "2025-12-27T14:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -173,8 +138,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 3
       }
     },
     {
@@ -183,8 +148,8 @@
         "date": "2025-12-27T15:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -208,43 +173,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
-      }
-    },
-    {
-      "fixture": {
-        "id": 537964,
-        "date": "2025-12-27T15:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "NS",
-          "long": "TIMED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2021,
-        "code": "PL",
-        "name": "Premier League",
-        "logo": "https://crests.football-data.org/PL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 563,
-          "name": "West Ham United FC",
-          "logo": "https://crests.football-data.org/563.svg"
-        },
-        "away": {
-          "id": 63,
-          "name": "Fulham FC",
-          "logo": "https://crests.football-data.org/63.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
+        "home": 4,
+        "away": 1
       }
     },
     {
@@ -253,8 +183,8 @@
         "date": "2025-12-27T15:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -278,43 +208,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
-      }
-    },
-    {
-      "fixture": {
-        "id": 537959,
-        "date": "2025-12-27T15:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "NS",
-          "long": "TIMED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2021,
-        "code": "PL",
-        "name": "Premier League",
-        "logo": "https://crests.football-data.org/PL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 328,
-          "name": "Burnley FC",
-          "logo": "https://crests.football-data.org/328.svg"
-        },
-        "away": {
-          "id": 62,
-          "name": "Everton FC",
-          "logo": "https://crests.football-data.org/62.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 1
       }
     },
     {
@@ -323,8 +218,8 @@
         "date": "2025-12-27T15:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -348,8 +243,78 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 1
+      }
+    },
+    {
+      "fixture": {
+        "id": 537964,
+        "date": "2025-12-27T15:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 563,
+          "name": "West Ham United FC",
+          "logo": "https://crests.football-data.org/563.svg"
+        },
+        "away": {
+          "id": 63,
+          "name": "Fulham FC",
+          "logo": "https://crests.football-data.org/63.svg"
+        }
+      },
+      "goals": {
+        "home": 0,
+        "away": 1
+      }
+    },
+    {
+      "fixture": {
+        "id": 537959,
+        "date": "2025-12-27T15:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 328,
+          "name": "Burnley FC",
+          "logo": "https://crests.football-data.org/328.svg"
+        },
+        "away": {
+          "id": 62,
+          "name": "Everton FC",
+          "logo": "https://crests.football-data.org/62.svg"
+        }
+      },
+      "goals": {
+        "home": 0,
+        "away": 0
       }
     },
     {
@@ -358,8 +323,8 @@
         "date": "2025-12-27T17:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -383,8 +348,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 1
       }
     },
     {
@@ -393,8 +358,8 @@
         "date": "2025-12-27T17:30:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -418,8 +383,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 2
       }
     },
     {
@@ -428,8 +393,8 @@
         "date": "2025-12-27T18:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -453,8 +418,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 3
       }
     },
     {
@@ -463,8 +428,8 @@
         "date": "2025-12-27T19:45:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -488,8 +453,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 2
       }
     },
     {
@@ -498,8 +463,8 @@
         "date": "2025-12-27T20:30:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -523,8 +488,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 4,
+        "away": 1
       }
     },
     {
@@ -870,6 +835,76 @@
           "id": 496,
           "name": "Rio Ave FC",
           "logo": "https://crests.football-data.org/496.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 536976,
+        "date": "2025-12-29T19:45:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2019,
+        "code": "SA",
+        "name": "Serie A",
+        "logo": "https://crests.football-data.org/SA.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 100,
+          "name": "AS Roma",
+          "logo": "https://crests.football-data.org/100.svg"
+        },
+        "away": {
+          "id": 107,
+          "name": "Genoa CFC",
+          "logo": "https://crests.football-data.org/107.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 545838,
+        "date": "2025-12-29T20:15:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2017,
+        "code": "PPL",
+        "name": "Primeira Liga",
+        "logo": "https://crests.football-data.org/PPL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 503,
+          "name": "FC Porto",
+          "logo": "https://crests.football-data.org/503.svg"
+        },
+        "away": {
+          "id": 10340,
+          "name": "AVS",
+          "logo": "https://crests.football-data.org/10340.svg"
         }
       },
       "goals": {
