@@ -1,85 +1,15 @@
 {
-  "generated_at": "2025-12-30T02:53:49.703Z",
+  "generated_at": "2025-12-31T02:52:54.057Z",
   "source": "football-data.org",
   "response": [
-    {
-      "fixture": {
-        "id": 536976,
-        "date": "2025-12-29T19:45:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2019,
-        "code": "SA",
-        "name": "Serie A",
-        "logo": "https://crests.football-data.org/SA.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 100,
-          "name": "AS Roma",
-          "logo": "https://crests.football-data.org/100.svg"
-        },
-        "away": {
-          "id": 107,
-          "name": "Genoa CFC",
-          "logo": "https://crests.football-data.org/107.svg"
-        }
-      },
-      "goals": {
-        "home": 3,
-        "away": 1
-      }
-    },
-    {
-      "fixture": {
-        "id": 545838,
-        "date": "2025-12-29T20:15:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2017,
-        "code": "PPL",
-        "name": "Primeira Liga",
-        "logo": "https://crests.football-data.org/PPL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 503,
-          "name": "FC Porto",
-          "logo": "https://crests.football-data.org/503.svg"
-        },
-        "away": {
-          "id": 10340,
-          "name": "AVS",
-          "logo": "https://crests.football-data.org/10340.svg"
-        }
-      },
-      "goals": {
-        "home": 2,
-        "away": 0
-      }
-    },
     {
       "fixture": {
         "id": 537969,
         "date": "2025-12-30T19:30:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -103,78 +33,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
-      }
-    },
-    {
-      "fixture": {
-        "id": 537974,
-        "date": "2025-12-30T19:30:00Z",
-        "venue": null,
-        "status": {
-          "short": "NS",
-          "long": "TIMED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2021,
-        "code": "PL",
-        "name": "Premier League",
-        "logo": "https://crests.football-data.org/PL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 563,
-          "name": "West Ham United FC",
-          "logo": "https://crests.football-data.org/563.svg"
-        },
-        "away": {
-          "id": 397,
-          "name": "Brighton & Hove Albion FC",
-          "logo": "https://crests.football-data.org/397.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
-      }
-    },
-    {
-      "fixture": {
-        "id": 537970,
-        "date": "2025-12-30T19:30:00Z",
-        "venue": null,
-        "status": {
-          "short": "NS",
-          "long": "TIMED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2021,
-        "code": "PL",
-        "name": "Premier League",
-        "logo": "https://crests.football-data.org/PL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 61,
-          "name": "Chelsea FC",
-          "logo": "https://crests.football-data.org/61.svg"
-        },
-        "away": {
-          "id": 1044,
-          "name": "AFC Bournemouth",
-          "logo": "https://crests.football-data.org/1044.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 3
       }
     },
     {
@@ -183,8 +43,8 @@
         "date": "2025-12-30T19:30:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -208,8 +68,113 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 2
+      }
+    },
+    {
+      "fixture": {
+        "id": 537970,
+        "date": "2025-12-30T19:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 61,
+          "name": "Chelsea FC",
+          "logo": "https://crests.football-data.org/61.svg"
+        },
+        "away": {
+          "id": 1044,
+          "name": "AFC Bournemouth",
+          "logo": "https://crests.football-data.org/1044.svg"
+        }
+      },
+      "goals": {
+        "home": 2,
+        "away": 2
+      }
+    },
+    {
+      "fixture": {
+        "id": 537974,
+        "date": "2025-12-30T19:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 563,
+          "name": "West Ham United FC",
+          "logo": "https://crests.football-data.org/563.svg"
+        },
+        "away": {
+          "id": 397,
+          "name": "Brighton & Hove Albion FC",
+          "logo": "https://crests.football-data.org/397.svg"
+        }
+      },
+      "goals": {
+        "home": 2,
+        "away": 2
+      }
+    },
+    {
+      "fixture": {
+        "id": 537967,
+        "date": "2025-12-30T20:15:00Z",
+        "venue": null,
+        "status": {
+          "short": "FT",
+          "long": "FINISHED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 57,
+          "name": "Arsenal FC",
+          "logo": "https://crests.football-data.org/57.svg"
+        },
+        "away": {
+          "id": 58,
+          "name": "Aston Villa FC",
+          "logo": "https://crests.football-data.org/58.svg"
+        }
+      },
+      "goals": {
+        "home": 4,
+        "away": 1
       }
     },
     {
@@ -218,8 +183,8 @@
         "date": "2025-12-30T20:15:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -243,14 +208,14 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 1
       }
     },
     {
       "fixture": {
-        "id": 537967,
-        "date": "2025-12-30T20:15:00Z",
+        "id": 537971,
+        "date": "2026-01-01T17:30:00Z",
         "venue": null,
         "status": {
           "short": "NS",
@@ -267,14 +232,119 @@
       },
       "teams": {
         "home": {
-          "id": 57,
-          "name": "Arsenal FC",
-          "logo": "https://crests.football-data.org/57.svg"
+          "id": 64,
+          "name": "Liverpool FC",
+          "logo": "https://crests.football-data.org/64.svg"
         },
         "away": {
-          "id": 58,
-          "name": "Aston Villa FC",
-          "logo": "https://crests.football-data.org/58.svg"
+          "id": 341,
+          "name": "Leeds United FC",
+          "logo": "https://crests.football-data.org/341.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537966,
+        "date": "2026-01-01T17:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 354,
+          "name": "Crystal Palace FC",
+          "logo": "https://crests.football-data.org/354.svg"
+        },
+        "away": {
+          "id": 63,
+          "name": "Fulham FC",
+          "logo": "https://crests.football-data.org/63.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537965,
+        "date": "2026-01-01T20:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 71,
+          "name": "Sunderland AFC",
+          "logo": "https://crests.football-data.org/71.svg"
+        },
+        "away": {
+          "id": 65,
+          "name": "Manchester City FC",
+          "logo": "https://crests.football-data.org/65.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537968,
+        "date": "2026-01-01T20:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2021,
+        "code": "PL",
+        "name": "Premier League",
+        "logo": "https://crests.football-data.org/PL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 402,
+          "name": "Brentford FC",
+          "logo": "https://crests.football-data.org/402.svg"
+        },
+        "away": {
+          "id": 73,
+          "name": "Tottenham Hotspur FC",
+          "logo": "https://crests.football-data.org/73.svg"
         }
       },
       "goals": {
