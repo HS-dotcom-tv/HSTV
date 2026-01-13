@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-01-12T04:09:07.949400+00:00",
+    "generated_at": "2026-01-13T04:01:19.588448+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -93,14 +93,14 @@
             "team_id": 558,
             "team_name": "RC Celta de Vigo",
             "team_crest": "https://crests.football-data.org/558.png",
-            "played_games": 18,
-            "won": 6,
+            "played_games": 19,
+            "won": 7,
             "draw": 8,
             "lost": 4,
-            "points": 26,
-            "goals_for": 24,
+            "points": 29,
+            "goals_for": 25,
             "goals_against": 20,
-            "goal_difference": 4
+            "goal_difference": 5
         },
         {
             "position": 8,
@@ -191,14 +191,14 @@
             "team_id": 559,
             "team_name": "Sevilla FC",
             "team_crest": "https://crests.football-data.org/559.png",
-            "played_games": 18,
+            "played_games": 19,
             "won": 6,
             "draw": 2,
-            "lost": 10,
+            "lost": 11,
             "points": 20,
             "goals_for": 24,
-            "goals_against": 29,
-            "goal_difference": -5
+            "goals_against": 30,
+            "goal_difference": -6
         },
         {
             "position": 15,
