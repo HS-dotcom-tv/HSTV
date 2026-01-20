@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-01-19T04:10:09.740632+00:00",
+    "generated_at": "2026-01-20T04:05:41.812194+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -104,6 +104,20 @@
         },
         {
             "position": 8,
+            "team_id": 285,
+            "team_name": "Elche CF",
+            "team_crest": "https://crests.football-data.org/285.png",
+            "played_games": 20,
+            "won": 5,
+            "draw": 9,
+            "lost": 6,
+            "points": 24,
+            "goals_for": 27,
+            "goals_against": 26,
+            "goal_difference": 1
+        },
+        {
+            "position": 9,
             "team_id": 92,
             "team_name": "Real Sociedad de Fútbol",
             "team_crest": "https://crests.football-data.org/92.png",
@@ -117,7 +131,7 @@
             "goal_difference": -2
         },
         {
-            "position": 9,
+            "position": 10,
             "team_id": 77,
             "team_name": "Athletic Club",
             "team_crest": "https://crests.football-data.org/77.png",
@@ -131,7 +145,7 @@
             "goal_difference": -9
         },
         {
-            "position": 10,
+            "position": 11,
             "team_id": 298,
             "team_name": "Girona FC",
             "team_crest": "https://crests.football-data.org/298.png",
@@ -143,20 +157,6 @@
             "goals_for": 20,
             "goals_against": 34,
             "goal_difference": -14
-        },
-        {
-            "position": 11,
-            "team_id": 285,
-            "team_name": "Elche CF",
-            "team_crest": "https://crests.football-data.org/285.png",
-            "played_games": 19,
-            "won": 5,
-            "draw": 8,
-            "lost": 6,
-            "points": 23,
-            "goals_for": 25,
-            "goals_against": 24,
-            "goal_difference": 1
         },
         {
             "position": 12,
@@ -219,13 +219,13 @@
             "team_id": 559,
             "team_name": "Sevilla FC",
             "team_crest": "https://crests.football-data.org/559.png",
-            "played_games": 19,
+            "played_games": 20,
             "won": 6,
-            "draw": 2,
+            "draw": 3,
             "lost": 11,
-            "points": 20,
-            "goals_for": 24,
-            "goals_against": 30,
+            "points": 21,
+            "goals_for": 26,
+            "goals_against": 32,
             "goal_difference": -6
         },
         {
