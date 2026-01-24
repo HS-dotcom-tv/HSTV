@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-01-23T04:03:32.815889+00:00",
+    "generated_at": "2026-01-24T03:57:53.359148+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -107,14 +107,14 @@
             "team_id": 285,
             "team_name": "Elche CF",
             "team_crest": "https://crests.football-data.org/285.png",
-            "played_games": 20,
+            "played_games": 21,
             "won": 5,
             "draw": 9,
-            "lost": 6,
+            "lost": 7,
             "points": 24,
-            "goals_for": 27,
-            "goals_against": 26,
-            "goal_difference": 1
+            "goals_for": 29,
+            "goals_against": 29,
+            "goal_difference": 0
         },
         {
             "position": 9,
@@ -261,14 +261,14 @@
             "team_id": 88,
             "team_name": "Levante UD",
             "team_crest": "https://crests.football-data.org/88.png",
-            "played_games": 19,
-            "won": 3,
+            "played_games": 20,
+            "won": 4,
             "draw": 5,
             "lost": 11,
-            "points": 14,
-            "goals_for": 21,
-            "goals_against": 32,
-            "goal_difference": -11
+            "points": 17,
+            "goals_for": 24,
+            "goals_against": 34,
+            "goal_difference": -10
         },
         {
             "position": 20,
