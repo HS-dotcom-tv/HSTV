@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-02-06T04:44:55.041982+00:00",
+    "generated_at": "2026-02-07T04:26:23.076805+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -93,17 +93,31 @@
             "team_id": 558,
             "team_name": "RC Celta de Vigo",
             "team_crest": "https://crests.football-data.org/558.png",
-            "played_games": 22,
+            "played_games": 23,
             "won": 8,
             "draw": 9,
-            "lost": 5,
+            "lost": 6,
             "points": 33,
-            "goals_for": 29,
-            "goals_against": 23,
-            "goal_difference": 6
+            "goals_for": 30,
+            "goals_against": 25,
+            "goal_difference": 5
         },
         {
             "position": 8,
+            "team_id": 79,
+            "team_name": "CA Osasuna",
+            "team_crest": "https://crests.football-data.org/79.png",
+            "played_games": 23,
+            "won": 8,
+            "draw": 5,
+            "lost": 10,
+            "points": 29,
+            "goals_for": 28,
+            "goals_against": 28,
+            "goal_difference": 0
+        },
+        {
+            "position": 9,
             "team_id": 92,
             "team_name": "Real Sociedad de Fútbol",
             "team_crest": "https://crests.football-data.org/92.png",
@@ -115,20 +129,6 @@
             "goals_for": 30,
             "goals_against": 30,
             "goal_difference": 0
-        },
-        {
-            "position": 9,
-            "team_id": 79,
-            "team_name": "CA Osasuna",
-            "team_crest": "https://crests.football-data.org/79.png",
-            "played_games": 22,
-            "won": 7,
-            "draw": 5,
-            "lost": 10,
-            "points": 26,
-            "goals_for": 26,
-            "goals_against": 27,
-            "goal_difference": -1
         },
         {
             "position": 10,
