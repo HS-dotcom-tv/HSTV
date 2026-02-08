@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-02-07T04:26:23.076805+00:00",
+    "generated_at": "2026-02-08T05:00:38.751513+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -9,14 +9,14 @@
             "team_id": 81,
             "team_name": "FC Barcelona",
             "team_crest": "https://crests.football-data.org/81.png",
-            "played_games": 22,
-            "won": 18,
+            "played_games": 23,
+            "won": 19,
             "draw": 1,
             "lost": 3,
-            "points": 55,
-            "goals_for": 60,
+            "points": 58,
+            "goals_for": 63,
             "goals_against": 23,
-            "goal_difference": 37
+            "goal_difference": 40
         },
         {
             "position": 2,
@@ -104,6 +104,20 @@
         },
         {
             "position": 8,
+            "team_id": 92,
+            "team_name": "Real Sociedad de Fútbol",
+            "team_crest": "https://crests.football-data.org/92.png",
+            "played_games": 23,
+            "won": 8,
+            "draw": 7,
+            "lost": 8,
+            "points": 31,
+            "goals_for": 33,
+            "goals_against": 31,
+            "goal_difference": 2
+        },
+        {
+            "position": 9,
             "team_id": 79,
             "team_name": "CA Osasuna",
             "team_crest": "https://crests.football-data.org/79.png",
@@ -114,20 +128,6 @@
             "points": 29,
             "goals_for": 28,
             "goals_against": 28,
-            "goal_difference": 0
-        },
-        {
-            "position": 9,
-            "team_id": 92,
-            "team_name": "Real Sociedad de Fútbol",
-            "team_crest": "https://crests.football-data.org/92.png",
-            "played_games": 22,
-            "won": 7,
-            "draw": 7,
-            "lost": 8,
-            "points": 28,
-            "goals_for": 30,
-            "goals_against": 30,
             "goal_difference": 0
         },
         {
@@ -177,31 +177,17 @@
             "team_id": 285,
             "team_name": "Elche CF",
             "team_crest": "https://crests.football-data.org/285.png",
-            "played_games": 22,
+            "played_games": 23,
             "won": 5,
             "draw": 9,
-            "lost": 8,
+            "lost": 9,
             "points": 24,
-            "goals_for": 30,
-            "goals_against": 32,
-            "goal_difference": -2
+            "goals_for": 31,
+            "goals_against": 35,
+            "goal_difference": -4
         },
         {
             "position": 14,
-            "team_id": 89,
-            "team_name": "RCD Mallorca",
-            "team_crest": "https://crests.football-data.org/89.png",
-            "played_games": 22,
-            "won": 6,
-            "draw": 6,
-            "lost": 10,
-            "points": 24,
-            "goals_for": 28,
-            "goals_against": 34,
-            "goal_difference": -6
-        },
-        {
-            "position": 15,
             "team_id": 559,
             "team_name": "Sevilla FC",
             "team_crest": "https://crests.football-data.org/559.png",
@@ -213,6 +199,20 @@
             "goals_for": 29,
             "goals_against": 37,
             "goal_difference": -8
+        },
+        {
+            "position": 15,
+            "team_id": 89,
+            "team_name": "RCD Mallorca",
+            "team_crest": "https://crests.football-data.org/89.png",
+            "played_games": 23,
+            "won": 6,
+            "draw": 6,
+            "lost": 11,
+            "points": 24,
+            "goals_for": 28,
+            "goals_against": 37,
+            "goal_difference": -9
         },
         {
             "position": 16,
