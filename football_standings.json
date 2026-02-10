@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-02-09T04:57:04.978267+00:00",
+    "generated_at": "2026-02-10T05:01:43.566442+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -51,14 +51,14 @@
             "team_id": 94,
             "team_name": "Villarreal CF",
             "team_crest": "https://crests.football-data.org/94.png",
-            "played_games": 21,
-            "won": 13,
+            "played_games": 22,
+            "won": 14,
             "draw": 3,
             "lost": 5,
-            "points": 42,
-            "goals_for": 39,
-            "goals_against": 23,
-            "goal_difference": 16
+            "points": 45,
+            "goals_for": 43,
+            "goals_against": 24,
+            "goal_difference": 19
         },
         {
             "position": 5,
@@ -79,14 +79,14 @@
             "team_id": 80,
             "team_name": "RCD Espanyol de Barcelona",
             "team_crest": "https://crests.football-data.org/80.png",
-            "played_games": 22,
+            "played_games": 23,
             "won": 10,
             "draw": 4,
-            "lost": 8,
+            "lost": 9,
             "points": 34,
-            "goals_for": 26,
-            "goals_against": 27,
-            "goal_difference": -1
+            "goals_for": 27,
+            "goals_against": 31,
+            "goal_difference": -4
         },
         {
             "position": 7,
@@ -146,20 +146,6 @@
         },
         {
             "position": 11,
-            "team_id": 298,
-            "team_name": "Girona FC",
-            "team_crest": "https://crests.football-data.org/298.png",
-            "played_games": 23,
-            "won": 6,
-            "draw": 8,
-            "lost": 9,
-            "points": 26,
-            "goals_for": 22,
-            "goals_against": 37,
-            "goal_difference": -15
-        },
-        {
-            "position": 12,
             "team_id": 82,
             "team_name": "Getafe CF",
             "team_crest": "https://crests.football-data.org/82.png",
@@ -171,6 +157,20 @@
             "goals_for": 18,
             "goals_against": 27,
             "goal_difference": -9
+        },
+        {
+            "position": 12,
+            "team_id": 298,
+            "team_name": "Girona FC",
+            "team_crest": "https://crests.football-data.org/298.png",
+            "played_games": 23,
+            "won": 6,
+            "draw": 8,
+            "lost": 9,
+            "points": 26,
+            "goals_for": 22,
+            "goals_against": 37,
+            "goal_difference": -15
         },
         {
             "position": 13,
