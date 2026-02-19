@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-02-18T04:50:59.338123+00:00",
+    "generated_at": "2026-02-19T04:50:11.315931+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -37,14 +37,14 @@
             "team_id": 94,
             "team_name": "Villarreal CF",
             "team_crest": "https://crests.football-data.org/94.png",
-            "played_games": 23,
-            "won": 14,
+            "played_games": 24,
+            "won": 15,
             "draw": 3,
             "lost": 6,
-            "points": 45,
-            "goals_for": 44,
+            "points": 48,
+            "goals_for": 45,
             "goals_against": 26,
-            "goal_difference": 18
+            "goal_difference": 19
         },
         {
             "position": 4,
@@ -261,14 +261,14 @@
             "team_id": 88,
             "team_name": "Levante UD",
             "team_crest": "https://crests.football-data.org/88.png",
-            "played_games": 23,
+            "played_games": 24,
             "won": 4,
             "draw": 6,
-            "lost": 13,
+            "lost": 14,
             "points": 18,
             "goals_for": 26,
-            "goals_against": 40,
-            "goal_difference": -14
+            "goals_against": 41,
+            "goal_difference": -15
         },
         {
             "position": 20,
