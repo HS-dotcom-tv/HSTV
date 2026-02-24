@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-02-23T04:55:47.754856+00:00",
+    "generated_at": "2026-02-24T04:49:48.102083+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -146,6 +146,20 @@
         },
         {
             "position": 11,
+            "team_id": 298,
+            "team_name": "Girona FC",
+            "team_crest": "https://crests.football-data.org/298.png",
+            "played_games": 25,
+            "won": 7,
+            "draw": 9,
+            "lost": 9,
+            "points": 30,
+            "goals_for": 26,
+            "goals_against": 40,
+            "goal_difference": -14
+        },
+        {
+            "position": 12,
             "team_id": 559,
             "team_name": "Sevilla FC",
             "team_crest": "https://crests.football-data.org/559.png",
@@ -159,7 +173,7 @@
             "goal_difference": -7
         },
         {
-            "position": 12,
+            "position": 13,
             "team_id": 82,
             "team_name": "Getafe CF",
             "team_crest": "https://crests.football-data.org/82.png",
@@ -173,21 +187,21 @@
             "goal_difference": -9
         },
         {
-            "position": 13,
-            "team_id": 298,
-            "team_name": "Girona FC",
-            "team_crest": "https://crests.football-data.org/298.png",
-            "played_games": 24,
+            "position": 14,
+            "team_id": 263,
+            "team_name": "Deportivo Alavés",
+            "team_crest": "https://crests.football-data.org/263.png",
+            "played_games": 25,
             "won": 7,
-            "draw": 8,
-            "lost": 9,
-            "points": 29,
-            "goals_for": 24,
-            "goals_against": 38,
-            "goal_difference": -14
+            "draw": 6,
+            "lost": 12,
+            "points": 27,
+            "goals_for": 23,
+            "goals_against": 32,
+            "goal_difference": -9
         },
         {
-            "position": 14,
+            "position": 15,
             "team_id": 87,
             "team_name": "Rayo Vallecano de Madrid",
             "team_crest": "https://crests.football-data.org/87.png",
@@ -198,20 +212,6 @@
             "points": 26,
             "goals_for": 22,
             "goals_against": 31,
-            "goal_difference": -9
-        },
-        {
-            "position": 15,
-            "team_id": 263,
-            "team_name": "Deportivo Alavés",
-            "team_crest": "https://crests.football-data.org/263.png",
-            "played_games": 24,
-            "won": 7,
-            "draw": 5,
-            "lost": 12,
-            "points": 26,
-            "goals_for": 21,
-            "goals_against": 30,
             "goal_difference": -9
         },
         {
