@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-02-27T04:43:25.400673+00:00",
+    "generated_at": "2026-02-28T04:14:00.790442+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -191,14 +191,14 @@
             "team_id": 263,
             "team_name": "Deportivo Alavés",
             "team_crest": "https://crests.football-data.org/263.png",
-            "played_games": 25,
+            "played_games": 26,
             "won": 7,
             "draw": 6,
-            "lost": 12,
+            "lost": 13,
             "points": 27,
             "goals_for": 23,
-            "goals_against": 32,
-            "goal_difference": -9
+            "goals_against": 34,
+            "goal_difference": -11
         },
         {
             "position": 15,
@@ -261,14 +261,14 @@
             "team_id": 88,
             "team_name": "Levante UD",
             "team_crest": "https://crests.football-data.org/88.png",
-            "played_games": 25,
-            "won": 4,
+            "played_games": 26,
+            "won": 5,
             "draw": 6,
             "lost": 15,
-            "points": 18,
-            "goals_for": 26,
+            "points": 21,
+            "goals_for": 28,
             "goals_against": 44,
-            "goal_difference": -18
+            "goal_difference": -16
         },
         {
             "position": 20,
