@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-03-02T04:45:54.932522+00:00",
+    "generated_at": "2026-03-03T04:44:10.504403+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -23,14 +23,14 @@
             "team_id": 86,
             "team_name": "Real Madrid CF",
             "team_crest": "https://crests.football-data.org/86.png",
-            "played_games": 25,
+            "played_games": 26,
             "won": 19,
             "draw": 3,
-            "lost": 3,
+            "lost": 4,
             "points": 60,
             "goals_for": 54,
-            "goals_against": 21,
-            "goal_difference": 33
+            "goals_against": 22,
+            "goal_difference": 32
         },
         {
             "position": 3,
@@ -146,6 +146,20 @@
         },
         {
             "position": 11,
+            "team_id": 82,
+            "team_name": "Getafe CF",
+            "team_crest": "https://crests.football-data.org/82.png",
+            "played_games": 26,
+            "won": 9,
+            "draw": 5,
+            "lost": 12,
+            "points": 32,
+            "goals_for": 21,
+            "goals_against": 29,
+            "goal_difference": -8
+        },
+        {
+            "position": 12,
             "team_id": 559,
             "team_name": "Sevilla FC",
             "team_crest": "https://crests.football-data.org/559.png",
@@ -159,7 +173,7 @@
             "goal_difference": -7
         },
         {
-            "position": 12,
+            "position": 13,
             "team_id": 298,
             "team_name": "Girona FC",
             "team_crest": "https://crests.football-data.org/298.png",
@@ -173,7 +187,7 @@
             "goal_difference": -15
         },
         {
-            "position": 13,
+            "position": 14,
             "team_id": 95,
             "team_name": "Valencia CF",
             "team_crest": "https://crests.football-data.org/95.png",
@@ -185,20 +199,6 @@
             "goals_for": 27,
             "goals_against": 39,
             "goal_difference": -12
-        },
-        {
-            "position": 14,
-            "team_id": 82,
-            "team_name": "Getafe CF",
-            "team_crest": "https://crests.football-data.org/82.png",
-            "played_games": 25,
-            "won": 8,
-            "draw": 5,
-            "lost": 12,
-            "points": 29,
-            "goals_for": 20,
-            "goals_against": 29,
-            "goal_difference": -9
         },
         {
             "position": 15,
