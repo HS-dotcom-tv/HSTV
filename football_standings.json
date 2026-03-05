@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-03-04T04:27:14.362921+00:00",
+    "generated_at": "2026-03-05T04:43:11.039698+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -160,6 +160,20 @@
         },
         {
             "position": 12,
+            "team_id": 87,
+            "team_name": "Rayo Vallecano de Madrid",
+            "team_crest": "https://crests.football-data.org/87.png",
+            "played_games": 26,
+            "won": 7,
+            "draw": 9,
+            "lost": 10,
+            "points": 30,
+            "goals_for": 26,
+            "goals_against": 32,
+            "goal_difference": -6
+        },
+        {
+            "position": 13,
             "team_id": 559,
             "team_name": "Sevilla FC",
             "team_crest": "https://crests.football-data.org/559.png",
@@ -173,7 +187,7 @@
             "goal_difference": -7
         },
         {
-            "position": 13,
+            "position": 14,
             "team_id": 298,
             "team_name": "Girona FC",
             "team_crest": "https://crests.football-data.org/298.png",
@@ -187,7 +201,7 @@
             "goal_difference": -15
         },
         {
-            "position": 14,
+            "position": 15,
             "team_id": 95,
             "team_name": "Valencia CF",
             "team_crest": "https://crests.football-data.org/95.png",
@@ -199,20 +213,6 @@
             "goals_for": 27,
             "goals_against": 39,
             "goal_difference": -12
-        },
-        {
-            "position": 15,
-            "team_id": 87,
-            "team_name": "Rayo Vallecano de Madrid",
-            "team_crest": "https://crests.football-data.org/87.png",
-            "played_games": 25,
-            "won": 6,
-            "draw": 9,
-            "lost": 10,
-            "points": 27,
-            "goals_for": 23,
-            "goals_against": 32,
-            "goal_difference": -9
         },
         {
             "position": 16,
@@ -275,14 +275,14 @@
             "team_id": 1048,
             "team_name": "Real Oviedo",
             "team_crest": "https://crests.football-data.org/1048.png",
-            "played_games": 25,
+            "played_games": 26,
             "won": 3,
             "draw": 8,
-            "lost": 14,
+            "lost": 15,
             "points": 17,
             "goals_for": 16,
-            "goals_against": 40,
-            "goal_difference": -24
+            "goals_against": 43,
+            "goal_difference": -27
         }
     ]
 }
