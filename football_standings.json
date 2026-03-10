@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-03-09T04:49:03.186001+00:00",
+    "generated_at": "2026-03-10T04:28:51.916710+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -93,13 +93,13 @@
             "team_id": 80,
             "team_name": "RCD Espanyol de Barcelona",
             "team_crest": "https://crests.football-data.org/80.png",
-            "played_games": 26,
+            "played_games": 27,
             "won": 10,
-            "draw": 6,
+            "draw": 7,
             "lost": 10,
-            "points": 36,
-            "goals_for": 33,
-            "goals_against": 39,
+            "points": 37,
+            "goals_for": 34,
+            "goals_against": 40,
             "goal_difference": -6
         },
         {
@@ -275,13 +275,13 @@
             "team_id": 1048,
             "team_name": "Real Oviedo",
             "team_crest": "https://crests.football-data.org/1048.png",
-            "played_games": 26,
+            "played_games": 27,
             "won": 3,
-            "draw": 8,
+            "draw": 9,
             "lost": 15,
-            "points": 17,
-            "goals_for": 16,
-            "goals_against": 43,
+            "points": 18,
+            "goals_for": 17,
+            "goals_against": 44,
             "goal_difference": -27
         }
     ]
