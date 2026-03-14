@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-03-13T04:42:22.067712+00:00",
+    "generated_at": "2026-03-14T04:40:59.817691+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -34,6 +34,20 @@
         },
         {
             "position": 3,
+            "team_id": 94,
+            "team_name": "Villarreal CF",
+            "team_crest": "https://crests.football-data.org/94.png",
+            "played_games": 28,
+            "won": 17,
+            "draw": 4,
+            "lost": 7,
+            "points": 55,
+            "goals_for": 51,
+            "goals_against": 33,
+            "goal_difference": 18
+        },
+        {
+            "position": 4,
             "team_id": 78,
             "team_name": "Club Atlético de Madrid",
             "team_crest": "https://crests.football-data.org/78.png",
@@ -45,20 +59,6 @@
             "goals_for": 46,
             "goals_against": 25,
             "goal_difference": 21
-        },
-        {
-            "position": 4,
-            "team_id": 94,
-            "team_name": "Villarreal CF",
-            "team_crest": "https://crests.football-data.org/94.png",
-            "played_games": 27,
-            "won": 17,
-            "draw": 3,
-            "lost": 7,
-            "points": 54,
-            "goals_for": 50,
-            "goals_against": 32,
-            "goal_difference": 18
         },
         {
             "position": 5,
@@ -219,13 +219,13 @@
             "team_id": 263,
             "team_name": "Deportivo Alavés",
             "team_crest": "https://crests.football-data.org/263.png",
-            "played_games": 27,
+            "played_games": 28,
             "won": 7,
-            "draw": 6,
+            "draw": 7,
             "lost": 14,
-            "points": 27,
-            "goals_for": 25,
-            "goals_against": 37,
+            "points": 28,
+            "goals_for": 26,
+            "goals_against": 38,
             "goal_difference": -12
         },
         {
