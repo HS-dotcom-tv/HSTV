@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-03-20T04:44:40.760516+00:00",
+    "generated_at": "2026-03-21T04:24:36.741206+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -34,6 +34,20 @@
         },
         {
             "position": 3,
+            "team_id": 94,
+            "team_name": "Villarreal CF",
+            "team_crest": "https://crests.football-data.org/94.png",
+            "played_games": 29,
+            "won": 18,
+            "draw": 4,
+            "lost": 7,
+            "points": 58,
+            "goals_for": 54,
+            "goals_against": 34,
+            "goal_difference": 20
+        },
+        {
+            "position": 4,
             "team_id": 78,
             "team_name": "Club Atlético de Madrid",
             "team_crest": "https://crests.football-data.org/78.png",
@@ -45,20 +59,6 @@
             "goals_for": 47,
             "goals_against": 25,
             "goal_difference": 22
-        },
-        {
-            "position": 4,
-            "team_id": 94,
-            "team_name": "Villarreal CF",
-            "team_crest": "https://crests.football-data.org/94.png",
-            "played_games": 28,
-            "won": 17,
-            "draw": 4,
-            "lost": 7,
-            "points": 55,
-            "goals_for": 51,
-            "goals_against": 33,
-            "goal_difference": 18
         },
         {
             "position": 5,
@@ -93,14 +93,14 @@
             "team_id": 92,
             "team_name": "Real Sociedad de Fútbol",
             "team_crest": "https://crests.football-data.org/92.png",
-            "played_games": 28,
+            "played_games": 29,
             "won": 10,
             "draw": 8,
-            "lost": 10,
+            "lost": 11,
             "points": 38,
-            "goals_for": 43,
-            "goals_against": 42,
-            "goal_difference": 1
+            "goals_for": 44,
+            "goals_against": 45,
+            "goal_difference": -1
         },
         {
             "position": 8,
