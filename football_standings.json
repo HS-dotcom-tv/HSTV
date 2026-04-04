@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-04-03T05:02:07.137247+00:00",
+    "generated_at": "2026-04-04T04:47:43.528416+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -160,6 +160,20 @@
         },
         {
             "position": 12,
+            "team_id": 87,
+            "team_name": "Rayo Vallecano de Madrid",
+            "team_crest": "https://crests.football-data.org/87.png",
+            "played_games": 30,
+            "won": 8,
+            "draw": 11,
+            "lost": 11,
+            "points": 35,
+            "goals_for": 29,
+            "goals_against": 35,
+            "goal_difference": -6
+        },
+        {
+            "position": 13,
             "team_id": 95,
             "team_name": "Valencia CF",
             "team_crest": "https://crests.football-data.org/95.png",
@@ -173,7 +187,7 @@
             "goal_difference": -10
         },
         {
-            "position": 13,
+            "position": 14,
             "team_id": 298,
             "team_name": "Girona FC",
             "team_crest": "https://crests.football-data.org/298.png",
@@ -185,20 +199,6 @@
             "goals_for": 31,
             "goals_against": 44,
             "goal_difference": -13
-        },
-        {
-            "position": 14,
-            "team_id": 87,
-            "team_name": "Rayo Vallecano de Madrid",
-            "team_crest": "https://crests.football-data.org/87.png",
-            "played_games": 29,
-            "won": 7,
-            "draw": 11,
-            "lost": 11,
-            "points": 32,
-            "goals_for": 28,
-            "goals_against": 35,
-            "goal_difference": -7
         },
         {
             "position": 15,
@@ -233,14 +233,14 @@
             "team_id": 285,
             "team_name": "Elche CF",
             "team_crest": "https://crests.football-data.org/285.png",
-            "played_games": 29,
+            "played_games": 30,
             "won": 6,
             "draw": 11,
-            "lost": 12,
+            "lost": 13,
             "points": 29,
             "goals_for": 38,
-            "goals_against": 46,
-            "goal_difference": -8
+            "goals_against": 47,
+            "goal_difference": -9
         },
         {
             "position": 18,
