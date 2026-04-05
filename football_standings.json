@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-04-04T04:47:43.528416+00:00",
+    "generated_at": "2026-04-05T05:09:32.351479+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -9,28 +9,28 @@
             "team_id": 81,
             "team_name": "FC Barcelona",
             "team_crest": "https://crests.football-data.org/81.png",
-            "played_games": 29,
-            "won": 24,
+            "played_games": 30,
+            "won": 25,
             "draw": 1,
             "lost": 4,
-            "points": 73,
-            "goals_for": 78,
-            "goals_against": 28,
-            "goal_difference": 50
+            "points": 76,
+            "goals_for": 80,
+            "goals_against": 29,
+            "goal_difference": 51
         },
         {
             "position": 2,
             "team_id": 86,
             "team_name": "Real Madrid CF",
             "team_crest": "https://crests.football-data.org/86.png",
-            "played_games": 29,
+            "played_games": 30,
             "won": 22,
             "draw": 3,
-            "lost": 4,
+            "lost": 5,
             "points": 69,
-            "goals_for": 63,
-            "goals_against": 26,
-            "goal_difference": 37
+            "goals_for": 64,
+            "goals_against": 28,
+            "goal_difference": 36
         },
         {
             "position": 3,
@@ -51,25 +51,25 @@
             "team_id": 78,
             "team_name": "Club Atlético de Madrid",
             "team_crest": "https://crests.football-data.org/78.png",
-            "played_games": 29,
+            "played_games": 30,
             "won": 17,
             "draw": 6,
-            "lost": 6,
+            "lost": 7,
             "points": 57,
-            "goals_for": 49,
-            "goals_against": 28,
-            "goal_difference": 21
+            "goals_for": 50,
+            "goals_against": 30,
+            "goal_difference": 20
         },
         {
             "position": 5,
             "team_id": 90,
             "team_name": "Real Betis Balompié",
             "team_crest": "https://crests.football-data.org/90.png",
-            "played_games": 29,
+            "played_games": 30,
             "won": 11,
-            "draw": 11,
+            "draw": 12,
             "lost": 7,
-            "points": 44,
+            "points": 45,
             "goals_for": 44,
             "goals_against": 37,
             "goal_difference": 7
@@ -93,14 +93,14 @@
             "team_id": 92,
             "team_name": "Real Sociedad de Fútbol",
             "team_crest": "https://crests.football-data.org/92.png",
-            "played_games": 29,
-            "won": 10,
+            "played_games": 30,
+            "won": 11,
             "draw": 8,
             "lost": 11,
-            "points": 38,
-            "goals_for": 44,
+            "points": 41,
+            "goals_for": 46,
             "goals_against": 45,
-            "goal_difference": -1
+            "goal_difference": 1
         },
         {
             "position": 8,
@@ -118,6 +118,20 @@
         },
         {
             "position": 9,
+            "team_id": 80,
+            "team_name": "RCD Espanyol de Barcelona",
+            "team_crest": "https://crests.football-data.org/80.png",
+            "played_games": 30,
+            "won": 10,
+            "draw": 8,
+            "lost": 12,
+            "points": 38,
+            "goals_for": 36,
+            "goals_against": 44,
+            "goal_difference": -8
+        },
+        {
+            "position": 10,
             "team_id": 77,
             "team_name": "Athletic Club",
             "team_crest": "https://crests.football-data.org/77.png",
@@ -131,7 +145,7 @@
             "goal_difference": -9
         },
         {
-            "position": 10,
+            "position": 11,
             "team_id": 79,
             "team_name": "CA Osasuna",
             "team_crest": "https://crests.football-data.org/79.png",
@@ -143,20 +157,6 @@
             "goals_for": 34,
             "goals_against": 35,
             "goal_difference": -1
-        },
-        {
-            "position": 11,
-            "team_id": 80,
-            "team_name": "RCD Espanyol de Barcelona",
-            "team_crest": "https://crests.football-data.org/80.png",
-            "played_games": 29,
-            "won": 10,
-            "draw": 7,
-            "lost": 12,
-            "points": 37,
-            "goals_for": 36,
-            "goals_against": 44,
-            "goal_difference": -8
         },
         {
             "position": 12,
@@ -202,6 +202,20 @@
         },
         {
             "position": 15,
+            "team_id": 89,
+            "team_name": "RCD Mallorca",
+            "team_crest": "https://crests.football-data.org/89.png",
+            "played_games": 30,
+            "won": 8,
+            "draw": 7,
+            "lost": 15,
+            "points": 31,
+            "goals_for": 36,
+            "goals_against": 48,
+            "goal_difference": -12
+        },
+        {
+            "position": 16,
             "team_id": 559,
             "team_name": "Sevilla FC",
             "team_crest": "https://crests.football-data.org/559.png",
@@ -215,7 +229,7 @@
             "goal_difference": -12
         },
         {
-            "position": 16,
+            "position": 17,
             "team_id": 263,
             "team_name": "Deportivo Alavés",
             "team_crest": "https://crests.football-data.org/263.png",
@@ -229,7 +243,7 @@
             "goal_difference": -11
         },
         {
-            "position": 17,
+            "position": 18,
             "team_id": 285,
             "team_name": "Elche CF",
             "team_crest": "https://crests.football-data.org/285.png",
@@ -243,32 +257,18 @@
             "goal_difference": -9
         },
         {
-            "position": 18,
-            "team_id": 89,
-            "team_name": "RCD Mallorca",
-            "team_crest": "https://crests.football-data.org/89.png",
-            "played_games": 29,
-            "won": 7,
-            "draw": 7,
-            "lost": 15,
-            "points": 28,
-            "goals_for": 34,
-            "goals_against": 47,
-            "goal_difference": -13
-        },
-        {
             "position": 19,
             "team_id": 88,
             "team_name": "Levante UD",
             "team_crest": "https://crests.football-data.org/88.png",
-            "played_games": 29,
+            "played_games": 30,
             "won": 6,
             "draw": 8,
-            "lost": 15,
+            "lost": 16,
             "points": 26,
             "goals_for": 34,
-            "goals_against": 48,
-            "goal_difference": -14
+            "goals_against": 50,
+            "goal_difference": -16
         },
         {
             "position": 20,
