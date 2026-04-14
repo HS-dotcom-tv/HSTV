@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-04-13T05:38:46.368972+00:00",
+    "generated_at": "2026-04-14T05:21:03.422021+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -107,14 +107,14 @@
             "team_id": 82,
             "team_name": "Getafe CF",
             "team_crest": "https://crests.football-data.org/82.png",
-            "played_games": 30,
+            "played_games": 31,
             "won": 12,
             "draw": 5,
-            "lost": 13,
+            "lost": 14,
             "points": 41,
             "goals_for": 27,
-            "goals_against": 31,
-            "goal_difference": -4
+            "goals_against": 32,
+            "goal_difference": -5
         },
         {
             "position": 9,
@@ -258,6 +258,20 @@
         },
         {
             "position": 19,
+            "team_id": 88,
+            "team_name": "Levante UD",
+            "team_crest": "https://crests.football-data.org/88.png",
+            "played_games": 31,
+            "won": 7,
+            "draw": 8,
+            "lost": 16,
+            "points": 29,
+            "goals_for": 35,
+            "goals_against": 50,
+            "goal_difference": -15
+        },
+        {
+            "position": 20,
             "team_id": 1048,
             "team_name": "Real Oviedo",
             "team_crest": "https://crests.football-data.org/1048.png",
@@ -269,20 +283,6 @@
             "goals_for": 24,
             "goals_against": 48,
             "goal_difference": -24
-        },
-        {
-            "position": 20,
-            "team_id": 88,
-            "team_name": "Levante UD",
-            "team_crest": "https://crests.football-data.org/88.png",
-            "played_games": 30,
-            "won": 6,
-            "draw": 8,
-            "lost": 16,
-            "points": 26,
-            "goals_for": 34,
-            "goals_against": 50,
-            "goal_difference": -16
         }
     ]
 }
