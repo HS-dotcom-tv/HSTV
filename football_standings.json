@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-05-08T05:27:54.776962+00:00",
+    "generated_at": "2026-05-09T05:46:40.071539+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -135,14 +135,14 @@
             "team_id": 79,
             "team_name": "CA Osasuna",
             "team_crest": "https://crests.football-data.org/79.png",
-            "played_games": 34,
+            "played_games": 35,
             "won": 11,
             "draw": 9,
-            "lost": 14,
+            "lost": 15,
             "points": 42,
-            "goals_for": 40,
-            "goals_against": 42,
-            "goal_difference": -2
+            "goals_for": 42,
+            "goals_against": 45,
+            "goal_difference": -3
         },
         {
             "position": 11,
@@ -261,14 +261,14 @@
             "team_id": 88,
             "team_name": "Levante UD",
             "team_crest": "https://crests.football-data.org/88.png",
-            "played_games": 34,
-            "won": 8,
+            "played_games": 35,
+            "won": 9,
             "draw": 9,
             "lost": 17,
-            "points": 33,
-            "goals_for": 38,
-            "goals_against": 55,
-            "goal_difference": -17
+            "points": 36,
+            "goals_for": 41,
+            "goals_against": 57,
+            "goal_difference": -16
         },
         {
             "position": 20,
