@@ -1,75 +1,40 @@
 {
-  "generated_at": "2026-05-20T05:00:45.081Z",
+  "generated_at": "2026-05-21T05:06:54.838Z",
   "source": "football-data.org",
   "response": [
     {
       "fixture": {
-        "id": 538145,
-        "date": "2026-05-19T18:30:00Z",
+        "id": 537185,
+        "date": "2026-05-22T18:45:00Z",
         "venue": null,
         "status": {
-          "short": "FT",
-          "long": "FINISHED",
+          "short": "NS",
+          "long": "TIMED",
           "elapsed": null
         }
       },
       "league": {
-        "id": 2021,
-        "code": "PL",
-        "name": "Premier League",
-        "logo": "https://crests.football-data.org/PL.png",
+        "id": 2019,
+        "code": "SA",
+        "name": "Serie A",
+        "logo": "https://crests.football-data.org/c111.png",
         "country": ""
       },
       "teams": {
         "home": {
-          "id": 1044,
-          "name": "AFC Bournemouth",
-          "logo": "https://crests.football-data.org/1044.svg"
+          "id": 99,
+          "name": "ACF Fiorentina",
+          "logo": "https://crests.football-data.org/99.svg"
         },
         "away": {
-          "id": 65,
-          "name": "Manchester City FC",
-          "logo": "https://crests.football-data.org/65.svg"
+          "id": 102,
+          "name": "Atalanta BC",
+          "logo": "https://crests.football-data.org/102.svg"
         }
       },
       "goals": {
-        "home": 1,
-        "away": 1
-      }
-    },
-    {
-      "fixture": {
-        "id": 538149,
-        "date": "2026-05-19T19:15:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2021,
-        "code": "PL",
-        "name": "Premier League",
-        "logo": "https://crests.football-data.org/PL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 61,
-          "name": "Chelsea FC",
-          "logo": "https://crests.football-data.org/61.svg"
-        },
-        "away": {
-          "id": 73,
-          "name": "Tottenham Hotspur FC",
-          "logo": "https://crests.football-data.org/73.svg"
-        }
-      },
-      "goals": {
-        "home": 2,
-        "away": 1
+        "home": null,
+        "away": null
       }
     }
   ]
