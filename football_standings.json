@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-05-24T06:35:24.442315+00:00",
+    "generated_at": "2026-05-25T07:12:33.356224+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -37,28 +37,28 @@
             "team_id": 94,
             "team_name": "Villarreal CF",
             "team_crest": "https://crests.football-data.org/94.png",
-            "played_games": 37,
-            "won": 21,
+            "played_games": 38,
+            "won": 22,
             "draw": 6,
             "lost": 10,
-            "points": 69,
-            "goals_for": 67,
-            "goals_against": 45,
-            "goal_difference": 22
+            "points": 72,
+            "goals_for": 72,
+            "goals_against": 46,
+            "goal_difference": 26
         },
         {
             "position": 4,
             "team_id": 78,
             "team_name": "Club Atlético de Madrid",
             "team_crest": "https://crests.football-data.org/78.png",
-            "played_games": 37,
+            "played_games": 38,
             "won": 21,
             "draw": 6,
-            "lost": 10,
+            "lost": 11,
             "points": 69,
-            "goals_for": 61,
-            "goals_against": 39,
-            "goal_difference": 22
+            "goals_for": 62,
+            "goals_against": 44,
+            "goal_difference": 18
         },
         {
             "position": 5,
