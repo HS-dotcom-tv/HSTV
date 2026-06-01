@@ -1,41 +1,5 @@
 {
-  "generated_at": "2026-05-31T05:16:09.745Z",
+  "generated_at": "2026-06-01T05:58:28.899Z",
   "source": "football-data.org",
-  "response": [
-    {
-      "fixture": {
-        "id": 552096,
-        "date": "2026-05-30T16:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2001,
-        "code": "CL",
-        "name": "UEFA Champions League",
-        "logo": "https://crests.football-data.org/CL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 524,
-          "name": "Paris Saint-Germain FC",
-          "logo": "https://crests.football-data.org/524.svg"
-        },
-        "away": {
-          "id": 57,
-          "name": "Arsenal FC",
-          "logo": "https://crests.football-data.org/57.svg"
-        }
-      },
-      "goals": {
-        "home": 5,
-        "away": 4
-      }
-    }
-  ]
+  "response": []
 }
