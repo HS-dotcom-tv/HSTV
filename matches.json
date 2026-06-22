@@ -1,147 +1,7 @@
 {
-  "generated_at": "2026-06-21T05:57:40.771Z",
+  "generated_at": "2026-06-22T06:24:58.807Z",
   "source": "football-data.org",
   "response": [
-    {
-      "fixture": {
-        "id": 537341,
-        "date": "2026-06-20T00:30:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2000,
-        "code": "WC",
-        "name": "FIFA World Cup",
-        "logo": "https://crests.football-data.org/wm26.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 764,
-          "name": "Brazil",
-          "logo": "https://crests.football-data.org/764.svg"
-        },
-        "away": {
-          "id": 836,
-          "name": "Haiti",
-          "logo": "https://crests.football-data.org/836.svg"
-        }
-      },
-      "goals": {
-        "home": 3,
-        "away": 0
-      }
-    },
-    {
-      "fixture": {
-        "id": 537347,
-        "date": "2026-06-20T03:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2000,
-        "code": "WC",
-        "name": "FIFA World Cup",
-        "logo": "https://crests.football-data.org/wm26.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 803,
-          "name": "Turkey",
-          "logo": "https://crests.football-data.org/803.svg"
-        },
-        "away": {
-          "id": 761,
-          "name": "Paraguay",
-          "logo": "https://crests.football-data.org/761.svg"
-        }
-      },
-      "goals": {
-        "home": 0,
-        "away": 1
-      }
-    },
-    {
-      "fixture": {
-        "id": 537359,
-        "date": "2026-06-20T17:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2000,
-        "code": "WC",
-        "name": "FIFA World Cup",
-        "logo": "https://crests.football-data.org/wm26.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 8601,
-          "name": "Netherlands",
-          "logo": "https://crests.football-data.org/8601.svg"
-        },
-        "away": {
-          "id": 792,
-          "name": "Sweden",
-          "logo": "https://crests.football-data.org/792.svg"
-        }
-      },
-      "goals": {
-        "home": 5,
-        "away": 1
-      }
-    },
-    {
-      "fixture": {
-        "id": 537353,
-        "date": "2026-06-20T20:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2000,
-        "code": "WC",
-        "name": "FIFA World Cup",
-        "logo": "https://crests.football-data.org/wm26.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 759,
-          "name": "Germany",
-          "logo": "https://crests.football-data.org/759.svg"
-        },
-        "away": {
-          "id": 1935,
-          "name": "Ivory Coast",
-          "logo": "https://crests.football-data.org/1935.svg"
-        }
-      },
-      "goals": {
-        "home": 2,
-        "away": 1
-      }
-    },
     {
       "fixture": {
         "id": 537354,
@@ -183,8 +43,8 @@
         "date": "2026-06-21T04:00:00Z",
         "venue": null,
         "status": {
-          "short": "LIVE",
-          "long": "IN_PLAY",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -218,8 +78,8 @@
         "date": "2026-06-21T16:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -243,8 +103,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 4,
+        "away": 0
       }
     },
     {
@@ -253,8 +113,8 @@
         "date": "2026-06-21T19:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -278,8 +138,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 0
       }
     },
     {
@@ -288,8 +148,8 @@
         "date": "2026-06-21T22:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -313,8 +173,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 2
       }
     },
     {
@@ -323,8 +183,8 @@
         "date": "2026-06-22T01:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -348,8 +208,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 3
       }
     },
     {
@@ -450,6 +310,146 @@
           "id": 804,
           "name": "Senegal",
           "logo": "https://crests.football-data.org/804.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537400,
+        "date": "2026-06-23T03:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2000,
+        "code": "WC",
+        "name": "FIFA World Cup",
+        "logo": "https://crests.football-data.org/wm26.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 8049,
+          "name": "Jordan",
+          "logo": "https://crests.football-data.org/8049.svg"
+        },
+        "away": {
+          "id": 778,
+          "name": "Algeria",
+          "logo": "https://crests.football-data.org/778.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537405,
+        "date": "2026-06-23T17:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2000,
+        "code": "WC",
+        "name": "FIFA World Cup",
+        "logo": "https://crests.football-data.org/wm26.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 765,
+          "name": "Portugal",
+          "logo": "https://crests.football-data.org/765.svg"
+        },
+        "away": {
+          "id": 8070,
+          "name": "Uzbekistan",
+          "logo": "https://crests.football-data.org/8070.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537411,
+        "date": "2026-06-23T20:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2000,
+        "code": "WC",
+        "name": "FIFA World Cup",
+        "logo": "https://crests.football-data.org/wm26.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 770,
+          "name": "England",
+          "logo": "https://crests.football-data.org/770.svg"
+        },
+        "away": {
+          "id": 763,
+          "name": "Ghana",
+          "logo": "https://crests.football-data.org/763.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537412,
+        "date": "2026-06-23T23:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2000,
+        "code": "WC",
+        "name": "FIFA World Cup",
+        "logo": "https://crests.football-data.org/wm26.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 1836,
+          "name": "Panama",
+          "logo": "https://crests.football-data.org/1836.svg"
+        },
+        "away": {
+          "id": 799,
+          "name": "Croatia",
+          "logo": "https://crests.football-data.org/799.svg"
         }
       },
       "goals": {
