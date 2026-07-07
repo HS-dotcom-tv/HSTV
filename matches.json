@@ -1,42 +1,7 @@
 {
-  "generated_at": "2026-07-06T05:07:25.539Z",
+  "generated_at": "2026-07-07T04:47:18.258Z",
   "source": "football-data.org",
   "response": [
-    {
-      "fixture": {
-        "id": 537377,
-        "date": "2026-07-05T20:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2000,
-        "code": "WC",
-        "name": "FIFA World Cup",
-        "logo": "https://crests.football-data.org/wm26.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 764,
-          "name": "Brazil",
-          "logo": "https://crests.football-data.org/764.svg"
-        },
-        "away": {
-          "id": 8872,
-          "name": "Norway",
-          "logo": "https://crests.football-data.org/8872.svg"
-        }
-      },
-      "goals": {
-        "home": 1,
-        "away": 2
-      }
-    },
     {
       "fixture": {
         "id": 537378,
@@ -78,8 +43,8 @@
         "date": "2026-07-06T19:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -103,8 +68,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 1
       }
     },
     {
@@ -113,8 +78,8 @@
         "date": "2026-07-07T00:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -138,8 +103,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 4
       }
     },
     {
