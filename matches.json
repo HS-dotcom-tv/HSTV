@@ -1,112 +1,7 @@
 {
-  "generated_at": "2026-07-08T04:11:09.127Z",
+  "generated_at": "2026-07-09T04:53:33.428Z",
   "source": "football-data.org",
   "response": [
-    {
-      "fixture": {
-        "id": 537380,
-        "date": "2026-07-07T00:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2000,
-        "code": "WC",
-        "name": "FIFA World Cup",
-        "logo": "https://crests.football-data.org/wm26.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 771,
-          "name": "United States",
-          "logo": "https://crests.football-data.org/771.svg"
-        },
-        "away": {
-          "id": 805,
-          "name": "Belgium",
-          "logo": "https://crests.football-data.org/805.svg"
-        }
-      },
-      "goals": {
-        "home": 1,
-        "away": 4
-      }
-    },
-    {
-      "fixture": {
-        "id": 537381,
-        "date": "2026-07-07T16:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2000,
-        "code": "WC",
-        "name": "FIFA World Cup",
-        "logo": "https://crests.football-data.org/wm26.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 762,
-          "name": "Argentina",
-          "logo": "https://crests.football-data.org/762.svg"
-        },
-        "away": {
-          "id": 825,
-          "name": "Egypt",
-          "logo": "https://crests.football-data.org/825.svg"
-        }
-      },
-      "goals": {
-        "home": 3,
-        "away": 2
-      }
-    },
-    {
-      "fixture": {
-        "id": 537382,
-        "date": "2026-07-07T20:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2000,
-        "code": "WC",
-        "name": "FIFA World Cup",
-        "logo": "https://crests.football-data.org/wm26.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 788,
-          "name": "Switzerland",
-          "logo": "https://crests.football-data.org/788.svg"
-        },
-        "away": {
-          "id": 818,
-          "name": "Colombia",
-          "logo": "https://crests.football-data.org/818.svg"
-        }
-      },
-      "goals": {
-        "home": 4,
-        "away": 3
-      }
-    },
     {
       "fixture": {
         "id": 537383,
@@ -135,6 +30,41 @@
           "id": 815,
           "name": "Morocco",
           "logo": "https://crests.football-data.org/815.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537384,
+        "date": "2026-07-10T19:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2000,
+        "code": "WC",
+        "name": "FIFA World Cup",
+        "logo": "https://crests.football-data.org/wm26.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 760,
+          "name": "Spain",
+          "logo": "https://crests.football-data.org/760.svg"
+        },
+        "away": {
+          "id": 805,
+          "name": "Belgium",
+          "logo": "https://crests.football-data.org/805.svg"
         }
       },
       "goals": {
