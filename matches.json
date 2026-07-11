@@ -1,50 +1,15 @@
 {
-  "generated_at": "2026-07-10T04:46:59.007Z",
+  "generated_at": "2026-07-11T04:09:43.090Z",
   "source": "football-data.org",
   "response": [
-    {
-      "fixture": {
-        "id": 537383,
-        "date": "2026-07-09T20:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2000,
-        "code": "WC",
-        "name": "FIFA World Cup",
-        "logo": "https://crests.football-data.org/wm26.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 773,
-          "name": "France",
-          "logo": "https://crests.football-data.org/773.svg"
-        },
-        "away": {
-          "id": 815,
-          "name": "Morocco",
-          "logo": "https://crests.football-data.org/815.svg"
-        }
-      },
-      "goals": {
-        "home": 2,
-        "away": 0
-      }
-    },
     {
       "fixture": {
         "id": 537384,
         "date": "2026-07-10T19:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -68,8 +33,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 1
       }
     },
     {
@@ -100,6 +65,41 @@
           "id": 770,
           "name": "England",
           "logo": "https://crests.football-data.org/770.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 537386,
+        "date": "2026-07-12T01:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2000,
+        "code": "WC",
+        "name": "FIFA World Cup",
+        "logo": "https://crests.football-data.org/wm26.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 762,
+          "name": "Argentina",
+          "logo": "https://crests.football-data.org/762.svg"
+        },
+        "away": {
+          "id": 788,
+          "name": "Switzerland",
+          "logo": "https://crests.football-data.org/788.svg"
         }
       },
       "goals": {
