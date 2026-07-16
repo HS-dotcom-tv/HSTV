@@ -1,50 +1,15 @@
 {
-  "generated_at": "2026-07-15T03:55:03.461Z",
+  "generated_at": "2026-07-16T03:57:47.181Z",
   "source": "football-data.org",
   "response": [
-    {
-      "fixture": {
-        "id": 537387,
-        "date": "2026-07-14T19:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2000,
-        "code": "WC",
-        "name": "FIFA World Cup",
-        "logo": "https://crests.football-data.org/wm26.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 773,
-          "name": "France",
-          "logo": "https://crests.football-data.org/773.svg"
-        },
-        "away": {
-          "id": 760,
-          "name": "Spain",
-          "logo": "https://crests.football-data.org/760.svg"
-        }
-      },
-      "goals": {
-        "home": 0,
-        "away": 2
-      }
-    },
     {
       "fixture": {
         "id": 537388,
         "date": "2026-07-15T19:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -68,8 +33,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 2
       }
     }
   ]
