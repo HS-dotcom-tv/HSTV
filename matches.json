@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-07-16T03:57:47.181Z",
+  "generated_at": "2026-07-17T03:57:03.224Z",
   "source": "football-data.org",
   "response": [
     {
       "fixture": {
-        "id": 537388,
-        "date": "2026-07-15T19:00:00Z",
+        "id": 537389,
+        "date": "2026-07-18T21:00:00Z",
         "venue": null,
         "status": {
-          "short": "FT",
-          "long": "FINISHED",
+          "short": "NS",
+          "long": "TIMED",
           "elapsed": null
         }
       },
@@ -22,19 +22,19 @@
       },
       "teams": {
         "home": {
+          "id": 773,
+          "name": "France",
+          "logo": "https://crests.football-data.org/773.svg"
+        },
+        "away": {
           "id": 770,
           "name": "England",
           "logo": "https://crests.football-data.org/770.svg"
-        },
-        "away": {
-          "id": 762,
-          "name": "Argentina",
-          "logo": "https://crests.football-data.org/762.svg"
         }
       },
       "goals": {
-        "home": 1,
-        "away": 2
+        "home": null,
+        "away": null
       }
     }
   ]
