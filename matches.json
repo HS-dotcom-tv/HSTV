@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-18T03:51:29.990Z",
+  "generated_at": "2026-07-19T04:18:41.692Z",
   "source": "football-data.org",
   "response": [
     {
@@ -8,8 +8,8 @@
         "date": "2026-07-18T21:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "TIMED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -33,8 +33,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 4,
+        "away": 6
       }
     },
     {
