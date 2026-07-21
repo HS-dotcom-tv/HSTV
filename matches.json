@@ -1,41 +1,5 @@
 {
-  "generated_at": "2026-07-20T04:32:57.178Z",
+  "generated_at": "2026-07-21T04:12:36.340Z",
   "source": "football-data.org",
-  "response": [
-    {
-      "fixture": {
-        "id": 537390,
-        "date": "2026-07-19T19:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2000,
-        "code": "WC",
-        "name": "FIFA World Cup",
-        "logo": "https://crests.football-data.org/wm26.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 760,
-          "name": "Spain",
-          "logo": "https://crests.football-data.org/760.svg"
-        },
-        "away": {
-          "id": 762,
-          "name": "Argentina",
-          "logo": "https://crests.football-data.org/762.svg"
-        }
-      },
-      "goals": {
-        "home": 1,
-        "away": 0
-      }
-    }
-  ]
+  "response": []
 }
