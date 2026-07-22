@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-07-21T05:47:32.078027+00:00",
+    "generated_at": "2026-07-22T05:46:31.020919+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -174,17 +174,17 @@
         },
         {
             "position": 13,
-            "team_id": 559,
-            "team_name": "Sevilla FC",
-            "team_crest": "https://crests.football-data.org/559.png",
+            "team_id": 285,
+            "team_name": "Elche CF",
+            "team_crest": "https://crests.football-data.org/285.png",
             "played_games": 38,
-            "won": 12,
-            "draw": 7,
-            "lost": 19,
+            "won": 10,
+            "draw": 13,
+            "lost": 15,
             "points": 43,
-            "goals_for": 46,
-            "goals_against": 60,
-            "goal_difference": -14
+            "goals_for": 49,
+            "goals_against": 57,
+            "goal_difference": -8
         },
         {
             "position": 14,
@@ -202,34 +202,20 @@
         },
         {
             "position": 15,
-            "team_id": 285,
-            "team_name": "Elche CF",
-            "team_crest": "https://crests.football-data.org/285.png",
+            "team_id": 559,
+            "team_name": "Sevilla FC",
+            "team_crest": "https://crests.football-data.org/559.png",
             "played_games": 38,
-            "won": 10,
-            "draw": 13,
-            "lost": 15,
+            "won": 12,
+            "draw": 7,
+            "lost": 19,
             "points": 43,
-            "goals_for": 49,
-            "goals_against": 57,
-            "goal_difference": -8
-        },
-        {
-            "position": 16,
-            "team_id": 88,
-            "team_name": "Levante UD",
-            "team_crest": "https://crests.football-data.org/88.png",
-            "played_games": 38,
-            "won": 11,
-            "draw": 9,
-            "lost": 18,
-            "points": 42,
-            "goals_for": 47,
-            "goals_against": 61,
+            "goals_for": 46,
+            "goals_against": 60,
             "goal_difference": -14
         },
         {
-            "position": 17,
+            "position": 16,
             "team_id": 79,
             "team_name": "CA Osasuna",
             "team_crest": "https://crests.football-data.org/79.png",
@@ -243,7 +229,7 @@
             "goal_difference": -6
         },
         {
-            "position": 18,
+            "position": 17,
             "team_id": 89,
             "team_name": "RCD Mallorca",
             "team_crest": "https://crests.football-data.org/89.png",
@@ -255,6 +241,20 @@
             "goals_for": 47,
             "goals_against": 57,
             "goal_difference": -10
+        },
+        {
+            "position": 18,
+            "team_id": 88,
+            "team_name": "Levante UD",
+            "team_crest": "https://crests.football-data.org/88.png",
+            "played_games": 38,
+            "won": 11,
+            "draw": 9,
+            "lost": 18,
+            "points": 42,
+            "goals_for": 47,
+            "goals_against": 61,
+            "goal_difference": -14
         },
         {
             "position": 19,
