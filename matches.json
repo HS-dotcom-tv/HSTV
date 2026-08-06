@@ -1,5 +1,76 @@
 {
-  "generated_at": "2026-08-05T03:56:30.405Z",
+  "generated_at": "2026-08-06T04:07:59.811Z",
   "source": "football-data.org",
-  "response": []
+  "response": [
+    {
+      "fixture": {
+        "id": 558214,
+        "date": "2026-08-07T18:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "SCHEDULED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 1909,
+          "name": "SC Cambuur-Leeuwarden",
+          "logo": "https://crests.football-data.org/1909.svg"
+        },
+        "away": {
+          "id": 670,
+          "name": "SBV Excelsior",
+          "logo": "https://crests.football-data.org/670.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 567264,
+        "date": "2026-08-07T19:15:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "SCHEDULED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2017,
+        "code": "PPL",
+        "name": "Primeira Liga",
+        "logo": "https://crests.football-data.org/PPL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 582,
+          "name": "GD Estoril Praia",
+          "logo": "https://crests.football-data.org/582.svg"
+        },
+        "away": {
+          "id": 5531,
+          "name": "FC Famalicão",
+          "logo": "https://crests.football-data.org/5531.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    }
+  ]
 }
