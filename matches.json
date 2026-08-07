@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-06T04:07:59.811Z",
+  "generated_at": "2026-08-07T03:46:40.333Z",
   "source": "football-data.org",
   "response": [
     {
@@ -43,8 +43,8 @@
         "date": "2026-08-07T19:15:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "SCHEDULED",
+          "short": "2026-08-07 19:15:00Z",
+          "long": "2026-08-07 19:15:00Z",
           "elapsed": null
         }
       },
@@ -65,6 +65,251 @@
           "id": 5531,
           "name": "FC Famalicão",
           "logo": "https://crests.football-data.org/5531.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 558215,
+        "date": "2026-08-08T14:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "SCHEDULED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 1915,
+          "name": "NEC",
+          "logo": "https://crests.football-data.org/1915.svg"
+        },
+        "away": {
+          "id": 1912,
+          "name": "Telstar 1963",
+          "logo": "https://crests.football-data.org/1912.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 567263,
+        "date": "2026-08-08T14:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "2026-08-08 14:30:00Z",
+          "long": "2026-08-08 14:30:00Z",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2017,
+        "code": "PPL",
+        "name": "Primeira Liga",
+        "logo": "https://crests.football-data.org/PPL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 5575,
+          "name": "CS Marítimo",
+          "logo": "https://crests.football-data.org/5575.svg"
+        },
+        "away": {
+          "id": 6618,
+          "name": "Casa Pia AC",
+          "logo": "https://crests.football-data.org/6618.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 558216,
+        "date": "2026-08-08T16:45:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "SCHEDULED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 718,
+          "name": "Go Ahead Eagles",
+          "logo": "https://crests.football-data.org/718.svg"
+        },
+        "away": {
+          "id": 672,
+          "name": "Willem II Tilburg",
+          "logo": "https://crests.football-data.org/672.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 567258,
+        "date": "2026-08-08T17:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "2026-08-08 17:00:00Z",
+          "long": "2026-08-08 17:00:00Z",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2017,
+        "code": "PPL",
+        "name": "Primeira Liga",
+        "logo": "https://crests.football-data.org/PPL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 5543,
+          "name": "Vitória SC",
+          "logo": "https://crests.football-data.org/5543.svg"
+        },
+        "away": {
+          "id": 712,
+          "name": "FC Arouca",
+          "logo": "https://crests.football-data.org/712.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 558217,
+        "date": "2026-08-08T18:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "SCHEDULED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 674,
+          "name": "PSV",
+          "logo": "https://crests.football-data.org/674.svg"
+        },
+        "away": {
+          "id": 1920,
+          "name": "Fortuna Sittard",
+          "logo": "https://crests.football-data.org/1920.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 558218,
+        "date": "2026-08-08T19:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "SCHEDULED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 682,
+          "name": "AZ",
+          "logo": "https://crests.football-data.org/682.svg"
+        },
+        "away": {
+          "id": 680,
+          "name": "ADO Den Haag",
+          "logo": "https://crests.football-data.org/680.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 567260,
+        "date": "2026-08-08T19:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "2026-08-08 19:30:00Z",
+          "long": "2026-08-08 19:30:00Z",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2017,
+        "code": "PPL",
+        "name": "Primeira Liga",
+        "logo": "https://crests.football-data.org/PPL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 9136,
+          "name": "CF Estrela da Amadora",
+          "logo": "https://crests.football-data.org/9136.svg"
+        },
+        "away": {
+          "id": 498,
+          "name": "Sporting Clube de Portugal",
+          "logo": "https://crests.football-data.org/498.svg"
         }
       },
       "goals": {
