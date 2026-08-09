@@ -1,112 +1,7 @@
 {
-  "generated_at": "2026-08-08T02:52:31.766Z",
+  "generated_at": "2026-08-09T02:59:23.423Z",
   "source": "football-data.org",
   "response": [
-    {
-      "fixture": {
-        "id": 558214,
-        "date": "2026-08-07T18:00:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2003,
-        "code": "DED",
-        "name": "Eredivisie",
-        "logo": "https://crests.football-data.org/ED.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 1909,
-          "name": "SC Cambuur-Leeuwarden",
-          "logo": "https://crests.football-data.org/1909.svg"
-        },
-        "away": {
-          "id": 670,
-          "name": "SBV Excelsior",
-          "logo": "https://crests.football-data.org/670.svg"
-        }
-      },
-      "goals": {
-        "home": 0,
-        "away": 5
-      }
-    },
-    {
-      "fixture": {
-        "id": 567264,
-        "date": "2026-08-07T19:15:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2017,
-        "code": "PPL",
-        "name": "Primeira Liga",
-        "logo": "https://crests.football-data.org/PPL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 582,
-          "name": "GD Estoril Praia",
-          "logo": "https://crests.football-data.org/582.svg"
-        },
-        "away": {
-          "id": 5531,
-          "name": "FC Famalicão",
-          "logo": "https://crests.football-data.org/5531.svg"
-        }
-      },
-      "goals": {
-        "home": 1,
-        "away": 1
-      }
-    },
-    {
-      "fixture": {
-        "id": 567263,
-        "date": "2026-08-08T14:30:00Z",
-        "venue": null,
-        "status": {
-          "short": "NS",
-          "long": "SCHEDULED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2017,
-        "code": "PPL",
-        "name": "Primeira Liga",
-        "logo": "https://crests.football-data.org/PPL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 5575,
-          "name": "CS Marítimo",
-          "logo": "https://crests.football-data.org/5575.svg"
-        },
-        "away": {
-          "id": 6618,
-          "name": "Casa Pia AC",
-          "logo": "https://crests.football-data.org/6618.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
-      }
-    },
     {
       "fixture": {
         "id": 558215,
@@ -114,7 +9,7 @@
         "venue": null,
         "status": {
           "short": "NS",
-          "long": "SCHEDULED",
+          "long": "TIMED",
           "elapsed": null
         }
       },
@@ -144,12 +39,47 @@
     },
     {
       "fixture": {
+        "id": 567263,
+        "date": "2026-08-08T14:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "2026-08-08 13:30:00Z",
+          "long": "2026-08-08 13:30:00Z",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2017,
+        "code": "PPL",
+        "name": "Primeira Liga",
+        "logo": "https://crests.football-data.org/PPL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 5575,
+          "name": "CS Marítimo",
+          "logo": "https://crests.football-data.org/5575.svg"
+        },
+        "away": {
+          "id": 6618,
+          "name": "Casa Pia AC",
+          "logo": "https://crests.football-data.org/6618.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
         "id": 558216,
         "date": "2026-08-08T16:45:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "SCHEDULED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -173,8 +103,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 4,
+        "away": 1
       }
     },
     {
@@ -183,8 +113,8 @@
         "date": "2026-08-08T17:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "SCHEDULED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -208,8 +138,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 1
       }
     },
     {
@@ -218,8 +148,8 @@
         "date": "2026-08-08T18:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "SCHEDULED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -243,8 +173,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 2
       }
     },
     {
@@ -253,8 +183,8 @@
         "date": "2026-08-08T19:00:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "SCHEDULED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -278,8 +208,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 0
       }
     },
     {
@@ -288,8 +218,8 @@
         "date": "2026-08-08T19:30:00Z",
         "venue": null,
         "status": {
-          "short": "NS",
-          "long": "SCHEDULED",
+          "short": "FT",
+          "long": "FINISHED",
           "elapsed": null
         }
       },
@@ -313,8 +243,8 @@
         }
       },
       "goals": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 2
       }
     },
     {
@@ -324,7 +254,7 @@
         "venue": null,
         "status": {
           "short": "NS",
-          "long": "SCHEDULED",
+          "long": "TIMED",
           "elapsed": null
         }
       },
@@ -354,47 +284,12 @@
     },
     {
       "fixture": {
-        "id": 558220,
-        "date": "2026-08-09T12:30:00Z",
-        "venue": null,
-        "status": {
-          "short": "NS",
-          "long": "SCHEDULED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2003,
-        "code": "DED",
-        "name": "Eredivisie",
-        "logo": "https://crests.football-data.org/ED.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 677,
-          "name": "FC Groningen",
-          "logo": "https://crests.football-data.org/677.svg"
-        },
-        "away": {
-          "id": 676,
-          "name": "FC Utrecht",
-          "logo": "https://crests.football-data.org/676.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
-      }
-    },
-    {
-      "fixture": {
         "id": 558221,
         "date": "2026-08-09T12:30:00Z",
         "venue": null,
         "status": {
           "short": "NS",
-          "long": "SCHEDULED",
+          "long": "TIMED",
           "elapsed": null
         }
       },
@@ -424,12 +319,47 @@
     },
     {
       "fixture": {
+        "id": 558220,
+        "date": "2026-08-09T12:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 677,
+          "name": "FC Groningen",
+          "logo": "https://crests.football-data.org/677.svg"
+        },
+        "away": {
+          "id": 676,
+          "name": "FC Utrecht",
+          "logo": "https://crests.football-data.org/676.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
         "id": 558222,
         "date": "2026-08-09T14:45:00Z",
         "venue": null,
         "status": {
           "short": "NS",
-          "long": "SCHEDULED",
+          "long": "TIMED",
           "elapsed": null
         }
       },
@@ -464,7 +394,7 @@
         "venue": null,
         "status": {
           "short": "NS",
-          "long": "SCHEDULED",
+          "long": "TIMED",
           "elapsed": null
         }
       },
@@ -494,47 +424,12 @@
     },
     {
       "fixture": {
-        "id": 567261,
-        "date": "2026-08-09T19:30:00Z",
-        "venue": null,
-        "status": {
-          "short": "NS",
-          "long": "SCHEDULED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2017,
-        "code": "PPL",
-        "name": "Primeira Liga",
-        "logo": "https://crests.football-data.org/PPL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 5533,
-          "name": "Gil Vicente FC",
-          "logo": "https://crests.football-data.org/5533.svg"
-        },
-        "away": {
-          "id": 496,
-          "name": "Rio Ave FC",
-          "logo": "https://crests.football-data.org/496.svg"
-        }
-      },
-      "goals": {
-        "home": null,
-        "away": null
-      }
-    },
-    {
-      "fixture": {
         "id": 567259,
         "date": "2026-08-09T19:30:00Z",
         "venue": null,
         "status": {
           "short": "NS",
-          "long": "SCHEDULED",
+          "long": "TIMED",
           "elapsed": null
         }
       },
@@ -564,12 +459,47 @@
     },
     {
       "fixture": {
+        "id": 567261,
+        "date": "2026-08-09T19:30:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2017,
+        "code": "PPL",
+        "name": "Primeira Liga",
+        "logo": "https://crests.football-data.org/PPL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 5533,
+          "name": "Gil Vicente FC",
+          "logo": "https://crests.football-data.org/5533.svg"
+        },
+        "away": {
+          "id": 496,
+          "name": "Rio Ave FC",
+          "logo": "https://crests.football-data.org/496.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
         "id": 567262,
         "date": "2026-08-09T19:30:00Z",
         "venue": null,
         "status": {
           "short": "NS",
-          "long": "SCHEDULED",
+          "long": "TIMED",
           "elapsed": null
         }
       },
@@ -590,6 +520,41 @@
           "id": 5527,
           "name": "Académico de Viseu FC",
           "logo": "https://crests.football-data.org/5527.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 567257,
+        "date": "2026-08-10T19:15:00Z",
+        "venue": null,
+        "status": {
+          "short": "NS",
+          "long": "TIMED",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2017,
+        "code": "PPL",
+        "name": "Primeira Liga",
+        "logo": "https://crests.football-data.org/PPL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 5530,
+          "name": "CD Santa Clara",
+          "logo": "https://crests.football-data.org/5530.svg"
+        },
+        "away": {
+          "id": 5529,
+          "name": "CD Nacional",
+          "logo": "https://crests.football-data.org/5529.svg"
         }
       },
       "goals": {
