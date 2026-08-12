@@ -1,41 +1,5 @@
 {
-  "generated_at": "2026-08-11T03:01:42.362Z",
+  "generated_at": "2026-08-12T03:20:41.368Z",
   "source": "football-data.org",
-  "response": [
-    {
-      "fixture": {
-        "id": 567257,
-        "date": "2026-08-10T19:15:00Z",
-        "venue": null,
-        "status": {
-          "short": "FT",
-          "long": "FINISHED",
-          "elapsed": null
-        }
-      },
-      "league": {
-        "id": 2017,
-        "code": "PPL",
-        "name": "Primeira Liga",
-        "logo": "https://crests.football-data.org/PPL.png",
-        "country": ""
-      },
-      "teams": {
-        "home": {
-          "id": 5530,
-          "name": "CD Santa Clara",
-          "logo": "https://crests.football-data.org/5530.svg"
-        },
-        "away": {
-          "id": 5529,
-          "name": "CD Nacional",
-          "logo": "https://crests.football-data.org/5529.svg"
-        }
-      },
-      "goals": {
-        "home": 2,
-        "away": 2
-      }
-    }
-  ]
+  "response": []
 }
