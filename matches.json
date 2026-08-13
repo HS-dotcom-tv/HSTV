@@ -1,5 +1,76 @@
 {
-  "generated_at": "2026-08-12T03:20:41.368Z",
+  "generated_at": "2026-08-13T03:23:54.457Z",
   "source": "football-data.org",
-  "response": []
+  "response": [
+    {
+      "fixture": {
+        "id": 558223,
+        "date": "2026-08-14T18:00:00Z",
+        "venue": null,
+        "status": {
+          "short": "2026-08-14 18:00:00Z",
+          "long": "2026-08-14 18:00:00Z",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2003,
+        "code": "DED",
+        "name": "Eredivisie",
+        "logo": "https://crests.football-data.org/ED.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 1912,
+          "name": "Telstar 1963",
+          "logo": "https://crests.football-data.org/1912.svg"
+        },
+        "away": {
+          "id": 6806,
+          "name": "Sparta Rotterdam",
+          "logo": "https://crests.football-data.org/6806.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 567268,
+        "date": "2026-08-14T19:15:00Z",
+        "venue": null,
+        "status": {
+          "short": "2026-08-14 19:15:00Z",
+          "long": "2026-08-14 19:15:00Z",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 2017,
+        "code": "PPL",
+        "name": "Primeira Liga",
+        "logo": "https://crests.football-data.org/PPL.png",
+        "country": ""
+      },
+      "teams": {
+        "home": {
+          "id": 498,
+          "name": "Sporting Clube de Portugal",
+          "logo": "https://crests.football-data.org/498.svg"
+        },
+        "away": {
+          "id": 5543,
+          "name": "Vitória SC",
+          "logo": "https://crests.football-data.org/5543.svg"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    }
+  ]
 }
