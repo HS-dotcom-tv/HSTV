@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-08-17T03:46:22.517517+00:00",
+    "generated_at": "2026-08-18T03:40:35.062480+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -76,6 +76,34 @@
         },
         {
             "position": 6,
+            "team_id": 560,
+            "team_name": "RC Deportivo La Coruña",
+            "team_crest": "https://crests.football-data.org/560.png",
+            "played_games": 1,
+            "won": 0,
+            "draw": 1,
+            "lost": 0,
+            "points": 1,
+            "goals_for": 1,
+            "goals_against": 1,
+            "goal_difference": 0
+        },
+        {
+            "position": 6,
+            "team_id": 285,
+            "team_name": "Elche CF",
+            "team_crest": "https://crests.football-data.org/285.png",
+            "played_games": 1,
+            "won": 0,
+            "draw": 1,
+            "lost": 0,
+            "points": 1,
+            "goals_for": 1,
+            "goals_against": 1,
+            "goal_difference": 0
+        },
+        {
+            "position": 8,
             "team_id": 77,
             "team_name": "Athletic Club",
             "team_crest": "https://crests.football-data.org/77.png",
@@ -89,7 +117,7 @@
             "goal_difference": 0
         },
         {
-            "position": 6,
+            "position": 8,
             "team_id": 78,
             "team_name": "Club Atlético de Madrid",
             "team_crest": "https://crests.football-data.org/78.png",
@@ -103,7 +131,7 @@
             "goal_difference": 0
         },
         {
-            "position": 6,
+            "position": 8,
             "team_id": 79,
             "team_name": "CA Osasuna",
             "team_crest": "https://crests.football-data.org/79.png",
@@ -117,35 +145,7 @@
             "goal_difference": 0
         },
         {
-            "position": 6,
-            "team_id": 560,
-            "team_name": "RC Deportivo La Coruña",
-            "team_crest": "https://crests.football-data.org/560.png",
-            "played_games": 0,
-            "won": 0,
-            "draw": 0,
-            "lost": 0,
-            "points": 0,
-            "goals_for": 0,
-            "goals_against": 0,
-            "goal_difference": 0
-        },
-        {
-            "position": 6,
-            "team_id": 285,
-            "team_name": "Elche CF",
-            "team_crest": "https://crests.football-data.org/285.png",
-            "played_games": 0,
-            "won": 0,
-            "draw": 0,
-            "lost": 0,
-            "points": 0,
-            "goals_for": 0,
-            "goals_against": 0,
-            "goal_difference": 0
-        },
-        {
-            "position": 6,
+            "position": 8,
             "team_id": 81,
             "team_name": "FC Barcelona",
             "team_crest": "https://crests.football-data.org/81.png",
@@ -159,7 +159,7 @@
             "goal_difference": 0
         },
         {
-            "position": 6,
+            "position": 8,
             "team_id": 84,
             "team_name": "Málaga CF",
             "team_crest": "https://crests.football-data.org/84.png",
@@ -173,7 +173,7 @@
             "goal_difference": 0
         },
         {
-            "position": 6,
+            "position": 8,
             "team_id": 558,
             "team_name": "RC Celta de Vigo",
             "team_crest": "https://crests.football-data.org/558.png",
@@ -187,7 +187,7 @@
             "goal_difference": 0
         },
         {
-            "position": 6,
+            "position": 8,
             "team_id": 90,
             "team_name": "Real Betis Balompié",
             "team_crest": "https://crests.football-data.org/90.png",
@@ -201,7 +201,7 @@
             "goal_difference": 0
         },
         {
-            "position": 6,
+            "position": 8,
             "team_id": 86,
             "team_name": "Real Madrid CF",
             "team_crest": "https://crests.football-data.org/86.png",
@@ -215,7 +215,7 @@
             "goal_difference": 0
         },
         {
-            "position": 6,
+            "position": 8,
             "team_id": 92,
             "team_name": "Real Sociedad de Fútbol",
             "team_crest": "https://crests.football-data.org/92.png",
@@ -229,7 +229,7 @@
             "goal_difference": 0
         },
         {
-            "position": 6,
+            "position": 8,
             "team_id": 95,
             "team_name": "Valencia CF",
             "team_crest": "https://crests.football-data.org/95.png",
