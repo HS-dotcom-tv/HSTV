@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-08-24T03:51:15.396311+00:00",
+    "generated_at": "2026-08-25T03:44:56.714662+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -135,13 +135,27 @@
             "team_id": 560,
             "team_name": "RC Deportivo La Coruña",
             "team_crest": "https://crests.football-data.org/560.png",
+            "played_games": 2,
+            "won": 0,
+            "draw": 2,
+            "lost": 0,
+            "points": 2,
+            "goals_for": 2,
+            "goals_against": 2,
+            "goal_difference": 0
+        },
+        {
+            "position": 11,
+            "team_id": 79,
+            "team_name": "CA Osasuna",
+            "team_crest": "https://crests.football-data.org/79.png",
             "played_games": 1,
             "won": 0,
             "draw": 1,
             "lost": 0,
             "points": 1,
-            "goals_for": 1,
-            "goals_against": 1,
+            "goals_for": 0,
+            "goals_against": 0,
             "goal_difference": 0
         },
         {
@@ -173,7 +187,7 @@
             "goal_difference": 0
         },
         {
-            "position": 13,
+            "position": 14,
             "team_id": 5335,
             "team_name": "Real Racing Club de Santander",
             "team_crest": "https://crests.football-data.org/5335.png",
@@ -187,7 +201,7 @@
             "goal_difference": -1
         },
         {
-            "position": 13,
+            "position": 14,
             "team_id": 87,
             "team_name": "Rayo Vallecano de Madrid",
             "team_crest": "https://crests.football-data.org/87.png",
@@ -201,7 +215,35 @@
             "goal_difference": -1
         },
         {
-            "position": 15,
+            "position": 16,
+            "team_id": 84,
+            "team_name": "Málaga CF",
+            "team_crest": "https://crests.football-data.org/84.png",
+            "played_games": 2,
+            "won": 0,
+            "draw": 1,
+            "lost": 1,
+            "points": 1,
+            "goals_for": 1,
+            "goals_against": 3,
+            "goal_difference": -2
+        },
+        {
+            "position": 17,
+            "team_id": 88,
+            "team_name": "Levante UD",
+            "team_crest": "https://crests.football-data.org/88.png",
+            "played_games": 2,
+            "won": 0,
+            "draw": 1,
+            "lost": 1,
+            "points": 1,
+            "goals_for": 0,
+            "goals_against": 3,
+            "goal_difference": -3
+        },
+        {
+            "position": 18,
             "team_id": 285,
             "team_name": "Elche CF",
             "team_crest": "https://crests.football-data.org/285.png",
@@ -215,21 +257,7 @@
             "goal_difference": -5
         },
         {
-            "position": 16,
-            "team_id": 79,
-            "team_name": "CA Osasuna",
-            "team_crest": "https://crests.football-data.org/79.png",
-            "played_games": 0,
-            "won": 0,
-            "draw": 0,
-            "lost": 0,
-            "points": 0,
-            "goals_for": 0,
-            "goals_against": 0,
-            "goal_difference": 0
-        },
-        {
-            "position": 17,
+            "position": 19,
             "team_id": 92,
             "team_name": "Real Sociedad de Fútbol",
             "team_crest": "https://crests.football-data.org/92.png",
@@ -243,7 +271,7 @@
             "goal_difference": -1
         },
         {
-            "position": 18,
+            "position": 20,
             "team_id": 77,
             "team_name": "Athletic Club",
             "team_crest": "https://crests.football-data.org/77.png",
@@ -255,34 +283,6 @@
             "goals_for": 1,
             "goals_against": 3,
             "goal_difference": -2
-        },
-        {
-            "position": 19,
-            "team_id": 84,
-            "team_name": "Málaga CF",
-            "team_crest": "https://crests.football-data.org/84.png",
-            "played_games": 1,
-            "won": 0,
-            "draw": 0,
-            "lost": 1,
-            "points": 0,
-            "goals_for": 0,
-            "goals_against": 2,
-            "goal_difference": -2
-        },
-        {
-            "position": 20,
-            "team_id": 88,
-            "team_name": "Levante UD",
-            "team_crest": "https://crests.football-data.org/88.png",
-            "played_games": 1,
-            "won": 0,
-            "draw": 0,
-            "lost": 1,
-            "points": 0,
-            "goals_for": 0,
-            "goals_against": 3,
-            "goal_difference": -3
         }
     ]
 }
