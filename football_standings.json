@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-09-03T07:45:01.049278+00:00",
+    "generated_at": "2026-09-04T07:41:08.722145+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -146,6 +146,20 @@
         },
         {
             "position": 11,
+            "team_id": 92,
+            "team_name": "Real Sociedad de Fútbol",
+            "team_crest": "https://crests.football-data.org/92.png",
+            "played_games": 4,
+            "won": 1,
+            "draw": 1,
+            "lost": 2,
+            "points": 4,
+            "goals_for": 3,
+            "goals_against": 6,
+            "goal_difference": -3
+        },
+        {
+            "position": 12,
             "team_id": 80,
             "team_name": "RCD Espanyol de Barcelona",
             "team_crest": "https://crests.football-data.org/80.png",
@@ -159,7 +173,7 @@
             "goal_difference": 1
         },
         {
-            "position": 12,
+            "position": 13,
             "team_id": 77,
             "team_name": "Athletic Club",
             "team_crest": "https://crests.football-data.org/77.png",
@@ -171,20 +185,6 @@
             "goals_for": 3,
             "goals_against": 5,
             "goal_difference": -2
-        },
-        {
-            "position": 13,
-            "team_id": 92,
-            "team_name": "Real Sociedad de Fútbol",
-            "team_crest": "https://crests.football-data.org/92.png",
-            "played_games": 3,
-            "won": 1,
-            "draw": 0,
-            "lost": 2,
-            "points": 3,
-            "goals_for": 3,
-            "goals_against": 6,
-            "goal_difference": -3
         },
         {
             "position": 14,
@@ -219,17 +219,17 @@
             "team_id": 558,
             "team_name": "RC Celta de Vigo",
             "team_crest": "https://crests.football-data.org/558.png",
-            "played_games": 3,
+            "played_games": 4,
             "won": 0,
-            "draw": 1,
+            "draw": 2,
             "lost": 2,
-            "points": 1,
+            "points": 2,
             "goals_for": 1,
             "goals_against": 4,
             "goal_difference": -3
         },
         {
-            "position": 16,
+            "position": 17,
             "team_id": 95,
             "team_name": "Valencia CF",
             "team_crest": "https://crests.football-data.org/95.png",
