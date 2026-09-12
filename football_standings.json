@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-09-11T07:46:30.361176+00:00",
+    "generated_at": "2026-09-12T07:39:57.203615+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -34,6 +34,20 @@
         },
         {
             "position": 3,
+            "team_id": 559,
+            "team_name": "Sevilla FC",
+            "team_crest": "https://crests.football-data.org/559.png",
+            "played_games": 5,
+            "won": 3,
+            "draw": 1,
+            "lost": 1,
+            "points": 10,
+            "goals_for": 8,
+            "goals_against": 6,
+            "goal_difference": 2
+        },
+        {
+            "position": 4,
             "team_id": 86,
             "team_name": "Real Madrid CF",
             "team_crest": "https://crests.football-data.org/86.png",
@@ -47,7 +61,7 @@
             "goal_difference": 7
         },
         {
-            "position": 4,
+            "position": 5,
             "team_id": 90,
             "team_name": "Real Betis Balompié",
             "team_crest": "https://crests.football-data.org/90.png",
@@ -61,7 +75,7 @@
             "goal_difference": 0
         },
         {
-            "position": 5,
+            "position": 6,
             "team_id": 560,
             "team_name": "RC Deportivo La Coruña",
             "team_crest": "https://crests.football-data.org/560.png",
@@ -75,24 +89,10 @@
             "goal_difference": 3
         },
         {
-            "position": 6,
+            "position": 7,
             "team_id": 78,
             "team_name": "Club Atlético de Madrid",
             "team_crest": "https://crests.football-data.org/78.png",
-            "played_games": 4,
-            "won": 2,
-            "draw": 1,
-            "lost": 1,
-            "points": 7,
-            "goals_for": 7,
-            "goals_against": 6,
-            "goal_difference": 1
-        },
-        {
-            "position": 6,
-            "team_id": 559,
-            "team_name": "Sevilla FC",
-            "team_crest": "https://crests.football-data.org/559.png",
             "played_games": 4,
             "won": 2,
             "draw": 1,
@@ -275,14 +275,14 @@
             "team_id": 95,
             "team_name": "Valencia CF",
             "team_crest": "https://crests.football-data.org/95.png",
-            "played_games": 4,
+            "played_games": 5,
             "won": 0,
             "draw": 1,
-            "lost": 3,
+            "lost": 4,
             "points": 1,
             "goals_for": 1,
-            "goals_against": 9,
-            "goal_difference": -8
+            "goals_against": 10,
+            "goal_difference": -9
         }
     ]
 }
