@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-10-09T10:00:01.470663+00:00",
+    "generated_at": "2026-10-10T09:21:19.886773+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -146,6 +146,20 @@
         },
         {
             "position": 11,
+            "team_id": 80,
+            "team_name": "RCD Espanyol de Barcelona",
+            "team_crest": "https://crests.football-data.org/80.png",
+            "played_games": 8,
+            "won": 2,
+            "draw": 2,
+            "lost": 4,
+            "points": 8,
+            "goals_for": 11,
+            "goals_against": 11,
+            "goal_difference": 0
+        },
+        {
+            "position": 12,
             "team_id": 82,
             "team_name": "Getafe CF",
             "team_crest": "https://crests.football-data.org/82.png",
@@ -159,7 +173,7 @@
             "goal_difference": -3
         },
         {
-            "position": 12,
+            "position": 13,
             "team_id": 87,
             "team_name": "Rayo Vallecano de Madrid",
             "team_crest": "https://crests.football-data.org/87.png",
@@ -173,7 +187,7 @@
             "goal_difference": -5
         },
         {
-            "position": 13,
+            "position": 14,
             "team_id": 79,
             "team_name": "CA Osasuna",
             "team_crest": "https://crests.football-data.org/79.png",
@@ -187,7 +201,7 @@
             "goal_difference": -7
         },
         {
-            "position": 14,
+            "position": 15,
             "team_id": 558,
             "team_name": "RC Celta de Vigo",
             "team_crest": "https://crests.football-data.org/558.png",
@@ -199,20 +213,6 @@
             "goals_for": 8,
             "goals_against": 6,
             "goal_difference": 2
-        },
-        {
-            "position": 15,
-            "team_id": 80,
-            "team_name": "RCD Espanyol de Barcelona",
-            "team_crest": "https://crests.football-data.org/80.png",
-            "played_games": 7,
-            "won": 2,
-            "draw": 1,
-            "lost": 4,
-            "points": 7,
-            "goals_for": 10,
-            "goals_against": 10,
-            "goal_difference": 0
         },
         {
             "position": 16,
@@ -258,6 +258,20 @@
         },
         {
             "position": 19,
+            "team_id": 84,
+            "team_name": "Málaga CF",
+            "team_crest": "https://crests.football-data.org/84.png",
+            "played_games": 8,
+            "won": 0,
+            "draw": 4,
+            "lost": 4,
+            "points": 4,
+            "goals_for": 4,
+            "goals_against": 13,
+            "goal_difference": -9
+        },
+        {
+            "position": 19,
             "team_id": 95,
             "team_name": "Valencia CF",
             "team_crest": "https://crests.football-data.org/95.png",
@@ -268,20 +282,6 @@
             "points": 4,
             "goals_for": 4,
             "goals_against": 13,
-            "goal_difference": -9
-        },
-        {
-            "position": 20,
-            "team_id": 84,
-            "team_name": "Málaga CF",
-            "team_crest": "https://crests.football-data.org/84.png",
-            "played_games": 7,
-            "won": 0,
-            "draw": 3,
-            "lost": 4,
-            "points": 3,
-            "goals_for": 3,
-            "goals_against": 12,
             "goal_difference": -9
         }
     ]
