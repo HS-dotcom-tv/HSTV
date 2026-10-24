@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-10-23T08:13:15.381812+00:00",
+    "generated_at": "2026-10-24T07:51:46.711603+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -93,13 +93,13 @@
             "team_id": 263,
             "team_name": "Deportivo Alavés",
             "team_crest": "https://crests.football-data.org/263.png",
-            "played_games": 9,
+            "played_games": 10,
             "won": 3,
-            "draw": 2,
+            "draw": 3,
             "lost": 4,
-            "points": 11,
-            "goals_for": 13,
-            "goals_against": 10,
+            "points": 12,
+            "goals_for": 14,
+            "goals_against": 11,
             "goal_difference": 3
         },
         {
@@ -275,13 +275,13 @@
             "team_id": 84,
             "team_name": "Málaga CF",
             "team_crest": "https://crests.football-data.org/84.png",
-            "played_games": 9,
+            "played_games": 10,
             "won": 0,
-            "draw": 4,
+            "draw": 5,
             "lost": 5,
-            "points": 4,
-            "goals_for": 6,
-            "goals_against": 18,
+            "points": 5,
+            "goals_for": 7,
+            "goals_against": 19,
             "goal_difference": -12
         }
     ]
