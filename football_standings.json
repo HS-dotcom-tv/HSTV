@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-10-26T08:29:02.238056+00:00",
+    "generated_at": "2026-10-27T08:36:58.045271+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -79,14 +79,14 @@
             "team_id": 559,
             "team_name": "Sevilla FC",
             "team_crest": "https://crests.football-data.org/559.png",
-            "played_games": 9,
-            "won": 4,
+            "played_games": 10,
+            "won": 5,
             "draw": 2,
             "lost": 3,
-            "points": 14,
-            "goals_for": 14,
+            "points": 17,
+            "goals_for": 16,
             "goals_against": 16,
-            "goal_difference": -2
+            "goal_difference": 0
         },
         {
             "position": 7,
@@ -163,14 +163,14 @@
             "team_id": 79,
             "team_name": "CA Osasuna",
             "team_crest": "https://crests.football-data.org/79.png",
-            "played_games": 9,
+            "played_games": 10,
             "won": 3,
             "draw": 2,
-            "lost": 4,
+            "lost": 5,
             "points": 11,
             "goals_for": 10,
-            "goals_against": 18,
-            "goal_difference": -8
+            "goals_against": 20,
+            "goal_difference": -10
         },
         {
             "position": 13,
