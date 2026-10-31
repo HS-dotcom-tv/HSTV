@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-10-30T09:34:00.403718+00:00",
+    "generated_at": "2026-10-31T09:15:14.762071+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -135,14 +135,14 @@
             "team_id": 94,
             "team_name": "Villarreal CF",
             "team_crest": "https://crests.football-data.org/94.png",
-            "played_games": 10,
+            "played_games": 11,
             "won": 3,
             "draw": 3,
-            "lost": 4,
+            "lost": 5,
             "points": 12,
             "goals_for": 15,
-            "goals_against": 14,
-            "goal_difference": 1
+            "goals_against": 15,
+            "goal_difference": 0
         },
         {
             "position": 11,
@@ -160,6 +160,20 @@
         },
         {
             "position": 12,
+            "team_id": 80,
+            "team_name": "RCD Espanyol de Barcelona",
+            "team_crest": "https://crests.football-data.org/80.png",
+            "played_games": 11,
+            "won": 3,
+            "draw": 2,
+            "lost": 6,
+            "points": 11,
+            "goals_for": 13,
+            "goals_against": 14,
+            "goal_difference": -1
+        },
+        {
+            "position": 13,
             "team_id": 79,
             "team_name": "CA Osasuna",
             "team_crest": "https://crests.football-data.org/79.png",
@@ -173,7 +187,7 @@
             "goal_difference": -10
         },
         {
-            "position": 13,
+            "position": 14,
             "team_id": 5335,
             "team_name": "Real Racing Club de Santander",
             "team_crest": "https://crests.football-data.org/5335.png",
@@ -187,7 +201,7 @@
             "goal_difference": -11
         },
         {
-            "position": 14,
+            "position": 15,
             "team_id": 88,
             "team_name": "Levante UD",
             "team_crest": "https://crests.football-data.org/88.png",
@@ -201,7 +215,7 @@
             "goal_difference": -3
         },
         {
-            "position": 15,
+            "position": 16,
             "team_id": 285,
             "team_name": "Elche CF",
             "team_crest": "https://crests.football-data.org/285.png",
@@ -215,7 +229,7 @@
             "goal_difference": -3
         },
         {
-            "position": 16,
+            "position": 17,
             "team_id": 87,
             "team_name": "Rayo Vallecano de Madrid",
             "team_crest": "https://crests.football-data.org/87.png",
@@ -229,7 +243,7 @@
             "goal_difference": -8
         },
         {
-            "position": 17,
+            "position": 18,
             "team_id": 82,
             "team_name": "Getafe CF",
             "team_crest": "https://crests.football-data.org/82.png",
@@ -241,20 +255,6 @@
             "goals_for": 5,
             "goals_against": 15,
             "goal_difference": -10
-        },
-        {
-            "position": 18,
-            "team_id": 80,
-            "team_name": "RCD Espanyol de Barcelona",
-            "team_crest": "https://crests.football-data.org/80.png",
-            "played_games": 10,
-            "won": 2,
-            "draw": 2,
-            "lost": 6,
-            "points": 8,
-            "goals_for": 12,
-            "goals_against": 14,
-            "goal_difference": -2
         },
         {
             "position": 19,
