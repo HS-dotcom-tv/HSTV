@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-11-20T10:53:01.142720+00:00",
+    "generated_at": "2026-11-21T10:37:19.782546+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -93,14 +93,14 @@
             "team_id": 77,
             "team_name": "Athletic Club",
             "team_crest": "https://crests.football-data.org/77.png",
-            "played_games": 11,
+            "played_games": 12,
             "won": 4,
             "draw": 4,
-            "lost": 3,
+            "lost": 4,
             "points": 16,
             "goals_for": 15,
-            "goals_against": 11,
-            "goal_difference": 4
+            "goals_against": 12,
+            "goal_difference": 3
         },
         {
             "position": 8,
@@ -132,6 +132,20 @@
         },
         {
             "position": 10,
+            "team_id": 80,
+            "team_name": "RCD Espanyol de Barcelona",
+            "team_crest": "https://crests.football-data.org/80.png",
+            "played_games": 13,
+            "won": 4,
+            "draw": 3,
+            "lost": 6,
+            "points": 15,
+            "goals_for": 14,
+            "goals_against": 14,
+            "goal_difference": 0
+        },
+        {
+            "position": 11,
             "team_id": 5335,
             "team_name": "Real Racing Club de Santander",
             "team_crest": "https://crests.football-data.org/5335.png",
@@ -145,7 +159,7 @@
             "goal_difference": -13
         },
         {
-            "position": 11,
+            "position": 12,
             "team_id": 558,
             "team_name": "RC Celta de Vigo",
             "team_crest": "https://crests.football-data.org/558.png",
@@ -159,7 +173,7 @@
             "goal_difference": 0
         },
         {
-            "position": 12,
+            "position": 13,
             "team_id": 263,
             "team_name": "Deportivo Alavés",
             "team_crest": "https://crests.football-data.org/263.png",
@@ -171,20 +185,6 @@
             "goals_for": 15,
             "goals_against": 17,
             "goal_difference": -2
-        },
-        {
-            "position": 13,
-            "team_id": 80,
-            "team_name": "RCD Espanyol de Barcelona",
-            "team_crest": "https://crests.football-data.org/80.png",
-            "played_games": 12,
-            "won": 3,
-            "draw": 3,
-            "lost": 6,
-            "points": 12,
-            "goals_for": 13,
-            "goals_against": 14,
-            "goal_difference": -1
         },
         {
             "position": 14,
