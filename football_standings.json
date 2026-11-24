@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-11-23T11:45:40.367110+00:00",
+    "generated_at": "2026-11-24T13:14:49.923257+00:00",
     "source": "football-data.org",
     "competition_name": "Primera Division",
     "competition_area": null,
@@ -202,6 +202,20 @@
         },
         {
             "position": 15,
+            "team_id": 88,
+            "team_name": "Levante UD",
+            "team_crest": "https://crests.football-data.org/88.png",
+            "played_games": 13,
+            "won": 2,
+            "draw": 6,
+            "lost": 5,
+            "points": 12,
+            "goals_for": 17,
+            "goals_against": 22,
+            "goal_difference": -5
+        },
+        {
+            "position": 16,
             "team_id": 87,
             "team_name": "Rayo Vallecano de Madrid",
             "team_crest": "https://crests.football-data.org/87.png",
@@ -215,7 +229,7 @@
             "goal_difference": -7
         },
         {
-            "position": 16,
+            "position": 17,
             "team_id": 95,
             "team_name": "Valencia CF",
             "team_crest": "https://crests.football-data.org/95.png",
@@ -229,7 +243,7 @@
             "goal_difference": -11
         },
         {
-            "position": 17,
+            "position": 18,
             "team_id": 82,
             "team_name": "Getafe CF",
             "team_crest": "https://crests.football-data.org/82.png",
@@ -243,31 +257,17 @@
             "goal_difference": -13
         },
         {
-            "position": 18,
-            "team_id": 88,
-            "team_name": "Levante UD",
-            "team_crest": "https://crests.football-data.org/88.png",
-            "played_games": 12,
-            "won": 2,
-            "draw": 5,
-            "lost": 5,
-            "points": 11,
-            "goals_for": 16,
-            "goals_against": 21,
-            "goal_difference": -5
-        },
-        {
             "position": 19,
             "team_id": 285,
             "team_name": "Elche CF",
             "team_crest": "https://crests.football-data.org/285.png",
-            "played_games": 12,
+            "played_games": 13,
             "won": 2,
-            "draw": 4,
+            "draw": 5,
             "lost": 6,
-            "points": 10,
-            "goals_for": 14,
-            "goals_against": 20,
+            "points": 11,
+            "goals_for": 15,
+            "goals_against": 21,
             "goal_difference": -6
         },
         {
